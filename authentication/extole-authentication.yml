@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/extole-integration-consumer-to-extole-openapi.json, openapi/extole-integration-server-to-extole-openapi.json,
+  openapi/extole-management-expert-openapi.json, openapi/extole-management-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - cookie
+  - header
+  - query
+schemes:
+- name: COOKIE
+  type: apiKey
+  in: cookie
+  parameter: extole_token
+  sources:
+  - openapi/extole-integration-consumer-to-extole-openapi.json
+  - openapi/extole-integration-server-to-extole-openapi.json
+  - openapi/extole-management-expert-openapi.json
+  - openapi/extole-management-openapi.json
+- name: HEADER
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/extole-integration-consumer-to-extole-openapi.json
+  - openapi/extole-integration-server-to-extole-openapi.json
+  - openapi/extole-management-expert-openapi.json
+  - openapi/extole-management-openapi.json
+- name: QUERY
+  type: apiKey
+  in: query
+  parameter: access_token
+  sources:
+  - openapi/extole-integration-consumer-to-extole-openapi.json
+  - openapi/extole-integration-server-to-extole-openapi.json
+  - openapi/extole-management-expert-openapi.json
+  - openapi/extole-management-openapi.json
