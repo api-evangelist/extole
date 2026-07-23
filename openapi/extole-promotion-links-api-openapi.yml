@@ -1,0 +1,680 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Promotion Links API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Promotion Links
+paths:
+  /v2/promotion-links:
+    get:
+      description: Returns all promotion links for the client. Promotion links are the short URLs that participants share to drive referrals.
+      operationId: listPromotionLinks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PromotionLinkResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List promotion links
+      tags:
+      - Promotion Links
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    post:
+      description: Creates a new promotion link for a participant. Returns the created link with its server-assigned id.
+      operationId: createPromotionLink
+      requestBody:
+        content:
+          application/json:
+            example:
+              code: code
+              content:
+                content_id: content_id
+                description: description
+                image_url: image_url
+                title: title
+                url: url
+              data:
+                data_key: data_key
+              description: description
+              key: key
+              label: label
+              program_url: program_url
+            schema:
+              $ref: '#/components/schemas/PromotionLinkCreateRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromotionLinkResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                code_contains_reserved_word:
+                  $ref: '#/components/examples/code_contains_reserved_word'
+                code_invalid:
+                  $ref: '#/components/examples/code_invalid'
+                code_length_out_of_range:
+                  $ref: '#/components/examples/code_length_out_of_range'
+                code_taken:
+                  $ref: '#/components/examples/code_taken'
+                content_image_url_invalid:
+                  $ref: '#/components/examples/content_image_url_invalid'
+                content_url_invalid:
+                  $ref: '#/components/examples/content_url_invalid'
+                data_attribute_name_invalid:
+                  $ref: '#/components/examples/data_attribute_name_invalid'
+                data_attribute_name_length_out_of_range:
+                  $ref: '#/components/examples/data_attribute_name_length_out_of_range'
+                data_attribute_value_invalid:
+                  $ref: '#/components/examples/data_attribute_value_invalid'
+                data_attribute_value_length_out_of_range:
+                  $ref: '#/components/examples/data_attribute_value_length_out_of_range'
+                description_length_out_of_range:
+                  $ref: '#/components/examples/description_length_out_of_range'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                label_contains_illegal_character:
+                  $ref: '#/components/examples/label_contains_illegal_character'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                program_not_found:
+                  $ref: '#/components/examples/program_not_found'
+                program_url_invalid:
+                  $ref: '#/components/examples/program_url_invalid'
+                promotion_label_name_out_of_range:
+                  $ref: '#/components/examples/promotion_label_name_out_of_range'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                code_missing:
+                  $ref: '#/components/examples/code_missing'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Create a promotion link
+      tags:
+      - Promotion Links
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v2/promotion-links/{code}:
+    get:
+      description: Returns the promotion link for the specified code.
+      operationId: getPromotionLink
+      parameters:
+      - in: path
+        name: code
+        required: true
+        schema:
+          pattern: .+
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromotionLinkResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+                promotion_link_not_found:
+                  $ref: '#/components/examples/promotion_link_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get a promotion link
+      tags:
+      - Promotion Links
+      x-extole-bundle: management
+      x-extole-visibility: visible
+components:
+  examples:
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    description_length_out_of_range:
+      summary: description_length_out_of_range
+      value:
+        code: description_length_out_of_range
+        http_status_code: 400
+        message: Description is too long
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_missing:
+      summary: code_missing
+      value:
+        code: code_missing
+        http_status_code: 403
+        message: Missing code
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    program_not_found:
+      summary: program_not_found
+      value:
+        code: program_not_found
+        http_status_code: 400
+        message: Promotion link program not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_image_url_invalid:
+      summary: content_image_url_invalid
+      value:
+        code: content_image_url_invalid
+        http_status_code: 403
+        message: Invalid content image_url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_length_out_of_range:
+      summary: data_attribute_value_length_out_of_range
+      value:
+        code: data_attribute_value_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute value length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_taken:
+      summary: code_taken
+      value:
+        code: code_taken
+        http_status_code: 403
+        message: The code associated with this shareable has already been specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_contains_illegal_character:
+      summary: label_contains_illegal_character
+      value:
+        code: label_contains_illegal_character
+        http_status_code: 400
+        message: Label name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    promotion_link_not_found:
+      summary: promotion_link_not_found
+      value:
+        code: promotion_link_not_found
+        http_status_code: 403
+        message: Promotion link not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    promotion_label_name_out_of_range:
+      summary: promotion_label_name_out_of_range
+      value:
+        code: promotion_label_name_out_of_range
+        http_status_code: 400
+        message: Promotion label name is not of valid length
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_contains_reserved_word:
+      summary: code_contains_reserved_word
+      value:
+        code: code_contains_reserved_word
+        http_status_code: 403
+        message: Shareable code contains reserved word
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    program_url_invalid:
+      summary: program_url_invalid
+      value:
+        code: program_url_invalid
+        http_status_code: 400
+        message: Promotion link program url is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_invalid:
+      summary: data_attribute_value_invalid
+      value:
+        code: data_attribute_value_invalid
+        http_status_code: 403
+        message: Shareable data value is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_invalid:
+      summary: data_attribute_name_invalid
+      value:
+        code: data_attribute_name_invalid
+        http_status_code: 403
+        message: Shareable data attribute name is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_url_invalid:
+      summary: content_url_invalid
+      value:
+        code: content_url_invalid
+        http_status_code: 400
+        message: Promotion link content url is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_length_out_of_range:
+      summary: data_attribute_name_length_out_of_range
+      value:
+        code: data_attribute_name_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute name length is out of range. Max 200 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_length_out_of_range:
+      summary: code_length_out_of_range
+      value:
+        code: code_length_out_of_range
+        http_status_code: 400
+        message: Promotion link code length must be between 4 and 50
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_invalid:
+      summary: code_invalid
+      value:
+        code: code_invalid
+        http_status_code: 400
+        message: Promotion link code can only contain alphanumeric characters, dashes and underscores
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  schemas:
+    PromotionLinkContentResponse:
+      properties:
+        content_id:
+          type: string
+        description:
+          type: string
+        image_url:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+      type: object
+    PromotionLinkResponse:
+      properties:
+        code:
+          type: string
+        content:
+          $ref: '#/components/schemas/PromotionLinkContentResponse'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        description:
+          type: string
+        key:
+          type: string
+        label:
+          type: string
+        program_url:
+          type: string
+        promotion_url:
+          type: string
+      required:
+      - code
+      - content
+      - data
+      - description
+      - key
+      - label
+      - program_url
+      - promotion_url
+      type: object
+    PromotionLinkCreateRequest:
+      description: Body of a `POST /v2/promotion-links` request.
+      properties:
+        code:
+          type: string
+        content:
+          $ref: '#/components/schemas/PromotionLinkContentRequest'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        description:
+          nullable: true
+          type: string
+        key:
+          nullable: true
+          type: string
+        label:
+          type: string
+        program_url:
+          nullable: true
+          type: string
+      required:
+      - code
+      - key
+      - program_url
+      type: object
+    PromotionLinkContentRequest:
+      properties:
+        content_id:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        image_url:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        url:
+          nullable: true
+          type: string
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

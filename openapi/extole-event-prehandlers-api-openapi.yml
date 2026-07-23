@@ -1,0 +1,2610 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Event Prehandlers API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Event Prehandlers
+paths:
+  /v6/prehandlers:
+    get:
+      description: Returns all prehandlers for the client, sorted by their execution order. Prehandlers are pre-processing hooks that run before the main event-processing pipeline. Each entry includes its script, conditions, and current state (active or archived). Use `GET /v6/prehandlers/built` to retrieve the evaluated runtime version.
+      operationId: listPrehandlers
+      parameters:
+      - in: query
+        name: tags
+        schema:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      - in: query
+        name: limit
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: include_archived
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PrehandlerResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List prehandlers
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+    post:
+      description: Creates a new prehandler definition and appends it to the end of the execution order. Returns the persisted prehandler with its server-assigned id. The prehandler is created in an active state; archive it with `POST /v6/prehandlers/{id}/archive` to disable it without deleting it.
+      operationId: createPrehandler
+      requestBody:
+        content:
+          application/json:
+            example:
+              actions:
+              - expression: {}
+                type: EXPRESSION
+              component_ids:
+              - component_id
+              component_references:
+              - component_id: component_id
+                socket_names:
+                - socket_name
+              conditions:
+              - considered_block_list_types:
+                - CIDR
+                type: BLOCK_MATCH
+              description: description
+              enabled: false
+              name: name
+              order: 0
+              tags:
+              - tag
+            schema:
+              $ref: '#/components/schemas/PrehandlerCreateRequest'
+        description: PrehandlerCreateRequest object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                campaign_component_absolute_name_missing:
+                  $ref: '#/components/examples/campaign_component_absolute_name_missing'
+                campaign_component_description_out_of_range:
+                  $ref: '#/components/examples/campaign_component_description_out_of_range'
+                campaign_component_display_name_contains_illegal_character:
+                  $ref: '#/components/examples/campaign_component_display_name_contains_illegal_character'
+                campaign_component_display_name_out_of_range:
+                  $ref: '#/components/examples/campaign_component_display_name_out_of_range'
+                campaign_component_id_missing:
+                  $ref: '#/components/examples/campaign_component_id_missing'
+                campaign_component_name_already_in_use:
+                  $ref: '#/components/examples/campaign_component_name_already_in_use'
+                campaign_component_name_contains_illegal_character:
+                  $ref: '#/components/examples/campaign_component_name_contains_illegal_character'
+                campaign_component_name_out_of_range:
+                  $ref: '#/components/examples/campaign_component_name_out_of_range'
+                campaign_component_type_validation_failed:
+                  $ref: '#/components/examples/campaign_component_type_validation_failed'
+                circular_component_reference:
+                  $ref: '#/components/examples/circular_component_reference'
+                component_facets_not_found:
+                  $ref: '#/components/examples/component_facets_not_found'
+                excessive_component_reference:
+                  $ref: '#/components/examples/excessive_component_reference'
+                external_element_is_referenced_by_active_configuration:
+                  $ref: '#/components/examples/external_element_is_referenced_by_active_configuration'
+                external_elements_cannot_have_multiple_references:
+                  $ref: '#/components/examples/external_elements_cannot_have_multiple_references'
+                invalid_component_installed_into_socket:
+                  $ref: '#/components/examples/invalid_component_installed_into_socket'
+                invalid_component_reference:
+                  $ref: '#/components/examples/invalid_component_reference'
+                invalid_component_reference_socket_name:
+                  $ref: '#/components/examples/invalid_component_reference_socket_name'
+                invalid_external_component_reference:
+                  $ref: '#/components/examples/invalid_external_component_reference'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_null:
+                  $ref: '#/components/examples/invalid_null'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                orphan_external_component_reference:
+                  $ref: '#/components/examples/orphan_external_component_reference'
+                prehandler_build_failed:
+                  $ref: '#/components/examples/prehandler_build_failed'
+                prehandler_description_length_out_of_range:
+                  $ref: '#/components/examples/prehandler_description_length_out_of_range'
+                prehandler_name_contains_illegal_character:
+                  $ref: '#/components/examples/prehandler_name_contains_illegal_character'
+                prehandler_name_duplicated:
+                  $ref: '#/components/examples/prehandler_name_duplicated'
+                prehandler_name_length_out_of_range:
+                  $ref: '#/components/examples/prehandler_name_length_out_of_range'
+                prehandler_name_missing:
+                  $ref: '#/components/examples/prehandler_name_missing'
+                prehandler_tag_invalid:
+                  $ref: '#/components/examples/prehandler_tag_invalid'
+                redundant_component_reference:
+                  $ref: '#/components/examples/redundant_component_reference'
+                self_component_reference:
+                  $ref: '#/components/examples/self_component_reference'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Create a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+  /v6/prehandlers/built:
+    get:
+      description: Returns all prehandlers in their fully evaluated (built) runtime form, sorted by execution order. Built prehandlers have all evaluatable fields resolved and reflect the current live state of the pipeline. Use this when you need the effective script and condition values rather than the source definitions.
+      operationId: listBuiltPrehandlers
+      parameters:
+      - in: query
+        name: tags
+        schema:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      - in: query
+        name: limit
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: include_archived
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BuiltPrehandlerResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List built prehandlers
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+  /v6/prehandlers/{prehandlerId}:
+    get:
+      description: Returns the source definition of the supplied prehandler, including its script, conditions, and lifecycle state. Returns `400 prehandler_not_found` if the id does not exist or is not accessible to the calling client.
+      operationId: getPrehandler
+      parameters:
+      - description: The id of the prehandler to be retrieved.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Prehandler source definition with build-time fields, conditions, actions, execution order, and component references.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+    put:
+      description: Applies a partial update to the supplied prehandler. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted prehandler after the update. Returns `400 prehandler_not_found` if the id does not exist.
+      operationId: updatePrehandler
+      parameters:
+      - description: The id of the prehandler to be updated.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              actions:
+              - expression: {}
+                type: EXPRESSION
+              component_ids:
+              - component_id
+              component_references:
+              - component_id: component_id
+                socket_names:
+                - socket_name
+              conditions:
+              - considered_block_list_types:
+                - CIDR
+                type: BLOCK_MATCH
+              description: description
+              enabled: true
+              name: name
+              order: 1
+              tags:
+              - tag
+            schema:
+              $ref: '#/components/schemas/PrehandlerUpdateRequest'
+        description: PrehandlerUpdateRequest object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Prehandler source definition with build-time fields, conditions, actions, execution order, and component references.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Update a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+    delete:
+      description: Permanently deletes the supplied prehandler from the pipeline. Unlike archiving, deletion is irreversible. Returns the deleted prehandler record on success. Returns `400 prehandler_not_found` if the id does not exist.
+      operationId: deletePrehandler
+      parameters:
+      - description: The id of the prehandler to be deleted.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Deleted prehandler source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Delete a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+  /v6/prehandlers/{prehandlerId}/built:
+    get:
+      description: Returns the fully evaluated (built) runtime form of the supplied prehandler, with all evaluatable fields resolved. Returns `400 prehandler_not_found` if the id does not exist or is not accessible.
+      operationId: getBuiltPrehandler
+      parameters:
+      - description: The id of the prehandler to be retrieved.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuiltPrehandlerResponse'
+          description: Built prehandler with evaluated runtime values used by the event-processing pipeline.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get a built prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+  /v6/prehandlers/{prehandlerId}/archive:
+    post:
+      description: Archives (soft-deletes) the supplied prehandler. The prehandler is removed from the execution pipeline immediately but its definition is retained. Restore it with `POST /v6/prehandlers/{id}/unarchive`. Returns the updated prehandler.
+      operationId: archivePrehandler
+      parameters:
+      - description: The id of the prehandler to be archived.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Archived prehandler source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Archive a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+  /v6/prehandlers/{prehandlerId}/unarchive:
+    post:
+      description: Restores a previously archived prehandler and re-inserts it into the execution pipeline. Returns the restored prehandler. Returns `400 prehandler_not_found` if the id does not exist.
+      operationId: unarchivePrehandler
+      parameters:
+      - description: The id of the prehandler to be unarchived.
+        in: path
+        name: prehandlerId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrehandlerResponse'
+          description: Restored prehandler source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                prehandler_not_found:
+                  $ref: '#/components/examples/prehandler_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Prehandler was not found. The supplied id does not match any prehandler accessible to the calling client.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Unarchive a prehandler
+      tags:
+      - Event Prehandlers
+      x-extole-bundle: management-expert
+      x-extole-visibility: expert
+components:
+  examples:
+    campaign_component_display_name_contains_illegal_character:
+      summary: campaign_component_display_name_contains_illegal_character
+      value:
+        code: campaign_component_display_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_name_length_out_of_range:
+      summary: prehandler_name_length_out_of_range
+      value:
+        code: prehandler_name_length_out_of_range
+        http_status_code: 400
+        message: Prehandler name length must be between 1 and 255 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    redundant_component_reference:
+      summary: redundant_component_reference
+      value:
+        code: redundant_component_reference
+        http_status_code: 400
+        message: Same reference defined multiple times
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    circular_component_reference:
+      summary: circular_component_reference
+      value:
+        code: circular_component_reference
+        http_status_code: 400
+        message: Circular campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_facets_not_found:
+      summary: component_facets_not_found
+      value:
+        code: component_facets_not_found
+        http_status_code: 400
+        message: Component facets not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_out_of_range:
+      summary: campaign_component_display_name_out_of_range
+      value:
+        code: campaign_component_display_name_out_of_range
+        http_status_code: 400
+        message: Campaign component display name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    self_component_reference:
+      summary: self_component_reference
+      value:
+        code: self_component_reference
+        http_status_code: 400
+        message: Self campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_id_missing:
+      summary: campaign_component_id_missing
+      value:
+        code: campaign_component_id_missing
+        http_status_code: 400
+        message: Campaign component id is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference_socket_name:
+      summary: invalid_component_reference_socket_name
+      value:
+        code: invalid_component_reference_socket_name
+        http_status_code: 400
+        message: Invalid component reference socket name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_external_component_reference:
+      summary: invalid_external_component_reference
+      value:
+        code: invalid_external_component_reference
+        http_status_code: 400
+        message: Unknown external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    excessive_component_reference:
+      summary: excessive_component_reference
+      value:
+        code: excessive_component_reference
+        http_status_code: 400
+        message: Root campaign component may have at most one reference
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_name_duplicated:
+      summary: prehandler_name_duplicated
+      value:
+        code: prehandler_name_duplicated
+        http_status_code: 400
+        message: Prehandler with this name already exists for the current client
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_tag_invalid:
+      summary: prehandler_tag_invalid
+      value:
+        code: prehandler_tag_invalid
+        http_status_code: 400
+        message: Tag max length is 255
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    orphan_external_component_reference:
+      summary: orphan_external_component_reference
+      value:
+        code: orphan_external_component_reference
+        http_status_code: 400
+        message: Orphan external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_installed_into_socket:
+      summary: invalid_component_installed_into_socket
+      value:
+        code: invalid_component_installed_into_socket
+        http_status_code: 400
+        message: Invalid component installed into socket
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_build_failed:
+      summary: prehandler_build_failed
+      value:
+        code: prehandler_build_failed
+        http_status_code: 400
+        message: Prehandler build failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_not_found:
+      summary: prehandler_not_found
+      value:
+        code: prehandler_not_found
+        http_status_code: 400
+        message: Prehandler not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_contains_illegal_character:
+      summary: campaign_component_name_contains_illegal_character
+      value:
+        code: campaign_component_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_element_is_referenced_by_active_configuration:
+      summary: external_element_is_referenced_by_active_configuration
+      value:
+        code: external_element_is_referenced_by_active_configuration
+        http_status_code: 400
+        message: External element is referenced by active configuration
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_elements_cannot_have_multiple_references:
+      summary: external_elements_cannot_have_multiple_references
+      value:
+        code: external_elements_cannot_have_multiple_references
+        http_status_code: 400
+        message: External elements cannot have multiple references
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_name_contains_illegal_character:
+      summary: prehandler_name_contains_illegal_character
+      value:
+        code: prehandler_name_contains_illegal_character
+        http_status_code: 400
+        message: Prehandler name can only contain alphanumeric, dash, dot and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_already_in_use:
+      summary: campaign_component_name_already_in_use
+      value:
+        code: campaign_component_name_already_in_use
+        http_status_code: 400
+        message: Campaign component name is already used by another component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_out_of_range:
+      summary: campaign_component_name_out_of_range
+      value:
+        code: campaign_component_name_out_of_range
+        http_status_code: 400
+        message: Campaign component name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference:
+      summary: invalid_component_reference
+      value:
+        code: invalid_component_reference
+        http_status_code: 400
+        message: Unknown referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_type_validation_failed:
+      summary: campaign_component_type_validation_failed
+      value:
+        code: campaign_component_type_validation_failed
+        http_status_code: 400
+        message: Campaign component type validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_description_out_of_range:
+      summary: campaign_component_description_out_of_range
+      value:
+        code: campaign_component_description_out_of_range
+        http_status_code: 400
+        message: Campaign component description length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_absolute_name_missing:
+      summary: campaign_component_absolute_name_missing
+      value:
+        code: campaign_component_absolute_name_missing
+        http_status_code: 400
+        message: Campaign component absolute name is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_name_missing:
+      summary: prehandler_name_missing
+      value:
+        code: prehandler_name_missing
+        http_status_code: 400
+        message: Prehandler name is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    prehandler_description_length_out_of_range:
+      summary: prehandler_description_length_out_of_range
+      value:
+        code: prehandler_description_length_out_of_range
+        http_status_code: 400
+        message: Prehandler description length must be between 1 and 512 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  schemas:
+    NameInPrehandlerUpdateRequest:
+      description: Prehandler name must be unique.
+      oneOf:
+      - allOf:
+        - nullable: true
+          type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static name
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{name}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    DescriptionInPrehandlerCreateRequest:
+      description: Choose between static or dynamic description
+      oneOf:
+      - description: Static description
+        nullable: true
+        title: Static Value
+        type: string
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{description}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PrehandlerCreateRequest:
+      description: Body of a `POST /v6/prehandlers` request.
+      properties:
+        actions:
+          items:
+            $ref: '#/components/schemas/PrehandlerActionRequest'
+          type: array
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        conditions:
+          items:
+            $ref: '#/components/schemas/PrehandlerConditionRequest'
+          type: array
+        description:
+          $ref: '#/components/schemas/DescriptionInPrehandlerCreateRequest'
+        enabled:
+          $ref: '#/components/schemas/EnabledInPrehandlerCreateRequest'
+        name:
+          $ref: '#/components/schemas/NameInPrehandlerCreateRequest'
+        order:
+          $ref: '#/components/schemas/OrderInPrehandlerCreateRequest'
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - name
+      type: object
+    JavascriptPrehandlerActionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          javascript:
+            type: string
+          type:
+            enum:
+            - JAVASCRIPT_V1
+            type: string
+        type: object
+      description: Action represented by Javascript that can change the event.
+      required:
+      - id
+      - javascript
+      - type
+      type: object
+    SetDataPrehandlerActionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionResponseBase'
+      - properties:
+          data:
+            additionalProperties:
+              nullable: true
+              type: object
+            nullable: true
+            type: object
+          default_data:
+            additionalProperties:
+              nullable: true
+              type: object
+            nullable: true
+            type: object
+          delete_data:
+            items:
+              nullable: true
+              type: string
+            nullable: true
+            type: array
+            uniqueItems: true
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - SET_DATA
+            type: string
+        type: object
+      description: Action that modifies the event data.
+      required:
+      - data
+      - default_data
+      - delete_data
+      - id
+      - type
+      type: object
+    ExpressionPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          expression:
+            $ref: '#/components/schemas/ExpressionInExpressionPrehandlerConditionRequest'
+          type:
+            enum:
+            - EXPRESSION
+            type: string
+        type: object
+      description: Condition represented by expression. It evaluates to true if the expression returns true.
+      required:
+      - expression
+      - type
+      type: object
+    PrehandlerUpdateRequest:
+      description: Body of a `PUT /v6/prehandlers/{prehandlerId}` request.
+      properties:
+        actions:
+          items:
+            $ref: '#/components/schemas/PrehandlerActionRequest'
+          type: array
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        conditions:
+          items:
+            $ref: '#/components/schemas/PrehandlerConditionRequest'
+          type: array
+        description:
+          $ref: '#/components/schemas/DescriptionInPrehandlerUpdateRequest'
+        enabled:
+          $ref: '#/components/schemas/EnabledInPrehandlerUpdateRequest'
+        name:
+          $ref: '#/components/schemas/NameInPrehandlerUpdateRequest'
+        order:
+          $ref: '#/components/schemas/OrderInPrehandlerUpdateRequest'
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+    OrderInPrehandlerResponse:
+      description: Build-time expression that controls the prehandler execution order.
+      oneOf:
+      - description: Literal order
+        format: int32
+        title: Static Value
+        type: integer
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{order}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('order');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    DataAttributeMapping:
+      properties:
+        attribute:
+          type: string
+        default_value:
+          $ref: '#/components/schemas/DefaultValueInDataAttributeMapping'
+        source_attribute:
+          type: string
+      type: object
+    BlockMatchPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          considered_block_list_types:
+            description: Condition evaluates to true if any value from the list of any list type blocks matches the value from the event being evaluated. By default all list type blocks are evaluated.
+            items:
+              description: Condition evaluates to true if any value from the list of any list type blocks matches the value from the event being evaluated. By default all list type blocks are evaluated.
+              enum:
+              - CIDR
+              - EMAIL_DOMAIN
+              - NORMALIZED_EMAIL
+              - USER_AGENT
+              type: string
+            type: array
+            uniqueItems: true
+          type:
+            enum:
+            - BLOCK_MATCH
+            type: string
+        type: object
+      description: Condition that adds the block list types to be checked.
+      required:
+      - type
+      type: object
+    BuiltPrehandlerResponse:
+      description: Built prehandler with evaluated runtime values used by the event-processing pipeline.
+      properties:
+        actions:
+          description: Evaluated actions executed when the prehandler conditions match.
+          items:
+            $ref: '#/components/schemas/PrehandlerActionResponse'
+          type: array
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceResponse'
+          type: array
+        conditions:
+          description: Evaluated conditions that must match before the prehandler actions run.
+          items:
+            $ref: '#/components/schemas/PrehandlerConditionResponse'
+          type: array
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        description:
+          description: Optional evaluated prehandler description.
+          nullable: true
+          type: string
+        enabled:
+          description: Whether the built prehandler is active in the event-processing pipeline.
+          type: boolean
+        id:
+          description: Unique identifier for the prehandler.
+          readOnly: true
+          type: string
+        name:
+          description: Evaluated prehandler name.
+          type: string
+        order:
+          description: Execution order for the built prehandler.
+          format: int32
+          type: integer
+        tags:
+          description: Tags used to classify or filter the prehandler.
+          items:
+            description: Tags used to classify or filter the prehandler.
+            type: string
+          type: array
+          uniqueItems: true
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - actions
+      - component_ids
+      - component_references
+      - conditions
+      - created_date
+      - description
+      - enabled
+      - id
+      - name
+      - order
+      - tags
+      - updated_date
+      type: object
+    EnabledInPrehandlerUpdateRequest:
+      description: Choose between static or dynamic enabled
+      oneOf:
+      - description: Static enabled
+        nullable: true
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{enabled}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('enabled');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    SetSandboxPrehandlerActionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          sandbox_id:
+            type: string
+          type:
+            enum:
+            - SET_SANDBOX
+            type: string
+        type: object
+      description: Action that modifies the event sandbox.
+      required:
+      - id
+      - sandbox_id
+      - type
+      type: object
+    JavascriptPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          javascript:
+            type: string
+          type:
+            enum:
+            - JAVASCRIPT_V1
+            type: string
+        type: object
+      description: Condition represented by Javascript. It evaluates to true if the javascript returns true.
+      required:
+      - id
+      - javascript
+      - type
+      type: object
+    DataExistsPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          data_keys:
+            description: Condition evaluates to true if the data name is present in the event. Data name is not case sensitive.
+            items:
+              description: Condition evaluates to true if the data name is present in the event. Data name is not case sensitive.
+              type: string
+            type: array
+            uniqueItems: true
+          type:
+            enum:
+            - DATA_EXISTS
+            type: string
+        type: object
+      description: Condition that checks the data name exists.
+      required:
+      - data_keys
+      - type
+      type: object
+    EnabledInPrehandlerCreateRequest:
+      description: Choose between static or dynamic enabled
+      oneOf:
+      - default: false
+        description: Static enabled
+        nullable: true
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{enabled}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('enabled');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    JavascriptPrehandlerActionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionRequestBase'
+      - properties:
+          javascript:
+            type: string
+          type:
+            enum:
+            - JAVASCRIPT_V1
+            type: string
+        type: object
+      description: Action represented by Javascript that can change the event.
+      required:
+      - javascript
+      - type
+      type: object
+    ExpressionInExpressionPrehandlerConditionRequest:
+      description: Choose between static or dynamic expression
+      oneOf:
+      - description: Static expression
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [PrehandlerConditionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts).
+        example: handlebars@buildtime:{{expression}}
+        externalDocs:
+          description: PrehandlerConditionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerConditionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('expression');}
+        externalDocs:
+          description: PrehandlerConditionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ExpressionPrehandlerActionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionResponseBase'
+      - properties:
+          expression:
+            $ref: '#/components/schemas/ExpressionInExpressionPrehandlerActionResponse'
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - EXPRESSION
+            type: string
+        type: object
+      description: Action represented by expression that can change the event.
+      required:
+      - expression
+      - id
+      - type
+      type: object
+    ExpressionPrehandlerActionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionRequestBase'
+      - properties:
+          expression:
+            $ref: '#/components/schemas/ExpressionInExpressionPrehandlerActionRequest'
+          type:
+            enum:
+            - EXPRESSION
+            type: string
+        type: object
+      description: Action represented by expression that can change the event.
+      required:
+      - expression
+      - type
+      type: object
+    DataInSetDataPrehandlerActionRequest:
+      description: Data to be set to the event. Data names (keys) are not case sensitive.
+      oneOf:
+      - allOf:
+        - nullable: true
+          type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static data
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: handlebars@buildtime:{{data}}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('data');}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    MapDataAttributesPrehandlerActionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionRequestBase'
+      - properties:
+          data_attribute_mappings:
+            items:
+              $ref: '#/components/schemas/DataAttributeMapping'
+            type: array
+          type:
+            enum:
+            - MAP_DATA_ATTRIBUTES
+            type: string
+        type: object
+      description: Action that modifies the event data based on data mappers attributes.
+      required:
+      - data_attribute_mappings
+      - type
+      type: object
+    EventNameMatchPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          event_names:
+            items:
+              type: string
+            type: array
+            uniqueItems: true
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - EVENT_NAME_MATCH
+            type: string
+        type: object
+      description: Condition that checks the event name.
+      required:
+      - event_names
+      - id
+      - type
+      type: object
+    EventNameMatchPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          event_names:
+            description: Condition evaluates to true if the event name is present in this set. Event names are not case sensitive.
+            items:
+              description: Condition evaluates to true if the event name is present in this set. Event names are not case sensitive.
+              type: string
+            type: array
+            uniqueItems: true
+          type:
+            enum:
+            - EVENT_NAME_MATCH
+            type: string
+        type: object
+      description: Condition that checks the event name.
+      required:
+      - event_names
+      - type
+      type: object
+    DescriptionInPrehandlerUpdateRequest:
+      description: Choose between static or dynamic description
+      oneOf:
+      - description: Static description
+        nullable: true
+        title: Static Value
+        type: string
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{description}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    HttpHeaderMatchPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          http_header_names:
+            description: Condition evaluates to true if any of these HTTP headers are present in the request. HTTP header names are not case sensitive.
+            items:
+              description: Condition evaluates to true if any of these HTTP headers are present in the request. HTTP header names are not case sensitive.
+              nullable: true
+              type: string
+            nullable: true
+            type: array
+            uniqueItems: true
+          http_headers:
+            additionalProperties:
+              description: Condition evaluates to true if any of these HTTP headers are present in the request. At least one HTTP header value should match. HTTP header names are not case sensitive.
+              items:
+                description: Condition evaluates to true if any of these HTTP headers are present in the request. At least one HTTP header value should match. HTTP header names are not case sensitive.
+                nullable: true
+                type: string
+              nullable: true
+              type: array
+            description: Condition evaluates to true if any of these HTTP headers are present in the request. At least one HTTP header value should match. HTTP header names are not case sensitive.
+            nullable: true
+            type: object
+          type:
+            enum:
+            - HTTP_HEADER_MATCH
+            type: string
+        type: object
+      description: Condition that checks the event HTTP headers.
+      required:
+      - http_header_names
+      - http_headers
+      - type
+      type: object
+    OrderInPrehandlerUpdateRequest:
+      description: Choose between static or dynamic order
+      oneOf:
+      - description: Static order
+        format: int32
+        nullable: true
+        title: Static Value
+        type: integer
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{order}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('order');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PrehandlerConditionResponseBase:
+      properties:
+        id:
+          type: string
+        type:
+          enum:
+          - BLOCK_MATCH
+          - DATA_EXISTS
+          - EVENT_NAME_MATCH
+          - EXPRESSION
+          - HTTP_HEADER_MATCH
+          - JAVASCRIPT_V1
+          type: string
+      type: object
+    PrehandlerConditionRequestBase:
+      properties:
+        type:
+          enum:
+          - BLOCK_MATCH
+          - DATA_EXISTS
+          - EVENT_NAME_MATCH
+          - EXPRESSION
+          - HTTP_HEADER_MATCH
+          - JAVASCRIPT_V1
+          type: string
+      type: object
+    ExpressionInExpressionPrehandlerActionResponse:
+      description: 'The expression as configured: a literal value, or an expression (type:string) when defined dynamically.'
+      oneOf:
+      - description: Literal expression
+        title: Static Value
+        type: object
+      - description: Handlebars expression with [PrehandlerActionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts).
+        example: handlebars@buildtime:{{expression}}
+        externalDocs:
+          description: PrehandlerActionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerActionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('expression');}
+        externalDocs:
+          description: PrehandlerActionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    DefaultDataInSetDataPrehandlerActionRequest:
+      description: Default data to be set to the event. Only data (keys) that are not already present in the event will be set. Data names (keys) are not case sensitive.
+      oneOf:
+      - allOf:
+        - nullable: true
+          type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static default data
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: handlebars@buildtime:{{defaultData}}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('defaultData');}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PrehandlerConditionResponse:
+      description: Conditions that must match before the prehandler actions run.
+      discriminator:
+        mapping:
+          BLOCK_MATCH: '#/components/schemas/BlockMatchPrehandlerConditionResponse'
+          DATA_EXISTS: '#/components/schemas/DataExistsPrehandlerConditionResponse'
+          EVENT_NAME_MATCH: '#/components/schemas/EventNameMatchPrehandlerConditionResponse'
+          EXPRESSION: '#/components/schemas/ExpressionPrehandlerConditionResponse'
+          HTTP_HEADER_MATCH: '#/components/schemas/HttpHeaderMatchPrehandlerConditionResponse'
+          JAVASCRIPT_V1: '#/components/schemas/JavascriptPrehandlerConditionResponse'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/BlockMatchPrehandlerConditionResponse'
+      - $ref: '#/components/schemas/DataExistsPrehandlerConditionResponse'
+      - $ref: '#/components/schemas/EventNameMatchPrehandlerConditionResponse'
+      - $ref: '#/components/schemas/ExpressionPrehandlerConditionResponse'
+      - $ref: '#/components/schemas/HttpHeaderMatchPrehandlerConditionResponse'
+      - $ref: '#/components/schemas/JavascriptPrehandlerConditionResponse'
+    ExpressionInExpressionPrehandlerActionRequest:
+      description: Choose between static or dynamic expression
+      oneOf:
+      - description: Static expression
+        title: Static Value
+        type: object
+      - description: Handlebars expression with [PrehandlerActionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts).
+        example: handlebars@buildtime:{{expression}}
+        externalDocs:
+          description: PrehandlerActionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerActionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('expression');}
+        externalDocs:
+          description: PrehandlerActionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerActionContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PrehandlerActionResponse:
+      description: Actions executed when the prehandler conditions match.
+      discriminator:
+        mapping:
+          EXPRESSION: '#/components/schemas/ExpressionPrehandlerActionResponse'
+          JAVASCRIPT_V1: '#/components/schemas/JavascriptPrehandlerActionResponse'
+          MAP_DATA_ATTRIBUTES: '#/components/schemas/MapDataAttributesPrehandlerActionResponse'
+          SET_DATA: '#/components/schemas/SetDataPrehandlerActionResponse'
+          SET_SANDBOX: '#/components/schemas/SetSandboxPrehandlerActionResponse'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/ExpressionPrehandlerActionResponse'
+      - $ref: '#/components/schemas/JavascriptPrehandlerActionResponse'
+      - $ref: '#/components/schemas/MapDataAttributesPrehandlerActionResponse'
+      - $ref: '#/components/schemas/SetDataPrehandlerActionResponse'
+      - $ref: '#/components/schemas/SetSandboxPrehandlerActionResponse'
+    PrehandlerResponse:
+      description: Prehandler source definition with build-time fields, conditions, actions, and execution order.
+      properties:
+        actions:
+          description: Actions executed when the prehandler conditions match.
+          items:
+            $ref: '#/components/schemas/PrehandlerActionResponse'
+          type: array
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceResponse'
+          type: array
+        conditions:
+          description: Conditions that must match before the prehandler actions run.
+          items:
+            $ref: '#/components/schemas/PrehandlerConditionResponse'
+          type: array
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        description:
+          $ref: '#/components/schemas/DescriptionInPrehandlerResponse'
+        enabled:
+          $ref: '#/components/schemas/EnabledInPrehandlerResponse'
+        id:
+          description: Unique identifier for the prehandler.
+          readOnly: true
+          type: string
+        name:
+          $ref: '#/components/schemas/NameInPrehandlerResponse'
+        order:
+          $ref: '#/components/schemas/OrderInPrehandlerResponse'
+        tags:
+          description: Tags used to classify or filter the prehandler.
+          items:
+            description: Tags used to classify or filter the prehandler.
+            type: string
+          type: array
+          uniqueItems: true
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - actions
+      - component_ids
+      - component_references
+      - conditions
+      - created_date
+      - description
+      - enabled
+      - id
+      - name
+      - order
+      - tags
+      - updated_date
+      type: object
+    SetSandboxPrehandlerActionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionRequestBase'
+      - properties:
+          sandbox_id:
+            description: Id of the sandbox to be set into the event.
+            type: string
+          type:
+            enum:
+            - SET_SANDBOX
+            type: string
+        type: object
+      description: Action that modifies the event sandbox.
+      required:
+      - sandbox_id
+      - type
+      type: object
+    DefaultValueInDataAttributeMapping:
+      description: Choose between static or dynamic default value
+      oneOf:
+      - allOf:
+        - nullable: true
+          type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static default value
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: handlebars@buildtime:{{defaultValue}}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('defaultValue');}
+        externalDocs:
+          description: PrehandlerContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    PrehandlerActionRequestBase:
+      properties:
+        type:
+          enum:
+          - EXPRESSION
+          - JAVASCRIPT_V1
+          - MAP_DATA_ATTRIBUTES
+          - SET_DATA
+          - SET_SANDBOX
+          type: string
+      type: object
+    DataExistsPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          data_keys:
+            items:
+              type: string
+            type: array
+            uniqueItems: true
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - DATA_EXISTS
+            type: string
+        type: object
+      description: Condition that checks the data name exists.
+      required:
+      - data_keys
+      - id
+      - type
+      type: object
+    PrehandlerActionRequest:
+      discriminator:
+        mapping:
+          EXPRESSION: '#/components/schemas/ExpressionPrehandlerActionRequest'
+          JAVASCRIPT_V1: '#/components/schemas/JavascriptPrehandlerActionRequest'
+          MAP_DATA_ATTRIBUTES: '#/components/schemas/MapDataAttributesPrehandlerActionRequest'
+          SET_DATA: '#/components/schemas/SetDataPrehandlerActionRequest'
+          SET_SANDBOX: '#/components/schemas/SetSandboxPrehandlerActionRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/ExpressionPrehandlerActionRequest'
+      - $ref: '#/components/schemas/JavascriptPrehandlerActionRequest'
+      - $ref: '#/components/schemas/MapDataAttributesPrehandlerActionRequest'
+      - $ref: '#/components/schemas/SetDataPrehandlerActionRequest'
+      - $ref: '#/components/schemas/SetSandboxPrehandlerActionRequest'
+      required:
+      - type
+    HttpHeaderMatchPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          http_header_names:
+            items:
+              type: string
+            type: array
+            uniqueItems: true
+          http_headers:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - HTTP_HEADER_MATCH
+            type: string
+        type: object
+      description: Condition that checks the event HTTP headers.
+      required:
+      - http_header_names
+      - http_headers
+      - id
+      - type
+      type: object
+    ComponentReferenceResponse:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    SetDataPrehandlerActionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionRequestBase'
+      - properties:
+          data:
+            $ref: '#/components/schemas/DataMapInSetDataPrehandlerActionRequest'
+          default_data:
+            $ref: '#/components/schemas/Default_dataMapInSetDataPrehandlerActionRequest'
+          delete_data:
+            description: Names (keys) of the data that should be removed from the event. Data names (keys) are not case sensitive.
+            items:
+              description: Names (keys) of the data that should be removed from the event. Data names (keys) are not case sensitive.
+              nullable: true
+              type: string
+            nullable: true
+            type: array
+            uniqueItems: true
+          type:
+            enum:
+            - SET_DATA
+            type: string
+        type: object
+      description: Action that modifies the event data.
+      required:
+      - data
+      - default_data
+      - delete_data
+      - type
+      type: object
+    ExpressionInExpressionPrehandlerConditionResponse:
+      description: 'The expression as configured: a literal value, or an expression (type:string) when defined dynamically.'
+      oneOf:
+      - description: Literal expression
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [PrehandlerConditionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts).
+        example: handlebars@buildtime:{{expression}}
+        externalDocs:
+          description: PrehandlerConditionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerConditionContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('expression');}
+        externalDocs:
+          description: PrehandlerConditionContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/PrehandlerConditionContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ComponentReferenceRequest:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    MapDataAttributesPrehandlerActionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerActionResponseBase'
+      - properties:
+          data_attribute_mappings:
+            items:
+              $ref: '#/components/schemas/DataAttributeMapping'
+            type: array
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - MAP_DATA_ATTRIBUTES
+            type: string
+        type: object
+      description: Action represented by data mappers that can change the data of the event.
+      required:
+      - data_attribute_mappings
+      - id
+      - type
+      type: object
+    NameInPrehandlerResponse:
+      description: Build-time expression that resolves to the prehandler name.
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Literal name
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{name}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PrehandlerActionResponseBase:
+      properties:
+        id:
+          type: string
+        type:
+          enum:
+          - EXPRESSION
+          - JAVASCRIPT_V1
+          - MAP_DATA_ATTRIBUTES
+          - SET_DATA
+          - SET_SANDBOX
+          type: string
+      type: object
+    PrehandlerConditionRequest:
+      discriminator:
+        mapping:
+          BLOCK_MATCH: '#/components/schemas/BlockMatchPrehandlerConditionRequest'
+          DATA_EXISTS: '#/components/schemas/DataExistsPrehandlerConditionRequest'
+          EVENT_NAME_MATCH: '#/components/schemas/EventNameMatchPrehandlerConditionRequest'
+          EXPRESSION: '#/components/schemas/ExpressionPrehandlerConditionRequest'
+          HTTP_HEADER_MATCH: '#/components/schemas/HttpHeaderMatchPrehandlerConditionRequest'
+          JAVASCRIPT_V1: '#/components/schemas/JavascriptPrehandlerConditionRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/BlockMatchPrehandlerConditionRequest'
+      - $ref: '#/components/schemas/DataExistsPrehandlerConditionRequest'
+      - $ref: '#/components/schemas/EventNameMatchPrehandlerConditionRequest'
+      - $ref: '#/components/schemas/ExpressionPrehandlerConditionRequest'
+      - $ref: '#/components/schemas/HttpHeaderMatchPrehandlerConditionRequest'
+      - $ref: '#/components/schemas/JavascriptPrehandlerConditionRequest'
+      required:
+      - type
+    BlockMatchPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          considered_block_list_types:
+            items:
+              enum:
+              - CIDR
+              - EMAIL_DOMAIN
+              - NORMALIZED_EMAIL
+              - USER_AGENT
+              type: string
+            type: array
+            uniqueItems: true
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - BLOCK_MATCH
+            type: string
+        type: object
+      description: Condition that adds the block list types to be checked.
+      required:
+      - considered_block_list_types
+      - id
+      - type
+      type: object
+    JavascriptPrehandlerConditionRequest:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionRequestBase'
+      - properties:
+          javascript:
+            type: string
+          type:
+            enum:
+            - JAVASCRIPT_V1
+            type: string
+        type: object
+      description: Condition represented by Javascript. It evaluates to true if the javascript returns true.
+      required:
+      - javascript
+      - type
+      type: object
+    NameInPrehandlerCreateRequest:
+      description: Prehandler name must be unique.
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static name
+        title: Static Value
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{name}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ExpressionPrehandlerConditionResponse:
+      allOf:
+      - $ref: '#/components/schemas/PrehandlerConditionResponseBase'
+      - properties:
+          expression:
+            $ref: '#/components/schemas/ExpressionInExpressionPrehandlerConditionResponse'
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - EXPRESSION
+            type: string
+        type: object
+      description: Condition represented by expression. It evaluates to true if the expression returns true.
+      required:
+      - expression
+      - id
+      - type
+      type: object
+    Default_dataMapInSetDataPrehandlerActionRequest:
+      additionalProperties:
+        $ref: '#/components/schemas/DefaultDataInSetDataPrehandlerActionRequest'
+      description: Default data to be set to the event. Only data (keys) that are not already present in the event will be set. Data names (keys) are not case sensitive.
+      nullable: true
+      type: object
+    DescriptionInPrehandlerResponse:
+      description: Optional build-time expression that resolves to the prehandler description.
+      oneOf:
+      - description: Literal description
+        nullable: true
+        title: Static Value
+        type: string
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{description}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    DataMapInSetDataPrehandlerActionRequest:
+      additionalProperties:
+        $ref: '#/components/schemas/DataInSetDataPrehandlerActionRequest'
+      description: Data to be set to the event. Data names (keys) are not case sensitive.
+      nullable: true
+      type: object
+    OrderInPrehandlerCreateRequest:
+      description: Choose between static or dynamic order
+      oneOf:
+      - default: 0
+        description: Static order
+        format: int32
+        nullable: true
+        title: Static Value
+        type: integer
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{order}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('order');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    EnabledInPrehandlerResponse:
+      description: Build-time expression that controls whether the prehandler is active.
+      oneOf:
+      - description: Literal enabled
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{enabled}}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [PrehandlerBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('enabled');}
+        externalDocs:
+          description: PrehandlerBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/prehandler/built/PrehandlerBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

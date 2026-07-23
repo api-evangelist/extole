@@ -1,0 +1,2669 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Domains API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Domains
+paths:
+  /v1/client-domain-patterns:
+    get:
+      description: Returns all domain pattern definitions for the calling client. Domain patterns define which URL patterns the Extole platform recognises as belonging to this client — they control campaign-tracking domain matching, shareable link generation, and zone-rendering domain allow-listing. Each entry includes its `pattern`, `type` (`GLOB`, `DOMAIN`, or `SUB_DOMAIN`), and the optional `client_domain_id` that links it to a specific program domain configuration.
+      operationId: listClientDomainPatterns
+      parameters:
+      - in: query
+        name: client_domain_id
+        schema:
+          type: string
+      - in: query
+        name: include_archived
+        schema:
+          type: boolean
+      - in: query
+        name: limit
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClientDomainPatternResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List client domain patterns
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+    post:
+      description: Creates a new domain pattern definition and returns the persisted record with its server-assigned id. The `pattern` field is required. `type` defaults to `GLOB` when omitted. Set `test=true` to create a test-only pattern that is not used in production domain matching. The pattern must be buildable; complex `BuildtimeEvaluatable` expressions are evaluated at build time.
+      operationId: createClientDomainPattern
+      requestBody:
+        content:
+          application/json:
+            example:
+              client_domain_id: client_domain_id
+              component_ids:
+              - component_id
+              component_references:
+              - component_id: component_id
+                socket_names:
+                - socket_name
+              pattern: pattern
+              test: true
+              type: DOMAIN
+            schema:
+              $ref: '#/components/schemas/ClientDomainPatternCreateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                campaign_component_absolute_name_missing:
+                  $ref: '#/components/examples/campaign_component_absolute_name_missing'
+                campaign_component_description_out_of_range:
+                  $ref: '#/components/examples/campaign_component_description_out_of_range'
+                campaign_component_display_name_contains_illegal_character:
+                  $ref: '#/components/examples/campaign_component_display_name_contains_illegal_character'
+                campaign_component_display_name_out_of_range:
+                  $ref: '#/components/examples/campaign_component_display_name_out_of_range'
+                campaign_component_id_missing:
+                  $ref: '#/components/examples/campaign_component_id_missing'
+                campaign_component_name_already_in_use:
+                  $ref: '#/components/examples/campaign_component_name_already_in_use'
+                campaign_component_name_contains_illegal_character:
+                  $ref: '#/components/examples/campaign_component_name_contains_illegal_character'
+                campaign_component_name_out_of_range:
+                  $ref: '#/components/examples/campaign_component_name_out_of_range'
+                campaign_component_type_validation_failed:
+                  $ref: '#/components/examples/campaign_component_type_validation_failed'
+                circular_component_reference:
+                  $ref: '#/components/examples/circular_component_reference'
+                client_domain_pattern_build_failed:
+                  $ref: '#/components/examples/client_domain_pattern_build_failed'
+                component_facets_not_found:
+                  $ref: '#/components/examples/component_facets_not_found'
+                excessive_component_reference:
+                  $ref: '#/components/examples/excessive_component_reference'
+                external_element_is_referenced_by_active_configuration:
+                  $ref: '#/components/examples/external_element_is_referenced_by_active_configuration'
+                external_elements_cannot_have_multiple_references:
+                  $ref: '#/components/examples/external_elements_cannot_have_multiple_references'
+                invalid_client_domain_pattern_domain:
+                  $ref: '#/components/examples/invalid_client_domain_pattern_domain'
+                invalid_client_domain_pattern_syntax:
+                  $ref: '#/components/examples/invalid_client_domain_pattern_syntax'
+                invalid_component_installed_into_socket:
+                  $ref: '#/components/examples/invalid_component_installed_into_socket'
+                invalid_component_reference:
+                  $ref: '#/components/examples/invalid_component_reference'
+                invalid_component_reference_socket_name:
+                  $ref: '#/components/examples/invalid_component_reference_socket_name'
+                invalid_external_component_reference:
+                  $ref: '#/components/examples/invalid_external_component_reference'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_client_domain_pattern:
+                  $ref: '#/components/examples/missing_client_domain_pattern'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                orphan_external_component_reference:
+                  $ref: '#/components/examples/orphan_external_component_reference'
+                redundant_component_reference:
+                  $ref: '#/components/examples/redundant_component_reference'
+                self_component_reference:
+                  $ref: '#/components/examples/self_component_reference'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Create client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domain-patterns/built:
+    get:
+      description: Returns all domain patterns in their fully evaluated (built) runtime form, with all `BuildtimeEvaluatable` fields resolved to their current string values. Use this when the calling system needs the effective pattern expressions rather than the source template definitions. Use `GET /v1/client-domain-patterns` for the editable source definitions.
+      operationId: listBuiltClientDomainPatterns
+      parameters:
+      - in: query
+        name: client_domain_id
+        schema:
+          type: string
+      - in: query
+        name: include_archived
+        schema:
+          type: boolean
+      - in: query
+        name: limit
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BuiltClientDomainPatternResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List built client domain patterns
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domain-patterns/{id}:
+    get:
+      description: Returns the source definition for the supplied domain pattern, including its `pattern` expression, `type`, optional `client_domain_id`, and `test` flag. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client. For the compiled runtime snapshot use `GET /v1/client-domain-patterns/{id}/built` instead.
+      operationId: getClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Client domain pattern source definition with its build-time pattern expression, domain type, and component references.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+    put:
+      description: Applies a partial update to the supplied domain pattern. Only the fields present in the body are changed; omitted fields are left intact. Returns the updated pattern record on success. Returns `400 client_domain_pattern_not_found` if the id does not exist.
+      operationId: updateClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              client_domain_id: {}
+              component_ids:
+              - component_id
+              component_references:
+              - component_id: component_id
+                socket_names:
+                - socket_name
+              pattern: pattern
+              test: true
+              type: DOMAIN
+            schema:
+              $ref: '#/components/schemas/ClientDomainPatternUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Client domain pattern source definition with its build-time pattern expression, domain type, and component references.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Update client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+    delete:
+      description: Soft-archives the supplied domain pattern. Archived patterns are retained but are no longer used in domain matching. Reversible via `POST /v1/client-domain-patterns/{id}/unarchive`. Returns the updated pattern record. Returns `400 client_domain_pattern_not_found` if the id does not exist.
+      operationId: archiveClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to archive.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Archived client domain pattern source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Archive client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domain-patterns/{id}/built:
+    get:
+      description: Returns the fully evaluated (built) runtime form for the supplied domain pattern, with all `BuildtimeEvaluatable` fields resolved. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client.
+      operationId: getBuiltClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to retrieve in built form.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuiltClientDomainPatternResponse'
+          description: Built client domain pattern with evaluated runtime values used for domain matching.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get built client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domain-patterns/{id}/delete:
+    post:
+      description: Hard-deletes the supplied domain pattern. Unlike archiving, deletion is irreversible. Returns the deleted pattern record on success. Returns `400 client_domain_pattern_not_found` if the id does not exist.
+      operationId: deleteClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Deleted client domain pattern source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Delete client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domain-patterns/{id}/unarchive:
+    post:
+      description: Restores a previously archived domain pattern so it is active in domain matching again. Returns the restored pattern record. Returns `400 client_domain_pattern_not_found` if the id does not exist.
+      operationId: unarchiveClientDomainPattern
+      parameters:
+      - description: Identifier of the client domain pattern to unarchive.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainPatternResponse'
+          description: Restored client domain pattern source definition.
+        '400':
+          content:
+            application/json:
+              examples:
+                client_domain_pattern_not_found:
+                  $ref: '#/components/examples/client_domain_pattern_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: The supplied `id` does not match an existing domain pattern for this client. Inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Unarchive client domain pattern
+      tags:
+      - Domains
+      x-extole-bundle: management-expert
+      x-extole-visibility: visible
+  /v1/client-domains:
+    get:
+      operationId: listClientDomains
+      parameters:
+      - in: query
+        name: status
+        schema:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClientDomainResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List client domains
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    post:
+      operationId: createClientDomain
+      requestBody:
+        content:
+          application/json:
+            example:
+              cname_target: cname_target
+              domain: domain
+              name: name
+              proxy: true
+              redirect_client_domain_id: redirect_client_domain_id
+              share_uri: share_uri
+              ssl_certificate: ssl_certificate
+              ssl_certificate_chain: ssl_certificate_chain
+              ssl_generation_policy: DISABLED
+              ssl_private_key: ssl_private_key
+            schema:
+              $ref: '#/components/schemas/ClientDomainCreateRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                client_domain_redirect_generates_loop:
+                  $ref: '#/components/examples/client_domain_redirect_generates_loop'
+                cname_target_duplicate:
+                  $ref: '#/components/examples/cname_target_duplicate'
+                cname_target_invalid:
+                  $ref: '#/components/examples/cname_target_invalid'
+                cname_target_invalid_format:
+                  $ref: '#/components/examples/cname_target_invalid_format'
+                cname_target_not_applicable_for_extole_domains:
+                  $ref: '#/components/examples/cname_target_not_applicable_for_extole_domains'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_name:
+                  $ref: '#/components/examples/invalid_name'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                non_existent_redirect_client_domain_id:
+                  $ref: '#/components/examples/non_existent_redirect_client_domain_id'
+                proxy_requires_redirect_client_domain_id:
+                  $ref: '#/components/examples/proxy_requires_redirect_client_domain_id'
+                ssl_certificate_invalid_domain:
+                  $ref: '#/components/examples/ssl_certificate_invalid_domain'
+                ssl_certificate_not_signed_by_chain:
+                  $ref: '#/components/examples/ssl_certificate_not_signed_by_chain'
+                ssl_chain_key_expired:
+                  $ref: '#/components/examples/ssl_chain_key_expired'
+                ssl_chain_key_not_yet_valid:
+                  $ref: '#/components/examples/ssl_chain_key_not_yet_valid'
+                ssl_key_chain_or_private_key_missing_or_invalid:
+                  $ref: '#/components/examples/ssl_key_chain_or_private_key_missing_or_invalid'
+                ssl_key_invalid:
+                  $ref: '#/components/examples/ssl_key_invalid'
+                ssl_keys_not_allowed_for_extole_domain:
+                  $ref: '#/components/examples/ssl_keys_not_allowed_for_extole_domain'
+                ssl_private_key_invalid:
+                  $ref: '#/components/examples/ssl_private_key_invalid'
+                ssl_private_key_invalid_format:
+                  $ref: '#/components/examples/ssl_private_key_invalid_format'
+                ssl_private_key_missing:
+                  $ref: '#/components/examples/ssl_private_key_missing'
+                ssl_public_key_expired:
+                  $ref: '#/components/examples/ssl_public_key_expired'
+                ssl_public_key_not_yet_valid:
+                  $ref: '#/components/examples/ssl_public_key_not_yet_valid'
+                ssl_public_private_keys_mismatch:
+                  $ref: '#/components/examples/ssl_public_private_keys_mismatch'
+                ssl_self_signed_certificate_not_accepted:
+                  $ref: '#/components/examples/ssl_self_signed_certificate_not_accepted'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                duplicate_client_domain:
+                  $ref: '#/components/examples/duplicate_client_domain'
+                invalid_uri_syntax:
+                  $ref: '#/components/examples/invalid_uri_syntax'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Create client domain
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v1/client-domains/{client_domain_id}:
+    get:
+      operationId: getClientDomain
+      parameters:
+      - in: path
+        name: client_domain_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                client_domain_not_found:
+                  $ref: '#/components/examples/client_domain_not_found'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                unknown_client_domain:
+                  $ref: '#/components/examples/unknown_client_domain'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get client domain
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    put:
+      operationId: updateClientDomain
+      parameters:
+      - in: path
+        name: client_domain_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              cname_target: cname_target
+              name: name
+              proxy: true
+              redirect_client_domain_id: redirect_client_domain_id
+              ssl_certificate: ssl_certificate
+              ssl_certificate_chain: ssl_certificate_chain
+              ssl_generation_policy: DISABLED
+              ssl_private_key: ssl_private_key
+            schema:
+              $ref: '#/components/schemas/ClientDomainUpdateRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                client_domain_not_found:
+                  $ref: '#/components/examples/client_domain_not_found'
+                client_domain_redirect_generates_loop:
+                  $ref: '#/components/examples/client_domain_redirect_generates_loop'
+                cname_target_duplicate:
+                  $ref: '#/components/examples/cname_target_duplicate'
+                cname_target_invalid:
+                  $ref: '#/components/examples/cname_target_invalid'
+                cname_target_invalid_format:
+                  $ref: '#/components/examples/cname_target_invalid_format'
+                cname_target_not_applicable_for_extole_domains:
+                  $ref: '#/components/examples/cname_target_not_applicable_for_extole_domains'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_name:
+                  $ref: '#/components/examples/invalid_name'
+                invalid_null:
+                  $ref: '#/components/examples/invalid_null'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                non_existent_redirect_client_domain_id:
+                  $ref: '#/components/examples/non_existent_redirect_client_domain_id'
+                proxy_requires_redirect_client_domain_id:
+                  $ref: '#/components/examples/proxy_requires_redirect_client_domain_id'
+                ssl_certificate_invalid_domain:
+                  $ref: '#/components/examples/ssl_certificate_invalid_domain'
+                ssl_certificate_not_signed_by_chain:
+                  $ref: '#/components/examples/ssl_certificate_not_signed_by_chain'
+                ssl_chain_key_expired:
+                  $ref: '#/components/examples/ssl_chain_key_expired'
+                ssl_chain_key_not_yet_valid:
+                  $ref: '#/components/examples/ssl_chain_key_not_yet_valid'
+                ssl_key_chain_or_private_key_missing_or_invalid:
+                  $ref: '#/components/examples/ssl_key_chain_or_private_key_missing_or_invalid'
+                ssl_key_invalid:
+                  $ref: '#/components/examples/ssl_key_invalid'
+                ssl_keys_not_allowed_for_extole_domain:
+                  $ref: '#/components/examples/ssl_keys_not_allowed_for_extole_domain'
+                ssl_private_key_invalid:
+                  $ref: '#/components/examples/ssl_private_key_invalid'
+                ssl_private_key_invalid_format:
+                  $ref: '#/components/examples/ssl_private_key_invalid_format'
+                ssl_private_key_missing:
+                  $ref: '#/components/examples/ssl_private_key_missing'
+                ssl_public_key_expired:
+                  $ref: '#/components/examples/ssl_public_key_expired'
+                ssl_public_key_not_yet_valid:
+                  $ref: '#/components/examples/ssl_public_key_not_yet_valid'
+                ssl_public_private_keys_mismatch:
+                  $ref: '#/components/examples/ssl_public_private_keys_mismatch'
+                ssl_self_signed_certificate_not_accepted:
+                  $ref: '#/components/examples/ssl_self_signed_certificate_not_accepted'
+                unknown_client_domain:
+                  $ref: '#/components/examples/unknown_client_domain'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Update client domain
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    delete:
+      operationId: archive
+      parameters:
+      - in: path
+        name: client_domain_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: force
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                cannot_archive_valid_client_domain:
+                  $ref: '#/components/examples/cannot_archive_valid_client_domain'
+                client_domain_not_found:
+                  $ref: '#/components/examples/client_domain_not_found'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                last_client_domain:
+                  $ref: '#/components/examples/last_client_domain'
+                last_extole_client_domain:
+                  $ref: '#/components/examples/last_extole_client_domain'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                unknown_client_domain:
+                  $ref: '#/components/examples/unknown_client_domain'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Archive client domain
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v1/client-domains/{client_domain_id}/decrypt:
+    get:
+      operationId: getDecrypt
+      parameters:
+      - in: path
+        name: client_domain_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                client_domain_not_found:
+                  $ref: '#/components/examples/client_domain_not_found'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                unknown_client_domain:
+                  $ref: '#/components/examples/unknown_client_domain'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get client domain with decrypted SSL private key
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v1/client-domains/{client_domain_id}/validate:
+    post:
+      operationId: validate
+      parameters:
+      - in: path
+        name: client_domain_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDomainDomainValidationResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                client_domain_not_found:
+                  $ref: '#/components/examples/client_domain_not_found'
+                invalid_client_domain:
+                  $ref: '#/components/examples/invalid_client_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                unknown_client_domain:
+                  $ref: '#/components/examples/unknown_client_domain'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Validate client domain
+      tags:
+      - Domains
+      x-extole-bundle: management
+      x-extole-visibility: visible
+components:
+  examples:
+    ssl_private_key_invalid:
+      summary: ssl_private_key_invalid
+      value:
+        code: ssl_private_key_invalid
+        http_status_code: 400
+        message: Invalid format for SSL private key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_private_key_invalid_format:
+      summary: ssl_private_key_invalid_format
+      value:
+        code: ssl_private_key_invalid_format
+        http_status_code: 400
+        message: Invalid format for SSL private key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_uri_syntax:
+      summary: invalid_uri_syntax
+      value:
+        code: invalid_uri_syntax
+        http_status_code: 403
+        message: A uri supplied has syntax errors
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_contains_illegal_character:
+      summary: campaign_component_display_name_contains_illegal_character
+      value:
+        code: campaign_component_display_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    last_extole_client_domain:
+      summary: last_extole_client_domain
+      value:
+        code: last_extole_client_domain
+        http_status_code: 400
+        message: Cannot archive last Extole client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cannot_archive_valid_client_domain:
+      summary: cannot_archive_valid_client_domain
+      value:
+        code: cannot_archive_valid_client_domain
+        http_status_code: 400
+        message: Cannot archive a valid client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_key_expired:
+      summary: ssl_public_key_expired
+      value:
+        code: ssl_public_key_expired
+        http_status_code: 400
+        message: Public key expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_private_key_missing:
+      summary: ssl_private_key_missing
+      value:
+        code: ssl_private_key_missing
+        http_status_code: 400
+        message: SSL private key is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_private_keys_mismatch:
+      summary: ssl_public_private_keys_mismatch
+      value:
+        code: ssl_public_private_keys_mismatch
+        http_status_code: 400
+        message: Key pair public/private does not match
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    redundant_component_reference:
+      summary: redundant_component_reference
+      value:
+        code: redundant_component_reference
+        http_status_code: 400
+        message: Same reference defined multiple times
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    circular_component_reference:
+      summary: circular_component_reference
+      value:
+        code: circular_component_reference
+        http_status_code: 400
+        message: Circular campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_facets_not_found:
+      summary: component_facets_not_found
+      value:
+        code: component_facets_not_found
+        http_status_code: 400
+        message: Component facets not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_pattern_build_failed:
+      summary: client_domain_pattern_build_failed
+      value:
+        code: client_domain_pattern_build_failed
+        http_status_code: 400
+        message: Client domain pattern build failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_domain_pattern_domain:
+      summary: invalid_client_domain_pattern_domain
+      value:
+        code: invalid_client_domain_pattern_domain
+        http_status_code: 400
+        message: The client domain pattern must be a valid domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_not_found:
+      summary: client_domain_not_found
+      value:
+        code: client_domain_not_found
+        http_status_code: 400
+        message: Was unable to find client domain with ID
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_out_of_range:
+      summary: campaign_component_display_name_out_of_range
+      value:
+        code: campaign_component_display_name_out_of_range
+        http_status_code: 400
+        message: Campaign component display name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    self_component_reference:
+      summary: self_component_reference
+      value:
+        code: self_component_reference
+        http_status_code: 400
+        message: Self campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_id_missing:
+      summary: campaign_component_id_missing
+      value:
+        code: campaign_component_id_missing
+        http_status_code: 400
+        message: Campaign component id is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference_socket_name:
+      summary: invalid_component_reference_socket_name
+      value:
+        code: invalid_component_reference_socket_name
+        http_status_code: 400
+        message: Invalid component reference socket name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_client_domain_pattern:
+      summary: missing_client_domain_pattern
+      value:
+        code: missing_client_domain_pattern
+        http_status_code: 400
+        message: Client domain pattern is required
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_external_component_reference:
+      summary: invalid_external_component_reference
+      value:
+        code: invalid_external_component_reference
+        http_status_code: 400
+        message: Unknown external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    excessive_component_reference:
+      summary: excessive_component_reference
+      value:
+        code: excessive_component_reference
+        http_status_code: 400
+        message: Root campaign component may have at most one reference
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_invalid_format:
+      summary: cname_target_invalid_format
+      value:
+        code: cname_target_invalid_format
+        http_status_code: 400
+        message: 'CNAME target has invalid format. Expected: *.extole.io or *.extole.com'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unknown_client_domain:
+      summary: unknown_client_domain
+      value:
+        code: unknown_client_domain
+        http_status_code: 400
+        message: The provided client domain url is not associated with an existing client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_key_invalid:
+      summary: ssl_key_invalid
+      value:
+        code: ssl_key_invalid
+        http_status_code: 400
+        message: Invalid format for public key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_chain_key_expired:
+      summary: ssl_chain_key_expired
+      value:
+        code: ssl_chain_key_expired
+        http_status_code: 400
+        message: Chain key expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_domain:
+      summary: invalid_client_domain
+      value:
+        code: invalid_client_domain
+        http_status_code: 400
+        message: Invalid client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_redirect_generates_loop:
+      summary: client_domain_redirect_generates_loop
+      value:
+        code: client_domain_redirect_generates_loop
+        http_status_code: 400
+        message: Client domain redirect generates loop
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_keys_not_allowed_for_extole_domain:
+      summary: ssl_keys_not_allowed_for_extole_domain
+      value:
+        code: ssl_keys_not_allowed_for_extole_domain
+        http_status_code: 400
+        message: Cannot specify SSL attributes for extole.io or extole.com domains
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_key_not_yet_valid:
+      summary: ssl_public_key_not_yet_valid
+      value:
+        code: ssl_public_key_not_yet_valid
+        http_status_code: 400
+        message: Public Key not yet valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_name:
+      summary: invalid_name
+      value:
+        code: invalid_name
+        http_status_code: 400
+        message: The provided client name was invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_domain_pattern_syntax:
+      summary: invalid_client_domain_pattern_syntax
+      value:
+        code: invalid_client_domain_pattern_syntax
+        http_status_code: 400
+        message: The client domain pattern has syntax errors
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    orphan_external_component_reference:
+      summary: orphan_external_component_reference
+      value:
+        code: orphan_external_component_reference
+        http_status_code: 400
+        message: Orphan external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_self_signed_certificate_not_accepted:
+      summary: ssl_self_signed_certificate_not_accepted
+      value:
+        code: ssl_self_signed_certificate_not_accepted
+        http_status_code: 400
+        message: Self-signed certificates cannot be used
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_pattern_not_found:
+      summary: client_domain_pattern_not_found
+      value:
+        code: client_domain_pattern_not_found
+        http_status_code: 400
+        message: Client domain pattern was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_installed_into_socket:
+      summary: invalid_component_installed_into_socket
+      value:
+        code: invalid_component_installed_into_socket
+        http_status_code: 400
+        message: Invalid component installed into socket
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_certificate_not_signed_by_chain:
+      summary: ssl_certificate_not_signed_by_chain
+      value:
+        code: ssl_certificate_not_signed_by_chain
+        http_status_code: 400
+        message: Certificate not signed by the chain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    non_existent_redirect_client_domain_id:
+      summary: non_existent_redirect_client_domain_id
+      value:
+        code: non_existent_redirect_client_domain_id
+        http_status_code: 400
+        message: Redirect client domain doesn't exist
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_contains_illegal_character:
+      summary: campaign_component_name_contains_illegal_character
+      value:
+        code: campaign_component_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    last_client_domain:
+      summary: last_client_domain
+      value:
+        code: last_client_domain
+        http_status_code: 400
+        message: Cannot archive last client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_certificate_invalid_domain:
+      summary: ssl_certificate_invalid_domain
+      value:
+        code: ssl_certificate_invalid_domain
+        http_status_code: 400
+        message: SSL Certificate does not match client domain domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_element_is_referenced_by_active_configuration:
+      summary: external_element_is_referenced_by_active_configuration
+      value:
+        code: external_element_is_referenced_by_active_configuration
+        http_status_code: 400
+        message: External element is referenced by active configuration
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_chain_key_not_yet_valid:
+      summary: ssl_chain_key_not_yet_valid
+      value:
+        code: ssl_chain_key_not_yet_valid
+        http_status_code: 400
+        message: Chain key chain not yet valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_elements_cannot_have_multiple_references:
+      summary: external_elements_cannot_have_multiple_references
+      value:
+        code: external_elements_cannot_have_multiple_references
+        http_status_code: 400
+        message: External elements cannot have multiple references
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_not_applicable_for_extole_domains:
+      summary: cname_target_not_applicable_for_extole_domains
+      value:
+        code: cname_target_not_applicable_for_extole_domains
+        http_status_code: 400
+        message: Can't set CNAME target for Extole domains
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    proxy_requires_redirect_client_domain_id:
+      summary: proxy_requires_redirect_client_domain_id
+      value:
+        code: proxy_requires_redirect_client_domain_id
+        http_status_code: 400
+        message: A proxy client domain requires a redirect_client_domain_id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_already_in_use:
+      summary: campaign_component_name_already_in_use
+      value:
+        code: campaign_component_name_already_in_use
+        http_status_code: 400
+        message: Campaign component name is already used by another component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_out_of_range:
+      summary: campaign_component_name_out_of_range
+      value:
+        code: campaign_component_name_out_of_range
+        http_status_code: 400
+        message: Campaign component name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference:
+      summary: invalid_component_reference
+      value:
+        code: invalid_component_reference
+        http_status_code: 400
+        message: Unknown referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_type_validation_failed:
+      summary: campaign_component_type_validation_failed
+      value:
+        code: campaign_component_type_validation_failed
+        http_status_code: 400
+        message: Campaign component type validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_description_out_of_range:
+      summary: campaign_component_description_out_of_range
+      value:
+        code: campaign_component_description_out_of_range
+        http_status_code: 400
+        message: Campaign component description length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_key_chain_or_private_key_missing_or_invalid:
+      summary: ssl_key_chain_or_private_key_missing_or_invalid
+      value:
+        code: ssl_key_chain_or_private_key_missing_or_invalid
+        http_status_code: 400
+        message: One of the SSL keys (public, chain, private) is missing or invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_client_domain:
+      summary: duplicate_client_domain
+      value:
+        code: duplicate_client_domain
+        http_status_code: 403
+        message: The client domain already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_duplicate:
+      summary: cname_target_duplicate
+      value:
+        code: cname_target_duplicate
+        http_status_code: 400
+        message: The CNAME target is being used by another program
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_absolute_name_missing:
+      summary: campaign_component_absolute_name_missing
+      value:
+        code: campaign_component_absolute_name_missing
+        http_status_code: 400
+        message: Campaign component absolute name is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_invalid:
+      summary: cname_target_invalid
+      value:
+        code: cname_target_invalid
+        http_status_code: 400
+        message: Invalid CNAME target domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  schemas:
+    ClientDomainPatternCreateRequest:
+      description: Body of a `POST /v1/client-domain-patterns` request.
+      properties:
+        client_domain_id:
+          type: string
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        pattern:
+          $ref: '#/components/schemas/PatternInClientDomainPatternCreateRequest'
+        test:
+          $ref: '#/components/schemas/TestInClientDomainPatternCreateRequest'
+        type:
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      required:
+      - pattern
+      type: object
+    TestInClientDomainPatternResponse:
+      description: Build-time expression that marks whether the pattern is used for test traffic only.
+      oneOf:
+      - description: Literal test
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{test}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ClientDomainCreateRequest:
+      description: Body of a `POST /v1/client-domains` request.
+      properties:
+        cname_target:
+          type: string
+        domain:
+          type: string
+        name:
+          type: string
+        proxy:
+          type: boolean
+        redirect_client_domain_id:
+          type: string
+        share_uri:
+          type: string
+        ssl_certificate:
+          type: string
+        ssl_certificate_chain:
+          type: string
+        ssl_generation_policy:
+          enum:
+          - DISABLED
+          - GENERATE
+          - GENERATE_FORCE
+          - PROVIDED
+          type: string
+        ssl_private_key:
+          type: string
+      required:
+      - cname_target
+      - domain
+      - name
+      - proxy
+      - redirect_client_domain_id
+      - share_uri
+      - ssl_certificate
+      - ssl_certificate_chain
+      - ssl_generation_policy
+      - ssl_private_key
+      type: object
+    PatternInClientDomainPatternResponse:
+      description: Build-time expression that resolves to the domain pattern used for matching.
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Literal pattern
+        title: Static Value
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{pattern}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ClientDomainPatternResponse:
+      description: Client domain pattern source definition with build-time expressions and component references.
+      properties:
+        client_domain_id:
+          description: Optional program domain identifier associated with this pattern.
+          type: string
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceResponse'
+          type: array
+        id:
+          description: Unique identifier for the client domain pattern.
+          readOnly: true
+          type: string
+        pattern:
+          $ref: '#/components/schemas/PatternInClientDomainPatternResponse'
+        test:
+          $ref: '#/components/schemas/TestInClientDomainPatternResponse'
+        type:
+          description: Pattern matching type that controls how the pattern is interpreted.
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      required:
+      - client_domain_id
+      - component_ids
+      - component_references
+      - id
+      - pattern
+      - test
+      - type
+      type: object
+    ClientDomainPatternUpdateRequest:
+      description: Body of a `PUT /v1/client-domain-patterns/{id}` request.
+      properties:
+        client_domain_id:
+          nullable: true
+          type: object
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        pattern:
+          $ref: '#/components/schemas/PatternInClientDomainPatternUpdateRequest'
+        test:
+          $ref: '#/components/schemas/TestInClientDomainPatternUpdateRequest'
+        type:
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      type: object
+    ClientDomainResponse:
+      properties:
+        cname_target:
+          type: string
+        domain:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        is_extole_domain:
+          type: boolean
+        name:
+          type: string
+        proxy:
+          type: boolean
+        redirect_client_domain_id:
+          type: string
+        secure:
+          type: boolean
+        share_uri:
+          type: string
+        site_patterns:
+          items:
+            $ref: '#/components/schemas/ClientDomainGlobPatternResponse'
+          type: array
+        ssl_certificate:
+          type: string
+        ssl_certificate_chain:
+          type: string
+        ssl_generation_policy:
+          enum:
+          - DISABLED
+          - GENERATE
+          - GENERATE_FORCE
+          - PROVIDED
+          type: string
+        ssl_private_key:
+          type: string
+      required:
+      - cname_target
+      - domain
+      - id
+      - is_extole_domain
+      - name
+      - proxy
+      - redirect_client_domain_id
+      - secure
+      - share_uri
+      - site_patterns
+      - ssl_certificate
+      - ssl_certificate_chain
+      - ssl_generation_policy
+      - ssl_private_key
+      type: object
+    ClientDomainGlobPatternResponse:
+      properties:
+        pattern:
+          type: string
+        regex:
+          type: string
+        type:
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      type: object
+    BuiltClientDomainPatternResponse:
+      description: Built client domain pattern with evaluated runtime values used for domain matching.
+      properties:
+        client_domain_id:
+          description: Optional program domain identifier associated with this pattern.
+          type: string
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceResponse'
+          type: array
+        id:
+          description: Unique identifier for the client domain pattern.
+          readOnly: true
+          type: string
+        pattern:
+          description: Evaluated domain pattern used by runtime matching.
+          type: string
+        test:
+          description: Whether the built pattern is used for test traffic only.
+          type: boolean
+        type:
+          description: Pattern matching type that controls how the pattern is interpreted.
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      required:
+      - client_domain_id
+      - component_ids
+      - component_references
+      - id
+      - pattern
+      - test
+      - type
+      type: object
+    PatternInClientDomainPatternCreateRequest:
+      description: Choose between static or dynamic pattern
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static pattern
+        title: Static Value
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{pattern}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    TestInClientDomainPatternUpdateRequest:
+      description: Choose between static or dynamic test
+      oneOf:
+      - description: Static test
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{test}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    ComponentReferenceResponse:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    PatternInClientDomainPatternUpdateRequest:
+      description: Choose between static or dynamic pattern
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static pattern
+        title: Static Value
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{pattern}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ComponentReferenceRequest:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    ClientDomainDomainValidationResponse:
+      properties:
+        canonical_name:
+          type: string
+        client_domain:
+          type: string
+        domain_validation_status:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+      required:
+      - canonical_name
+      - client_domain
+      - domain_validation_status
+      type: object
+    ClientDomainUpdateRequest:
+      description: Body of a `PUT /v1/client-domains/{client_domain_id}` request.
+      properties:
+        cname_target:
+          type: string
+        name:
+          type: string
+        proxy:
+          type: boolean
+        redirect_client_domain_id:
+          nullable: true
+          type: string
+        ssl_certificate:
+          type: string
+        ssl_certificate_chain:
+          type: string
+        ssl_generation_policy:
+          enum:
+          - DISABLED
+          - GENERATE
+          - GENERATE_FORCE
+          - PROVIDED
+          type: string
+        ssl_private_key:
+          type: string
+      type: object
+    TestInClientDomainPatternCreateRequest:
+      description: Choose between static or dynamic test
+      oneOf:
+      - description: Static test
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{test}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

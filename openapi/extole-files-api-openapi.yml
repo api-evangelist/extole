@@ -1,0 +1,1018 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Files API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Files
+paths:
+  /v6/files:
+    get:
+      description: Returns a paginated list of file assets for the authenticated client. Filter by `name`, `statuses`, `tags`, or `user_id`. Results are ordered by creation date descending. Default page size is 100.
+      operationId: listFiles
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: user_id
+        schema:
+          type: string
+      - in: query
+        name: tags
+        schema:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      - in: query
+        name: statuses
+        schema:
+          items:
+            enum:
+            - AVAILABLE
+            - EXPIRED
+            type: string
+          type: array
+          uniqueItems: true
+      - in: query
+        name: limit
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: List of file assets matching the filter criteria.
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List file assets
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+    post:
+      description: 'Uploads a file and creates a file asset record. The request is a multipart/form-data body containing the file content and optional metadata (name, tags, format). Supported formats: `CSV`, `PSV`, `JSON`, `JSONL`, `XLSX`. Once uploaded, the file asset can be used as the `data_source` of a batch job via `POST /v6/batches`. The file enters `AVAILABLE` status on successful upload; use `POST /v6/files/{fileId}/expire` to release it when no longer needed.'
+      operationId: createFile
+      requestBody:
+        content:
+          multipart/form-data:
+            example:
+              fileAssetMetadata:
+                format: format
+                name: name
+                tags:
+                - tag
+              fileInputStreamRequest:
+                attributes:
+                  fileName: fileName
+                  size: 1
+                inputStream: {}
+            schema:
+              $ref: '#/components/schemas/FileAssetRequest'
+      responses:
+        '200':
+          description: 'File asset created. Returns the new file asset record with `status: AVAILABLE`.'
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                decryption_error:
+                  $ref: '#/components/examples/decryption_error'
+                file_asset_download_error:
+                  $ref: '#/components/examples/file_asset_download_error'
+                file_asset_duplicated_name:
+                  $ref: '#/components/examples/file_asset_duplicated_name'
+                file_asset_file_processing_error:
+                  $ref: '#/components/examples/file_asset_file_processing_error'
+                file_asset_input_file_missing:
+                  $ref: '#/components/examples/file_asset_input_file_missing'
+                file_asset_invalid_name:
+                  $ref: '#/components/examples/file_asset_invalid_name'
+                file_asset_invalid_tags:
+                  $ref: '#/components/examples/file_asset_invalid_tags'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_extole_public_key:
+                  $ref: '#/components/examples/missing_extole_public_key'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: 'Validation error. Check the `code` field — common causes: unsupported file format, file content failed encryption validation, or metadata constraint violation (e.g. name exceeds 255 characters).'
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Upload a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+  /v6/files/{fileId}:
+    get:
+      description: Returns the metadata record for a single file asset, including `status`, `review_status`, `size`, `format`, and `tags`. To retrieve the file content, use `GET /v6/files/{fileId}/download`.
+      operationId: getFile
+      parameters:
+      - description: File asset ID.
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File asset record.
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                file_asset_not_found:
+                  $ref: '#/components/examples/file_asset_not_found'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '404':
+          description: File asset not found or does not belong to this client.
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+    put:
+      description: 'Updates the mutable metadata of an existing file asset: `name` and `tags`. File content is immutable after upload. The file asset must be in `AVAILABLE` status; expired file assets cannot be updated.'
+      operationId: updateFile
+      parameters:
+      - description: File asset ID.
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: name
+              tags:
+              - tag
+            schema:
+              $ref: '#/components/schemas/FileAssetUpdateRequest'
+      responses:
+        '200':
+          description: File asset updated. Returns the full updated file asset record.
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                file_asset_download_error:
+                  $ref: '#/components/examples/file_asset_download_error'
+                file_asset_duplicated_name:
+                  $ref: '#/components/examples/file_asset_duplicated_name'
+                file_asset_file_processing_error:
+                  $ref: '#/components/examples/file_asset_file_processing_error'
+                file_asset_input_file_missing:
+                  $ref: '#/components/examples/file_asset_input_file_missing'
+                file_asset_invalid_name:
+                  $ref: '#/components/examples/file_asset_invalid_name'
+                file_asset_invalid_tags:
+                  $ref: '#/components/examples/file_asset_invalid_tags'
+                file_asset_not_found:
+                  $ref: '#/components/examples/file_asset_not_found'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_null:
+                  $ref: '#/components/examples/invalid_null'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Invalid field value or omissible constraint violation.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '404':
+          description: File asset not found or does not belong to this client.
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Update a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+    delete:
+      description: Permanently deletes a file asset record and releases its stored content. This action is irreversible. Batch jobs that have already ingested this file asset are not affected.
+      operationId: deleteFile
+      parameters:
+      - description: File asset ID.
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File asset deleted. Returns the final record at the time of deletion.
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                file_asset_not_found:
+                  $ref: '#/components/examples/file_asset_not_found'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '404':
+          description: File asset not found or does not belong to this client.
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Delete a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+  /v6/files/{fileId}/download:
+    get:
+      description: Downloads the raw content of a file asset. The response body contains the file content in its original format (CSV, PSV, or JSON). Use the `limit` and `offset` parameters to paginate large files. Returns a 404 if the file asset has expired.
+      operationId: downloadFile
+      parameters:
+      - description: File asset ID.
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of rows to return.
+        in: query
+        name: limit
+        schema:
+          type: string
+      - description: Number of rows to skip before returning results.
+        in: query
+        name: offset
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File content stream. The `Content-Type` reflects the file format.
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                file_asset_expired:
+                  $ref: '#/components/examples/file_asset_expired'
+                file_asset_not_found:
+                  $ref: '#/components/examples/file_asset_not_found'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_limit:
+                  $ref: '#/components/examples/invalid_limit'
+                invalid_offset:
+                  $ref: '#/components/examples/invalid_offset'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                max_fetch_size_1000:
+                  $ref: '#/components/examples/max_fetch_size_1000'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '404':
+          description: File asset not found, does not belong to this client, or has expired.
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Download a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+  /v6/files/{fileId}/expire:
+    post:
+      description: Marks a file asset as expired, releasing the stored file content. Expired file assets remain queryable but cannot be used as a batch job data source. Any batch jobs already referencing this file asset are not affected if they have already started processing.
+      operationId: expireFile
+      parameters:
+      - description: File asset ID.
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'File asset expired. Returns the updated record with `status: EXPIRED`.'
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                file_asset_not_found:
+                  $ref: '#/components/examples/file_asset_not_found'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Missing or invalid access token.
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '404':
+          description: File asset not found or does not belong to this client.
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Expire a file asset
+      tags:
+      - Files
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+components:
+  examples:
+    file_asset_not_found:
+      summary: file_asset_not_found
+      value:
+        code: file_asset_not_found
+        http_status_code: 400
+        message: File Asset not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_expired:
+      summary: file_asset_expired
+      value:
+        code: file_asset_expired
+        http_status_code: 400
+        message: File Asset is expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    decryption_error:
+      summary: decryption_error
+      value:
+        code: decryption_error
+        http_status_code: 400
+        message: Could not decrypt file
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_offset:
+      summary: invalid_offset
+      value:
+        code: invalid_offset
+        http_status_code: 400
+        message: Offset should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_invalid_tags:
+      summary: file_asset_invalid_tags
+      value:
+        code: file_asset_invalid_tags
+        http_status_code: 400
+        message: Tags cannot be null, empty or longer than 255 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_input_file_missing:
+      summary: file_asset_input_file_missing
+      value:
+        code: file_asset_input_file_missing
+        http_status_code: 400
+        message: Input file is mandatory
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_file_processing_error:
+      summary: file_asset_file_processing_error
+      value:
+        code: file_asset_file_processing_error
+        http_status_code: 400
+        message: Failed to process uploaded file
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_duplicated_name:
+      summary: file_asset_duplicated_name
+      value:
+        code: file_asset_duplicated_name
+        http_status_code: 400
+        message: Duplicated file asset name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_limit:
+      summary: invalid_limit
+      value:
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_invalid_name:
+      summary: file_asset_invalid_name
+      value:
+        code: file_asset_invalid_name
+        http_status_code: 400
+        message: Name max length is 255 and should contain only alphanumeric characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_extole_public_key:
+      summary: missing_extole_public_key
+      value:
+        code: missing_extole_public_key
+        http_status_code: 400
+        message: Cannot decrypt file as extole public key is not created
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_download_error:
+      summary: file_asset_download_error
+      value:
+        code: file_asset_download_error
+        http_status_code: 400
+        message: File Asset can't be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
+      value:
+        code: max_fetch_size_1000
+        http_status_code: 400
+        message: Maximum allowed difference between limit and offset should be 1000
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  schemas:
+    FileAssetUpdateRequest:
+      description: Body of a `PUT /v6/files/{fileId}` request.
+      properties:
+        name:
+          description: Updated human-readable name for the file asset. Max length 255. Omit to leave unchanged.
+          type: string
+        tags:
+          description: Updated string labels. Replaces the existing tag set. Each tag max length 255. Omit to leave unchanged.
+          items:
+            description: Updated string labels. Replaces the existing tag set. Each tag max length 255. Omit to leave unchanged.
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+    FileInputStreamRequest:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileAttributes'
+        inputStream:
+          type: object
+      required:
+      - attributes
+      - inputStream
+      type: object
+    FileAssetRequest:
+      properties:
+        fileAssetMetadata:
+          $ref: '#/components/schemas/FileAssetMetadata'
+        fileInputStreamRequest:
+          $ref: '#/components/schemas/FileInputStreamRequest'
+      required:
+      - fileAssetMetadata
+      - fileInputStreamRequest
+      type: object
+    FileAssetMetadata:
+      properties:
+        format:
+          description: 'Declared file format. Common values: `CSV`, `PSV`, `JSON`, `JSONL`, `XLSX`. When omitted, the format is inferred from the file extension or content.'
+          type: string
+        name:
+          description: Human-readable name for the file asset. Max length 255. Defaults to the uploaded filename if omitted.
+          type: string
+        tags:
+          description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
+          items:
+            description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+    FileAttributes:
+      properties:
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

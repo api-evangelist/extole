@@ -1,0 +1,1400 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Email API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Email
+paths:
+  /api/v4/me/email/status/{polling_id}:
+    get:
+      deprecated: true
+      description: Deprecated. Returns the processing status for a prior `POST /api/v4/me/email` call identified by `polling_id`. Poll until the send reaches a terminal state.
+      operationId: getSendEmailStatus
+      parameters:
+      - in: path
+        name: polling_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailPollingResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get email send status
+      tags:
+      - Email
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+  /api/v4/me/email:
+    post:
+      deprecated: true
+      description: Deprecated. Sends an email on behalf of the authenticated consumer and returns a `polling_id` for status polling. Prefer event-based email flows where available.
+      operationId: sendEmail
+      requestBody:
+        content:
+          application/json:
+            example:
+              data:
+                data_key: data_key
+              zone_name: zone_name
+            schema:
+              $ref: '#/components/schemas/SendEmailRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                invalid_zone_name:
+                  $ref: '#/components/examples/invalid_zone_name'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+                missing_campaign_id:
+                  $ref: '#/components/examples/missing_campaign_id'
+                missing_zone_name:
+                  $ref: '#/components/examples/missing_zone_name'
+                profile_not_set:
+                  $ref: '#/components/examples/profile_not_set'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Send an email as the authenticated consumer
+      tags:
+      - Email
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+  /v4/email-domains/{emailDomainId}/generate-dkim-records:
+    post:
+      description: Generates new DKIM DNS records for the custom sending domain. Returns the records that must be added to DNS to enable DKIM signing.
+      operationId: generateEmailDomainDkimRecords
+      parameters:
+      - in: path
+        name: emailDomainId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DkimRecordsResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                dkim_generation_failed:
+                  $ref: '#/components/examples/dkim_generation_failed'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Generate DKIM records
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: expert
+  /v4/email/validate:
+    post:
+      description: Checks whether the supplied email address is syntactically valid and acceptable for use in Extole programs. Returns validation status without creating or updating a consumer identity.
+      operationId: validateEmail
+      requestBody:
+        content:
+          application/json:
+            example:
+              email: email
+            schema:
+              $ref: '#/components/schemas/EmailProviderValidationRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailProviderValidationResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                invalid_domain:
+                  $ref: '#/components/examples/invalid_domain'
+                invalid_email:
+                  $ref: '#/components/examples/invalid_email'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Validate an email address
+      tags:
+      - Email
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: expert
+  /v4/email-domains:
+    get:
+      description: Returns all custom sending domains configured for the client.
+      operationId: listEmailDomains
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/EmailDomainResponse'
+                type: array
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List email domains
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    post:
+      description: Creates a new custom sending domain for campaign emails. DNS verification records are generated for the domain. Returns the created domain with its server-assigned id.
+      operationId: createEmailDomain
+      requestBody:
+        content:
+          application/json:
+            example:
+              dkim_cname_records:
+              - alias: alias
+                canonical_name: canonical_name
+              domain: domain
+              force_send_from_email_domain: true
+            schema:
+              $ref: '#/components/schemas/EmailDomainCreateRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                duplicate_cname_alias:
+                  $ref: '#/components/examples/duplicate_cname_alias'
+                duplicate_email_domain:
+                  $ref: '#/components/examples/duplicate_email_domain'
+                invalid_alias:
+                  $ref: '#/components/examples/invalid_alias'
+                invalid_canonical_name:
+                  $ref: '#/components/examples/invalid_canonical_name'
+                invalid_domain:
+                  $ref: '#/components/examples/invalid_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                missing_required_field:
+                  $ref: '#/components/examples/missing_required_field'
+                required_domain_name:
+                  $ref: '#/components/examples/required_domain_name'
+                too_long_cname_record_field:
+                  $ref: '#/components/examples/too_long_cname_record_field'
+                too_long_email_domain_field:
+                  $ref: '#/components/examples/too_long_email_domain_field'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Create an email domain
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v4/email-domains/{emailDomainId}:
+    get:
+      description: Returns the custom sending domain for the specified id.
+      operationId: getEmailDomain
+      parameters:
+      - in: path
+        name: emailDomainId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                dkim_generation_failed:
+                  $ref: '#/components/examples/dkim_generation_failed'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get an email domain
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    put:
+      description: Updates the custom sending domain. Only fields present in the request body are changed. Returns the updated domain.
+      operationId: updateEmailDomain
+      parameters:
+      - in: path
+        name: emailDomainId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              dkim_cname_records:
+              - alias: alias
+                canonical_name: canonical_name
+              domain: domain
+              force_send_from_email_domain: true
+            schema:
+              $ref: '#/components/schemas/EmailDomainUpdateRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                dkim_generation_failed:
+                  $ref: '#/components/examples/dkim_generation_failed'
+                duplicate_cname_alias:
+                  $ref: '#/components/examples/duplicate_cname_alias'
+                duplicate_email_domain:
+                  $ref: '#/components/examples/duplicate_email_domain'
+                invalid_alias:
+                  $ref: '#/components/examples/invalid_alias'
+                invalid_canonical_name:
+                  $ref: '#/components/examples/invalid_canonical_name'
+                invalid_domain:
+                  $ref: '#/components/examples/invalid_domain'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+                missing_required_field:
+                  $ref: '#/components/examples/missing_required_field'
+                required_domain_name:
+                  $ref: '#/components/examples/required_domain_name'
+                too_long_cname_record_field:
+                  $ref: '#/components/examples/too_long_cname_record_field'
+                too_long_email_domain_field:
+                  $ref: '#/components/examples/too_long_email_domain_field'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Update an email domain
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+    delete:
+      description: Removes the custom sending domain. Returns the deleted domain.
+      operationId: deleteEmailDomain
+      parameters:
+      - in: path
+        name: emailDomainId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                dkim_generation_failed:
+                  $ref: '#/components/examples/dkim_generation_failed'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Delete an email domain
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+  /v4/email-domains/{emailDomainId}/validate:
+    get:
+      description: Checks DNS records for the custom sending domain to confirm verification status. Returns the current validation result without making changes.
+      operationId: validateEmailDomain
+      parameters:
+      - in: path
+        name: emailDomainId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainValidationResponse'
+          description: Successful response
+        '400':
+          content:
+            application/json:
+              examples:
+                binding_error:
+                  $ref: '#/components/examples/binding_error'
+                dkim_generation_failed:
+                  $ref: '#/components/examples/dkim_generation_failed'
+                invalid_json:
+                  $ref: '#/components/examples/invalid_json'
+                invalid_parameter:
+                  $ref: '#/components/examples/invalid_parameter'
+                missing_request_body:
+                  $ref: '#/components/examples/missing_request_body'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Validate an email domain
+      tags:
+      - Email
+      x-extole-bundle: management
+      x-extole-visibility: visible
+components:
+  examples:
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_zone_name:
+      summary: invalid_zone_name
+      value:
+        code: invalid_zone_name
+        http_status_code: 403
+        message: Invalid zone name (not an EMAIL zone)
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_alias:
+      summary: invalid_alias
+      value:
+        code: invalid_alias
+        http_status_code: 400
+        message: Invalid alias
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    required_domain_name:
+      summary: required_domain_name
+      value:
+        code: required_domain_name
+        http_status_code: 400
+        message: Required domain name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_email_domain:
+      summary: duplicate_email_domain
+      value:
+        code: duplicate_email_domain
+        http_status_code: 400
+        message: Duplicate email domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_canonical_name:
+      summary: invalid_canonical_name
+      value:
+        code: invalid_canonical_name
+        http_status_code: 400
+        message: Invalid canonical name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_long_cname_record_field:
+      summary: too_long_cname_record_field
+      value:
+        code: too_long_cname_record_field
+        http_status_code: 400
+        message: CnameRecord to long field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_long_email_domain_field:
+      summary: too_long_email_domain_field
+      value:
+        code: too_long_email_domain_field
+        http_status_code: 400
+        message: Email domain too long field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    profile_not_set:
+      summary: profile_not_set
+      value:
+        code: profile_not_set
+        http_status_code: 403
+        message: Profile must have an associated email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_campaign_id:
+      summary: missing_campaign_id
+      value:
+        code: missing_campaign_id
+        http_status_code: 403
+        message: Campaign must be provided
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_cname_alias:
+      summary: duplicate_cname_alias
+      value:
+        code: duplicate_cname_alias
+        http_status_code: 400
+        message: Duplicate cname alias
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_required_field:
+      summary: missing_required_field
+      value:
+        code: missing_required_field
+        http_status_code: 400
+        message: Missing required field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_email:
+      summary: invalid_email
+      value:
+        code: invalid_email
+        http_status_code: 400
+        message: Invalid email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    dkim_generation_failed:
+      summary: dkim_generation_failed
+      value:
+        code: dkim_generation_failed
+        http_status_code: 400
+        message: DKIM generation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_domain:
+      summary: invalid_domain
+      value:
+        code: invalid_domain
+        http_status_code: 400
+        message: Invalid domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  schemas:
+    EmailDomainCreateRequest:
+      description: Body of a `POST /v4/email-domains` request.
+      properties:
+        dkim_cname_records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+        domain:
+          type: string
+        force_send_from_email_domain:
+          type: boolean
+      required:
+      - domain
+      type: object
+    DkimRecordsResponse:
+      properties:
+        records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+      required:
+      - records
+      type: object
+    SendEmailError:
+      nullable: true
+      properties:
+        code:
+          type: string
+        http_status_code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        parameters:
+          additionalProperties:
+            type: object
+          type: object
+        unique_id:
+          type: string
+      type: object
+    EmailProviderValidationRequest:
+      properties:
+        email:
+          type: string
+      required:
+      - email
+      type: object
+    DnsRecordVerificationResponse:
+      properties:
+        domain_validation_status:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+        reason:
+          type: string
+        record:
+          type: string
+      type: object
+    SendEmailRequest:
+      properties:
+        data:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        zone_name:
+          type: string
+      required:
+      - data
+      - zone_name
+      type: object
+    EmailDomainValidationResponse:
+      properties:
+        a:
+          $ref: '#/components/schemas/DnsRecordVerificationResponse'
+        dkim:
+          items:
+            $ref: '#/components/schemas/DnsRecordVerificationResponse'
+          type: array
+        dmarc:
+          $ref: '#/components/schemas/DnsRecordVerificationResponse'
+        domain_validation_status:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+        email_domain:
+          type: string
+        mx:
+          $ref: '#/components/schemas/DnsRecordVerificationResponse'
+        spf:
+          $ref: '#/components/schemas/DnsRecordVerificationResponse'
+      required:
+      - a
+      - dkim
+      - dmarc
+      - domain_validation_status
+      - email_domain
+      - mx
+      - spf
+      type: object
+    EmailProviderValidationResponse:
+      properties:
+        email:
+          type: string
+        provider:
+          enum:
+          - GMAIL
+          - OTHER
+          - OUTLOOK
+          - YAHOO
+          type: string
+      required:
+      - email
+      - provider
+      type: object
+    SendEmailResponse:
+      properties:
+        polling_id:
+          type: string
+      required:
+      - polling_id
+      type: object
+    SendEmailPollingResponse:
+      properties:
+        action_id:
+          nullable: true
+          type: string
+        email_id:
+          nullable: true
+          type: string
+        error:
+          $ref: '#/components/schemas/SendEmailError'
+        polling_id:
+          type: string
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - action_id
+      - email_id
+      - error
+      - polling_id
+      - status
+      type: object
+    EmailDomainResponse:
+      properties:
+        dkim_cname_records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+        domain:
+          type: string
+        force_send_from_email_domain:
+          type: boolean
+        id:
+          readOnly: true
+          type: string
+      required:
+      - dkim_cname_records
+      - domain
+      - force_send_from_email_domain
+      - id
+      type: object
+    EmailDomainUpdateRequest:
+      description: Body of a `PUT /v4/email-domains/{emailDomainId}` request.
+      properties:
+        dkim_cname_records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+        domain:
+          type: string
+        force_send_from_email_domain:
+          type: boolean
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    CnameRecord:
+      properties:
+        alias:
+          type: string
+        canonical_name:
+          type: string
+      type: object
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

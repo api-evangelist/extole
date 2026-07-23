@@ -1,0 +1,553 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Profile Assets API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Profile Assets
+paths:
+  /api/v4/persons/{personId}/assets:
+    get:
+      description: Returns all assets attached to the person profile identified by `personId`. Assets are binary or text files associated with a program participant — for example, wallet passes, QR codes, or uploaded images. Use `getPersonAsset` to fetch a single asset's metadata, or `downloadPersonAsset` to retrieve its content.
+      operationId: listPersonAssets
+      parameters:
+      - description: The Extole unique profile identifier of this user at Extole.
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PersonAssetResponse'
+                type: array
+          description: Assets attached to the person.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalid_person_id:
+                  $ref: '#/components/examples/invalid_person_id'
+                person_not_found:
+                  $ref: '#/components/examples/person_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: 'Person lookup failed: `invalid_person_id` if the supplied `personId` is not a valid Extole identifier, or `person_not_found` if no person with that id exists.'
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: List assets for a person
+      tags:
+      - Profile Assets
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+  /api/v4/persons/{personId}/assets/download:
+    get:
+      description: Streams the binary or text content of the asset matching the `name` query parameter for the person identified by `personId`. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise. Use the id variant (`downloadPersonAsset`) when you have the asset id.
+      operationId: downloadPersonAssetByName
+      parameters:
+      - description: The Extole unique profile identifier of this user at Extole.
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: Name of the asset to download.
+        in: query
+        name: name
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Binary asset content stream with the asset's stored content type.
+        '302':
+          description: Redirect to remote asset content.
+        '400':
+          content:
+            application/json:
+              examples:
+                asset_content_not_downloadable:
+                  $ref: '#/components/examples/asset_content_not_downloadable'
+                asset_not_found:
+                  $ref: '#/components/examples/asset_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: 'Asset lookup or download failed: `asset_not_found` if no matching asset is attached to the person; `asset_content_not_downloadable` if the asset''s content cannot be streamed.'
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Download a person asset by name
+      tags:
+      - Profile Assets
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+  /api/v4/persons/{personId}/assets/{assetId}:
+    get:
+      description: Returns full metadata for the asset identified by `assetId` and owned by the person identified by `personId`. Metadata includes the asset type, name, content URL, MIME type, and creation timestamp. Use `downloadPersonAsset` to stream the asset content.
+      operationId: getPersonAsset
+      parameters:
+      - description: The Extole unique profile identifier of this user at Extole.
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: The Extole-assigned unique identifier of the asset.
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonAssetResponse'
+          description: Asset metadata.
+        '400':
+          content:
+            application/json:
+              examples:
+                asset_not_found:
+                  $ref: '#/components/examples/asset_not_found'
+                invalid_person_id:
+                  $ref: '#/components/examples/invalid_person_id'
+                person_not_found:
+                  $ref: '#/components/examples/person_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: 'Person or asset lookup failed: `invalid_person_id` if the supplied `personId` is not a valid Extole identifier; `person_not_found` if no person with that id exists; `asset_not_found` if no asset with the given `assetId` is attached to the person.'
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Get a person asset by ID
+      tags:
+      - Profile Assets
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+  /api/v4/persons/{personId}/assets/{assetId}/download:
+    get:
+      description: Streams the binary or text content of the asset identified by `assetId`. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise. Use the `name` variant (`downloadPersonAssetByName`) when you have the asset name but not the id.
+      operationId: downloadPersonAsset
+      parameters:
+      - description: The Extole unique profile identifier of this user at Extole.
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      - description: The Extole-assigned unique identifier of the asset.
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Binary asset content stream with the asset's stored content type.
+        '302':
+          description: Redirect to remote asset content.
+        '400':
+          content:
+            application/json:
+              examples:
+                asset_content_not_downloadable:
+                  $ref: '#/components/examples/asset_content_not_downloadable'
+                asset_not_found:
+                  $ref: '#/components/examples/asset_not_found'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: 'Asset lookup or download failed: `asset_not_found` if no matching asset is attached to the person; `asset_content_not_downloadable` if the asset''s content cannot be streamed.'
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                expired_access_token:
+                  $ref: '#/components/examples/expired_access_token'
+                invalid_access_token:
+                  $ref: '#/components/examples/invalid_access_token'
+                jwt_authentication_error:
+                  $ref: '#/components/examples/jwt_authentication_error'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Download a person asset by asset ID
+      tags:
+      - Profile Assets
+      x-extole-bundle: integration-consumer-to-extole
+      x-extole-visibility: visible
+components:
+  schemas:
+    PersonAssetResponse:
+      properties:
+        data_type:
+          enum:
+          - PRIVATE
+          - PUBLIC
+          type: string
+        filename:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+        status:
+          enum:
+          - APPROVED
+          - DENIED
+          - PENDING_REVIEW
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - data_type
+      - filename
+      - id
+      - mime_type
+      - name
+      - status
+      - tags
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+  examples:
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_not_found:
+      summary: asset_not_found
+      value:
+        code: asset_not_found
+        http_status_code: 400
+        message: Asset not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_found:
+      summary: person_not_found
+      value:
+        code: person_not_found
+        http_status_code: 403
+        message: Person not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_content_not_downloadable:
+      summary: asset_content_not_downloadable
+      value:
+        code: asset_content_not_downloadable
+        http_status_code: 400
+        message: Asset content could not be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_person_id:
+      summary: invalid_person_id
+      value:
+        code: invalid_person_id
+        http_status_code: 400
+        message: Invalid person_id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles

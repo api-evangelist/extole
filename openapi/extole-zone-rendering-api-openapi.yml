@@ -1,0 +1,443 @@
+openapi: 3.0.1
+info:
+  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
+  title: Integration API - Consumer to Extole Audiences Zone Rendering API
+  version: '1.0'
+servers:
+- description: Production
+  url: https://{brand}.extole.io
+  variables:
+    brand:
+      default: yourcompany
+      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+security:
+- HEADER: []
+- QUERY: []
+- COOKIE: []
+tags:
+- name: Zone Rendering
+paths:
+  /v5/zones/{zone_name}:
+    get:
+      description: Renders the named zone with no targeting data and returns its configured content. Useful for fetching static or anonymous zones from a server-rendered page or backend service. Identity (`email`, `partner_user_id`, `person_id`) and additional targeting fields are not accepted on this GET form - use `POST /v5/zones/{zone_name}` to pass them. Authenticated with a USER_SUPPORT scope access token.
+      operationId: fetchZone
+      parameters:
+      - in: path
+        name: zone_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'Rendered zone content. The response body shape varies by the zone''s creative configuration: HTML, JavaScript, JSON, or plain text. `X-Extole-*` response headers carry the matched campaign, frontend controller, creative, creative version, and input event identifiers, plus optional debug logs (`X-Extole-Log`).'
+        '400':
+          content:
+            application/json:
+              examples:
+                invalid_redirect:
+                  $ref: '#/components/examples/invalid_redirect'
+                no_creative:
+                  $ref: '#/components/examples/no_creative'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad request. The named examples below cover this operation's specific validation errors. Other 400 causes include malformed JSON, an invalid `Time-Zone` header, and an empty request body - inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Fetch a rendered zone
+      tags:
+      - Zone Rendering
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+    post:
+      description: Renders the named zone, merging the request body's open data map into the targeting context. Recognised identity fields are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer. Returns the zone's configured content (HTML, JavaScript, JSON, or plain text) plus `X-Extole-*` headers describing the matched campaign, frontend controller, creative, and input event. If no identity is provided the zone renders against an anonymous profile - prefer supplying at least one identity field for known visitors. Authenticated with a USER_SUPPORT scope access token.
+      operationId: renderZoneV5
+      parameters:
+      - in: path
+        name: zone_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              value: {}
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+          application/x-www-form-urlencoded:
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+          multipart/form-data:
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+          text/plain:
+            schema:
+              additionalProperties:
+                type: object
+              type: object
+      responses:
+        '200':
+          description: 'Rendered zone content. The response body shape varies by the zone''s creative configuration: HTML, JavaScript, JSON, or plain text. `X-Extole-*` response headers carry the matched campaign, frontend controller, creative, creative version, and input event identifiers, plus optional debug logs (`X-Extole-Log`).'
+        '400':
+          content:
+            application/json:
+              examples:
+                invalid_time_format:
+                  $ref: '#/components/examples/invalid_time_format'
+                no_creative:
+                  $ref: '#/components/examples/no_creative'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad request. The named examples below cover this operation's specific validation errors. Other 400 causes include malformed JSON, an invalid `Time-Zone` header, and an empty request body - inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Render a zone with targeting data
+      tags:
+      - Zone Rendering
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+  /v5/zones:
+    post:
+      description: Renders a zone using a request body that carries both the zone name and the targeting data. Functionally equivalent to `POST /v5/zones/{zone_name}`; the path-based form is the recommended primary entry point. Use this form when the calling code constructs the full request payload upstream and prefers a single body shape. Returns the zone's configured content (HTML, JavaScript, JSON, or plain text) plus `X-Extole-*` headers describing the matched campaign and creative. Authenticated with a USER_SUPPORT scope access token.
+      operationId: renderZoneFromRequest
+      requestBody:
+        content:
+          application/json:
+            example:
+              data:
+                data_key: {}
+              zone_name: global_header
+            schema:
+              $ref: '#/components/schemas/ClientRenderZoneRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClientRenderZoneRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClientRenderZoneRequest'
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/ClientRenderZoneRequest'
+      responses:
+        '200':
+          description: 'Rendered zone content. The response body shape varies by the zone''s creative configuration: HTML, JavaScript, JSON, or plain text. `X-Extole-*` response headers carry the matched campaign, frontend controller, creative, creative version, and input event identifiers, plus optional debug logs (`X-Extole-Log`).'
+        '400':
+          content:
+            application/json:
+              examples:
+                invalid_time_format:
+                  $ref: '#/components/examples/invalid_time_format'
+                missing_zone_name:
+                  $ref: '#/components/examples/missing_zone_name'
+                no_creative:
+                  $ref: '#/components/examples/no_creative'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Bad request. The named examples below cover this operation's specific validation errors. Other 400 causes include malformed JSON, an invalid `Time-Zone` header, and an empty request body - inspect the response `code` field for the specific error.
+        '401':
+          content:
+            application/json:
+              examples:
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              examples:
+                payment_required:
+                  $ref: '#/components/examples/payment_required'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Payment Required
+        '403':
+          content:
+            application/json:
+              examples:
+                access_denied:
+                  $ref: '#/components/examples/access_denied'
+                method_unauthorized:
+                  $ref: '#/components/examples/method_unauthorized'
+                missing_access_token:
+                  $ref: '#/components/examples/missing_access_token'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Forbidden
+        '415':
+          content:
+            application/json:
+              examples:
+                unsupported_media_type:
+                  $ref: '#/components/examples/unsupported_media_type'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Unsupported Media Type
+        '429':
+          content:
+            application/json:
+              examples:
+                too_many_requests:
+                  $ref: '#/components/examples/too_many_requests'
+              schema:
+                $ref: '#/components/schemas/RestExceptionResponse'
+          description: Too Many Requests
+      summary: Render a zone with the name in the body
+      tags:
+      - Zone Rendering
+      x-extole-bundle: integration-server-to-extole
+      x-extole-visibility: visible
+components:
+  schemas:
+    ClientRenderZoneRequest:
+      description: Request body for `POST /v5/zones`. Carries both the zone name to render and an open data map of identity and targeting fields.
+      properties:
+        data:
+          additionalProperties:
+            description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+            type: object
+          description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+          type: object
+        zone_name:
+          description: Name of the zone to render. Must match a zone configured on the client account.
+          example: global_header
+          type: string
+      required:
+      - data
+      - zone_name
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+  examples:
+    invalid_time_format:
+      summary: invalid_time_format
+      value:
+        code: invalid_time_format
+        http_status_code: 400
+        message: 'Invalid time format. Expected: ISO8601 format'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_redirect:
+      summary: invalid_redirect
+      value:
+        code: invalid_redirect
+        http_status_code: 400
+        message: Invalid redirect
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_creative:
+      summary: no_creative
+      value:
+        code: no_creative
+        http_status_code: 400
+        message: No Configured creative.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    COOKIE:
+      in: cookie
+      name: extole_token
+      type: apiKey
+    HEADER:
+      in: header
+      name: Authorization
+      type: apiKey
+      x-bearer-format: bearer
+    QUERY:
+      in: query
+      name: access_token
+      type: apiKey
+x-tagGroups:
+- name: Integration API - Consumer to Extole
+  tags:
+  - Authentication
+  - Content
+  - Email
+  - Events
+  - Persons
+  - Profile Assets
+  - Profiles
