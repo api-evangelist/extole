@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: searched
+source: 'npm registry (publisher: extole) + github.com/extole'
+packages:
+- language: javascript
+  registry: npm
+  name: '@extole/cli'
+  url: https://www.npmjs.com/package/@extole/cli
+  install: npm install -g @extole/cli
+  official: true
+  kind: cli
+- language: javascript
+  registry: npm
+  name: '@extole/specification'
+  url: https://www.npmjs.com/package/@extole/specification
+  install: npm install @extole/specification
+  official: true
+  kind: openapi-and-postman
+- language: javascript
+  registry: npm
+  name: '@extole/react-native-sdk'
+  url: https://www.npmjs.com/package/@extole/react-native-sdk
+  install: npm install @extole/react-native-sdk
+  official: true
+  kind: sdk
+  repo: https://github.com/extole/react-native-sdk
+- language: swift
+  registry: github
+  name: extole/ios-sdk
+  url: https://github.com/extole/ios-sdk
+  official: true
+  kind: sdk
+- language: kotlin
+  registry: github
+  name: extole/android-sdk
+  url: https://github.com/extole/android-sdk
+  official: true
+  kind: sdk

@@ -1,0 +1,86 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/ 4xx-5xx responses across 4 Extole specs
+format: custom-json
+envelope:
+  fields:
+  - unique_id
+  - http_status_code
+  - code
+  - error_code
+  - message
+  - parameters
+  media_type: application/json
+  note: Extole returns a JSON error envelope (not RFC 9457 application/problem+json).
+problems:
+- status: 400
+  title: Bad Request
+  occurrences: 743
+  example_names:
+  - ADVOCATE_CODE_MISSING
+  - ADVOCATE_CODE_NOT_FOUND
+  - CHANNEL_MISSING
+  - EXISTING_LINK
+  - INVALID_IMAGE_URL
+  - INVALID_MESSAGE_LENGTH
+  remediation: Fix the request body/parameters per the returned error_code and parameters.
+- status: 401
+  title: Unauthorized
+  occurrences: 743
+  example_names:
+  - method_unauthorized
+  remediation: Provide a valid access token via the Authorization header, extole_token cookie, or access_token
+    query parameter.
+- status: 402
+  title: Payment Required
+  occurrences: 657
+  example_names:
+  - payment_required
+  remediation: Resolve the account/billing state before retrying.
+- status: 403
+  title: Forbidden
+  occurrences: 743
+  example_names:
+  - INVALID_MESSAGE_LENGTH
+  - INVALID_RECIPIENT_SIZE
+  - MESSAGE_MISSING
+  - NOT_FOUND
+  - SHAREABLE_NOT_FOUND
+  - SHARE_NOT_FOUND
+  remediation: The token lacks scope/role for this resource; use a token with sufficient access.
+- status: 404
+  title: Not Found
+  occurrences: 32
+  example_names:
+  - campaign_not_found
+  - extended_core_not_found
+  - report_runner_not_found
+  - report_type_not_found
+  remediation: Verify the resource id exists and has not been archived.
+- status: 415
+  title: Unsupported Media Type
+  occurrences: 743
+  example_names:
+  - unsupported_file_format
+  - unsupported_media_type
+  remediation: Send a supported Content-Type (application/json).
+- status: 423
+  title: Locked
+  occurrences: 5
+  example_names:
+  - batch_job_locked
+  remediation: The resource is locked; retry after it is released.
+- status: 429
+  title: Too Many Requests
+  occurrences: 743
+  example_names:
+  - too_many_requests
+  remediation: Rate limited; back off and retry after the indicated window.
+- status: 503
+  title: Service Unavailable
+  occurrences: 6
+  example_names:
+  - job_history_unavailable
+  - service_unavailable
+  - tango_service_unavailable
+  remediation: Service temporarily unavailable; retry with backoff.

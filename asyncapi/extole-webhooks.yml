@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/extole-management-openapi.json (Webhooks tag) + developers.extole.com
+spec_type: Webhooks
+note: Extole exposes webhook subscription management. No AsyncAPI document is published; this captures
+  the webhook management surface.
+management_api: https://api.extole.io
+docs: https://developers.extole.com/
+operations:
+- method: GET
+  path: /v6/webhooks
+  operationId: listWebhooks
+- method: POST
+  path: /v6/webhooks
+  operationId: createWebhook
+- method: GET
+  path: /v6/webhooks/{webhook_id}
+  operationId: getWebhook
+- method: PUT
+  path: /v6/webhooks/{webhook_id}
+  operationId: updateWebhook
+- method: DELETE
+  path: /v6/webhooks/{webhook_id}
+  operationId: archiveWebhook
+- method: GET
+  path: /v6/webhooks/built
+  operationId: listBuiltWebhooks
+- method: GET
+  path: /v6/webhooks/{webhook_id}/built
+  operationId: getBuiltWebhook

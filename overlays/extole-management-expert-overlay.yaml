@@ -1,0 +1,13 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Extole management-expert
+  version: 1.0.0
+extends: openapi/extole-management-expert-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-provider: extole
+    x-apievangelist-auth: apiKey (Authorization header / extole_token cookie / access_token
+      query)
+    x-apievangelist-pagination: offset-limit

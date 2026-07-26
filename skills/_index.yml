@@ -1,0 +1,29 @@
+generated: '2026-07-19'
+method: generated
+skills:
+- file: extole-refer-a-friend.md
+  name: Advocate share and referral flow
+  api: openapi/extole-integration-consumer-to-extole-openapi.json
+  operations:
+  - getMyProfile
+  - getMeShareables
+  - createMeShareable_2
+  - shareEvent
+  - getShares
+- file: extole-issue-reward.md
+  name: Server-side reward lookup and fulfillment
+  api: openapi/extole-integration-server-to-extole-openapi.json
+  operations:
+  - listRewards
+  - getReward
+  - getRewardStateSummary
+  - getRewardFulfillments
+- file: extole-manage-webhooks.md
+  name: Create and manage event webhooks
+  api: openapi/extole-management-openapi.json
+  operations:
+  - listWebhooks
+  - createWebhook
+  - getWebhook
+  - updateWebhook
+  - archiveWebhook

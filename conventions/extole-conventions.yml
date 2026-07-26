@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/ + docs (developers.extole.com)
+authentication:
+  style: apiKey token
+  locations:
+  - Authorization header (Bearer)
+  - extole_token cookie
+  - access_token query parameter
+  token_endpoint: POST https://api.extole.io/v4/token (client_id + client_secret -> access_token)
+  ref: authentication/extole-authentication.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header/parameter is declared in the OpenAPI specs.
+pagination:
+  style: offset-limit
+  params:
+  - offset
+  - limit
+  note: List endpoints page via offset and limit query parameters.
+versioning:
+  scheme: uri-path
+  versions_in_use:
+  - v1
+  - v2
+  - v3
+  - v4
+  - v5
+  - v6
+  - v7
+  note: Version is embedded in the path segment; multiple versions coexist across resources.
+error_envelope:
+  ref: errors/extole-problem-types.yml
+  media_type: application/json
+  fields:
+  - unique_id
+  - http_status_code
+  - code
+  - error_code
+  - message
+  - parameters
+rate_limiting:
+  signal: HTTP 429 on limit exceeded
+  note: 429 responses present across specs; no documented header budget captured.
+webhooks:
+  supported: true
+  management: /v6/webhooks CRUD (createWebhook/listWebhooks/getWebhook/updateWebhook/archiveWebhook)
+  ref: asyncapi/extole-webhooks.yml
+cross_links:
+  errors: errors/extole-problem-types.yml
+  lifecycle: lifecycle/extole-lifecycle.yml
+  authentication: authentication/extole-authentication.yml

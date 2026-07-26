@@ -1,0 +1,44 @@
+generated: '2026-07-19'
+method: searched
+source: developers.extole.com + status.extole.com
+versioning:
+  scheme: uri-path
+  versions_in_use:
+  - v1
+  - v2
+  - v3
+  - v4
+  - v5
+  - v6
+  - v7
+  docs: https://developers.extole.com/
+deprecation:
+  signals: operations flagged deprecated in the OpenAPI specs
+  deprecated_operation_count: 25
+status_page: https://status.extole.com/
+deprecated_operations:
+- openapi/extole-integration-consumer-to-extole-openapi.json#shareEventStatus
+- openapi/extole-integration-consumer-to-extole-openapi.json#getAdvocateRelationships
+- openapi/extole-integration-consumer-to-extole-openapi.json#getSendEmailStatus
+- openapi/extole-integration-consumer-to-extole-openapi.json#getFriends
+- openapi/extole-integration-consumer-to-extole-openapi.json#verificationEmailStatus
+- openapi/extole-integration-consumer-to-extole-openapi.json#getMeShareables
+- openapi/extole-integration-consumer-to-extole-openapi.json#createMeShareableV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#getMeShareableStatusV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#getMeShareable
+- openapi/extole-integration-consumer-to-extole-openapi.json#edit
+- openapi/extole-integration-consumer-to-extole-openapi.json#getPersonProfilePictureUrlV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#getPublicPersonV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#getShareablesV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#createShareable
+- openapi/extole-integration-consumer-to-extole-openapi.json#getStatus_3
+- openapi/extole-integration-consumer-to-extole-openapi.json#getShareableV4
+- openapi/extole-integration-consumer-to-extole-openapi.json#getPublicShares
+- openapi/extole-integration-consumer-to-extole-openapi.json#getPublicShare
+- openapi/extole-integration-consumer-to-extole-openapi.json#customShareStatus
+- openapi/extole-integration-consumer-to-extole-openapi.json#shareEvent
+- openapi/extole-integration-consumer-to-extole-openapi.json#sendEmail
+- openapi/extole-integration-consumer-to-extole-openapi.json#sendVerificationEmail
+- openapi/extole-integration-consumer-to-extole-openapi.json#customShare
+- openapi/extole-integration-consumer-to-extole-openapi.json#batchEmailShare
+- openapi/extole-management-expert-openapi.json#verifyJwtClientKey

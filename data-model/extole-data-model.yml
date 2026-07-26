@@ -1,0 +1,57 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/ tags + schemas (1400+ components)
+note: Top-level resource entities derived from OpenAPI tags across the server and management specs.
+entities:
+- Audiences
+- Authentication
+- Batch Jobs
+- Blocks
+- Campaigns
+- Components
+- Components Settings
+- Domains
+- Email
+- Erasure
+- Event Streams
+- Events
+- File Validation Monitors
+- Files
+- Optout
+- Persons
+- Profiles
+- Promotion Links
+- Report Schedules
+- Report Types
+- Reports
+- Reward Suppliers
+- Rewards
+- SFTP Servers
+- Security Keys
+- Settings
+- User Notifications
+- User Subscriptions
+- Users
+- Webhooks
+- Zone Rendering
+relationships:
+- from: Person
+  to: Reward
+  type: has_many
+  via: person_id
+- from: Reward
+  to: RewardSupplier
+  type: belongs_to
+  via: reward_supplier_id
+- from: Campaign
+  to: Program
+  type: belongs_to
+  via: program_id
+- from: Audience
+  to: Person
+  type: has_many
+  via: member ids
+- from: Webhook
+  to: Event
+  type: subscribes_to
+  via: event filter

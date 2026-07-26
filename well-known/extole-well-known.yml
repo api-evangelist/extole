@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: searched
+source: /.well-known/ probes across Extole hosts
+note: The only 200 well-known documents are served by the SafeBase-hosted trust center at security.extole.com
+  (issuer app.safebase.io), i.e. the trust portal MCP OAuth surface, NOT the Extole API. api.extole.io
+  and developers.extole.com return no well-known documents.
+hosts:
+- host: https://security.extole.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: extole-security-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: extole-security-oauth-authorization-server.json
+- host: https://api.extole.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://extole.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404

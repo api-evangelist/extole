@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: derived from Extole OpenAPI operations (no official hosted MCP server found)
+server:
+  name: extole
+  transport: http
+note: Candidate tool set curated from marquee Extole operations. security.extole.com exposes a SafeBase
+  trust-center MCP (app.safebase.io) which is NOT Extole first-party API access.
+tools:
+- name: list_rewards
+  description: List rewards
+  source_operation: openapi/extole-integration-server-to-extole-openapi.json#listRewards
+- name: get_reward
+  description: Get a reward
+  source_operation: openapi/extole-integration-server-to-extole-openapi.json#getReward
+- name: get_my_profile
+  description: Get the calling person profile
+  source_operation: openapi/extole-integration-consumer-to-extole-openapi.json#getMyProfile
+- name: list_audiences
+  description: List audiences
+  source_operation: openapi/extole-management-openapi.json#listAudiences
+- name: create_audience
+  description: Create an audience
+  source_operation: openapi/extole-management-openapi.json#createAudience
+- name: list_webhooks
+  description: List webhooks
+  source_operation: openapi/extole-management-openapi.json#listWebhooks
+- name: create_webhook
+  description: Create a webhook subscription
+  source_operation: openapi/extole-management-openapi.json#createWebhook

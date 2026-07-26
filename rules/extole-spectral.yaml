@@ -1,0 +1,100 @@
+extends:
+  - "spectral:oas"
+
+formats:
+  - oas3
+
+aliases:
+  AllOperations:
+    - "$.paths[*][get,put,post,delete,options,head,patch,trace]"
+
+rules:
+  operation-must-have-summary:
+    description: "Every operation must have a `summary` so renderers and SDKs have a one-line label for it."
+    message: "Operation `{{path}}` is missing a `summary`."
+    severity: warn
+    given: "#AllOperations"
+    then:
+      field: summary
+      function: truthy
+
+  operation-id-must-be-camelCase-and-not-bare:
+    description: |
+      `operationId` must be camelCase and must not be a bare HTTP-verb or
+      synonym (`get`, `list`, `create`, ...). Bare verbs collide across
+      resources and produce nonsense SDK methods.
+    message: "Operation `{{path}}` has an invalid `operationId`: must be camelCase and not a bare verb."
+    severity: error
+    given: "#AllOperations.operationId"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^(get|post|put|delete|patch|head|options|list|create|update|remove|add|find)$"
+
+  operation-id-must-be-camelCase:
+    description: "`operationId` must be camelCase."
+    message: "Operation `{{path}}` has a non-camelCase `operationId`."
+    severity: warn
+    given: "#AllOperations.operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  operation-must-have-real-tag:
+    description: |
+      Every operation must have at least one tag, and tags must be human-readable
+      labels - never raw URL paths like `/v1/audiences`.
+    message: "Operation `{{path}}` has no tag or has a URL-path tag."
+    severity: error
+    given: "#AllOperations"
+    then:
+      - field: tags
+        function: truthy
+      - field: "tags[*]"
+        function: pattern
+        functionOptions:
+          notMatch: "^/"
+
+  operation-tag-must-not-be-url-path:
+    description: "Operation tags must be semantic names, never URL paths."
+    message: "Operation `{{path}}` has a URL-path tag `{{value}}`; use a semantic tag name."
+    severity: error
+    given: "#AllOperations.tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^/"
+
+  operation-tag-must-not-contain-extention-typo:
+    description: "Prevent regressions of the `Extentions` typo in any rendered operation tag."
+    message: "Operation `{{path}}` has typo in tag `{{value}}`; use 'Extensions'."
+    severity: error
+    given: "#AllOperations.tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "[Ee]xtention"
+
+  every-property-must-have-description:
+    description: "Schema properties should have a `description` so the rendered docs and generated SDKs are readable."
+    message: "Schema property `{{property}}` is missing a `description`."
+    severity: warn
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy
+
+  error-response-must-not-be-megastring:
+    description: |
+      4xx/5xx responses must use the structured shape: a non-blank
+      `description` and a JSON content entry that references the
+      `RestExceptionResponse` schema. The legacy "code=..., message=..."
+      megastring description is no longer allowed.
+    message: "Error response `{{path}}` uses the legacy megastring description shape."
+    severity: error
+    given: "$.paths[*][get,put,post,delete,options,head,patch,trace].responses[?(@property.match(/^[45]/))].description"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^code="

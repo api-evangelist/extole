@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/ + security.extole.com trust center
+standards:
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme; token-based apiKey auth
+- id: api-key-auth
+  conforms: true
+  evidence: 'apiKey security schemes: Authorization header, extole_token cookie, access_token query'
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors returned as custom application/json envelope, not application/problem+json
+- id: pagination-offset-limit
+  conforms: true
+  evidence: offset/limit query parameters on list operations
+- id: openapi-3.0
+  conforms: true
+  evidence: 4 OpenAPI 3.0.1 documents published at github.com/extole/extole-specification
+- id: iso-27001
+  conforms: true
+  evidence: ISO/IEC 27001 certification published at security.extole.com
+- id: gdpr
+  conforms: true
+  evidence: GDPR compliance published at security.extole.com
