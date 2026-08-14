@@ -9,8 +9,10 @@ description: >-
   and event webhooks. Authentication is token-based (Authorization header, extole_token cookie, or
   access_token query parameter) against api.extole.io, with first-party SDKs (iOS, Android, React
   Native), a developer CLI, published Postman collections, and an ISO 27001 / GDPR trust center.
-  Surfaced originally as a Norwest Venture Partners portfolio lead and enriched from Extole's public
-  developer surface.
+  Extole also runs a first-party remote MCP server at mcp.extole.com — OAuth 2.1 with PKCE against
+  idp.extole.com, 31 published toolsets — alongside published rate limits, a 90-code error registry,
+  and a developer center at docs.extole.com. Surfaced originally as a Norwest Venture Partners
+  portfolio lead and enriched from Extole's public developer surface.
 url: https://raw.githubusercontent.com/api-evangelist/extole/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -19,20 +21,25 @@ x-backed-by:
 x-tier: enriched
 x-tier-reason: portfolio-lead
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
+  pricing: contact-sales
+  onboarding: sales-gated
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Contact sales
+  confidence: high
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - https://www.extole.com/pricing/
+  - https://docs.extole.com/reference/authentication-overview
+  note: Corrected 2026-08-13. The 2026-07-22 derive read the token-based auth model as a self-serve
+    signup. The pricing page publishes no tiers and routes to a demo request, and API credentials are
+    created in the My.Extole Security Center by an already-provisioned client user, so there is no
+    self-serve path. See plans/extole-plans-pricing.yml.
+  generated: '2026-08-13'
+  method: searched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-13'
 image: https://github.com/extole.png
 tags:
 - Company
@@ -47,7 +54,7 @@ apis:
 - aid: extole:extole-audiences-api
   name: Extole Audiences API
   description: The Audiences API from Extole — 17 operation(s) for audiences.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Audiences
@@ -57,7 +64,7 @@ apis:
 - aid: extole:extole-authentication-api
   name: Extole Authentication API
   description: The Authentication API from Extole — 16 operation(s) for authentication.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Authentication
@@ -67,7 +74,7 @@ apis:
 - aid: extole:extole-batch-jobs-api
   name: Extole Batch Jobs API
   description: The Batch Jobs API from Extole — 6 operation(s) for batch jobs.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Batch Jobs
@@ -77,7 +84,7 @@ apis:
 - aid: extole:extole-blocks-api
   name: Extole Blocks API
   description: The Blocks API from Extole — 4 operation(s) for blocks.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Blocks
@@ -88,7 +95,7 @@ apis:
   name: Extole Campaign Controllers Actions API
   description: >-
     The Campaign Controllers Actions API from Extole — 54 operation(s) for campaign controllers actions.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Campaign Controllers Actions
@@ -98,7 +105,7 @@ apis:
 - aid: extole:extole-campaign-controllers-api
   name: Extole Campaign Controllers API
   description: The Campaign Controllers API from Extole — 2 operation(s) for campaign controllers.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Campaign Controllers
@@ -109,7 +116,7 @@ apis:
   name: Extole Campaign Controllers Triggers API
   description: >-
     The Campaign Controllers Triggers API from Extole — 63 operation(s) for campaign controllers triggers.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Campaign Controllers Triggers
@@ -119,7 +126,7 @@ apis:
 - aid: extole:extole-campaign-flow-steps-api
   name: Extole Campaign Flow Steps API
   description: The Campaign Flow Steps API from Extole — 12 operation(s) for campaign flow steps.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Campaign Flow Steps
@@ -129,7 +136,7 @@ apis:
 - aid: extole:extole-campaigns-api
   name: Extole Campaigns API
   description: The Campaigns API from Extole — 31 operation(s) for campaigns.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Campaigns
@@ -139,7 +146,7 @@ apis:
 - aid: extole:extole-components-api
   name: Extole Components API
   description: The Components API from Extole — 21 operation(s) for components.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Components
@@ -149,7 +156,7 @@ apis:
 - aid: extole:extole-components-grants-api
   name: Extole Components Grants API
   description: The Components Grants API from Extole — 4 operation(s) for components grants.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Components Grants
@@ -159,7 +166,7 @@ apis:
 - aid: extole:extole-components-settings-api
   name: Extole Components Settings API
   description: The Components Settings API from Extole — 7 operation(s) for components settings.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Components Settings
@@ -170,7 +177,7 @@ apis:
   name: Extole Components Subscriptions API
   description: >-
     The Components Subscriptions API from Extole — 4 operation(s) for components subscriptions.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Components Subscriptions
@@ -180,7 +187,7 @@ apis:
 - aid: extole:extole-components-types-api
   name: Extole Components Types API
   description: The Components Types API from Extole — 3 operation(s) for components types.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Components Types
@@ -190,7 +197,7 @@ apis:
 - aid: extole:extole-content-api
   name: Extole Content API
   description: The Content API from Extole — 6 operation(s) for content.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Content
@@ -200,7 +207,7 @@ apis:
 - aid: extole:extole-debug-api
   name: Extole Debug API
   description: The Debug API from Extole — 4 operation(s) for debug.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Debug
@@ -210,7 +217,7 @@ apis:
 - aid: extole:extole-domains-api
   name: Extole Domains API
   description: The Domains API from Extole — 10 operation(s) for domains.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Domains
@@ -220,7 +227,7 @@ apis:
 - aid: extole:extole-email-api
   name: Extole Email API
   description: The Email API from Extole — 7 operation(s) for email.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Email
@@ -230,7 +237,7 @@ apis:
 - aid: extole:extole-erasure-api
   name: Extole Erasure API
   description: The Erasure API from Extole — 1 operation(s) for erasure.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Erasure
@@ -240,7 +247,7 @@ apis:
 - aid: extole:extole-event-prehandlers-api
   name: Extole Event Prehandlers API
   description: The Event Prehandlers API from Extole — 6 operation(s) for event prehandlers.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Event Prehandlers
@@ -250,7 +257,7 @@ apis:
 - aid: extole:extole-event-streams-api
   name: Extole Event Streams API
   description: The Event Streams API from Extole — 9 operation(s) for event streams.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Event Streams
@@ -260,7 +267,7 @@ apis:
 - aid: extole:extole-events-api
   name: Extole Events API
   description: The Events API from Extole — 6 operation(s) for events.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Events
@@ -271,7 +278,7 @@ apis:
   name: Extole File Validation Monitors API
   description: >-
     The File Validation Monitors API from Extole — 6 operation(s) for file validation monitors.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - File Validation Monitors
@@ -281,7 +288,7 @@ apis:
 - aid: extole:extole-files-api
   name: Extole Files API
   description: The Files API from Extole — 4 operation(s) for files.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Files
@@ -292,7 +299,7 @@ apis:
   name: Extole Javascript Core Extensions API
   description: >-
     The Javascript Core Extensions API from Extole — 5 operation(s) for javascript core extensions.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Javascript Core Extensions
@@ -302,7 +309,7 @@ apis:
 - aid: extole:extole-optout-api
   name: Extole Optout API
   description: The Optout API from Extole — 1 operation(s) for optout.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Optout
@@ -312,7 +319,7 @@ apis:
 - aid: extole:extole-persons-api
   name: Extole Persons API
   description: The Persons API from Extole — 28 operation(s) for persons.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Persons
@@ -322,7 +329,7 @@ apis:
 - aid: extole:extole-profile-assets-api
   name: Extole Profile Assets API
   description: The Profile Assets API from Extole — 4 operation(s) for profile assets.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Profile Assets
@@ -332,7 +339,7 @@ apis:
 - aid: extole:extole-profiles-api
   name: Extole Profiles API
   description: The Profiles API from Extole — 41 operation(s) for profiles.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Profiles
@@ -342,7 +349,7 @@ apis:
 - aid: extole:extole-promotion-links-api
   name: Extole Promotion Links API
   description: The Promotion Links API from Extole — 2 operation(s) for promotion links.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Promotion Links
@@ -352,7 +359,7 @@ apis:
 - aid: extole:extole-report-schedules-api
   name: Extole Report Schedules API
   description: The Report Schedules API from Extole — 14 operation(s) for report schedules.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Report Schedules
@@ -362,7 +369,7 @@ apis:
 - aid: extole:extole-report-types-api
   name: Extole Report Types API
   description: The Report Types API from Extole — 9 operation(s) for report types.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Report Types
@@ -372,7 +379,7 @@ apis:
 - aid: extole:extole-reporting-api
   name: Extole Reporting API
   description: The Reporting API from Extole — 7 operation(s) for reporting.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Reporting
@@ -382,7 +389,7 @@ apis:
 - aid: extole:extole-reports-api
   name: Extole Reports API
   description: The Reports API from Extole — 14 operation(s) for reports.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Reports
@@ -392,7 +399,7 @@ apis:
 - aid: extole:extole-reward-suppliers-api
   name: Extole Reward Suppliers API
   description: The Reward Suppliers API from Extole — 21 operation(s) for reward suppliers.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Reward Suppliers
@@ -402,7 +409,7 @@ apis:
 - aid: extole:extole-rewards-api
   name: Extole Rewards API
   description: The Rewards API from Extole — 13 operation(s) for rewards.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Rewards
@@ -412,7 +419,7 @@ apis:
 - aid: extole:extole-security-keys-api
   name: Extole Security Keys API
   description: The Security Keys API from Extole — 6 operation(s) for security keys.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Security Keys
@@ -422,7 +429,7 @@ apis:
 - aid: extole:extole-settings-api
   name: Extole Settings API
   description: The Settings API from Extole — 5 operation(s) for settings.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Settings
@@ -432,7 +439,7 @@ apis:
 - aid: extole:extole-sftp-servers-api
   name: Extole SFTP Servers API
   description: The SFTP Servers API from Extole — 4 operation(s) for sftp servers.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - SFTP Servers
@@ -442,7 +449,7 @@ apis:
 - aid: extole:extole-user-notifications-api
   name: Extole User Notifications API
   description: The User Notifications API from Extole — 8 operation(s) for user notifications.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - User Notifications
@@ -452,7 +459,7 @@ apis:
 - aid: extole:extole-user-subscriptions-api
   name: Extole User Subscriptions API
   description: The User Subscriptions API from Extole — 3 operation(s) for user subscriptions.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - User Subscriptions
@@ -462,7 +469,7 @@ apis:
 - aid: extole:extole-users-api
   name: Extole Users API
   description: The Users API from Extole — 8 operation(s) for users.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Users
@@ -472,7 +479,7 @@ apis:
 - aid: extole:extole-webhooks-api
   name: Extole Webhooks API
   description: The Webhooks API from Extole — 4 operation(s) for webhooks.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Webhooks
@@ -482,7 +489,7 @@ apis:
 - aid: extole:extole-zone-rendering-api
   name: Extole Zone Rendering API
   description: The Zone Rendering API from Extole — 2 operation(s) for zone rendering.
-  humanURL: https://developers.extole.com/
+  humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
   - Zone Rendering
@@ -498,11 +505,11 @@ common:
 - type: Website
   url: https://extole.com
 - type: DeveloperPortal
-  url: https://developers.extole.com/
+  url: https://docs.extole.com/
 - type: Documentation
-  url: https://developers.extole.com/docs
+  url: https://docs.extole.com/
 - type: APIReference
-  url: https://developers.extole.com/reference
+  url: https://docs.extole.com/reference
 - type: Blog
   url: https://www.extole.com/blog/
 - type: Login
@@ -541,8 +548,6 @@ common:
   url: conventions/extole-conventions.yml
 - type: Lifecycle
   url: lifecycle/extole-lifecycle.yml
-- type: Deprecation
-  url: lifecycle/extole-lifecycle.yml
 - type: Conformance
   url: conformance/extole-conformance.yml
 - type: DataModel
@@ -557,8 +562,34 @@ common:
   url: rules/extole-spectral.yaml
 - type: Overlay
   url: overlays/extole-management-overlay.yaml
+- type: GettingStarted
+  url: https://docs.extole.com/docs/getting-started
+- type: Pricing
+  url: https://www.extole.com/pricing/
+- type: PrivacyPolicy
+  url: https://www.extole.com/privacy-policy/
+- type: Plans
+  url: plans/extole-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/extole-rate-limits.yml
+- type: OAuthScopes
+  url: scopes/extole-scopes.yml
+- type: Sandbox
+  url: sandbox/extole-sandbox.yml
+- type: Components
+  url: components/extole-components.yml
+- type: ErrorCodes
+  url: errors/extole-error-codes.yml
+- type: ToolCrosswalk
+  url: mcp/extole-tool-crosswalk.yml
+- type: Overlay
+  url: overlays/extole-management-expert-overlay.yaml
+- type: Overlay
+  url: overlays/extole-integration-server-to-extole-overlay.yaml
+- type: Overlay
+  url: overlays/extole-integration-consumer-to-extole-overlay.yaml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 13
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
