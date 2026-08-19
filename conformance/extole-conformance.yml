@@ -1,25 +1,137 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/ + security.extole.com trust center
+generated: '2026-08-13'
+method: searched
+source: >-
+  openapi/ + https://docs.extole.com/reference/authentication-overview +
+  https://mcp.extole.com/.well-known/* + https://security.extole.com/
+note: >-
+  Re-assessed 2026-08-13. The 2026-07-19 pass recorded oauth2 as conforms:false, which was correct for
+  the REST API and is still correct for it — the four OpenAPI documents declare only apiKey schemes.
+  It is no longer correct for the provider: Extole's MCP server implements OAuth 2.1 with PKCE and
+  serves both RFC 8414 and RFC 9728 discovery documents anonymously. The two surfaces are scored
+  separately below rather than averaged into one misleading verdict.
 standards:
-- id: oauth2
-  conforms: false
-  evidence: no oauth2 securityScheme; token-based apiKey auth
-- id: api-key-auth
-  conforms: true
-  evidence: 'apiKey security schemes: Authorization header, extole_token cookie, access_token query'
-- id: rfc9457-problem-details
-  conforms: false
-  evidence: errors returned as custom application/json envelope, not application/problem+json
-- id: pagination-offset-limit
-  conforms: true
-  evidence: offset/limit query parameters on list operations
 - id: openapi-3.0
   conforms: true
-  evidence: 4 OpenAPI 3.0.1 documents published at github.com/extole/extole-specification
+  surface: rest
+  evidence: 4 OpenAPI 3.0.1 documents published at github.com/extole/extole-specification and shipped
+    on npm as @extole/specification.
+- id: api-key-auth
+  conforms: true
+  surface: rest
+  evidence: 'apiKey security schemes across all four specs: Authorization header, extole_token cookie,
+    access_token query.'
+- id: oauth2
+  conforms: true
+  surface: mcp
+  evidence: OAuth 2.1 authorization-code + PKCE (S256) at https://idp.extole.com, advertised via
+    https://mcp.extole.com/.well-known/oauth-authorization-server. Grant types include
+    authorization_code, client_credentials, refresh_token and RFC 8693 token-exchange.
+  note: The REST API does NOT use OAuth — it uses bearer access tokens created in My.Extole.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  surface: mcp
+  evidence: 'https://mcp.extole.com/.well-known/oauth-authorization-server returns 200 with issuer,
+    authorization_endpoint, token_endpoint, jwks_uri, revocation_endpoint, introspection_endpoint.'
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: true
+  surface: mcp
+  evidence: 'https://mcp.extole.com/.well-known/oauth-protected-resource returns 200 naming resource,
+    authorization_servers, bearer_methods_supported and scopes_supported; the 401 challenge carries a
+    matching resource_metadata parameter.'
+- id: oidc-discovery
+  conforms: true
+  surface: mcp
+  evidence: https://mcp.extole.com/.well-known/openid-configuration returns 200 (issuer
+    https://idp.extole.com).
+- id: rfc7636-pkce
+  conforms: true
+  surface: mcp
+  evidence: code_challenge_methods_supported [S256]; the MCP authentication guide requires OAuth 2.1
+    with PKCE.
+- id: rfc9449-dpop
+  conforms: true
+  surface: mcp
+  evidence: dpop_signing_alg_values_supported advertised in the authorization-server metadata.
+- id: rfc8705-mtls-bound-tokens
+  conforms: true
+  surface: mcp
+  evidence: tls_client_certificate_bound_access_tokens true; tls_client_auth and
+    self_signed_tls_client_auth in the endpoint auth methods.
+- id: mcp
+  conforms: true
+  surface: mcp
+  version: streamable-http
+  evidence: First-party remote MCP server at https://mcp.extole.com, documented at
+    docs.extole.com/docs/extole-mcp, with a /.well-known/mcp manifest enumerating 31 toolsets. Probed
+    live 2026-08-13 (tools/list -> 401 with an RFC 9728 WWW-Authenticate challenge).
+- id: rfc6750-bearer-token-usage
+  conforms: true
+  surface: both
+  evidence: 'Authorization: Bearer is the documented and preferred credential form on both the REST API
+    and the MCP server; the MCP 401 returns a conformant WWW-Authenticate Bearer challenge.'
+- id: rfc9457-problem-details
+  conforms: false
+  surface: rest
+  evidence: Errors are returned as a bespoke application/json envelope (unique_id, http_status_code,
+    code, message, parameters), not application/problem+json.
+- id: rfc6585-429-too-many-requests
+  conforms: true
+  surface: rest
+  evidence: Published limits (100 req/min per IP or token; 10 req/s per identified person) with 429
+    too_many_requests on exhaustion.
+  gap: No RateLimit-* or Retry-After headers are documented, so the runtime budget is not machine-readable.
+- id: rfc8594-sunset-header
+  conforms: false
+  surface: rest
+  evidence: No Sunset or Deprecation header support is documented. Deprecation is expressed only as
+    deprecated:true on 25 OpenAPI operations.
+- id: pagination-offset-limit
+  conforms: true
+  surface: rest
+  evidence: offset/limit query parameters on list operations; max page size 1000.
+- id: idempotency
+  conforms: false
+  surface: rest
+  evidence: No idempotency-key header or parameter in the docs or in any of the four specs. One
+    get-or-create operation (getOrCreate) is described as an idempotent helper; that is not a
+    cross-cutting contract.
+- id: rfc9116-security-txt
+  conforms: false
+  surface: web
+  evidence: No /.well-known/security.txt on extole.com, www.extole.com or api.extole.io (all 404).
+- id: a2a
+  conforms: false
+  surface: web
+  evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any Extole host.
+- id: graphql
+  conforms: false
+  surface: rest
+  evidence: https://api.extole.io/graphql returns 404 method_not_found.
 - id: iso-27001
   conforms: true
-  evidence: ISO/IEC 27001 certification published at security.extole.com
+  surface: organization
+  evidence: ISO/IEC 27001 certification published at https://security.extole.com/.
 - id: gdpr
   conforms: true
-  evidence: GDPR compliance published at security.extole.com
+  surface: organization
+  evidence: GDPR compliance published at https://security.extole.com/; the API additionally exposes an
+    Erasure endpoint and an Optout endpoint.
+- id: jwt-jws-jwe
+  conforms: true
+  surface: consumer
+  evidence: Consumer identity verification accepts signed JWTs (HS256/384/512, RS/PS256/384/512,
+    ES256/384/512) and encrypted JWE in the X-Extole-Jwt header, keyed by kid against keys registered
+    in My Extole.
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-authorization-server
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/mcp
+  http_status: 401
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/authentication-overview.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://api.extole.io/graphql
+  http_status: 404

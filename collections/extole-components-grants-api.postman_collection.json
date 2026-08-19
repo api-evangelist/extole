@@ -1,0 +1,2138 @@
+{
+  "item": [
+    {
+      "id": "e601c90d-c0f6-47a3-890a-6a00453b6202",
+      "name": "Components Grants",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4bd5a17-de03-448e-a9df-5331615aa77f",
+          "name": "List component grants",
+          "request": {
+            "name": "List component grants",
+            "description": {
+              "content": "Returns all component grants for the current client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "component-grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c8e8ce9-fb55-4e42-acd6-3534bb865194",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"client_id\": \"string\",\n    \"component_path\": \"string\",\n    \"grant_id\": \"string\",\n    \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n    \"subscription_mode\": \"AUTO_SUBSCRIBE_NEW_CLIENTS\"\n  },\n  {\n    \"client_id\": \"string\",\n    \"component_path\": \"string\",\n    \"grant_id\": \"string\",\n    \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n    \"subscription_mode\": \"AUTO_SUBSCRIBE_NEW_CLIENTS\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21f149b8-ffd5-4d6f-afd0-c5e4e5518af7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9404952-4dfe-43fb-9c8c-b8d8d22fb233",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa5fd81c-1162-4188-b5de-81512fc4737c",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bd5e424-1f59-4de9-83a6-8e319cfaa430",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4391a5d-502d-40ed-b55e-4d4e37e63a0f",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d04d8610-9f0c-4574-a201-66cad65aa3ac",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfdf01fc-06c5-4895-ba5b-2bec00ab7603",
+          "name": "Grant component access",
+          "request": {
+            "name": "Grant component access",
+            "description": {
+              "content": "Grants a client permission to use the specified shared component.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "component-grants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21c7af1b-e424-4ea2-bfda-7fe898c832e8",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"client_id\": \"string\",\n  \"component_path\": \"string\",\n  \"grant_id\": \"string\",\n  \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n  \"subscription_mode\": \"MANUAL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbab89db-1015-4656-bac8-b2c9b1c05165",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d01efcb-69da-4d8d-b6dd-057e8cfc37ec",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f2cf035-e235-4ffb-bb6c-8ff586c3edc4",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c31fd550-bfc1-40db-98b0-9c131a0f6361",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1ff418f-f010-48f5-9bf9-4965e0d31056",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79ae4373-0fad-4a53-8da7-80eca642b72c",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c595a31-5b83-4068-b036-d90cbd335176",
+          "name": "List component granters",
+          "request": {
+            "name": "List component granters",
+            "description": {
+              "content": "Returns the clients that have granted component access to others.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "component-grants",
+                "granters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51827db7-7d70-474e-99cc-1aa1b68e6fab",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"client_id\": \"string\",\n    \"client_name\": \"string\",\n    \"client_short_name\": \"string\",\n    \"component_path\": \"string\",\n    \"grant_id\": \"string\",\n    \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n    \"preview_domain\": \"string\",\n    \"subscription_mode\": \"AUTO_SUBSCRIBE_NEW_CLIENTS\"\n  },\n  {\n    \"client_id\": \"string\",\n    \"client_name\": \"string\",\n    \"client_short_name\": \"string\",\n    \"component_path\": \"string\",\n    \"grant_id\": \"string\",\n    \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n    \"preview_domain\": \"string\",\n    \"subscription_mode\": \"MANUAL\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66ec8804-fd9c-477a-8a41-d7d2362b0e80",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90ac310f-1fd6-4369-867f-29a41d1ff3fe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd18c0cc-f9f3-40ba-8155-e112d78eb27a",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a389b414-c7c2-4182-a920-3f2cfebc6046",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5773223b-d5c2-4c75-b27f-45e7bd626b8b",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "468e7782-4b7d-44c8-8bf5-63819608e449",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "granters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af721ff0-389a-44c2-bc60-91bb50072f66",
+          "name": "Grant access to all components",
+          "request": {
+            "name": "Grant access to all components",
+            "description": {
+              "content": "Grants a client permission to use all available shared components in the library.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "component-grants",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9138cd71-dff7-48a8-8420-9c86688fb3f2",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"client_id\": \"string\",\n  \"component_path\": \"string\",\n  \"grant_id\": \"string\",\n  \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n  \"subscription_mode\": \"MANUAL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a95d2ec-8018-48ed-8ea9-2d7f5d6005db",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "843a0944-da9e-46c2-8a56-2d73340dc185",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad11b927-1bf6-4e3e-afc9-4ee250a1ce45",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54313011-fa0b-432c-be0a-27d52255966d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "558c3ad5-5e9a-47af-85e2-a57a2993494b",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c80a77dd-2ff9-4fd4-af85-b6afc968ef36",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c2bff24-6b1f-4677-929d-1f5b6bc2ce2f",
+          "name": "Revoke a component grant",
+          "request": {
+            "name": "Revoke a component grant",
+            "description": {
+              "content": "Revokes a previously granted component permission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "component-grants",
+                ":grantId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "grantId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6402831-de1f-4201-a1a3-dd6ddeaf5c1a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"client_id\": \"string\",\n  \"component_path\": \"string\",\n  \"grant_id\": \"string\",\n  \"granted_date\": \"2025-10-24T02:00:00-07:00\",\n  \"subscription_mode\": \"MANUAL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47295784-a8b8-4160-b2ea-dfefb5d16fe7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01709cd0-17cf-4f07-905e-acfef2174dee",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "977be4db-17c5-47cc-8712-9b7090f34670",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1614fb53-ff6a-42f3-bba6-52e3cc9ffdd2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ac6a7f2-94b8-4b9a-84c1-f500e03ac947",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2ff4fd0-65fd-4e66-8778-730ecf491467",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "component-grants",
+                    ":grantId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "grantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yourcompany",
+      "key": "brand"
+    },
+    {
+      "type": "string",
+      "value": "https://{{brand}}.extole.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "993d2bd4-0c40-431a-b41d-9ef6d26008fd",
+    "name": "Integration API - Consumer to Extole Audiences Components Grants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.",
+      "type": "text/plain"
+    }
+  }
+}

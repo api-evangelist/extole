@@ -1,0 +1,260 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/extole-mcp.yml (provider toolset manifest) + openapi/ (4 harvested OpenAPI 3.0.1 documents)
+note: >-
+  Extole runs BOTH a REST surface (4 OpenAPI 3.0.1 documents, api.extole.io / {brand}.extole.io) and a
+  first-party remote MCP server (https://mcp.extole.com), so the crosswalk is warranted. It is however
+  bound at TOOLSET granularity, not tool granularity, and that is a limitation of the provider's
+  deployment rather than of this pass: an anonymous tools/list against mcp.extole.com returns HTTP 401
+  AUTHENTICATION_REQUIRED, so no tool name, description or inputSchema is publicly knowable. What IS
+  anonymous is /.well-known/mcp, which names 31 toolsets and describes each one. Every row below binds a
+  named toolset to the OpenAPI operations that cover the same capability, with confidence set honestly —
+  none is high, because no tool identity was ever observed. Nothing here asserts a tool that Extole did
+  not name.
+surfaces:
+  openapi:
+    files:
+    - openapi/_original/extole-integration-consumer-to-extole-openapi.json
+    - openapi/_original/extole-integration-server-to-extole-openapi.json
+    - openapi/_original/extole-management-openapi.json
+    - openapi/_original/extole-management-expert-openapi.json
+    refined: openapi/extole-*-api-openapi.yml (43 one-per-tag documents)
+    hosts:
+    - https://api.extole.io
+    - https://{brand}.extole.io
+    gated: false
+  mcp:
+    url: https://mcp.extole.com
+    manifest: https://mcp.extole.com/.well-known/mcp
+    transport: streamable-http
+    gated: true
+    gate: OAuth 2.1 / PKCE at https://idp.extole.com, or a My.Extole bearer Access Token
+    note: tools/list -> 401. Toolset names and descriptions are anonymous; tool identities are not.
+  graphql:
+    present: false
+    note: https://api.extole.io/graphql returns 404 method_not_found.
+crosswalk:
+- tool: campaigns
+  kind: toolset
+  category: campaign-configuration
+  rest:
+  - listCampaigns
+  - getCampaign
+  - launchTest
+  - makeLatestDraft
+  - makeLatestPublished
+  - makeLatestPreserveState
+  - lockCampaign
+  binding: rest
+  confidence: medium
+  note: Toolset described as "Campaign analysis and navigation tools"; the Campaigns, Campaign
+    Controllers, Campaign Controllers Actions/Triggers and Campaign Flow Steps tags in the Management
+    and Management Expert APIs are the REST projection of the same capability.
+- tool: campaign_upgrades
+  kind: toolset
+  category: campaign-configuration
+  rest:
+  - updateWithCampaignArchive
+  - makeLatestDraft
+  - makeLatestPublished
+  binding: rest
+  confidence: low
+  note: Toolset described as Campaign upgrade analysis and navigation tools — an Extole-internal upgrade
+    workflow with no single named REST equivalent; the archive-replace and publish operations are the
+    closest public ops.
+- tool: content_component
+  kind: toolset
+  category: components-and-content
+  rest:
+  - listComponents
+  - getComponent
+  - uploadComponentBundle
+  - deleteComponent
+  - listComponentTypes
+  binding: rest
+  confidence: medium
+  note: Components / Components Types / Components Settings tags in the Management API.
+- tool: client_context_update
+  kind: toolset
+  category: reporting-and-settings
+  rest:
+  - listReports
+  - getLatestReport
+  - listComponentSettings
+  - updateComponentSetting
+  binding: rest
+  confidence: low
+  note: Described as reports + config reads + publish settings — a server-side composite spanning the
+    Reports and Settings tags rather than one operation.
+- tool: extole_reporting_agent
+  kind: toolset
+  category: reporting
+  rest:
+  - listReportTypes
+  - createReport
+  - getReport
+  - downloadReport
+  - getLatestReport
+  - downloadLatestReport
+  binding: rest
+  confidence: medium
+  note: The toolset description (discover, submit, poll, and download reports) maps cleanly onto the
+    Reports and Report Types tags; it is the agent-shaped wrapper over the same four-step REST flow.
+- tool: report_search
+  kind: toolset
+  category: reporting
+  rest:
+  - listReportTypes
+  binding: rest
+  confidence: low
+  note: Recommendation assistant over report types; the ranking itself is server-side and has no REST op.
+- tool: report_search_beta
+  kind: toolset
+  category: reporting
+  rest:
+  - listReportTypes
+  - createReport
+  binding: rest
+  confidence: low
+- tool: investigation
+  kind: toolset
+  category: person-and-reward-support
+  rest:
+  - getPerson_3
+  - searchPersons
+  - listRewards
+  - getReward
+  - getRewardStateSummary
+  - listPersonSteps
+  binding: rest
+  confidence: medium
+  note: The documented marketer/support use case (why did a given person not get a reward) is the
+    Persons + Rewards read surface.
+- tool: restful
+  kind: toolset
+  category: generic-rest-passthrough
+  rest:
+  - '*'
+  binding: rest
+  confidence: low
+  note: Named simply Extole restful toolset — a generic REST surface, so it plausibly fans out over the
+    whole OpenAPI. Left unbound to specific operationIds rather than guessed at.
+- tool: platform
+  kind: toolset
+  category: default
+  rest: []
+  binding: unknown
+  confidence: low
+  note: Default platform toolset; composition not published.
+- tool: all
+  kind: toolset
+  category: default
+  rest: []
+  binding: unknown
+  confidence: low
+  note: An aggregate endpoint exposing all tools, not a distinct capability.
+mcp_only:
+- tool: extole_ask
+  reason: Runs the full Extole assistant server-side and returns one natural-language answer. There is
+    no REST operation that answers a question; this is an LLM composite over the platform.
+- tool: skills
+  reason: Skill catalog tools. Extole exposes an agent skill catalog through MCP with no public REST
+    equivalent in the four published OpenAPI documents.
+- tool: task
+  reason: Task execution toolset. No public REST task API is published.
+- tool: extole_all_search
+  reason: Tool search-and-call indirection (a meta-tool that finds and invokes other tools). A
+    protocol-level capability with no REST analogue.
+- tool: functional_review
+  reason: Functional review runbook. An Extole operational procedure, not a data operation.
+- tool: prototype2
+  reason: Prototype campaign upgrade tools. Unreleased; no REST surface.
+- tool: intercom
+  reason: Intercom toolset — third-party support-desk integration, outside the Extole REST contract.
+- tool: intercom_support
+  reason: Intercom support assistant — third-party.
+- tool: jira
+  reason: Jira ticket tools — third-party issue tracker, outside the Extole REST contract.
+- tool: jira_support
+  reason: Jira support assistant — third-party.
+- tool: extole_jira_assistant
+  reason: Jira assistant — third-party.
+- tool: extole_developer
+  reason: Monitoring-alert explanation for Intercom tickets. Internal support tooling.
+- tool: test
+  reason: Local test toolset.
+- tool: call_test
+  reason: Local test toolset that calls the test toolset.
+rest_only:
+- capability: Consumer share and referral flow
+  note: The Integration API - Consumer to Extole surface (share links, shareables, shares, referrals,
+    friends, consumer profile, zone rendering) runs on the brand program domain under a consumer access
+    token. No named MCP toolset covers it — MCP is authenticated as an Extole USER, not as a consumer.
+  rest:
+  - getMyProfile
+  - getShareables_2
+  - createMeShareable_2
+  - getOrCreate
+  - shareEvent
+  - getShares
+  - getReferralsFromMe
+  - getReferralsToMe
+  - renderZoneV5
+  - sendEmail
+- capability: Server-side event ingestion
+  note: High-volume event submission (including the unrate-limited /v6/async-events path) has no MCP
+    toolset; it is a backend integration surface.
+  rest:
+  - submitEventAsync
+  - submitNamedEventAsync
+  - fetchConsumerEventByName
+- capability: Webhook subscription management
+  rest:
+  - listWebhooks
+  - createWebhook
+  - getWebhook
+  - updateWebhook
+  - archiveWebhook
+  - listBuiltWebhooks
+  - getBuiltWebhook
+- capability: Audiences and memberships
+  rest:
+  - listAudiences
+  - createAudience
+  - getAudience
+  - listAudienceMembers
+- capability: Access token administration
+  rest:
+  - createClientAccessToken
+  - getCurrentClientAccessToken
+  - exchangeClientAccessToken
+  - deleteClientAccessToken
+  - listManagedTokens
+  - createManagedToken
+  - deleteManagedToken
+- capability: Batch jobs, files and SFTP
+  rest:
+  - listBatches
+  - updateBatch
+  - listFiles
+  - downloadPersonAsset
+- capability: Reward suppliers and coupon inventory
+  rest:
+  - listRewardSuppliers
+  - createRewardSupplier
+  - uploadManualCouponsFile
+- capability: Domains, email, security keys, erasure, optout
+  note: Tenant administration surface with no named MCP toolset.
+coverage:
+  toolsets_named: 31
+  toolsets_bound_to_rest: 11
+  toolsets_mcp_only: 14
+  toolsets_unbound_default_aggregate: 2
+  tools_named: 0
+  tools_bound: 0
+  tool_binding_blocked_by: auth-gated tools/list (HTTP 401) at https://mcp.extole.com/mcp
+  rest_operations_total: 503
+  rest_operations_with_a_named_tool: 0
+  note: rest_operations_total is the sum of the operation counts recorded on the 43 apis[] entries in
+    apis.yml. Because no tool identity is public, rest_operations_with_a_named_tool is honestly zero —
+    the toolset bindings above are capability-level, not operation-level.

@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Security Keys API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Security Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Verify JWT client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/jwt/:key_id/verify-jwt",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Verifies a JWT signature using the key material stored on the client key identified by `key_id`. The JWT `kid` header must match the key `partner_key_id`."
+        },
+        {
+          "info": {
+            "name": "List client keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns active (non-archived) security keys for the client. Keys store credentials and cryptographic material used by integrations, campaign components, SFTP file transfer, and outbound webhooks. Pass one or more `tags` query values; a key is returned only when it includes every supplied tag. Use `GET /v2/settings/security/keys/built` for the fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Create client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a client key from a JSON request body. Supported variants include OAuth integrations, inline PGP or SSH key material, JWT signing keys, webhook secrets, and generic password or HTTP basic credentials. Set `algorithm` to select the polymorphic request and response schema. Set `type` to classify what the key is used for."
+        },
+        {
+          "info": {
+            "name": "List built client keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/built",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the built form of each matching active client key with evaluatable fields resolved for the current client context. Supports the same `tags` filter as `GET /v2/settings/security/keys`."
+        },
+        {
+          "info": {
+            "name": "Delete client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/:key_id/delete",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an archived client key. The key must not be referenced by campaign components or other platform resources."
+        },
+        {
+          "info": {
+            "name": "Unarchive client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/:key_id/unarchive",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a previously archived client key so it can be used again."
+        },
+        {
+          "info": {
+            "name": "Update client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/:key_id",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing client key identified by `key_id`. Only fields present in the request body are changed."
+        },
+        {
+          "info": {
+            "name": "Archive client key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/settings/security/keys/:key_id",
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives a client key so it no longer appears in list results or can be selected for new use. The key record is retained and can be restored with `POST /v2/settings/security/keys/{key_id}/unarchive`. Fails when the key is still referenced by campaign components or other platform resources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

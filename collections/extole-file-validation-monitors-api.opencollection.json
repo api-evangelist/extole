@@ -1,0 +1,336 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences File Validation Monitors API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Validation Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs"
+          },
+          "docs": "Returns all file validation monitor jobs configured for the client."
+        },
+        {
+          "info": {
+            "name": "Create a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a file validation monitor job. Optional triggers and tasks may be supplied in the same request."
+        },
+        {
+          "info": {
+            "name": "Get a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the job for the specified id, including its triggers and tasks."
+        },
+        {
+          "info": {
+            "name": "Update a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates top-level job fields. JobTrigger and task changes use the sub-endpoints."
+        },
+        {
+          "info": {
+            "name": "Delete a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Soft-deletes the job and cascades soft-delete to its triggers and tasks."
+        },
+        {
+          "info": {
+            "name": "List tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/tasks",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all tasks for the specified job, sorted by order."
+        },
+        {
+          "info": {
+            "name": "Add a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/tasks",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a task to the specified job. Order defaults to max+1 when omitted."
+        },
+        {
+          "info": {
+            "name": "Get a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/tasks/:taskId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the task for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/tasks/:taskId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the task. The request task type must match the stored task."
+        },
+        {
+          "info": {
+            "name": "Delete a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/tasks/:taskId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Soft-deletes the task and compacts remaining order values."
+        },
+        {
+          "info": {
+            "name": "List triggers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/triggers",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all triggers for the specified job."
+        },
+        {
+          "info": {
+            "name": "Add a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/triggers",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a trigger to the specified job."
+        },
+        {
+          "info": {
+            "name": "Get a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/triggers/:triggerId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the trigger for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/triggers/:triggerId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the trigger. The request trigger type must match the stored trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/jobs/:jobId/triggers/:triggerId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Soft-deletes the trigger."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

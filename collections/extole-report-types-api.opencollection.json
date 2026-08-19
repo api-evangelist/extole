@@ -1,0 +1,415 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Report Types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Report Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List clients with access to a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/clients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ]
+          },
+          "docs": "Returns the ids of every client that currently has access to the supplied report type. Useful for auditing PRIVATE report types whose access list is managed via `PUT /v6/report-types/{id}/clients`. Marked `expert`: most integrators do not need cross-client access lists."
+        },
+        {
+          "info": {
+            "name": "Replace the report type's client access list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/clients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the set of clients that have access to a PRIVATE report type with the supplied list. The body is the complete new list - clients omitted lose access. Only applicable to PRIVATE report types; other visibilities return `400 report_type_change_clients_invalid`. Marked `expert`."
+        },
+        {
+          "info": {
+            "name": "Revoke client access to a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/clients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              },
+              {
+                "name": "client_ids",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Removes the supplied `client_ids` from the report type's access list. Only applicable to PRIVATE report types; other visibilities return `400 report_type_change_clients_invalid`. Returns the report type after the revoke."
+        },
+        {
+          "info": {
+            "name": "List report types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-types",
+            "params": [
+              {
+                "name": "report_type_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the report types visible to the calling client, filtered and ordered by the supplied query parameters. Supports paging via `limit` / `offset` and ordering via `order_by` / `order`. Use this to populate report-builder pickers and to discover the available `parameters`, `formats`, and `scopes` for each report type."
+        },
+        {
+          "info": {
+            "name": "Create a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/report-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new report-type definition (SQL- or CONFIGURED-shaped). Returns the persisted report type with its server-assigned id and any defaulted fields. Marked `expert`: report-type definitions are typically managed by Extole staff."
+        },
+        {
+          "info": {
+            "name": "Add dynamic parameters to a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/parameters-add",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends the supplied dynamic parameters to the report type's `parameters` list. Static parameters cannot be added via this endpoint - use `createReportType` or `updateReportType` to configure those. Returns the report type after the update."
+        },
+        {
+          "info": {
+            "name": "Remove dynamic parameters from a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/parameters-delete",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the supplied parameters (by name) from the report type's `parameters` list. Static parameters cannot be deleted via this endpoint - they are part of the report type's contract and changing them requires a `updateReportType` call. Returns the report type after the update."
+        },
+        {
+          "info": {
+            "name": "Add tags to a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/tags-add",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends the supplied tags to the report type's tag list. Existing tags are left unchanged; duplicates in the body are ignored. Returns the report type after the update."
+        },
+        {
+          "info": {
+            "name": "Remove tags from a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id/tags-delete",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the supplied tags from the report type's tag list. Tags that are not currently set are silently ignored. Returns the report type after the update."
+        },
+        {
+          "info": {
+            "name": "List report types with their associated clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-types/clients",
+            "params": [
+              {
+                "name": "report_type_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns every report type alongside the ids of clients that have access to it. Equivalent to running `listReportTypes` and `listReportTypeClients` for every result, but in a single call. Requires the `client_superuser` scope - use this only when auditing cross-client access at the platform level."
+        },
+        {
+          "info": {
+            "name": "List recommended report types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-types/recommendations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for limit, defaults to 5."
+              }
+            ]
+          },
+          "docs": "Returns report types that are recommended for immediate execution, ranked by relevance for the calling client. Use the `limit` parameter to control the maximum number of results (default: 5)."
+        },
+        {
+          "info": {
+            "name": "Get report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ]
+          },
+          "docs": "Returns the full report-type record for the supplied id, including its display name, description, declared `parameters`, supported `formats`, allowed `scopes`, visibility, and associated `tags`."
+        },
+        {
+          "info": {
+            "name": "Update a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/report-types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied report type. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted report type after update."
+        },
+        {
+          "info": {
+            "name": "Delete a report type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/report-types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report type identifier."
+              }
+            ]
+          },
+          "docs": "Deletes the supplied report type. Returns the deleted record on success. Fails with `400 report_type_has_dependent_types` if other report types depend on it; delete or detach the dependents first."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

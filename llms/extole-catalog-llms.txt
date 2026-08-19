@@ -1,0 +1,28 @@
+<!-- API Evangelist catalog summary, method: generated, 2026-07-19 (regenerated header 2026-08-13).
+     This is OUR condensed llms.txt built from apis.yml + repo artifacts. Extole's OWN llms.txt,
+     served at https://docs.extole.com/llms.txt, is saved verbatim as llms/extole-llms.txt and is
+     the artifact the LLMsTxt pointer references. This file is kept because the provider's own
+     index covers the documentation site and does not name the API hosts, specs or auth model. -->
+
+# Extole
+
+> Extole is an enterprise referral, advocacy, and loyalty marketing platform. Its API lets brands create and manage referral programs, generate share links, issue and reconcile rewards, build audiences, render campaign content zones, and subscribe to events via webhooks.
+
+## APIs
+- [Integration API - Consumer to Extole](https://developers.extole.com/): consumer/advocate-facing share, referral, and profile operations. Host: https://{brand}.extole.io
+- [Integration API - Server to Extole](https://developers.extole.com/): server-side rewards, persons, events, files. Host: https://api.extole.io
+- [Management API](https://developers.extole.com/): audiences, campaigns, webhooks, reports, settings. Host: https://api.extole.io
+- [Management Expert API](https://developers.extole.com/): advanced campaign, component, and reporting controls. Host: https://api.extole.io
+
+## Specs
+- OpenAPI + Postman: https://github.com/extole/extole-specification
+- Public Postman workspace: https://www.postman.com/extole-4017592/extole-api/overview
+
+## Docs
+- Developer portal: https://developers.extole.com/
+- CLI: https://github.com/extole/extole-cli
+- Trust center: https://security.extole.com/
+- Status: https://status.extole.com/
+
+## Auth
+Token-based: send an Extole access token via the Authorization header (Bearer), the extole_token cookie, or the access_token query parameter.

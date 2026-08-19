@@ -1,0 +1,33 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.extole.com/pricing/
+docs: https://www.extole.com/pricing/
+plan_count: 0
+pricing_model: contact-sales
+currency: null
+note: >-
+  Extole publishes NO priced tiers. The pricing page carries no plan names, no prices, no included
+  quota and no overage schedule; it states that "Different businesses have different needs, so we offer
+  flexible licensing and customized options" and that each solution is "custom-fit for your
+  organization's needs", then routes the visitor to a demo request. Pricing is described as varying by
+  product option (enterprise-grade vs starter), business size, and the number of digital properties
+  and channels in the program (web, mobile app, in-store, in-branch, in-product). plan_count is 0 as a
+  measured fact, not as a gap in this pass.
+plans: []
+pricing_variables:
+- Product option (enterprise-grade vs starter solution)
+- Business size and volume of digital properties
+- Omnichannel program scope (web, mobile app, in-store, in-branch, in-product)
+signup:
+  self_serve: false
+  path: https://www.extole.com/demo/
+  note: No self-serve signup or public trial. Access begins with a demo request; API credentials are
+    then created in the My.Extole Security Center by an authenticated client user.
+related:
+  rate_limits: rate-limits/extole-rate-limits.yml
+  entitlement_error: HTTP 402 payment_required — "Feature not enabled for this client", i.e. API-level
+    entitlement is provisioned per client rather than purchased from a public plan.
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://www.extole.com/pricing/
+  http_status: 200

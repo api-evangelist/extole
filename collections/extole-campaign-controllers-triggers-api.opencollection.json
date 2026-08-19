@@ -1,0 +1,3820 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Campaign Controllers Triggers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Controllers Triggers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all triggers on a controller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all triggers configured on the specified campaign controller, across all trigger types."
+        },
+        {
+          "info": {
+            "name": "List built triggers on a controller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all triggers on the controller in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get an access trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/accesses/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the access trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an access trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/accesses/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the access trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an access trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/accesses/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the access trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get an audience membership event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-membership-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the audience membership event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an audience membership event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-membership-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the audience membership event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an audience membership event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-membership-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the audience membership event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get an audience membership trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-memberships/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the audience membership trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an audience membership trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-memberships/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the audience membership trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an audience membership trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-memberships/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the audience membership trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a client domain trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/client-domains/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the client domain trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a client domain trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/client-domains/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the client domain trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a client domain trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/client-domains/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the client domain trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a Data Intelligence event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/data-intelligence-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the Data Intelligence event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a Data Intelligence event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/data-intelligence-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the Data Intelligence event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a Data Intelligence event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/data-intelligence-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the Data Intelligence event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a has-identity trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-identities/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the has-identity trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a has-identity trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-identities/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the has-identity trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a has-identity trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-identities/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the has-identity trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a has-prior-reward trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-rewards/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the has-prior-reward trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a has-prior-reward trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-rewards/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the has-prior-reward trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a has-prior-reward trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-rewards/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the has-prior-reward trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a has-prior-step trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-steps/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the has-prior-step trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a has-prior-step trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-steps/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the has-prior-step trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a has-prior-step trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-steps/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the has-prior-step trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a legacy label targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-labels-targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the legacy label targeting trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a legacy label targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-labels-targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the legacy label targeting trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a legacy label targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-labels-targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the legacy label targeting trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a MaxMind trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/max-minds/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the MaxMind trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a MaxMind trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/max-minds/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the MaxMind trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a MaxMind trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/max-minds/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the MaxMind trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a referred-by-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/referred-by-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the referred-by-event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a referred-by-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/referred-by-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the referred-by-event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a referred-by-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/referred-by-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the referred-by-event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a reward event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the reward event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a reward event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the reward event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a reward event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the reward event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a score trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/scores/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the score trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a score trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/scores/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the score trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a score trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/scores/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the score trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a send-reward-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/send-reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the send-reward-event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a send-reward-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/send-reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the send-reward-event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a send-reward-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/send-reward-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the send-reward-event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a share trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/shares/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the share trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a share trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/shares/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the share trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a share trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/shares/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the share trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a zone state trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/zone-states/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the zone state trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a zone state trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/zone-states/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the zone state trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a zone state trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/zone-states/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the zone state trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get an event targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/event-targetings/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the event targeting trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an event targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/event-targetings/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the event targeting trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an event targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/event-targetings/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the event targeting trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built event targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/event-targetings/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the event targeting trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get an event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/events/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the event trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get an expression trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/expressions/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the expression trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an expression trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/expressions/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the expression trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete an expression trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/expressions/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the expression trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built expression trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/expressions/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the expression trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a group trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/groups/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the group trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a group trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/groups/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the group trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a group trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/groups/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the group trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built group trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/groups/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the group trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a journey check trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/journey-checks/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the journey check trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a journey check trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/journey-checks/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the journey check trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a journey check trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/journey-checks/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the journey check trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built journey check trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/journey-checks/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the journey check trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a legacy quality trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-quality/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the legacy quality trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a legacy quality trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-quality/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the legacy quality trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a legacy quality trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-quality/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the legacy quality trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built legacy quality trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-quality/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the legacy quality trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a step event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/step-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the step event trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a step event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/step-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the step event trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a step event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/step-events/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the step event trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built step event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/step-events/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the step event trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a sticky journey trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/sticky-journeys/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the sticky journey trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a sticky journey trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/sticky-journeys/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the sticky journey trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a sticky journey trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/sticky-journeys/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the sticky journey trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built sticky journey trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/sticky-journeys/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the sticky journey trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the targeting trigger configuration for the specified trigger id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the targeting trigger on the specified campaign controller. Only fields present in the request body are changed. Returns the updated trigger."
+        },
+        {
+          "info": {
+            "name": "Delete a targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/targeting/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the targeting trigger from the specified campaign controller. Returns the deleted trigger record."
+        },
+        {
+          "info": {
+            "name": "Get a built targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/targeting/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the targeting trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a trigger by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/:triggerId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the trigger configuration for the specified trigger id, regardless of type."
+        },
+        {
+          "info": {
+            "name": "Get a built trigger by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/:triggerId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the trigger with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Create an access trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/accesses",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access trigger to the specified campaign controller. The trigger fires when a participant accesses the campaign via a tracked URL. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an audience membership event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-membership-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an audience membership event trigger to the specified campaign controller. The trigger fires on audience membership lifecycle events (join, leave, etc.). Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an audience membership trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/audience-memberships",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an audience membership trigger to the specified campaign controller. The trigger fires when a participant joins or leaves the configured audience. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a client domain trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/client-domains",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a client domain trigger to the specified campaign controller. The trigger fires when the participant's referral or action originates from the configured client domain. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a Data Intelligence event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/data-intelligence-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a Data Intelligence event trigger to the specified campaign controller. The trigger fires when a Data Intelligence scoring event matches the configured criteria. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an event targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/event-targetings",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an event targeting trigger to the specified campaign controller. The trigger fires when the inbound event matches the configured targeting criteria. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an event trigger to the specified campaign controller. When an event matching the configured event name fires for a participant, the controller's actions are executed. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an expression trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/expressions",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an expression trigger to the specified campaign controller. The trigger fires when the configured JavaScript expression evaluates to true in the campaign runtime. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a group trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/groups",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a group trigger to the specified campaign controller. The trigger fires when all (or any, based on logic) of the contained child triggers fire. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a has-identity trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-identities",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a has-identity trigger to the specified campaign controller. The trigger fires when the participant does (or does not) have the configured identity attribute. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a has-prior-reward trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a has-prior-reward trigger to the specified campaign controller. The trigger fires when the participant does (or does not) have a prior reward of the configured type. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a has-prior-step trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/has-prior-steps",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a has-prior-step trigger to the specified campaign controller. The trigger fires when the participant does (or does not) have a prior completed step. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a journey check trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/journey-checks",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a journey check trigger to the specified campaign controller. The trigger fires based on the participant's current position within the campaign journey. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a legacy label targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-labels-targeting",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a legacy label targeting trigger to the specified campaign controller. The trigger fires based on legacy label-based audience targeting rules (deprecated; prefer audience membership trigger). Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a legacy quality trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/legacy-quality",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a legacy quality trigger to the specified campaign controller. The trigger fires when the legacy quality check passes for the participant (deprecated). Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a MaxMind trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/max-minds",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a MaxMind trigger to the specified campaign controller. The trigger fires when the MaxMind fraud-score for the participant falls within the configured threshold. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a referred-by-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/referred-by-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a referred-by-event trigger to the specified campaign controller. The trigger fires when the participant was referred to the campaign by another participant. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a reward event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/reward-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a reward event trigger to the specified campaign controller. The trigger fires on reward lifecycle events (earned, fulfilled, cancelled, etc.) for the participant. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a score trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/scores",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a score trigger to the specified campaign controller. The trigger fires when the computed score for the participant crosses the configured threshold. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a send-reward-event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/send-reward-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a send-reward-event trigger to the specified campaign controller. The trigger fires when a send-reward event is detected in the campaign pipeline. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a share trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/shares",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a share trigger to the specified campaign controller. The trigger fires when the participant performs a share action in the campaign. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a step event trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/step-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a step event trigger to the specified campaign controller. The trigger fires on step lifecycle events (entered, completed, exited) for the participant. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a sticky journey trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/sticky-journeys",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a sticky journey trigger to the specified campaign controller. The trigger fires based on the participant's sticky journey state in the campaign. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a targeting trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/targeting",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a targeting trigger to the specified campaign controller. The trigger fires when the participant matches the configured targeting rule expression. Returns the created trigger with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a zone state trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/triggers/zone-states",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a zone state trigger to the specified campaign controller. The trigger fires when the specified zone reaches the configured display state. Returns the created trigger with its server-assigned id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

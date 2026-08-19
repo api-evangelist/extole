@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/docs/javascript-sdk
+docs:
+- https://docs.extole.com/docs/javascript-sdk
+- https://docs.extole.com/docs/advanced-concepts
+- https://docs.extole.com/docs/mobile-sdks
+- https://docs.extole.com/docs/integrating-with-extole
+note: >-
+  Extole's client-side surface is a TAG-AND-ZONE model rather than a web-component element library.
+  One loader script (core.js) is placed on every page; marketing tags then mark the places where
+  Extole renders promotional content, and event tags mark the actions Extole rewards. The rendered
+  units are "zones", whose creative is configured server-side in the campaign and fetched at runtime,
+  so the embedded surface is data-driven rather than a fixed catalog of named components. Two things
+  follow that matter to an integrator and are recorded as facts, not guesses: the loader is served from
+  the BRAND's own program domain (share.brand.com or brand.extole.io), not from a shared Extole CDN, so
+  there is no versioned public package URL to pin; and the script is unpinned — it always floats to
+  whatever core.js the program domain currently serves.
+families:
+- family: JavaScript SDK (tags)
+  kind: script-loader
+  docs: https://docs.extole.com/docs/javascript-sdk
+  components:
+  - name: Core Tag
+    role: loader
+    description: Contains Extole's JavaScript library. Placed once on every page where Extole will
+      operate. Activates the Extole system, makes other Extole tags work, and detects arrival via a
+      referral so the friend landing experience is served automatically.
+    embed_branded: <script type="text/javascript" src="https://share.brand.com/core.js"
+      fetchpriority="high" async></script>
+    embed_unbranded: <script type="text/javascript" src="https://brand.extole.io/core.js"
+      fetchpriority="high" async></script>
+    versioning: unpinned
+    versioning_note: The src carries no version segment or query. A consumer cannot tell which build
+      they are loading, and neither can we — recorded as a finding rather than left blank.
+  - name: Marketing Tags
+    role: placement
+    description: Placed throughout the site to mark the locations where promotional content is served
+      (for example "Refer and Get $20"). Each resolves to a zone rendered by the campaign.
+    docs: https://docs.extole.com/docs/marketing-tags-for-marketers
+  - name: Event Tags
+    role: tracking
+    description: Used to track and reward specific user actions such as register and purchase.
+- family: Zones
+  kind: server-rendered-embed
+  description: The rendered unit of Extole creative. Zones are fetched at runtime and their content is
+    configured in the campaign, so the catalog of zones is per-program rather than fixed.
+  rest_operations:
+  - renderZoneV5
+  - renderZoneWeb
+  - renderZoneFromRequest
+  - fetchZone
+  - renderZone
+  - renderZoneByEventName
+  note: Both web-friendly endpoints (which allocate a token and manage cookies automatically, and
+    typically return 200) and API endpoints (which expect the caller to manage authentication and
+    handle errors explicitly) are published. See docs/reference authentication overview.
+- family: Mobile SDKs
+  kind: native-embed
+  docs: https://docs.extole.com/docs/mobile-sdks
+  description: Lightweight native SDKs that embed the same zone experiences in mobile apps.
+  components:
+  - name: iOS SDK
+    docs: https://docs.extole.com/docs/ios-sdk
+    package: https://github.com/extole/ios-sdk
+  - name: Android SDK
+    docs: https://docs.extole.com/docs/android-sdk
+    package: https://github.com/extole/android-sdk
+  - name: React Native SDK
+    docs: https://docs.extole.com/docs/react-native-sdk
+    package: https://www.npmjs.com/package/@extole/react-native-sdk
+tag_managers:
+- name: Google Tag Manager
+  docs: https://docs.extole.com/docs/google-tag-manager
+- name: Ensighten
+  docs: https://docs.extole.com/docs/ensighten
+web_components:
+  published: false
+  note: No custom-element / web-component library is published. The embeddable surface is the core.js
+    tag plus zones.
+cross_links:
+  packages: packages/extole-packages.yml
+  conventions: conventions/extole-conventions.yml
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/javascript-sdk.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/mobile-sdks.md
+  http_status: 200

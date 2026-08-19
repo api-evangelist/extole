@@ -1,11 +1,55 @@
-generated: '2026-07-19'
-method: searched
-source: /.well-known/ probes across Extole hosts
-note: The only 200 well-known documents are served by the SafeBase-hosted trust center at security.extole.com
-  (issuer app.safebase.io), i.e. the trust portal MCP OAuth surface, NOT the Extole API. api.extole.io
-  and developers.extole.com return no well-known documents.
+generated: '2026-08-13'
+method: probed
+source: /.well-known/ probes across every Extole host in apis.yml, every OpenAPI servers[] host, the
+  docs host, and the MCP host
+note: >-
+  Re-probed 2026-08-13 and materially upgraded. The 2026-07-19 pass found well-known documents only on
+  the SafeBase-hosted trust portal at security.extole.com, which is a vendor surface rather than
+  Extole's own API. That is no longer the interesting result: Extole's own MCP host,
+  https://mcp.extole.com, now serves a real RFC 9728 protected-resource document, an RFC 8414
+  authorization-server document, an OIDC discovery document, AND a non-standard /.well-known/mcp
+  toolset manifest — all anonymous, all first-party, all saved verbatim here. The API host
+  api.extole.io continues to serve nothing at /.well-known/*, and neither extole.com nor the docs host
+  serves a security.txt. Both facts are recorded. The WellKnown pointer in apis.yml is earned by the
+  mcp.extole.com 200s, not asserted over a set of 404s.
 hosts:
+- host: https://mcp.extole.com
+  first_party: true
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    spec: RFC 9728
+    status: 200
+    content_type: application/json
+    file: extole-mcp-oauth-protected-resource.json
+  - path: /.well-known/oauth-authorization-server
+    spec: RFC 8414
+    status: 200
+    content_type: application/json
+    file: extole-mcp-oauth-authorization-server.json
+  - path: /.well-known/openid-configuration
+    spec: OpenID Connect Discovery 1.0
+    status: 200
+    content_type: application/json
+    file: extole-mcp-openid-configuration.json
+  - path: /.well-known/mcp
+    spec: vendor-specific MCP toolset manifest
+    status: 200
+    content_type: application/json
+    file: ../mcp/extole-mcp-manifest.json
+    note: 31 named toolset endpoints. Stored under mcp/ because it is the MCP artifact's own source
+      document; indexed here because it is served from a /.well-known/ path.
+  - path: /.well-known/security.txt
+    status: 401
+    note: The host answers 401 AUTHENTICATION_REQUIRED for unrecognised /.well-known/ paths rather than
+      404. Not a document.
+  - path: /.well-known/agent-card.json
+    status: 401
+    note: 401, not an agent card. No A2A artifact was written — see the a2a note below.
 - host: https://security.extole.com
+  first_party: false
+  vendor: SafeBase (issuer app.safebase.io)
+  note: Extole's trust center is hosted by SafeBase. These documents describe the SafeBase trust-portal
+    OAuth surface, NOT the Extole API, and are kept for provenance only.
   documents:
   - path: /.well-known/openid-configuration
     status: 200
@@ -14,6 +58,7 @@ hosts:
     status: 200
     file: extole-security-oauth-authorization-server.json
 - host: https://api.extole.io
+  first_party: true
   documents:
   - path: /.well-known/security.txt
     status: 404
@@ -21,7 +66,76 @@ hosts:
     status: 404
   - path: /.well-known/oauth-authorization-server
     status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
 - host: https://extole.com
+  first_party: true
   documents:
   - path: /.well-known/security.txt
     status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.extole.com
+  first_party: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://docs.extole.com
+  first_party: true
+  note: ReadMe-hosted docs. Answers HTTP 204 with an empty body for unknown paths.
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 204
+    note: Empty body, not a document.
+  - path: /.well-known/agent.json
+    status: 204
+    note: Empty body, not a document.
+- host: https://my.extole.com
+  first_party: true
+  note: Single-page app. Answers HTTP 200 with the dashboard HTML shell for every /.well-known/* path —
+    the classic SPA catch-all false positive. Rejected.
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    accepted: false
+    note: HTML SPA shell, not JSON. Not a document.
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    accepted: false
+    note: HTML SPA shell, not JSON. Not a document.
+security_txt:
+  served: false
+  note: No RFC 9116 security.txt is served on any Extole host. No SecurityTxt pointer is emitted.
+agent_card:
+  found: false
+  note: No A2A agent card on any host. Every candidate was a 404, an empty 204, a 401, or an HTML SPA
+    shell. Per the pipeline's search-only rule, NOTHING was written to a2a/ — no stub, no candidate.
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-protected-resource
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-authorization-server
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/openid-configuration
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/mcp
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://api.extole.io/.well-known/security.txt
+  http_status: 404
+- fetched: '2026-08-13'
+  url: https://www.extole.com/.well-known/agent-card.json
+  http_status: 404

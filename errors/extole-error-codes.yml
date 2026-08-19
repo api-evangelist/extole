@@ -1,0 +1,220 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/reference/common-errors
+docs:
+- https://docs.extole.com/reference/common-errors
+- https://docs.extole.com/docs/errors
+format: custom-json
+note: >-
+  Extole publishes a stable, string-enum error-code registry — the non-payments sibling of a decline-code
+  table. This file captures the published registry verbatim. It COMPLEMENTS
+  errors/extole-problem-types.yml, which is derived from the OpenAPI 4xx/5xx responses; where the two
+  disagree the docs win, because the specs do not name codes. Extole does NOT use RFC 9457
+  application/problem+json: the envelope is a bespoke application/json object. The `code` field is the
+  contract — Extole documents it as a stable enum suitable for switch/pattern-match logic — while
+  `message` is for humans and `unique_id` is the value to quote in a support ticket.
+envelope:
+  media_type: application/json
+  example:
+    unique_id: '6941049359794271324'
+    http_status_code: 403
+    code: missing_access_token
+    message: No access_token was provided with this request.
+    parameters: {}
+  fields:
+  - name: unique_id
+    description: Unique identifier Extole logs against this error. Include it when contacting support.
+  - name: http_status_code
+    description: The HTTP status code returned. Mirrors the response status.
+  - name: code
+    description: Stable string enum identifying the error class. Use this for programmatic handling.
+  - name: message
+    description: Human-readable description. Intended for display or logs.
+  - name: parameters
+    description: Object containing sub-error detail. Keys vary by error class.
+  - name: parameters.reason
+    description: When present, a string enum naming a more specific sub-error.
+  - name: parameters.description
+    description: When present, a human-readable description of the sub-error.
+statuses:
+- status: 200
+  meaning: Success. For consumer event endpoints see the asynchronous error handling note.
+  action: Continue.
+- status: 400
+  meaning: Bad Request. The request body, parameters, or headers are invalid.
+  action: Fix the request and retry.
+  retryable: false
+- status: 401
+  meaning: Unauthorized. Missing or invalid access token.
+  action: Acquire or refresh a token.
+  retryable: false
+- status: 402
+  meaning: Payment Required. The feature is not enabled for this client.
+  action: Check provisioning with your Extole guide.
+- status: 403
+  meaning: Forbidden. The token does not carry the required scope, or the resource is not accessible.
+  action: Use a token with the correct scope.
+  retryable: false
+- status: 415
+  meaning: Unsupported Media Type. The Content-Type header is missing or wrong.
+  action: 'Set Content-Type: application/json.'
+  retryable: false
+- status: 429
+  meaning: Too Many Requests. Rate limit exceeded.
+  action: Back off exponentially and retry.
+  retryable: true
+- status: 500
+  meaning: Server Error. Extole encountered an unexpected condition.
+  action: Retry with backoff. If persistent, log unique_id and contact support.
+  retryable: true
+categories:
+- category: Authentication and authorization
+  codes:
+  - {code: missing_access_token, status: 403, cause: No access token in the request.}
+  - {code: invalid_access_token, status: 401, cause: Token does not match a known credential.}
+  - {code: expired_access_token, status: 401, cause: Token is past its expiration.}
+  - {code: method_unauthorized, status: 401, cause: Caller is not authorized to use this method.}
+  - {code: access_denied, status: 403, cause: Caller is not authorized for this resource.}
+  - {code: scopes_denied, status: 403, cause: Token does not carry the required scope.}
+  - {code: invalid_credentials, status: 401, cause: Wrong email or password during token creation.}
+  - {code: missing_credentials, status: 403, cause: Token creation called without sufficient credentials.}
+  - {code: jwt_authentication_error, status: 401, cause: JWT signature did not verify.}
+  - {code: jwt_error, status: 400, cause: JWT is malformed or has invalid claims.}
+  - {code: invalid_client_id, status: 400, cause: The client_id is not a known client.}
+  - {code: invalid_access_token_duration, status: 400, cause: Token duration outside the allowed range.}
+  - {code: payment_required, status: 402, cause: Feature not enabled for this client.}
+  - {code: sandbox_not_found, status: 400, cause: The referenced sandbox does not exist.}
+- category: Validation
+  codes:
+  - {code: validation_error, status: 400, cause: Generic validation failure. Inspect parameters for the
+      field and condition.}
+  - {code: invalid_parameter, status: 400, cause: A request parameter has an invalid value.}
+  - {code: invalid_json, status: 400, cause: The request body is not valid JSON.}
+  - {code: missing_request_body, status: 400, cause: A required request body is missing.}
+  - {code: binding_error, status: 400, cause: Request parameters could not be bound to the expected
+      schema.}
+  - {code: invalid_null, status: 400, cause: A non-nullable field is null.}
+  - {code: unsupported_media_type, status: 415, cause: Content-Type is missing or unsupported.}
+  - {code: invalid_limit, status: 400, cause: The limit parameter is invalid.}
+  - {code: invalid_offset, status: 400, cause: The offset parameter is invalid.}
+  - {code: max_fetch_size_1000, status: 400, cause: The requested page size exceeds the maximum of 1000.}
+- category: Persons
+  codes:
+  - {code: person_not_found, status: 404, cause: The specified person does not exist.}
+  - {code: invalid_person_id, status: 400, cause: The person ID is malformed.}
+  - {code: invalid_key_value, status: 400, cause: A person identity key has an invalid value.}
+  - {code: identity_key_value_already_taken, status: 400, cause: An identity key value is already
+      assigned to another person.}
+  - {code: forwarding_profile_is_device, status: 400, cause: Cannot forward from a device-only profile.}
+  - {code: forward_to_profile_is_device, status: 400, cause: Cannot forward to a device-only profile.}
+  - {code: invalid_block_reason, status: 400, cause: The block reason is not recognized.}
+  - {code: data_not_found, status: 404, cause: The specified person data parameter does not exist.}
+  - {code: data_already_exists, status: 400, cause: A person data parameter with this name already
+      exists.}
+  - {code: read_only_name, status: 400, cause: The data parameter name is read-only.}
+  - {code: value_does_not_follow_pattern, status: 400, cause: Value does not match the expected pattern.}
+  - {code: data_values_invalid, status: 400, cause: One or more data values are invalid.}
+  - {code: partner_ids_invalid, status: 400, cause: One or more partner IDs are invalid.}
+  - {code: person_not_identified, status: 400, cause: The person is not identified; an operation
+      requiring identity was attempted.}
+  - {code: person_not_rewardable, status: 400, cause: The person is not eligible to receive a reward.}
+- category: Events
+  codes:
+  - {code: missing_event_name, status: 400, cause: The event name is missing.}
+  - {code: event_blocked, status: 400, cause: The event was blocked by quality, fraud, or time rules.}
+  - {code: invalid_event_time_format, status: 400, cause: The event time format is invalid.}
+  - {code: invalid_time_format, status: 400, cause: A time field is in an invalid format.}
+- category: Zones
+  codes:
+  - {code: missing_zone_name, status: 400, cause: The zone name is missing.}
+  - {code: invalid_zone_name, status: 400, cause: The zone name is invalid.}
+  - {code: no_creative, status: 400, cause: No creative was returned for the zone.}
+  - {code: invalid_creative_result, status: 400, cause: The creative result is invalid.}
+  - {code: invalid_redirect, status: 400, cause: The redirect URL is invalid.}
+- category: Rewards
+  codes:
+  - {code: reward_not_found, status: 404, cause: The specified reward does not exist.}
+  - {code: reward_state_invalid, status: 400, cause: The reward is in an invalid state for this
+      operation.}
+  - {code: reward_type_not_supported, status: 400, cause: The reward type is not supported here.}
+  - {code: reward_supplier_not_found, status: 404, cause: The specified reward supplier does not exist.}
+  - {code: reward_in_not_retryable_state, status: 400, cause: The reward cannot be retried in its
+      current state.}
+  - {code: reward_retry_not_supported, status: 400, cause: This reward does not support retry.}
+  - {code: retry_claimed_reward_not_allowed, status: 400, cause: A claimed reward cannot be retried.}
+  - {code: reward_illegal_state_transition, status: 400, cause: The requested state transition is not
+      allowed.}
+  - {code: period_not_supported, status: 400, cause: The requested time period is not supported.}
+  - {code: period_count_invalid, status: 400, cause: The period count is invalid.}
+  - {code: time_interval_invalid, status: 400, cause: The time interval is invalid.}
+- category: Audiences and memberships
+  codes:
+  - {code: audience_not_found, status: 404, cause: The specified audience does not exist.}
+  - {code: missing_audience_id, status: 400, cause: Required audience ID is missing.}
+  - {code: membership_not_found, status: 404, cause: The audience membership does not exist.}
+- category: Shareables and shares
+  codes:
+  - {code: share_not_found, status: 404, cause: The share does not exist.}
+  - {code: shareable_not_found, status: 404, cause: The shareable does not exist.}
+  - {code: code_taken, status: 400, cause: The shareable code is already in use.}
+  - {code: code_taken_by_promotion, status: 400, cause: The code is reserved by a promotion.}
+  - {code: code_out_of_range, status: 400, cause: The code is outside the valid range.}
+  - {code: code_illegal_character, status: 400, cause: The code contains an illegal character.}
+  - {code: code_contains_reserved_word, status: 400, cause: The code contains a reserved word.}
+  - {code: shareable_key_taken, status: 400, cause: The shareable key is already in use.}
+- category: Batch jobs and files
+  codes:
+  - {code: batch_job_invalid_state_transition, status: 400, cause: Batch state transition not allowed.}
+  - {code: batch_job_delete_not_allowed, status: 400, cause: Batch cannot be deleted in its current
+      state.}
+  - {code: batch_job_locked, status: 400, cause: Batch is locked.}
+  - {code: batch_job_event_name_invalid, status: 400, cause: The event name for the batch is invalid.}
+  - {code: batch_job_name_invalid, status: 400, cause: The batch name is invalid.}
+  - {code: batch_job_tag_invalid, status: 400, cause: A batch tag is invalid.}
+  - {code: batch_job_data_source_empty, status: 400, cause: The batch data source is empty.}
+  - {code: batch_job_unauthorized_scopes, status: 403, cause: The batch job lacks required scopes.}
+  - {code: file_asset_file_processing_error, status: 400, cause: An error occurred while processing the
+      file asset.}
+  - {code: file_asset_input_file_missing, status: 400, cause: The file asset's input file is missing.}
+  - {code: file_asset_invalid_name, status: 400, cause: The file asset name is invalid.}
+  - {code: file_asset_duplicated_name, status: 400, cause: A file asset with this name already exists.}
+  - {code: file_asset_invalid_tags, status: 400, cause: The file asset tags are invalid.}
+  - {code: file_asset_download_error, status: 400, cause: An error occurred downloading the file asset.}
+  - {code: file_asset_not_found, status: 404, cause: The file asset does not exist.}
+  - {code: file_asset_expired, status: 400, cause: The file asset has expired.}
+  - {code: missing_extole_public_key, status: 400, cause: The Extole public key for encryption is
+      missing.}
+  - {code: decryption_error, status: 400, cause: The file asset could not be decrypted.}
+- category: Rate limiting
+  codes:
+  - {code: too_many_requests, status: 429, cause: The caller has sent too many requests in a window.
+      See rate-limits/extole-rate-limits.yml.}
+- category: Campaigns
+  codes:
+  - {code: campaign_locked, status: 400, cause: The campaign is locked to prevent concurrent edits;
+      another caller holds the lock.}
+code_count: 90
+handling_guidance:
+- Branch on `code`. It is a stable string enum suitable for switch or pattern-match logic.
+- Display `message` to humans where appropriate.
+- Log `unique_id` and include it in any support ticket.
+- Inspect `parameters` for sub-error details when present.
+- For state-changing operations (POST, PATCH, PUT, DELETE) be cautious about retrying after a 5xx — the
+  operation may have succeeded server-side even if the response did not return.
+async_events:
+  note: Consumer event endpoints (POST /events, GET /events/{event_name}) always return HTTP 200 to
+    avoid blocking the participant's session, regardless of whether the event was processed
+    successfully. Processing errors are surfaced in the response headers instead of the status line.
+support: support@extole.com
+cross_links:
+  problem_types: errors/extole-problem-types.yml
+  rate_limits: rate-limits/extole-rate-limits.yml
+  authentication: authentication/extole-authentication.yml
+  conventions: conventions/extole-conventions.yml
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/common-errors.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/errors.md
+  http_status: 200

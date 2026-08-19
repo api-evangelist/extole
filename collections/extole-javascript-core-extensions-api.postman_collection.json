@@ -1,0 +1,4129 @@
+{
+  "item": [
+    {
+      "id": "9c70fd05-07a9-46af-b8a4-b965a1c98d3b",
+      "name": "Javascript Core Extensions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4be0b21-883e-492e-8a87-b5d10b708b16",
+          "name": "List JavaScript SDK core extensions",
+          "request": {
+            "name": "List JavaScript SDK core extensions",
+            "description": {
+              "content": "Returns all JavaScript SDK core extensions (extended cores) for the client. Extended cores inject custom JavaScript into the Extole Web SDK's core loader, letting integrators extend SDK behaviour without modifying the page embed code. Set `include_archived=true` to include archived (disabled) extensions in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_archived",
+                  "value": "false",
+                  "description": "Optional includeArchived filter"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1b8273e-e289-4b58-b5ed-dd745bbba626",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"component_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"component_references\": [\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"created_date\": \"2025-10-24T02:00:00-07:00\",\n    \"enabled\": true,\n    \"id\": \"string\",\n    \"source_code\": \"string\",\n    \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n  },\n  {\n    \"component_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"component_references\": [\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"created_date\": \"2025-10-24T02:00:00-07:00\",\n    \"enabled\": true,\n    \"id\": \"string\",\n    \"source_code\": \"string\",\n    \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef4b286f-bb0f-41e6-bfc5-8219052afd30",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b74eda53-e211-4fab-8762-b9807c6f5b76",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d16defa9-2771-4e34-92c6-f14223d49b5f",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3eee4d78-a4f1-468f-9808-a4eb107b5c44",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cb0564d-706e-48b1-9934-9217692922a3",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7604e9ef-7b2d-4473-9bfa-418560b588d7",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9b4a22b-a57d-4b81-ab24-1f0b6a261630",
+          "name": "Create a JavaScript SDK core extension",
+          "request": {
+            "name": "Create a JavaScript SDK core extension",
+            "description": {
+              "content": "Creates a new extended core definition. Returns the persisted extended core with its server-assigned id. The extension is created in an active state; archive it with `DELETE /v1/extended-cores/{id}` to disable it without deleting it permanently.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_code\": \"<string>\",\n  \"component_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"<string>\",\n      \"socket_names\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"component_id\": \"<string>\",\n      \"socket_names\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7ee4648-87f8-4f36-b674-ff15e9daffab",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d558559-29e1-4f96-a8a2-685bd87ab3e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3bde44e-3d65-4426-81e7-ba893dcab75d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c18b555-b2fe-4fa4-ae0c-863d6ddbdf51",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7768faf-a634-44a5-a6d8-8368e19a8021",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3734e78c-f693-4b12-98cc-651c1e4210bc",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed5e5e50-a863-474e-ba2b-caa041d58454",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae4a300b-bb95-41e9-94eb-5bee6700df67",
+          "name": "List built JavaScript SDK core extensions",
+          "request": {
+            "name": "List built JavaScript SDK core extensions",
+            "description": {
+              "content": "Returns all extended cores in their fully evaluated (built) runtime form, with all evaluatable fields resolved to their current values. Use this when the calling system needs the effective JavaScript payloads rather than the source definitions. Set `include_archived=true` to include archived extensions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                "built"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_archived",
+                  "value": "false",
+                  "description": "Optional includeArchived filter"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cde9f73-ec2b-481b-b0d4-b63b74aa46a1",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"component_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"component_references\": [\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"created_date\": \"2025-10-24T02:00:00-07:00\",\n    \"enabled\": true,\n    \"id\": \"string\",\n    \"source_code\": \"string\",\n    \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n  },\n  {\n    \"component_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"component_references\": [\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"component_id\": \"string\",\n        \"socket_names\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"created_date\": \"2025-10-24T02:00:00-07:00\",\n    \"enabled\": true,\n    \"id\": \"string\",\n    \"source_code\": \"string\",\n    \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a641bd7-21e6-4f6d-a7fc-309e6fb4ae38",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46cafd31-0a92-4059-b628-624782c3d33a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ac1dcbc-bf63-4489-a669-4bac4834390b",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2727c811-4085-4156-8b32-1076e9d9331c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23871672-777d-4552-b747-c99f088f9ffd",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "445ebf4a-3954-4faa-a4cf-d5a98a3d8ef7",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "831db086-3b28-4bf4-92ff-63afa5bda6e9",
+          "name": "Get a JavaScript SDK core extension",
+          "request": {
+            "name": "Get a JavaScript SDK core extension",
+            "description": {
+              "content": "Returns the source definition of the supplied extended core, including its JavaScript payload, conditions, and lifecycle state. Returns `404 extended_core_not_found` if the id does not exist or is not accessible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                ":extendedCoreId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "extendedCoreId",
+                  "description": "(Required) The id of the extended core to be retrieved."
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "320d4886-c499-4c81-95fb-b262790ee279",
+              "name": "JavaScript SDK core extension source definition with build-time enabled state, source code, and component references.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c97eab5-c794-439f-94f4-c459f5fef3f6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ccc7b3d-96da-4358-8228-34b33aa9696e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b12e1c0-0328-4115-b9af-a5c1c3ad28fc",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c95aa3fd-a2a5-448c-a73c-8a693ec97a86",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "561d4005-4227-4cf5-9b6b-344d05316288",
+              "name": "Extended core was not found. The supplied id does not match any extended core accessible to the calling client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"extended_core_not_found\",\n  \"http_status_code\": 404,\n  \"message\": \"Extended core not found\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60788ace-e3a6-4b87-ad21-6f1dc4d01684",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "495876da-39a6-488b-9f04-d487f9f13535",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "667f7ef6-4ada-4344-b1d3-61b672b38f45",
+          "name": "Update a JavaScript SDK core extension",
+          "request": {
+            "name": "Update a JavaScript SDK core extension",
+            "description": {
+              "content": "Applies a partial update to the supplied extended core. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted extended core after the update. Returns `404 extended_core_not_found` if the id does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                ":extendedCoreId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "extendedCoreId",
+                  "description": "(Required) The id of the extended core to be updated."
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"component_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"<string>\",\n      \"socket_names\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"component_id\": \"<string>\",\n      \"socket_names\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"enabled\": \"<boolean>\",\n  \"source_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d93562a-c0f1-4d9b-8cf5-40711f8978ab",
+              "name": "JavaScript SDK core extension source definition with build-time enabled state, source code, and component references.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96e4b091-dcd9-4298-a95f-68f15a24d176",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77f717f8-122e-4e90-9c7a-3847cf20ebb9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a46ef7d-4cd7-4b2c-9423-919a85a1b17a",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1419c076-b242-4f92-91b0-6a7b64cddddf",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cac4f33-c367-4341-bd0e-5d4064a257a3",
+              "name": "Extended core was not found. The supplied id does not match any extended core accessible to the calling client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"extended_core_not_found\",\n  \"http_status_code\": 404,\n  \"message\": \"Extended core not found\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de0a587c-8454-4cac-8dcf-2ce5583670ed",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d957a1e4-e1a4-401a-adab-9f7a65c4c7af",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be updated."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"enabled\": true,\n  \"source_code\": \"source_code\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3901682-3e67-4356-8276-8d1e4ebae19e",
+          "name": "Archive a JavaScript SDK core extension",
+          "request": {
+            "name": "Archive a JavaScript SDK core extension",
+            "description": {
+              "content": "Archives (soft-deletes) the supplied extended core. The extension is removed from the SDK core loader immediately but its definition is retained. Restore it with `POST /v1/extended-cores/{id}/unarchive`. Returns the updated extended core. Returns `404 extended_core_not_found` if the id does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                ":extendedCoreId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "extendedCoreId",
+                  "description": "(Required) The id of the extended core to be archived."
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60a0045d-a592-4e25-b80b-d5bb89cb533a",
+              "name": "Archived JavaScript SDK core extension source definition.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0eda041-99df-4faf-87ef-c12c1afb6b57",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe49360f-54df-4de8-bb03-7f38ad6a027f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01889bbc-2024-4eb4-a83f-20224e063c32",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b1aa498-44de-4065-81ff-8c52dcc76b5a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4f789b6-a0f9-4e75-9286-8c013c85e6d8",
+              "name": "Extended core was not found. The supplied id does not match any extended core accessible to the calling client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"extended_core_not_found\",\n  \"http_status_code\": 404,\n  \"message\": \"Extended core not found\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "993997dd-4634-47d6-8aad-825af47e71c3",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e04a26d-1a2c-42c0-af0b-2331eb1a2e74",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be archived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d62661de-fe7c-40f4-b946-e788602b8b3e",
+          "name": "Get a built JavaScript SDK core extension",
+          "request": {
+            "name": "Get a built JavaScript SDK core extension",
+            "description": {
+              "content": "Returns the fully evaluated (built) runtime form of the supplied extended core, with all evaluatable fields resolved to their current values. Returns `404 extended_core_not_found` if the id does not exist or is not accessible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                ":extendedCoreId",
+                "built"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "extendedCoreId",
+                  "description": "(Required) The id of the extended core to be retrieved."
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f1340fc-b545-4e35-bb9b-e03d7bde4ca3",
+              "name": "Built JavaScript SDK core extension with evaluated runtime values used by the SDK core loader.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77a46f6e-2750-449f-bcb1-c5fdb75a56d9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb1e0680-f54f-4ea7-a659-751c2fe6c257",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "892655c3-85d5-4b4c-9f66-5de8aa6b5c3c",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cb0f876-0401-4310-89a0-71b9e051593e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f8d0f90-c1a3-4fec-ae3f-aa9933154a05",
+              "name": "Extended core was not found. The supplied id does not match any extended core accessible to the calling client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"extended_core_not_found\",\n  \"http_status_code\": 404,\n  \"message\": \"Extended core not found\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2f54d96-cdbd-48b3-9d5d-39c64cb92299",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c22eb1-0d1d-4ee2-8228-c134d7ff696c",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be retrieved."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d7da55b-83aa-4a83-9610-cf21ccd98d1d",
+          "name": "Unarchive a JavaScript SDK core extension",
+          "request": {
+            "name": "Unarchive a JavaScript SDK core extension",
+            "description": {
+              "content": "Restores a previously archived extended core and re-inserts it into the SDK core loader. Returns the restored extended core. Returns `404 extended_core_not_found` if the id does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "extended-cores",
+                ":extendedCoreId",
+                "unarchive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "extendedCoreId",
+                  "description": "(Required) The id of the extended core to be unarchived."
+                },
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23eaadd0-7c10-40f2-ac64-a6177b442bf7",
+              "name": "Restored JavaScript SDK core extension source definition.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"component_id\": \"string\",\n      \"socket_names\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"enabled\": false,\n  \"id\": \"string\",\n  \"source_code\": \"string\",\n  \"updated_date\": \"2025-10-24T02:00:00-07:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dc954e4-650a-4476-958f-e7a6ff5a439d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "154a3e7c-ce1c-4e32-87da-0cb5db4881d6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95a6d583-1f2f-47fc-8cdf-4a81407620f6",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f325f2b-c37e-4a60-ab35-bac59232b15e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d01f4883-7c50-4356-9606-3721644ef823",
+              "name": "Extended core was not found. The supplied id does not match any extended core accessible to the calling client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"extended_core_not_found\",\n  \"http_status_code\": 404,\n  \"message\": \"Extended core not found\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccbea20e-8a59-481b-a22c-689dac16c7b2",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d2e8427-4e08-429f-92a0-329a33f5af9c",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "extended-cores",
+                    ":extendedCoreId",
+                    "unarchive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "extendedCoreId",
+                      "description": "(Required) The id of the extended core to be unarchived."
+                    },
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yourcompany",
+      "key": "brand"
+    },
+    {
+      "type": "string",
+      "value": "https://{{brand}}.extole.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b9ae5639-c0ec-4bea-9c17-1ae299acc652",
+    "name": "Integration API - Consumer to Extole Audiences Javascript Core Extensions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Components Settings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List component settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all settings for the specified component."
+        },
+        {
+          "info": {
+            "name": "Create a component setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new named configuration setting to the specified component. Returns the created setting."
+        },
+        {
+          "info": {
+            "name": "Batch update component settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a batch of setting value updates across the component in one request."
+        },
+        {
+          "info": {
+            "name": "List built component settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/built",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all component settings in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get a component setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the component setting for the specified name."
+        },
+        {
+          "info": {
+            "name": "Update a component setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified component setting. Only fields present in the request body are changed. Returns the updated setting."
+        },
+        {
+          "info": {
+            "name": "Delete a component setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the specified component setting and returns the deleted record."
+        },
+        {
+          "info": {
+            "name": "Get a built component setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name/built",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the component setting, with expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "List installed components in setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name/installed-components",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all component references currently installed in the specified socket-type setting."
+        },
+        {
+          "info": {
+            "name": "Add component to setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name/add-component",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a component reference to the specified socket-type setting."
+        },
+        {
+          "info": {
+            "name": "Remove component from setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/settings/:setting_name/remove-component/:target_component_id",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "setting_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a component reference from the specified socket-type setting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

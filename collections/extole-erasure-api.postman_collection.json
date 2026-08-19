@@ -1,0 +1,527 @@
+{
+  "item": [
+    {
+      "id": "2475c8a7-e1af-4147-a3fb-d618dc54fb8f",
+      "name": "Erasure",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03c0f362-fcf9-483f-b521-8bad115475b6",
+          "name": "Create an erasure request",
+          "request": {
+            "name": "Create an erasure request",
+            "description": {
+              "content": "Submits an irreversible GDPR/privacy erasure request for a person's data. All personal data associated with the specified person is permanently deleted. Returns the erasure record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "erasures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"note\": \"<string>\",\n  \"partner_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d5f73dd-13c6-46ed-bd93-46a7bbca2bd6",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_date\": \"2025-10-24T02:00:00-07:00\",\n  \"note\": \"string\",\n  \"status\": \"FAILED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6005714f-4f4c-47d6-ac46-ed0c691590d2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1acf872-8aa2-4b88-88e0-e3a1a5bd06b5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d39b1fce-4343-4eff-bf34-d2ef761bc5d6",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eddacc89-ff8d-4bbf-a118-64fe90b9c764",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f0f5b61-4ae7-435e-ac29-45b86dbc7e87",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "422201a6-3769-459c-83c3-d215313a3e7f",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "erasures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"email\",\n  \"note\": \"note\",\n  \"partner_user_id\": \"partner_user_id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yourcompany",
+      "key": "brand"
+    },
+    {
+      "type": "string",
+      "value": "https://{{brand}}.extole.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "72ac0c05-626b-41ef-9bb0-ac959d31eb5d",
+    "name": "Integration API - Consumer to Extole Audiences Erasure API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,913 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Profiles API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get share event status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/events/share/status/:pollingId",
+            "params": [
+              {
+                "name": "pollingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for a prior `POST /api/v4/events/share` call identified by `pollingId`."
+        },
+        {
+          "info": {
+            "name": "Get the authenticated consumer profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me"
+          },
+          "docs": "Returns the profile of the consumer identified by the supplied access token. The response includes the consumer's identity attributes (email, partner user id, name), custom data fields stored in `parameters`, and consent state."
+        },
+        {
+          "info": {
+            "name": "Update the authenticated consumer profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates identity attributes and consent fields on the profile of the consumer identified by the access token."
+        },
+        {
+          "info": {
+            "name": "List advocate relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/advocates"
+          },
+          "docs": "Deprecated. Returns advocates who referred the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "List assets for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/assets"
+          },
+          "docs": "Returns all assets attached to the profile of the consumer identified by the access token. Assets are binary or text files such as wallet passes, QR codes, or uploaded images."
+        },
+        {
+          "info": {
+            "name": "Create an asset for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me/assets",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "asset",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a new asset and attaches it to the authenticated consumer's profile. Supply asset metadata in the `asset` form field and the file content in the `file` form field."
+        },
+        {
+          "info": {
+            "name": "Download an asset by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/assets/download",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Streams the binary or text content of the asset matching the `name` query parameter on the authenticated consumer's profile. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise."
+        },
+        {
+          "info": {
+            "name": "Get an asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/assets/:assetId",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata for the asset identified by `assetId` on the authenticated consumer's profile. Use the download endpoints to retrieve the asset content."
+        },
+        {
+          "info": {
+            "name": "Delete an asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/api/v4/me/assets/:assetId",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the asset identified by `assetId` from the authenticated consumer's profile and returns the deleted asset metadata."
+        },
+        {
+          "info": {
+            "name": "Download an asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/assets/:assetId/download",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Streams the binary or text content of the asset identified by `assetId`. Returns HTTP 302 if the content is hosted at a remote URL; returns HTTP 200 with the raw content otherwise."
+        },
+        {
+          "info": {
+            "name": "List audience memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/audience-memberships"
+          },
+          "docs": "Returns audience memberships for the authenticated consumer, including eligibility audiences that affect program participation."
+        },
+        {
+          "info": {
+            "name": "List friends for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/friends"
+          },
+          "docs": "Deprecated. Returns friend profiles linked to the authenticated consumer through referral relationships."
+        },
+        {
+          "info": {
+            "name": "List journeys for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/journeys",
+            "params": [
+              {
+                "name": "container",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns journey records for the consumer identified by the access token. Filter by `container` or `type` (journey name) to narrow the result set."
+        },
+        {
+          "info": {
+            "name": "Get profile parameters for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/parameters"
+          },
+          "docs": "Returns all custom data fields stored in `parameters` on the profile of the consumer identified by the access token."
+        },
+        {
+          "info": {
+            "name": "Update multiple profile parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me/parameters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates multiple custom data fields on the authenticated consumer's profile in a single request. Omitted fields are left unchanged."
+        },
+        {
+          "info": {
+            "name": "List referrals from the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/referrals-from-me"
+          },
+          "docs": "Returns referral relationships where the authenticated consumer is the advocate who referred others."
+        },
+        {
+          "info": {
+            "name": "List referrals to the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/referrals-to-me"
+          },
+          "docs": "Returns referral relationships where the authenticated consumer is the referred friend."
+        },
+        {
+          "info": {
+            "name": "Get reward redemption status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/rewards/status",
+            "params": [
+              {
+                "name": "polling_id",
+                "value": "",
+                "type": "query",
+                "description": "Polling identifier returned by the reward claim call."
+              },
+              {
+                "name": "reward_name",
+                "value": "",
+                "type": "query",
+                "description": "The configured name of the reward to look up."
+              },
+              {
+                "name": "partner_event_id",
+                "value": "",
+                "type": "query",
+                "description": "The partner-supplied event identifier that originated the reward."
+              }
+            ]
+          },
+          "docs": "Returns the current state of a pending or completed reward redemption for the authenticated consumer. Supply exactly one of `polling_id` (returned by a prior reward claim call), `reward_name` (the configured reward name), or `partner_event_id` (the originating partner event identifier). Poll this endpoint until the reward reaches a terminal state."
+        },
+        {
+          "info": {
+            "name": "Get verification email status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/send-verification-email/status/:pollingId",
+            "params": [
+              {
+                "name": "pollingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for a prior verification email send identified by `pollingId`."
+        },
+        {
+          "info": {
+            "name": "List shareables for the authenticated consumer (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/shareables"
+          },
+          "docs": "Deprecated. Use `GET /api/v6/me/shareables` instead. Returns all shareables owned by the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "Create a shareable (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me/shareables",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Use `POST /api/v6/me/shareables` instead. Creates a new shareable for the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "Get shareable creation status (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/shareables/status/:polling_id",
+            "params": [
+              {
+                "name": "polling_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for an asynchronous shareable creation identified by `polling_id`."
+        },
+        {
+          "info": {
+            "name": "Get a shareable by ID (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/shareables/:shareable_id",
+            "params": [
+              {
+                "name": "shareable_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "consumer_event.source",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deprecated. Use `GET /api/v6/me/shareables/{code}` instead. Returns the shareable identified by `shareable_id` when it belongs to the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "Update a shareable (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/api/v4/me/shareables/:shareable_id",
+            "params": [
+              {
+                "name": "shareable_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Updates the shareable identified by `shareable_id` on the authenticated consumer's profile."
+        },
+        {
+          "info": {
+            "name": "List shares for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/shares",
+            "params": [
+              {
+                "name": "partner_share_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "query",
+                "description": "A partner id using this format: <name>:<value>"
+              }
+            ]
+          },
+          "docs": "Returns shares recorded for the authenticated consumer. Filter by `partner_share_id` or `partner_id` to narrow the result set."
+        },
+        {
+          "info": {
+            "name": "Get a share by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/shares/:shareId",
+            "params": [
+              {
+                "name": "shareId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the share identified by `shareId` when it belongs to the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "List steps for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/steps",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "step_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner_event_id_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner_event_id_value",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns program steps completed by the authenticated consumer. Filter by `campaign_id`, `program_label`, `step_name`, or `quality` to narrow the result set."
+        },
+        {
+          "info": {
+            "name": "Look up shareables by code (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/shareable",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns shareables matching the `code` query parameter."
+        },
+        {
+          "info": {
+            "name": "Create a shareable (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/shareable",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Use `POST /api/v6/me/shareables` instead. Creates a shareable for the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "Get shareable creation status (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/shareable/status/:polling_id",
+            "params": [
+              {
+                "name": "polling_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for an asynchronous shareable creation identified by `polling_id`."
+        },
+        {
+          "info": {
+            "name": "Get a shareable by ID (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/shareable/:shareable_id",
+            "params": [
+              {
+                "name": "shareable_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the shareable identified by `shareable_id`."
+        },
+        {
+          "info": {
+            "name": "List shares",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/shares",
+            "params": [
+              {
+                "name": "partner_share_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "query",
+                "description": "A partner id using this format: <name>:<value>"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns shares matching optional `partner_share_id` or `partner_id` filters. For the authenticated consumer's shares use `GET /api/v4/me/shares` instead."
+        },
+        {
+          "info": {
+            "name": "Get a share by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/shares/:share_id",
+            "params": [
+              {
+                "name": "share_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the share identified by `share_id`. For the authenticated consumer's shares use `GET /api/v4/me/shares/{shareId}` instead."
+        },
+        {
+          "info": {
+            "name": "Get custom share status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v5/custom/share/status/:pollingId",
+            "params": [
+              {
+                "name": "pollingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for a prior `POST /api/v5/custom/share` call identified by `pollingId`."
+        },
+        {
+          "info": {
+            "name": "List shareables for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v6/me/shareables",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns shareables owned by the consumer identified by the access token. Filter by `key` or `label` to narrow the result set."
+        },
+        {
+          "info": {
+            "name": "Create a shareable for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v6/me/shareables",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new shareable link for the authenticated consumer. Returns the shareable with its assigned code and share URL."
+        },
+        {
+          "info": {
+            "name": "Get a shareable by code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v6/me/shareables/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the shareable identified by `code` when it belongs to the authenticated consumer."
+        },
+        {
+          "info": {
+            "name": "Submit a share event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/events/share",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Use `POST /api/v6/email/share` instead. Records a share event on behalf of the authenticated advocate and returns a `polling_id` for status polling."
+        },
+        {
+          "info": {
+            "name": "Send a profile verification email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me/send-verification-email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Sends a verification email to confirm the authenticated consumer's email address. Returns a `polling_id` for status polling."
+        },
+        {
+          "info": {
+            "name": "Submit a custom share event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v5/custom/share",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Use event-based sharing instead. Records a custom share on behalf of the authenticated advocate and returns a `polling_id` for status polling."
+        },
+        {
+          "info": {
+            "name": "Send referral email shares in batch (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v5/email/share/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Use `POST /api/v6/email/share/batch` instead. Sends referral emails to multiple recipients in a single request."
+        },
+        {
+          "info": {
+            "name": "Get, create, or update a shareable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v6/me/shareables/get-create-or-update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an existing shareable, creates one if missing, or updates it when the request data differs. Combines get-or-create with in-place updates."
+        },
+        {
+          "info": {
+            "name": "Get or create a shareable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v6/me/shareables/get-or-create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an existing shareable matching the request criteria or creates one if none exists. Idempotent helper for mobile and headless integrations."
+        },
+        {
+          "info": {
+            "name": "Set a single profile parameter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/api/v4/me/parameters/:parameter_name",
+            "params": [
+              {
+                "name": "parameter_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates one named custom data field on the authenticated consumer's profile. The parameter name is supplied in the `parameter_name` path segment."
+        },
+        {
+          "info": {
+            "name": "List public steps for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/me/public-steps",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "step_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns program steps for the authenticated consumer that are visible in public scope. Filter by `campaign_id`, `program_label`, or `step_name` to narrow the result set."
+        },
+        {
+          "info": {
+            "name": "List all shares for the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/me/shares-all"
+          },
+          "docs": "Returns every share recorded for the authenticated consumer without partner filters."
+        },
+        {
+          "info": {
+            "name": "getOptout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/optout/:secure_email",
+            "params": [
+              {
+                "name": "secure_email",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "updateOptout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/optout/:secure_email",
+            "params": [
+              {
+                "name": "secure_email",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Validate a postal address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/address/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates and normalizes the postal address in the request body. Returns corrected address fields and validation status when the address can be verified."
+        },
+        {
+          "info": {
+            "name": "Get a shareable link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v3/shareables/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the v3 shareable link for the specified code, including the participant and campaign context resolved at runtime."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

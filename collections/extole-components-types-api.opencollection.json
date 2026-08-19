@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Components Types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List component types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-types",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns component type definitions for the calling client, filtered by the supplied query parameters. Component types define the structure (settings, facets) of campaign components. Use `GET /v1/component-types/default` to retrieve the platform-default types."
+        },
+        {
+          "info": {
+            "name": "Create a component type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/component-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new component type definition and returns the persisted record. Component types are typically managed by Extole staff; this endpoint is marked `expert`."
+        },
+        {
+          "info": {
+            "name": "List default component types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-types/default",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the platform-default component type definitions. Default types are provided by Extole and are available to all clients."
+        },
+        {
+          "info": {
+            "name": "Get a component type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-types/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component type to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns the component type definition for the supplied name, including its settings schema, facets, and display configuration. Returns `400 component_type_not_found` if the name does not match any accessible type."
+        },
+        {
+          "info": {
+            "name": "Update a component type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/component-types/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component type to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied component type. Returns `400 component_type_not_found` if the name does not match any accessible type."
+        },
+        {
+          "info": {
+            "name": "Archive a component type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/component-types/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component type to archive."
+              }
+            ]
+          },
+          "docs": "Archives the supplied component type. Archived types are hidden from the dashboard but their existing component instances remain. Returns `400 component_type_not_found` if the name does not match any accessible type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

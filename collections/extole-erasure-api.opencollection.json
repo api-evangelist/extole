@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Erasure API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Erasure",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an erasure request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/erasures",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits an irreversible GDPR/privacy erasure request for a person's data. All personal data associated with the specified person is permanently deleted. Returns the erasure record."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,887 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Campaigns API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campaign summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaign-summaries",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns lightweight read-only summaries of campaigns, including id, name, state, and dates. Supports filtering via query parameters."
+        },
+        {
+          "info": {
+            "name": "Get a campaign summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaign-summaries/:campaignId:version",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a lightweight read-only summary of the specified campaign, including id, name, state, and dates."
+        },
+        {
+          "info": {
+            "name": "List campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns campaigns for the calling client, filtered and ordered by the supplied query parameters. Supports filtering by state (draft, published, archived), label, and date range. Use `GET /v2/campaigns/built` for fully evaluated runtime forms."
+        },
+        {
+          "info": {
+            "name": "Upload a new campaign from archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new campaign by importing a campaign ZIP archive previously exported via `GET /v2/campaigns/{id}.zip`. All components, controllers, flow steps, and creative assets contained in the archive are imported and the new campaign is created in DRAFT state with a server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/built",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns campaigns in their fully evaluated (built) runtime form, with all evaluatable fields resolved. Use this when the calling system needs effective component values and settings rather than source definitions. Supports the same filtering as `GET /v2/campaigns`."
+        },
+        {
+          "info": {
+            "name": "List deleted campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/deleted"
+          },
+          "docs": "Returns the campaigns that have been soft-deleted for the calling client. Deleted campaigns are retained for audit and recovery purposes. Use `POST /v2/campaigns/{id}/undelete` to restore a deleted campaign."
+        },
+        {
+          "info": {
+            "name": "List duplicatable campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/duplicatable"
+          },
+          "docs": "Returns the campaigns that the calling client is permitted to duplicate. Duplicatable campaigns include both the client's own draft and published campaigns and any shared template campaigns. Use `POST /v2/campaigns/{id}/duplicate` to create a copy."
+        },
+        {
+          "info": {
+            "name": "List campaign versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId/versions",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the version history for the specified campaign, ordered from most recent to oldest. Each entry includes the version identifier, state, and timestamps. Supports `limit` and `offset` query parameters for pagination."
+        },
+        {
+          "info": {
+            "name": "Get a campaign version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId/versions/:campaignVersion",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "campaignVersion",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the version descriptor for the specified campaign version identifier. Includes the version's state, author, and timestamps. Use `GET /v2/campaigns/{id}/version/{version}` to retrieve the full campaign definition for that version."
+        },
+        {
+          "info": {
+            "name": "Get a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the source definition of the supplied campaign version. Omit the `/version/{version}` path segment to retrieve the latest version. Use `GET /v2/campaigns/{id}/built` for the fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Update a campaign from archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Replaces the content of the specified campaign version with a campaign ZIP archive. All components, controllers, flow steps, and creative assets in the archive overwrite the existing campaign definition. The `version` path segment acts as an optimistic-lock guard; supply the current version to prevent lost-update races."
+        },
+        {
+          "info": {
+            "name": "Delete a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Soft-deletes the specified campaign version. Deleted campaigns are excluded from standard listings but are recoverable via `POST /v2/campaigns/{id}/undelete`. Returns the deleted campaign record. Requires the campaign to be in a state that permits deletion (e.g. DRAFT or ARCHIVED)."
+        },
+        {
+          "info": {
+            "name": "Get a built campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified campaign version in its fully evaluated (built) runtime form, with all evaluatable fields resolved against current component and setting values. Omit the `/version/{version}` segment to retrieve the built form of the latest version."
+        },
+        {
+          "info": {
+            "name": "Download a campaign bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version.zip",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads the specified campaign version as a ZIP archive containing all campaign assets, component definitions, and configuration files. The archive can be used to back up a campaign or to import it into another client via `POST /v2/campaigns` or `PUT /v2/campaigns/{id}`."
+        },
+        {
+          "info": {
+            "name": "Rename a campaigns program label",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/program/:programLabel/rename",
+            "params": [
+              {
+                "name": "programLabel",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renames the specified program label across all campaigns that use it."
+        },
+        {
+          "info": {
+            "name": "Archive a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/archive",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Moves the specified campaign version to archived state, hiding it from default campaign listings while retaining it for reporting and recovery. Use `POST /v2/campaigns/{id}/unarchive` to restore an archived campaign to active state."
+        },
+        {
+          "info": {
+            "name": "Discard a campaign draft",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/discard",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Discards the draft version of the specified campaign, reverting it to the last published state. Uncommitted changes made since the last publish are lost. If no published version exists, the campaign remains in draft with its changes removed."
+        },
+        {
+          "info": {
+            "name": "Duplicate a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/duplicate",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new draft campaign by deep-copying the supplied campaign version. The copy inherits all components, settings, and labels; the optional request body lets callers override the new campaign's name and label list. The new campaign is created in DRAFT state regardless of the source's state."
+        },
+        {
+          "info": {
+            "name": "End a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/end",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transitions the specified campaign version to ended state, permanently closing it to new participants. Ended campaigns are retained for reporting and audit; use `POST /v2/campaigns/{id}/archive` to hide them from active lists. Supports an optional schedule request body to defer the end to a future time."
+        },
+        {
+          "info": {
+            "name": "Launch a campaign in burst mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/launch-burst",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transitions the specified campaign version into burst mode, which is a high-throughput live state designed for time-limited promotional surges. Validates all campaign components and reward rules before the transition. Returns the updated campaign on success."
+        },
+        {
+          "info": {
+            "name": "Launch a campaign in test mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/launch-test",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transitions the specified campaign version into test mode, enabling a limited rollout to test participants without affecting production traffic. Validates all campaign components, controllers, and reward rules before the transition. Returns the updated campaign on success."
+        },
+        {
+          "info": {
+            "name": "Set a campaign live",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/live",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Transitions the specified campaign version directly to live state, bypassing the normal test-mode phase. Validates all components and reward rules before the transition. Returns the updated campaign. Use `POST /v2/campaigns/{id}/publish` for the standard publish flow with full validation."
+        },
+        {
+          "info": {
+            "name": "Lock a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/lock",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Locks the specified campaign version to prevent concurrent edits. While a campaign is locked, attempts to edit it by other callers are rejected with `400 campaign_locked`. The lock is associated with the caller's access token; use `POST /v2/campaigns/{id}/unlock` to release it."
+        },
+        {
+          "info": {
+            "name": "Make a campaign version the latest draft",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/make-latest-draft",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Promotes the specified campaign version to be the latest draft, replacing any existing latest-draft pointer. Useful for rolling back to a prior version that should become the new active draft for editing. The campaign must be in a state that permits draft promotion."
+        },
+        {
+          "info": {
+            "name": "Make a campaign version latest while preserving state",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/make-latest-preserve-state",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Promotes the specified campaign version to the latest pointer while keeping the campaign's current lifecycle state (draft, published, etc.) unchanged. Unlike `make-latest-draft` or `make-latest-published`, this transition preserves the state the campaign was already in rather than changing it."
+        },
+        {
+          "info": {
+            "name": "Make a campaign version the latest published",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/make-latest-published",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Promotes the specified campaign version to be the latest published version, replacing the existing latest-published pointer. Use to roll back live traffic to a prior published version without going through a full publish cycle. The campaign must already be in published state."
+        },
+        {
+          "info": {
+            "name": "Pause a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/pause",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transitions the specified campaign version to paused state, temporarily halting participant eligibility and reward processing. The campaign can be resumed by publishing it again. Supports an optional schedule request body to defer the pause to a future time."
+        },
+        {
+          "info": {
+            "name": "Publish a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/publish",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates, builds, and publishes the supplied campaign version, making it live for participants. The optional request body lets callers override the publish schedule. Returns the published campaign. Validates all components, controllers, flow steps, and reward rules before publishing; validation failures return descriptive 4xx errors from the various validation exception types."
+        },
+        {
+          "info": {
+            "name": "Schedule a campaign state change",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/schedule",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules the specified campaign version for a future state transition (e.g. go-live or end) at the datetime specified in the request body. The campaign must be published before it can be scheduled. Replaces any existing schedule on the same campaign version."
+        },
+        {
+          "info": {
+            "name": "Stop a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/stop",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Immediately stops the specified campaign version, halting all active processing and participant eligibility. Unlike pause, a stopped campaign must be republished to resume. Supports an optional schedule request body to defer the stop to a future time."
+        },
+        {
+          "info": {
+            "name": "Unarchive a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/unarchive",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores the specified campaign version from archived state back to its previous active state. After unarchiving, the campaign resumes appearing in standard listings and is eligible for editing or publishing."
+        },
+        {
+          "info": {
+            "name": "Undelete a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/undelete",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Recovers a soft-deleted campaign version, restoring it to an active state. Requires the `CLIENT_SUPERUSER` scope. After recovery the campaign appears again in standard listings and can be edited or published."
+        },
+        {
+          "info": {
+            "name": "Unlock a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/unlock",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Releases the edit lock on the specified campaign version. After unlocking, other callers can edit the campaign again. Returns `400 campaign_not_locked` if the campaign is not currently locked by the caller."
+        },
+        {
+          "info": {
+            "name": "Update campaigns by program label",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/program/:program_label/update",
+            "params": [
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies the specified update to all campaigns associated with the given program label."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

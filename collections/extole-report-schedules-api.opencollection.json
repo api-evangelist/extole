@@ -1,0 +1,586 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Report Schedules API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Report Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List report runner tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners-tags",
+            "params": [
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all distinct tags applied to report runners for the calling client. Use these values with the `having_any_tags` or `having_all_tags` filter on `GET /v7/report-runners` to retrieve runners by tag."
+        },
+        {
+          "info": {
+            "name": "Gets a filtered list of report runner views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/views/detailed",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "report_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pause_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "aggregation_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "report_type_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Gets a filtered list of report runner views"
+        },
+        {
+          "info": {
+            "name": "Gets a list of accumulating reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/accumulating-reports",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for statuses, will return reports that have one of the specified values. Valid values: PENDING, IN_PROGRESS, DONE, FAILED, CANCELED, SFTP_DELIVERY_FAILED, EXPIRED"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for offset, defaults to 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for limit, defaults to 100."
+              }
+            ]
+          },
+          "docs": "Gets a list of accumulating reports"
+        },
+        {
+          "info": {
+            "name": "Get the latest report for a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/latest",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the most recent completed report produced by the specified report runner."
+        },
+        {
+          "info": {
+            "name": "Download the latest report for a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/latest/download:format",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the output of the most recent completed report produced by the specified report runner. Append a format extension to select the download format."
+        },
+        {
+          "info": {
+            "name": "Gets a filtered list of reports executed by the report runner.Results are sorted by schedule date in descending order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/reports",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for types, will return reports that have one of the specified values. Valid values: EXECUTED, NOT_EXECUTED, ROLLING, INDIVIDUAL, EMPTY_SLOT, ACCUMULATING"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for statuses, will return reports that have one of the specified values. Valid values: PENDING, IN_PROGRESS, DONE, FAILED, CANCELED, SFTP_DELIVERY_FAILED, EXPIRED"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for offset, defaults to 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for limit, defaults to 100."
+              }
+            ]
+          },
+          "docs": "Gets a filtered list of reports executed by the report runner.Results are sorted by schedule date in descending order."
+        },
+        {
+          "info": {
+            "name": "Get report runner view for the specified id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/views/detailed",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              }
+            ]
+          },
+          "docs": "Get report runner view for the specified id."
+        },
+        {
+          "info": {
+            "name": "Generate missing reports for a scheduled report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/report-runners/scheduled/:reportRunnerId/generate-missing-reports",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              },
+              {
+                "name": "slot",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Triggers generation of any missing report slots for the specified scheduled report runner, up to the optional limit."
+        },
+        {
+          "info": {
+            "name": "Execute report runner for the specified id. Will return existing report if there is any currently in progress or generate a new one otherwise.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/report-runners/:reportRunnerId/run",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute report runner for the specified id. Will return existing report if there is any currently in progress or generate a new one otherwise."
+        },
+        {
+          "info": {
+            "name": "Delete reports belonging to the specified report runner id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/report-runners/scheduled/:reportRunnerId/reports",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              },
+              {
+                "name": "slot",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete reports belonging to the specified report runner id"
+        },
+        {
+          "info": {
+            "name": "List report runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v7/report-runners",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "report_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pause_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "aggregation_status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "report_type_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns report runners for the calling client, filtered and ordered by the supplied query parameters. Report runners are scheduled report execution definitions that run a report type on a recurring schedule and deliver output to a configured destination (e.g. SFTP). Use `GET /v7/report-runners/template` to retrieve the available runner templates."
+        },
+        {
+          "info": {
+            "name": "Create a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v7/report-runners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new report runner definition and schedules it for execution. Returns the persisted report runner with its server-assigned id. The runner begins executing on its first scheduled interval after creation."
+        },
+        {
+          "info": {
+            "name": "List report runner templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v7/report-runners/template"
+          },
+          "docs": "Returns the available report runner templates for the calling client. Templates are pre-configured runner definitions that can be duplicated via `POST /v7/report-runners/{id}/duplicate` to create new runners with minimal configuration."
+        },
+        {
+          "info": {
+            "name": "Get a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v7/report-runners/:reportRunnerId",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              }
+            ]
+          },
+          "docs": "Returns the full report runner definition for the supplied id, including its schedule, report type, parameters, formats, and delivery configuration. Returns `404 report_runner_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Update a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v7/report-runners/:reportRunnerId",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied report runner. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted report runner after the update. Returns `404 report_runner_not_found` if the id does not exist. Locked runners (`report_runner_locked`) must be updated via deployment tooling."
+        },
+        {
+          "info": {
+            "name": "Delete a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v7/report-runners/:reportRunnerId",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique report runner identifier."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the supplied report runner and cancels all pending executions. Returns the deleted record on success. Returns `404 report_runner_not_found` if the id does not exist. Locked runners cannot be deleted via the REST API."
+        },
+        {
+          "info": {
+            "name": "Duplicate a report runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v7/report-runners/:reportRunnerId/duplicate",
+            "params": [
+              {
+                "name": "reportRunnerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "allow_duplicate",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new report runner by duplicating the supplied one. The body provides the overrides to apply to the copy; fields absent from the body are copied from the source. Set `allow_duplicate=true` to allow creating a runner with the same name as an existing one. Returns the new report runner."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,590 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the client's audience definitions sorted by creation date, newest first. By default archived audiences are excluded; pass `include_archived=true` to include them. Use `limit` and `offset` to page (defaults: `limit=1000`, `offset=0`). Each entry is the editable definition - for runtime targeting reads, use `GET /v1/audiences/built` instead."
+        },
+        {
+          "info": {
+            "name": "Create audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new audience definition. `name` is required; `enabled`, `tags`, and `component_references` are optional. New audiences default to enabled. Tags must be 255 characters or fewer each; the resolved name must also be 255 characters or fewer. Returns the created audience."
+        },
+        {
+          "info": {
+            "name": "List built audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/built",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the rendered (built) audience snapshots that the runtime evaluates against - the resolved name, enabled flag, tags, and component references for every audience the client owns. Filter by `name` (supports a trailing `*` wildcard), by `enabled` (`ENABLED`, `DISABLED`, or `ANY`), and by archived status. Use `limit` and `offset` to page (defaults: `limit=1000`, `offset=0`). Use `GET /v1/audiences` for the editable definitions."
+        },
+        {
+          "info": {
+            "name": "Get audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the editable audience definition for the supplied `audience_id`, including its name, enabled state, tags, and the campaign components that reference it. For the rendered (runtime) snapshot use `GET /v1/audiences/{audience_id}/built` instead."
+        },
+        {
+          "info": {
+            "name": "Update audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing audience. Only fields supplied in the body are changed; omitted fields are left untouched. Sending `null` for `name` returns `400 invalid_null` because `name` is a required attribute on the audience. Returns the updated audience."
+        },
+        {
+          "info": {
+            "name": "Archive audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Soft-archives the audience. Archived audiences disappear from default `GET /v1/audiences` and `GET /v1/audiences/built` responses; pass `include_archived=true` to surface them. Reversible via `POST /v1/audiences/{audience_id}/unarchive`. Fails if the audience is still referenced by a campaign-controller membership trigger, a create- or remove-membership controller action, or a campaign component variable."
+        },
+        {
+          "info": {
+            "name": "Get built audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/built",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the rendered (built) snapshot for the supplied `audience_id`. The snapshot has the same shape as `GET /v1/audiences/{audience_id}/built` items in the list response and is what the runtime evaluates against during targeting."
+        },
+        {
+          "info": {
+            "name": "List audience member IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/members",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_data_attributes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_data_attributes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the person IDs of all current members of the specified audience."
+        },
+        {
+          "info": {
+            "name": "Download audience members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/members/download:format",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the full member list for the specified audience. Append a format extension (`.csv`, `.json`, `.xlsx`) to select the download format."
+        },
+        {
+          "info": {
+            "name": "List audience members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/members/view/details",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_data_attributes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_data_attributes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns detailed profiles for all current members of the specified audience."
+        },
+        {
+          "info": {
+            "name": "List audience operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all operations for the specified audience, optionally filtered by the provided query parameters."
+        },
+        {
+          "info": {
+            "name": "Create an audience operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new operation for the specified audience. An operation modifies audience membership by adding, removing, or syncing members from a data source."
+        },
+        {
+          "info": {
+            "name": "Get an audience operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the audience operation identified by its operation ID for the specified audience."
+        },
+        {
+          "info": {
+            "name": "Get audience operation state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id/state",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current state of the specified audience operation, including progress counters and any error details."
+        },
+        {
+          "info": {
+            "name": "Get audience operation debug state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id/state/debug",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the detailed debug state of the specified audience operation, including internal processing information. Restricted to client superusers."
+        },
+        {
+          "info": {
+            "name": "Get audience operation with details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id/view/details",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the audience operation with its full detail view, including data source configuration and processing statistics."
+        },
+        {
+          "info": {
+            "name": "Get audience membership statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/stats",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns membership statistics for the specified audience, including total member count and any size change since the last operation."
+        },
+        {
+          "info": {
+            "name": "Delete audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/delete",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Hard-deletes the audience. Unlike `DELETE /v1/audiences/{audience_id}` (which archives and is reversible), a deleted audience cannot be recovered. Fails with the same association errors as archive: the audience must be detached from any campaign-controller membership trigger, create- or remove-membership controller action, or campaign component variable before deletion can succeed."
+        },
+        {
+          "info": {
+            "name": "Cancel an audience operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id/cancel",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels a pending or in-progress audience operation identified by its operation ID."
+        },
+        {
+          "info": {
+            "name": "Retry an audience operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/operations/:operation_id/retry",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retries a failed audience operation identified by its operation ID."
+        },
+        {
+          "info": {
+            "name": "Unarchive audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/audiences/:audience_id/unarchive",
+            "params": [
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a previously archived audience so it appears in default `GET /v1/audiences` and `GET /v1/audiences/built` responses again. Fails with `400 audience_not_found` if the audience does not exist or has been hard-deleted via `POST /v1/audiences/{audience_id}/delete`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

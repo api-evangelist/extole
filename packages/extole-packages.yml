@@ -1,6 +1,14 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
-source: 'npm registry (publisher: extole) + github.com/extole'
+source: 'registry.npmjs.org (publisher: extole) + api.github.com/repos/extole/* + https://docs.extole.com/docs/mobile-sdks'
+note: >-
+  Re-read from the registry metadata endpoints 2026-08-13 to record currency as structured fields. All
+  five first-party libraries are actively maintained — every one shipped a release within the last six
+  weeks, and the CLI shipped the day before this pass. Extole is not a decayed-SDK provider. The two
+  mobile SDKs are distributed as GitHub source (Swift Package Manager / Gradle) rather than through
+  CocoaPods, Maven Central or npm, so they have no registry metadata endpoint; their versions are read
+  from the repository's git tags and their `published` dates are null because the GitHub tag-date
+  lookup was rate-limited on this pass. Maven Central holds no group or artifact matching extole.
 packages:
 - language: javascript
   registry: npm
@@ -9,6 +17,12 @@ packages:
   install: npm install -g @extole/cli
   official: true
   kind: cli
+  repo: https://github.com/extole/extole-cli
+  version: 0.7.3
+  published: '2026-08-12'
+  first_published: '2026-06-15'
+  release_count: 6
+  ref: cli/extole-cli.yml
 - language: javascript
   registry: npm
   name: '@extole/specification'
@@ -16,6 +30,13 @@ packages:
   install: npm install @extole/specification
   official: true
   kind: openapi-and-postman
+  repo: https://github.com/extole/extole-specification
+  version: 1.1.2
+  published: '2026-07-17'
+  first_published: '2026-07-01'
+  release_count: 3
+  note: Not a client library — this package ships Extole's own OpenAPI specifications and Postman
+    collections, and is the upstream of the four specs harvested into openapi/_original/.
 - language: javascript
   registry: npm
   name: '@extole/react-native-sdk'
@@ -24,15 +45,61 @@ packages:
   official: true
   kind: sdk
   repo: https://github.com/extole/react-native-sdk
+  docs: https://docs.extole.com/docs/react-native-sdk
+  version: 1.0.28
+  published: '2026-08-04'
+  first_published: '2022-11-15'
+  release_count: 28
 - language: swift
   registry: github
   name: extole/ios-sdk
   url: https://github.com/extole/ios-sdk
   official: true
   kind: sdk
+  docs: https://docs.extole.com/docs/ios-sdk
+  version: v0.0.4
+  published: null
+  note: Distributed as GitHub source (Swift Package Manager), not via CocoaPods or any registry with a
+    metadata endpoint, so there is no published-date field to read. Version is the latest git tag.
+    The repository's last push was 2026-08-12. The GitHub tag-date lookup was rate-limited on this
+    pass — checked, not guessed.
 - language: kotlin
   registry: github
   name: extole/android-sdk
   url: https://github.com/extole/android-sdk
   official: true
   kind: sdk
+  docs: https://docs.extole.com/docs/android-sdk
+  version: v1.0.3
+  published: null
+  note: Distributed as GitHub source (Gradle), not via Maven Central, so there is no registry metadata
+    endpoint. Version is the latest git tag. The repository's last push was 2026-08-12. The GitHub
+    tag-date lookup was rate-limited on this pass.
+registries_checked:
+- {registry: npm, result: 3 first-party packages under the @extole scope}
+- {registry: github, result: 5 first-party repositories under github.com/extole}
+- {registry: maven-central, result: no extole group or artifact}
+- {registry: pypi, result: no first-party package}
+- {registry: rubygems, result: no first-party package}
+- {registry: nuget, result: no first-party package}
+- {registry: packagist, result: no first-party package}
+- {registry: crates.io, result: no first-party package}
+- {registry: pkg.go.dev, result: no first-party module}
+sdk_count: 3
+official_count: 5
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://registry.npmjs.org/@extole%2Fcli
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://registry.npmjs.org/@extole%2Fspecification
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://registry.npmjs.org/@extole%2Freact-native-sdk
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://api.github.com/repos/extole/ios-sdk/tags
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://api.github.com/repos/extole/android-sdk/tags
+  http_status: 200

@@ -1,0 +1,250 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Batch Jobs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List batch jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/batches",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of batch jobs for the authenticated client. Filter by `name`, `event_name`, `tags`, `status`, or `user_id`. Results are ordered by creation date descending. Default page size is 100."
+        },
+        {
+          "info": {
+            "name": "Create a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/batches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new asynchronous batch job that reads its data source row-by-row and dispatches a consumer event for each row. The data source can be a previously run report, an audience list, or an uploaded file asset (CSV, PSV, or JSON). The job begins processing immediately after creation; poll `GET /v6/batches/{batchId}` to monitor `status`. For small inline batches of events, use `POST /v6/async-events` in the event-api instead."
+        },
+        {
+          "info": {
+            "name": "Get a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ]
+          },
+          "docs": "Returns the full record for a single batch job, including current `status`, `success_rows`, `failed_rows`, and data source configuration. Poll this endpoint to monitor job progress until `status` reaches a terminal state: `DONE`, `FAILED`, `CANCELED`, or `EXPIRED`."
+        },
+        {
+          "info": {
+            "name": "Update a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the mutable fields of an existing batch job: `name`, `tags`, and `scopes`. The job must not be in a terminal state (`DONE`, `FAILED`, `CANCELED`, or `EXPIRED`). Data source, event name, and column mappings are immutable after creation."
+        },
+        {
+          "info": {
+            "name": "Delete a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/batches/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a batch job record. The job must be in a terminal state (`DONE`, `FAILED`, `CANCELED`, or `EXPIRED`). This action is irreversible; the job record cannot be recovered after deletion."
+        },
+        {
+          "info": {
+            "name": "Cancel a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/batches/:batchId/cancel",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ]
+          },
+          "docs": "Requests cancellation of a batch job. The job transitions to `CANCELED` status. Only jobs in a non-terminal state (`PENDING`, `QUEUED`, `IN_PROGRESS`, or `DISPATCHING`) can be canceled."
+        },
+        {
+          "info": {
+            "name": "Expire a batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/batches/:batchId/expire",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ]
+          },
+          "docs": "Marks a completed batch job as expired, releasing associated resources. Only jobs in terminal state (`DONE`, `FAILED`, or `CANCELED`) can be expired. Once expired, the job record remains queryable but its data source reference is released."
+        },
+        {
+          "info": {
+            "name": "List job execution history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/history",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns file validation monitor execution history aggregated across all pods."
+        },
+        {
+          "info": {
+            "name": "Get a job execution history entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/jobs/history/:historyId",
+            "params": [
+              {
+                "name": "historyId",
+                "value": "",
+                "type": "path",
+                "description": "Execution chain id for the history entry."
+              }
+            ]
+          },
+          "docs": "Returns a single file validation monitor execution history entry by execution chain id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

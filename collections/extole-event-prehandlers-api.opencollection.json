@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Event Prehandlers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Prehandlers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List prehandlers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/prehandlers",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all prehandlers for the client, sorted by their execution order. Prehandlers are pre-processing hooks that run before the main event-processing pipeline. Each entry includes its script, conditions, and current state (active or archived). Use `GET /v6/prehandlers/built` to retrieve the evaluated runtime version."
+        },
+        {
+          "info": {
+            "name": "Create a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/prehandlers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new prehandler definition and appends it to the end of the execution order. Returns the persisted prehandler with its server-assigned id. The prehandler is created in an active state; archive it with `POST /v6/prehandlers/{id}/archive` to disable it without deleting it."
+        },
+        {
+          "info": {
+            "name": "List built prehandlers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/prehandlers/built",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all prehandlers in their fully evaluated (built) runtime form, sorted by execution order. Built prehandlers have all evaluatable fields resolved and reflect the current live state of the pipeline. Use this when you need the effective script and condition values rather than the source definitions."
+        },
+        {
+          "info": {
+            "name": "Get a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be retrieved."
+              }
+            ]
+          },
+          "docs": "Returns the source definition of the supplied prehandler, including its script, conditions, and lifecycle state. Returns `400 prehandler_not_found` if the id does not exist or is not accessible to the calling client."
+        },
+        {
+          "info": {
+            "name": "Update a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied prehandler. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted prehandler after the update. Returns `400 prehandler_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Delete a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be deleted."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the supplied prehandler from the pipeline. Unlike archiving, deletion is irreversible. Returns the deleted prehandler record on success. Returns `400 prehandler_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Get a built prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId/built",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be retrieved."
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the supplied prehandler, with all evaluatable fields resolved. Returns `400 prehandler_not_found` if the id does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Archive a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId/archive",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be archived."
+              }
+            ]
+          },
+          "docs": "Archives (soft-deletes) the supplied prehandler. The prehandler is removed from the execution pipeline immediately but its definition is retained. Restore it with `POST /v6/prehandlers/{id}/unarchive`. Returns the updated prehandler."
+        },
+        {
+          "info": {
+            "name": "Unarchive a prehandler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/prehandlers/:prehandlerId/unarchive",
+            "params": [
+              {
+                "name": "prehandlerId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the prehandler to be unarchived."
+              }
+            ]
+          },
+          "docs": "Restores a previously archived prehandler and re-inserts it into the execution pipeline. Returns the restored prehandler. Returns `400 prehandler_not_found` if the id does not exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

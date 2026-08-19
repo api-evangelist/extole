@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Content API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Render a zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v6/zones",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API-friendly zone rendering at `POST /api/v6/zones`. Intended for backend rendering where the caller supplies a bearer access token directly. Renders the zone identified by `event_name` in the JSON request body and returns the structured zone content as JSON. Returns an error when no content backs the zone. For browser or in-app rendering use `POST /zones` instead."
+        },
+        {
+          "info": {
+            "name": "Render a named zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v6/zones/:event_name",
+            "params": [
+              {
+                "name": "event_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API-friendly zone rendering at `POST /api/v6/zones/{event_name}`. Intended for backend rendering where the caller supplies a bearer access token directly. Renders the zone identified by the `event_name` path parameter and returns the structured zone content as JSON. Pass zone input data in the request body. Returns an error when no content backs the zone. For browser or in-app rendering use `POST /zones/{zone_name}` instead."
+        },
+        {
+          "info": {
+            "name": "Render a zone with the name in the body",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/zones",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Web-friendly zone rendering at `POST /zones`. Intended for direct use from a browser page or web SDK embed — accepts form-encoded, plain-text, and multipart bodies in addition to JSON, and handles cookie-based identity automatically. Renders the zone identified by `event_name` in the request body, applies any other body fields as targeting data passed to the creative, and returns the rendered creative content (HTML, JavaScript, JSON, or plain text). If `event_name` is omitted, returns an empty 2"
+        },
+        {
+          "info": {
+            "name": "Render a named zone for web-page embedding",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/zones/:zone_name",
+            "params": [
+              {
+                "name": "zone_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Web-friendly zone rendering at `POST /zones/{zone_name}`. Intended for direct use from a browser page or web SDK embed — accepts form-encoded and multipart bodies in addition to JSON, and handles cookie-based identity automatically. Renders the zone identified by `zone_name` and returns its content (HTML, JavaScript, JSON, or plain text). For backend zone rendering use `POST /api/v6/zones/{event_name}` instead."
+        },
+        {
+          "info": {
+            "name": "downloadAssetByName_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/web/me/assets/download",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default_url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "downloadAssetById_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/web/me/assets/:assetId/download",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "default_url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

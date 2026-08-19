@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences User Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/subscriptions",
+            "params": [
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all notification subscriptions for the calling client, optionally filtered by tags. Use `having_any_tags` to match subscriptions that have at least one of the specified tags, or `having_all_tags` to match subscriptions that have all specified tags."
+        },
+        {
+          "info": {
+            "name": "List user subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/users/:user_id/subscriptions",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this user at Extole."
+              }
+            ]
+          },
+          "docs": "Returns all notification subscriptions for the specified Extole user. Subscriptions define which report or alert events the user wants to be notified about and through which channel (email, Slack, webhook)."
+        },
+        {
+          "info": {
+            "name": "Create a user subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/users/:user_id/subscriptions",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this user at Extole."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new notification subscription for the specified user. The request body specifies the event type to subscribe to and the delivery channel (email, Slack, or webhook). Returns the created subscription."
+        },
+        {
+          "info": {
+            "name": "Get a user subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/users/:user_id/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this user at Extole."
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified notification subscription for the given user. Returns `400 invalid_subscription_id` if the subscription does not exist."
+        },
+        {
+          "info": {
+            "name": "Update a user subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/users/:user_id/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this user at Extole."
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified notification subscription for the given user. Returns `400 invalid_subscription_id` if the subscription does not exist."
+        },
+        {
+          "info": {
+            "name": "Delete a user subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/users/:user_id/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this user at Extole."
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the specified notification subscription. The user will no longer receive notifications for the subscribed event type via that channel. Returns `400 invalid_subscription_id` if the subscription does not exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

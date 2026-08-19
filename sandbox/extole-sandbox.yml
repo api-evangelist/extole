@@ -1,0 +1,64 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/reference/authentication-overview
+docs:
+- https://docs.extole.com/reference/authentication-overview
+- https://docs.extole.com/docs/exclude-test-data-from-analytics
+- https://docs.extole.com/docs/how-to-push-your-test-campaign-live
+note: >-
+  Extole's test story is a SANDBOX TENANT plus a test-mode campaign lifecycle, not a set of published
+  magic values. There are no test card numbers, test tokens or fixture identifiers to record — Extole
+  is a referral/loyalty platform, not a card acquirer — and nothing is invented here to fill that
+  shape. Two facts matter to an integrator: sandbox access is NOT self-serve (you must ask your Extole
+  guide), and test/live separation is expressed by the client_id on the token rather than by a key
+  prefix, so a credential does not visibly announce which environment it points at.
+sandbox:
+  available: true
+  self_serve: false
+  provisioning: Contact your Extole guide. Self-serve sandbox provisioning had not shipped as of the
+    2026-05-27 revision of the Authentication reference.
+  separation: by-client
+  separation_note: Sandbox tenants use the same token endpoints and the same OAuth substrate as
+    production. The client_id in a token-creation request is what distinguishes a sandbox client from a
+    production client.
+  key_prefixes: none
+  key_prefix_note: Extole access tokens carry no documented test/live prefix, so a token cannot be
+    told apart by inspection the way an sk_test_/sk_live_ style credential can.
+  error:
+    status: 400
+    code: sandbox_not_found
+    description: The referenced sandbox does not exist.
+test_mode:
+  campaigns:
+    supported: true
+    operation: launchTest
+    description: Launch a campaign in test mode, then promote it with makeLatestPublished when it is
+      ready to go live.
+    docs: https://docs.extole.com/docs/how-to-push-your-test-campaign-live
+  blocks:
+    supported: true
+    operation: testBlock
+    description: Test a block in isolation.
+  analytics_isolation:
+    supported: true
+    docs: https://docs.extole.com/docs/exclude-test-data-from-analytics
+    description: Test traffic can be excluded from the analytics dashboard so a rehearsal does not
+      distort program metrics.
+  event_ingestion:
+    note: The consumer event endpoints always return HTTP 200 regardless of processing outcome, so a
+      test integration must inspect the response headers to see whether the event was actually
+      processed. See conventions/extole-conventions.yml.
+test_values:
+  published: false
+  note: No magic test identifiers, test cards, test emails or fixture tokens are published.
+credentials:
+  where: https://my.extole.com/security-center
+  note: Access tokens for either environment are created in the My.Extole Security Center by an
+    authenticated user; there is no anonymous test-key issuance.
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/authentication-overview.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/common-errors.md
+  http_status: 200

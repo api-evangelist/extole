@@ -1,0 +1,321 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences User Notifications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recent notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the calling user's in-portal notifications sorted newest first. Use the `limit` and `offset` parameters to page through results. Notifications include report completion alerts, campaign status changes, and custom client events fired via `createClientEvent`."
+        },
+        {
+          "info": {
+            "name": "Get notification read cursor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/read"
+          },
+          "docs": "Returns the timestamp up to which the calling user has read their notifications. Use this cursor to determine which notifications are unread (those created after the returned timestamp). Advance the cursor with `updateNotificationCursor`."
+        },
+        {
+          "info": {
+            "name": "Mark notifications as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/notifications/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advances the read cursor to the supplied timestamp, marking all notifications created at or before that time as read for the calling user. Returns the updated cursor state. Use `getNotificationCursor` to retrieve the current cursor position."
+        },
+        {
+          "info": {
+            "name": "List notification snoozes for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/snoozes"
+          },
+          "docs": "Returns all active notification snooze rules for the calling portal user, sorted newest first. A snooze rule suppresses notifications matching specified tags until its expiry time. To list snoozes for a different user, use `listSnoozesByUser`."
+        },
+        {
+          "info": {
+            "name": "Create a notification snooze for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/notifications/snoozes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a snooze rule that suppresses portal notifications matching the supplied tags for the calling portal user until the `expires_at` timestamp. Returns the newly created snooze with its assigned id. To create a snooze for a different user, use `createSnoozeByUser`."
+        },
+        {
+          "info": {
+            "name": "Get a notification snooze for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/snoozes/:snoozeId",
+            "params": [
+              {
+                "name": "snoozeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the snooze rule identified by `snoozeId` belonging to the calling portal user. Returns the tags being snoozed and the expiry timestamp. To retrieve a snooze for a different user, use `getSnoozeByUser`."
+        },
+        {
+          "info": {
+            "name": "Delete a notification snooze for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/notifications/snoozes/:snoozeId",
+            "params": [
+              {
+                "name": "snoozeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the snooze rule identified by `snoozeId` belonging to the calling portal user. Returns the deleted snooze. Notifications previously suppressed by this rule will resume immediately. To delete a snooze for a different user, use `deleteSnoozeByUser`."
+        },
+        {
+          "info": {
+            "name": "List notifications for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the in-portal notifications for the Extole portal user identified by `userId`, sorted newest first. Requires the `USER_SUPPORT` scope. Use the `limit` and `offset` parameters to page through results."
+        },
+        {
+          "info": {
+            "name": "Get notification read cursor for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/read",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the timestamp up to which the Extole portal user identified by `userId` has read their notifications. Requires the `USER_SUPPORT` scope. Use `updateNotificationCursorByUser` to advance the cursor."
+        },
+        {
+          "info": {
+            "name": "Mark notifications as read for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/read",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advances the read cursor to the supplied timestamp for the Extole portal user identified by `userId`, marking all notifications created at or before that time as read. Returns the updated cursor state."
+        },
+        {
+          "info": {
+            "name": "List notification snoozes for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/snoozes",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all active notification snooze rules for the Extole portal user identified by `userId`, sorted newest first. A snooze rule suppresses notifications matching specified tags until its expiry time."
+        },
+        {
+          "info": {
+            "name": "Create a notification snooze for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/snoozes",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a snooze rule that suppresses portal notifications matching the supplied tags for the Extole portal user identified by `userId` until the `expires_at` timestamp. Returns the newly created snooze with its assigned id."
+        },
+        {
+          "info": {
+            "name": "Get a notification snooze for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/snoozes/:snoozeId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snoozeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the snooze rule identified by `snoozeId` belonging to the Extole portal user identified by `userId`. Returns the tags being snoozed and the expiry timestamp."
+        },
+        {
+          "info": {
+            "name": "Delete a notification snooze for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/notifications/:userId/snoozes/:snoozeId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snoozeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the snooze rule identified by `snoozeId` belonging to the Extole portal user identified by `userId`. Returns the deleted snooze. Notifications previously suppressed by this rule will resume immediately."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

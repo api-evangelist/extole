@@ -1,0 +1,3460 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Campaign Controllers Actions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Controllers Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all campaign controller actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all actions configured on the specified campaign controller, across all action types."
+        },
+        {
+          "info": {
+            "name": "Get an approve action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/approves/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the approve action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an approve action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/approves/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the approve action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an approve action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/approves/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the approve action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a cancel-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/cancel-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the cancel-reward action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a cancel-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/cancel-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the cancel-reward action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a cancel-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/cancel-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the cancel-reward action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a create-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/create-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the create-membership action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a create-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/create-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the create-membership action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a create-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/create-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the create-membership action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a creative action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the creative action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Upload a creative action archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a creative archive zip to the specified creative action on the given campaign controller. Returns the updated creative action."
+        },
+        {
+          "info": {
+            "name": "Update a creative action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the creative action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a creative action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the creative action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Download a creative action archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives/:actionId.zip",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the creative archive zip for the specified creative action on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "List data-intelligence actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/data-intelligences",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all data-intelligence actions configured on the specified campaign controller."
+        },
+        {
+          "info": {
+            "name": "Create a data-intelligence action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/data-intelligences",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a data-intelligence action to the specified campaign controller. When the controller's triggers fire, this action sends the participant's event data to the Data Intelligence pipeline for ML scoring. Returns the created data-intelligence action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Get a data-intelligence action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/data-intelligences/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the data-intelligence action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a data-intelligence action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/data-intelligences/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the data-intelligence action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a data-intelligence action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/data-intelligences/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the data-intelligence action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a decline action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/declines/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the decline action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a decline action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/declines/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the decline action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a decline action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/declines/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the decline action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get an earn-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/earn-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the earn-reward action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an earn-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/earn-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the earn-reward action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an earn-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/earn-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the earn-reward action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get an expression action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/expressions/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the expression action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an expression action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/expressions/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the expression action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an expression action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/expressions/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the expression action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a fulfill-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fulfill-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fulfill-reward action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a fulfill-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fulfill-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the fulfill-reward action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a fulfill-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fulfill-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the fulfill-reward action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a redeem-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/redeem-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the redeem-reward action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a redeem-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/redeem-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the redeem-reward action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a redeem-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/redeem-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the redeem-reward action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a remove-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/remove-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the remove-membership action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a remove-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/remove-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the remove-membership action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a remove-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/remove-memberships/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the remove-membership action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a revoke-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/revoke-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the revoke-reward action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a revoke-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/revoke-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the revoke-reward action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a revoke-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/revoke-rewards/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the revoke-reward action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a schedule action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/schedules/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the schedule action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a schedule action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/schedules/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schedule action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/schedules/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the schedule action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a share-event action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/share-events/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the share-event action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a share-event action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/share-events/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the share-event action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a share-event action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/share-events/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the share-event action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a signal-v1 action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals-v1/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the signal-v1 action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a signal-v1 action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals-v1/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the signal-v1 action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a signal-v1 action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals-v1/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the signal-v1 action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the signal action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the signal action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the signal action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a step-signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/step-signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the step-signal action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a step-signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/step-signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the step-signal action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a step-signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/step-signals/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the step-signal action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a webhook action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/webhooks/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the webhook action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a webhook action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/webhooks/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the webhook action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/webhooks/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the webhook action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get a campaign controller action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the action configuration for the specified action id, regardless of type."
+        },
+        {
+          "info": {
+            "name": "Get a display action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/displays/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the display action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a display action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/displays/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the display action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a display action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/displays/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the display action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get the built display action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/displays/:actionId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the display action, with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get an email action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/emails/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the email action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an email action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/emails/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the email action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an email action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/emails/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the email action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get the built email action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/emails/:actionId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the email action, with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get a fire-as-person action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fire-as-person/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fire-as-person action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update a fire-as-person action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fire-as-person/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the fire-as-person action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete a fire-as-person action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fire-as-person/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the fire-as-person action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get the built fire-as-person action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fire-as-person/:actionId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the fire-as-person action, with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get an incentivize-status-update action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivize-status-updates/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the incentivize-status-update action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an incentivize-status-update action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivize-status-updates/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the incentivize-status-update action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an incentivize-status-update action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivize-status-updates/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the incentivize-status-update action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get the built incentivize-status-update action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivize-status-updates/:actionId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the incentivize-status-update action, with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get an incentivize action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivizes/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the incentivize action configuration for the specified action id on the given campaign controller."
+        },
+        {
+          "info": {
+            "name": "Update an incentivize action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivizes/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the incentivize action on the specified campaign controller. Only fields present in the request body are changed. Returns the updated action."
+        },
+        {
+          "info": {
+            "name": "Delete an incentivize action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivizes/:actionId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the incentivize action from the specified campaign controller. Returns the deleted action record."
+        },
+        {
+          "info": {
+            "name": "Get the built incentivize action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivizes/:actionId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the incentivize action, with all expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Create an approve action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/approves",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an approve action to the specified campaign controller. When the controller's triggers fire, this action approves the participant's pending step or reward in the journey. Returns the created approve action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a cancel-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/cancel-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a cancel-reward action to the specified campaign controller. When the controller's triggers fire, this action cancels the specified reward for the participant. Returns the created cancel-reward action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a create-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/create-memberships",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a create-membership action to the specified campaign controller. When the controller's triggers fire, this action adds the participant to the specified audience. Returns the created create-membership action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a creative action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/creatives",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a creative action to the specified campaign controller. When the controller's triggers fire, this action renders the configured creative asset for the participant. Returns the created creative action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a decline action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/declines",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a decline action to the specified campaign controller. When the controller's triggers fire, this action declines the participant's pending step or reward in the journey. Returns the created decline action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a display action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/displays",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a display action to the specified campaign controller. When the controller's triggers fire, this action controls which content zone or creative is displayed to the participant. Returns the created display action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an earn-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/earn-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an earn-reward action to the specified campaign controller. When the controller's triggers fire, this action earns (issues) a new reward for the participant through the configured reward supplier. Returns the created earn-reward action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an email action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/emails",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an email action to the specified campaign controller. When the controller's triggers fire, this action sends the configured email to the participant. Returns the created email action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an expression action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/expressions",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an expression action to the specified campaign controller. When the controller's triggers fire, this action evaluates the configured JavaScript expression in the campaign runtime context. Returns the created expression action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a fire-as-person action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fire-as-person",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a fire-as-person action to the specified campaign controller. When the controller's triggers fire, this action fires the configured campaign step as a different person identity. Returns the created fire-as-person action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a fulfill-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/fulfill-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a fulfill-reward action to the specified campaign controller. When the controller's triggers fire, this action fulfills a previously earned reward, triggering downstream fulfilment logic. Returns the created fulfill-reward action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an incentivize-status-update action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivize-status-updates",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an incentivize-status-update action to the specified campaign controller. When the controller's triggers fire, this action updates the status of a pending incentivize action. Returns the created incentivize-status-update action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create an incentivize action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/incentivizes",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an incentivize action to the specified campaign controller. When the controller's triggers fire, this action issues an incentive (coupon, gift card, payout, etc.) to the participant. Returns the created incentivize action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a redeem-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/redeem-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a redeem-reward action to the specified campaign controller. When the controller's triggers fire, this action marks a reward as redeemed by the participant. Returns the created redeem-reward action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a remove-membership action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/remove-memberships",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a remove-membership action to the specified campaign controller. When the controller's triggers fire, this action removes the participant from the specified audience. Returns the created remove-membership action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a revoke-reward action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/revoke-rewards",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a revoke-reward action to the specified campaign controller. When the controller's triggers fire, this action revokes a previously issued reward, marking it as invalidated. Returns the created revoke-reward action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a schedule action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/schedules",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a schedule action to the specified campaign controller. When the controller's triggers fire, this action schedules the configured action to fire at a future date and time. Returns the created schedule action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a share-event action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/share-events",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a share-event action to the specified campaign controller. When the controller's triggers fire, this action records a share event for the participant in the campaign pipeline. Returns the created share-event action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a signal action to the specified campaign controller. When the controller's triggers fire, this action fires the configured signal event into the campaign event pipeline. Returns the created signal action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a signal-v1 action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/signals-v1",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a signal-v1 action to the specified campaign controller. When the controller's triggers fire, this action fires a legacy v1 signal event into the campaign pipeline (deprecated; prefer signal action). Returns the created signal-v1 action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a step-signal action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/step-signals",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a step-signal action to the specified campaign controller. When the controller's triggers fire, this action fires a step-scoped signal, advancing the participant within the configured flow step. Returns the created step-signal action with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Create a webhook action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/controllers/:controllerId/actions/webhooks",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "controllerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a webhook action to the specified campaign controller. When the controller's triggers fire, this action posts the configured payload to the configured external webhook URL. Returns the created webhook action with its server-assigned id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

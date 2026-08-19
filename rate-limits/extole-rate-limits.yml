@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/reference/common-errors
+docs: https://docs.extole.com/reference/common-errors
+limit_count: 2
+note: >-
+  Extole publishes numeric rate limits in the "Rate Limiting" section of its common-errors reference.
+  Both limits are stated as absolute numbers with a window. Extole does NOT document any RateLimit-*
+  or X-RateLimit-* response headers and does not document Retry-After, so an agent cannot read a
+  remaining-budget signal at runtime — the only runtime signal is the 429 status with the
+  too_many_requests error code. That absence is the finding, and it is recorded here as a gap rather
+  than left blank.
+limits:
+- scope: per-ip-or-token
+  limit: 100
+  window: 1m
+  unit: requests
+  description: 100 requests per minute per IP address or token.
+  source: https://docs.extole.com/reference/common-errors
+- scope: per-identified-person
+  limit: 10
+  window: 1s
+  unit: requests
+  description: 10 requests per second per identified person.
+  source: https://docs.extole.com/reference/common-errors
+exemptions:
+- endpoint: /v6/async-events
+  operations:
+  - submitEventAsync
+  - submitNamedEventAsync
+  rate_limited: false
+  note: Documented as not rate-limited and the recommended path for high-volume event ingestion. May
+    still return 429 only if the downstream ingestion queue is saturated.
+exhaustion:
+  status: 429
+  error_code: too_many_requests
+  envelope: 'application/json Extole error envelope: unique_id, http_status_code, code, message,
+    parameters'
+  retryable: true
+  guidance: Exponential backoff. Prefer /v6/async-events for high-volume event flow.
+response_headers:
+  documented: false
+  ratelimit_headers: []
+  retry_after: false
+  note: No rate-limit budget headers are documented. Separately, the consumer event endpoints
+    (POST /events, GET /events/{event_name}) always return HTTP 200 and surface processing errors in
+    response headers instead — see conventions/extole-conventions.yml.
+retry_matrix:
+- status: 400
+  retryable: false
+- status: 401
+  retryable: false
+- status: 403
+  retryable: false
+- status: 415
+  retryable: false
+- status: 429
+  retryable: true
+- status: 500
+  retryable: true
+documented_causes:
+- A misconfigured tag or integration sending duplicate or dummy events.
+- A customer data platform (CDP) misconfigured to forward more data than expected.
+- Load testing or security scans.
+escalation: support@extole.com
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/common-errors.md
+  http_status: 200

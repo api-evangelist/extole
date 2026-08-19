@@ -1,31 +1,183 @@
-generated: '2026-07-19'
-method: derived
-status: candidate
-source: derived from Extole OpenAPI operations (no official hosted MCP server found)
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://docs.extole.com/docs/extole-mcp
+docs:
+  server: https://docs.extole.com/docs/extole-mcp
+  authentication: https://docs.extole.com/docs/mcp-authentication
+  clients:
+  - https://docs.extole.com/docs/setup-claude
+  - https://docs.extole.com/docs/setup-claude-code
+  - https://docs.extole.com/docs/setup-cursor
+  - https://docs.extole.com/docs/setup-chatgpt
+  - https://docs.extole.com/docs/setup-codex
+note: >-
+  Extole ships a first-party REMOTE MCP server at https://mcp.extole.com, announced 2026 and documented
+  at docs.extole.com. Confirmed live by probe: an unauthenticated POST of tools/list returns HTTP 401
+  with an Extole error envelope (errorCode AUTHENTICATION_REQUIRED) and a WWW-Authenticate Bearer
+  challenge naming realm mcp.extole.com and resource_metadata
+  https://mcp.extole.com/.well-known/oauth-protected-resource. The tool list itself is therefore
+  AUTH-GATED — tool names and inputSchemas require an authenticated tools/list call and are NOT recorded
+  here. What IS anonymous and captured verbatim is the server's own toolset manifest at
+  /.well-known/mcp (saved as mcp/extole-mcp-manifest.json), which enumerates 31 named toolset endpoints.
+  This supersedes the 2026-07-19 derived candidate file, which wrongly recorded mode none.
 server:
   name: extole
-  transport: http
-note: Candidate tool set curated from marquee Extole operations. security.extole.com exposes a SafeBase
-  trust-center MCP (app.safebase.io) which is NOT Extole first-party API access.
+  transport: streamable-http
+  url: https://mcp.extole.com
+  manifest: https://mcp.extole.com/.well-known/mcp
+  manifest_file: extole-mcp-manifest.json
+deployment:
+  mode: remote
+  endpoint: https://mcp.extole.com
+  auth: oauth
+  verified: probed
+authentication:
+  methods:
+  - kind: oauth
+    spec: OAuth 2.1 authorization code with PKCE (S256)
+    issuer: https://idp.extole.com
+    authorization_endpoint: https://idp.extole.com/oauth2/authorize
+    token_endpoint: https://idp.extole.com/oauth2/token
+    scopes_supported:
+    - openid
+    - profile
+    - email
+    protected_resource_metadata: https://mcp.extole.com/.well-known/oauth-protected-resource
+    note: Extole mints an access token bound to the signed-in Extole user; MCP calls run under that
+      user's own Extole permissions and are attributed to them in the Extole change log.
+  - kind: api-key
+    scheme: Authorization Bearer
+    note: A long-lived Access Token created in the My.Extole Security Center
+      (https://my.extole.com/security-center#access-token) may be passed as
+      "Authorization Bearer <token>" for clients that do not support OAuth, for CI/CD, or for service
+      accounts. Actions then run under the token creator's permissions.
+install:
+- client: Claude Code
+  command: claude mcp add --transport http extole https://mcp.extole.com
+  source: https://docs.extole.com/docs/setup-claude-code
+toolsets:
+  count: 31
+  source: https://mcp.extole.com/.well-known/mcp
+  note: Verbatim from the provider's own manifest. Each toolset is a distinct streamable-http endpoint;
+    the tools inside each are auth-gated and not enumerated here.
+  entries:
+  - id: default
+    description: Default platform toolset
+    endpoint: https://mcp.extole.com/
+  - id: all
+    description: All tools
+    endpoint: https://mcp.extole.com/toolsets/all/mcp
+  - id: platform
+    description: Default platform toolset
+    endpoint: https://mcp.extole.com/toolsets/platform/mcp
+  - id: campaigns
+    description: Campaign analysis and navigation tools
+    endpoint: https://mcp.extole.com/toolsets/campaigns/mcp
+  - id: campaign_upgrades
+    description: Campaign upgrade analysis and navigation tools
+    endpoint: https://mcp.extole.com/toolsets/campaign_upgrades/mcp
+  - id: content_component
+    description: Content component analysis and preview tools
+    endpoint: https://mcp.extole.com/toolsets/content_component/mcp
+  - id: client_context_update
+    description: Client Context refresh toolset (reports + config reads + publish settings)
+    endpoint: https://mcp.extole.com/toolsets/client_context_update/mcp
+  - id: investigation
+    description: Investigation and discovery tools
+    endpoint: https://mcp.extole.com/toolsets/investigation/mcp
+  - id: extole
+    description: Focused Extole toolset (deprecated)
+    endpoint: https://mcp.extole.com/toolsets/extole/mcp
+    deprecated: true
+  - id: extole_read_only
+    description: Focused Extole toolset
+    endpoint: https://mcp.extole.com/toolsets/extole_read_only/mcp
+  - id: extole_all
+    description: Basic Extole tools with access to search and call all catalog tools
+    endpoint: https://mcp.extole.com/toolsets/extole_all/mcp
+  - id: extole_all_search
+    description: All catalog tools available through tool search and call
+    endpoint: https://mcp.extole.com/toolsets/extole_all_search/mcp
+  - id: extole_ask
+    description: Single ask-Extole tool that runs the full assistant internally and returns one answer
+    endpoint: https://mcp.extole.com/toolsets/extole_ask/mcp
+  - id: extole_published
+    description: Published Extole tools
+    endpoint: https://mcp.extole.com/toolsets/extole_published/mcp
+  - id: extole_published_read_only
+    description: Published read only Extole tools
+    endpoint: https://mcp.extole.com/toolsets/extole_published_read_only/mcp
+  - id: extole_developer
+    description: Extole Developer toolset for client-facing monitoring alert explanations on Intercom
+      tickets
+    endpoint: https://mcp.extole.com/toolsets/extole_developer/mcp
+  - id: extole_reporting_agent
+    description: Extole reporting agent — discover, submit, poll, and download reports
+    endpoint: https://mcp.extole.com/toolsets/extole_reporting_agent/mcp
+  - id: report_search
+    description: Report search assistant — recommend report types to users
+    endpoint: https://mcp.extole.com/toolsets/report_search/mcp
+  - id: report_search_beta
+    description: Beta reporting toolset — report type discovery and report execution
+    endpoint: https://mcp.extole.com/toolsets/report_search_beta/mcp
+  - id: restful
+    description: Extole restful toolset
+    endpoint: https://mcp.extole.com/toolsets/restful/mcp
+  - id: skills
+    description: Skill catalog tools
+    endpoint: https://mcp.extole.com/toolsets/skills/mcp
+  - id: task
+    description: Task execution toolset
+    endpoint: https://mcp.extole.com/toolsets/task/mcp
+  - id: functional_review
+    description: Functional review runbook toolset
+    endpoint: https://mcp.extole.com/toolsets/functional_review/mcp
+  - id: prototype2
+    description: Prototype 2 campaign upgrade tools toolset
+    endpoint: https://mcp.extole.com/toolsets/prototype2/mcp
+  - id: intercom
+    description: Intercom toolset
+    endpoint: https://mcp.extole.com/toolsets/intercom/mcp
+  - id: intercom_support
+    description: Intercom support assistant toolset
+    endpoint: https://mcp.extole.com/toolsets/intercom_support/mcp
+  - id: jira
+    description: Jira ticket tools
+    endpoint: https://mcp.extole.com/toolsets/jira/mcp
+  - id: jira_support
+    description: Jira support assistant toolset
+    endpoint: https://mcp.extole.com/toolsets/jira_support/mcp
+  - id: extole_jira_assistant
+    description: Jira assistant toolset
+    endpoint: https://mcp.extole.com/toolsets/extole_jira_assistant/mcp
+  - id: test
+    description: Local test toolset
+    endpoint: https://mcp.extole.com/toolsets/test/mcp
+  - id: call_test
+    description: Local test toolset that calls the test toolset
+    endpoint: https://mcp.extole.com/toolsets/call_test/mcp
 tools:
-- name: list_rewards
-  description: List rewards
-  source_operation: openapi/extole-integration-server-to-extole-openapi.json#listRewards
-- name: get_reward
-  description: Get a reward
-  source_operation: openapi/extole-integration-server-to-extole-openapi.json#getReward
-- name: get_my_profile
-  description: Get the calling person profile
-  source_operation: openapi/extole-integration-consumer-to-extole-openapi.json#getMyProfile
-- name: list_audiences
-  description: List audiences
-  source_operation: openapi/extole-management-openapi.json#listAudiences
-- name: create_audience
-  description: Create an audience
-  source_operation: openapi/extole-management-openapi.json#createAudience
-- name: list_webhooks
-  description: List webhooks
-  source_operation: openapi/extole-management-openapi.json#listWebhooks
-- name: create_webhook
-  description: Create a webhook subscription
-  source_operation: openapi/extole-management-openapi.json#createWebhook
+  status: auth-gated
+  note: tools/list returns 401 AUTHENTICATION_REQUIRED without a bearer token. Tool names, descriptions
+    and inputSchemas are deliberately NOT recorded — they require authenticated introspection with an
+    Extole user account. See mcp/extole-tool-crosswalk.yml for the toolset-level mapping to the REST
+    surface that IS knowable anonymously.
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/mcp
+  method: POST tools/list
+  http_status: 401
+  www_authenticate: Bearer realm="mcp.extole.com", error="invalid_token", scope="openid email profile",
+    resource_metadata="https://mcp.extole.com/.well-known/oauth-protected-resource"
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/mcp
+  http_status: 200
+  content_type: application/json
+  note: 31 toolsets, saved verbatim to extole-mcp-manifest.json
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-protected-resource
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/extole-mcp
+  http_status: 200

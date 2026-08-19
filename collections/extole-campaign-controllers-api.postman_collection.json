@@ -1,0 +1,1485 @@
+{
+  "item": [
+    {
+      "id": "0a755a02-88fa-4bb2-b46a-b001ef2ad794",
+      "name": "Campaign Controllers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0699e288-b156-4d37-a764-497942105763",
+          "name": "List campaign controllers",
+          "request": {
+            "name": "List campaign controllers",
+            "description": {
+              "content": "Returns all controllers for the specified campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "campaigns",
+                "{{campaignId}}{{version}}",
+                "controllers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "720010f0-aa54-479d-8ea7-b34dbb571846",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"actions\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"aliases\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"controller_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"enabled_on_states\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"journey_names\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"scope\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"selectors\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"send_policy\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"component_ids\": \"string\",\n    \"component_references\": false,\n    \"created_date\": \"string\",\n    \"data\": 6937,\n    \"enabled\": false,\n    \"step_builder\": false,\n    \"triggers\": 4631.320221076263,\n    \"updated_date\": 7412\n  },\n  {\n    \"actions\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"aliases\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"controller_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"enabled_on_states\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"journey_names\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"scope\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"selectors\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"send_policy\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"component_ids\": true,\n    \"component_references\": \"string\",\n    \"created_date\": 4423,\n    \"data\": 7383,\n    \"enabled\": false,\n    \"step_builder\": \"string\",\n    \"triggers\": 4948.996095023583,\n    \"updated_date\": 9825\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b6e379b-b425-4f82-afab-cedfb6b51368",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4df861c-7f36-47a7-86ed-83cab17f5593",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63544dec-439d-456f-80da-63cdef8cb6dc",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4ebe7c5-1129-4dce-bc48-bfec1ab67d80",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aae7fd3c-d780-4151-be42-92c08ff47ee7",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbe98518-0535-4bbf-b391-ef4edc92e8b7",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89a6d597-adaf-4a2c-9fab-9cf1181b52d9",
+          "name": "Create a campaign controller",
+          "request": {
+            "name": "Create a campaign controller",
+            "description": {
+              "content": "Adds a new controller to the specified campaign. Controllers orchestrate campaign logic by combining triggers (conditions) with actions (side effects). Returns the created controller with its server-assigned id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "campaigns",
+                "{{campaignId}}{{version}}",
+                "controllers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86895dfe-d93c-4472-941f-50ea875415bd",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"actions\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"aliases\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"component_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"component_references\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"controller_id\": \"string\",\n  \"created_date\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"data\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"enabled\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"enabled_on_states\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"id\": \"string\",\n  \"journey_names\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"name\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"scope\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"selectors\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"send_policy\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"step_builder\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"triggers\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"type\": \"JOURNEY_ENTRY\",\n  \"updated_date\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb6bb50c-b047-4a42-ac61-342b0b7112c0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f232873c-152b-4ff4-9e65-8ed77c0d5413",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a74bdcbc-a90f-4145-8fa2-d0e38a20de46",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21c96b50-d45a-4097-b3a0-d1203f4638da",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c15ab734-6abb-40c0-8685-804ae1d04f73",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "444b115b-773b-48cb-9c60-2fd6542352cb",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    \"aliase\"\n  ],\n  \"component_ids\": [\n    \"component_id\"\n  ],\n  \"component_references\": [\n    {\n      \"component_id\": \"component_id\",\n      \"socket_names\": [\n        \"socket_name\"\n      ]\n    }\n  ],\n  \"data\": [\n    {\n      \"component_ids\": [\n        \"component_id\"\n      ],\n      \"component_references\": [\n        {\n          \"component_id\": \"component_id\",\n          \"socket_names\": [\n            \"socket_name\"\n          ]\n        }\n      ],\n      \"default_value\": {},\n      \"dimension\": true,\n      \"enabled\": true,\n      \"key_type\": \"NONE\",\n      \"name\": \"name\",\n      \"persist_types\": [\n        \"JOURNEY\"\n      ],\n      \"scope\": \"CLIENT\",\n      \"value\": {}\n    }\n  ],\n  \"enabled\": true,\n  \"enabled_on_states\": [\n    \"ARCHIVED\"\n  ],\n  \"journey_names\": [\n    \"journey_name\"\n  ],\n  \"name\": \"name\",\n  \"scope\": \"CLIENT\",\n  \"selectors\": [\n    \"BEST_REFERRAL\"\n  ],\n  \"send_policy\": \"ALL\",\n  \"step_builder\": {},\n  \"type\": \"CONTROLLER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c0cc36e-01c8-4e7e-b81c-303add16f903",
+          "name": "List built campaign controllers",
+          "request": {
+            "name": "List built campaign controllers",
+            "description": {
+              "content": "Returns all campaign controllers in their fully evaluated runtime form.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "campaigns",
+                "{{campaignId}}{{version}}",
+                "controllers",
+                "built"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                  "type": "any",
+                  "value": "{{brand}}",
+                  "key": "brand"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68be35e2-ea6c-467a-b8f0-c0ae71c2bbb0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"actions\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"aliases\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"controller_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"enabled_on_states\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"journey_names\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"scope\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"selectors\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"send_policy\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"component_ids\": false,\n    \"component_references\": \"string\",\n    \"created_date\": false,\n    \"data\": 1907.5709905386461,\n    \"enabled\": 3806.6604620454204,\n    \"step_builder\": 6581,\n    \"triggers\": 368.09153661093274,\n    \"updated_date\": 9735\n  },\n  {\n    \"actions\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"aliases\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"controller_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"enabled_on_states\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"journey_names\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"scope\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"selectors\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"send_policy\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"component_ids\": 8095,\n    \"component_references\": 6128,\n    \"created_date\": \"string\",\n    \"data\": 2468,\n    \"enabled\": true,\n    \"step_builder\": false,\n    \"triggers\": \"string\",\n    \"updated_date\": 4057\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d237573-4cdc-4325-8adf-f92f9ecd1340",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"binding_error\",\n  \"http_status_code\": 400,\n  \"message\": \"Argument is not of the expected type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ea1b71d-a640-434f-9a04-d0b0a21b87c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"method_unauthorized\",\n  \"http_status_code\": 401,\n  \"message\": \"Unauthorized access to this endpoint\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "795270b2-d256-4ab3-a5ee-e8807a95107d",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payment_required\",\n  \"http_status_code\": 402,\n  \"message\": \"The access_token provided is associated with an unpaid account.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f2b8bef-6122-49a8-95e2-daf656680e04",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"access_denied\",\n  \"http_status_code\": 403,\n  \"message\": \"The access_token provided is not permitted to access the specified resource.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57b1ec25-254b-496f-8da1-e74306389e1e",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"unsupported_media_type\",\n  \"http_status_code\": 415,\n  \"message\": \"Request had an unsupported or no media type\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f8d4a92-aba9-4cdf-b3d1-ff222b2c00d9",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "campaigns",
+                    "{{campaignId}}{{version}}",
+                    "controllers",
+                    "built"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+                      "type": "any",
+                      "value": "{{brand}}",
+                      "key": "brand"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"too_many_requests\",\n  \"http_status_code\": 429,\n  \"message\": \"The server is unable to process your request at the moment, please retry later.\",\n  \"parameters\": {},\n  \"unique_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yourcompany",
+      "key": "brand"
+    },
+    {
+      "type": "string",
+      "value": "https://{{brand}}.extole.io",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "campaignId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "version"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6ee345ac-ae61-4de2-8d90-b869e30a18ae",
+    "name": "Integration API - Consumer to Extole Audiences Campaign Controllers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Rewards API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rewards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards",
+            "params": [
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reward state(s). Repeat for multiple values (e.g. `EARNED`, `FULFILLED`)."
+              },
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Extole reward supplier id(s). Repeat for multiple values."
+              },
+              {
+                "name": "partner_reward_supplier_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by partner-assigned reward supplier id(s). Repeat for multiple values."
+              },
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Extole person id(s). Repeat for multiple values."
+              },
+              {
+                "name": "action_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Extole action id(s). Repeat for multiple values."
+              },
+              {
+                "name": "root_event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by root event id(s). Repeat for multiple values."
+              },
+              {
+                "name": "partner_reward_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by partner-assigned reward id(s). Repeat for multiple values."
+              },
+              {
+                "name": "reward_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reward type(s). Repeat for multiple values."
+              },
+              {
+                "name": "success_only",
+                "value": "",
+                "type": "query",
+                "description": "When true (default), include only rewards that were successfully fulfilled."
+              },
+              {
+                "name": "time_interval",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 time interval to restrict results to a date range (e.g. `P30D` for last 30 days)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rewards to return. Defaults to 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of rewards to skip for pagination. Defaults to 0."
+              }
+            ]
+          },
+          "docs": "Returns reward records for the client matching the specified query parameters."
+        },
+        {
+          "info": {
+            "name": "Get reward state summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/state_summary",
+            "params": [
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for grouping (e.g. `DAY`, `WEEK`, `MONTH`)."
+              },
+              {
+                "name": "period_count",
+                "value": "",
+                "type": "query",
+                "description": "Number of periods to include in the summary."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End of the date range for the summary."
+              },
+              {
+                "name": "success_only",
+                "value": "",
+                "type": "query",
+                "description": "When true, include only rewards that were successfully fulfilled."
+              },
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more reward supplier ids (repeat the parameter for multiple values)."
+              },
+              {
+                "name": "reward_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more reward types (repeat the parameter for multiple values)."
+              }
+            ]
+          },
+          "docs": "Returns aggregate state counts for rewards on this client (e.g. earned, fulfilled, cancelled)."
+        },
+        {
+          "info": {
+            "name": "Get a reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the reward record for the specified reward id, including its current state and history."
+        },
+        {
+          "info": {
+            "name": "Update a reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates attributes on the specified reward record. Returns the updated reward."
+        },
+        {
+          "info": {
+            "name": "Get reward cancels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/cancels",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the cancellation history for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward fails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/fails",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the fulfilment failure history for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward fulfillments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/fulfillments",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the fulfilment records for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward state history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/history",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the full state-transition history for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward redeems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/redeems",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the redemption records for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward revokes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/revokes",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the revocation records for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Get reward sends",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/sends",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Returns the send events for the specified reward."
+        },
+        {
+          "info": {
+            "name": "Cancel a reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/cancel",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancels the specified reward, preventing fulfilment. Returns the updated reward record."
+        },
+        {
+          "info": {
+            "name": "Retry a reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/retry",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ]
+          },
+          "docs": "Retries fulfilment of a previously failed reward. Returns the updated reward."
+        },
+        {
+          "info": {
+            "name": "Revoke a reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/:reward_id/revoke",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole-assigned unique identifier for the reward."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes the specified reward, marking it as invalid. Returns the updated reward."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

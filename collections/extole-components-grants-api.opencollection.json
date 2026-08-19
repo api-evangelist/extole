@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Components Grants API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components Grants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List component grants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-grants"
+          },
+          "docs": "Returns all component grants for the current client."
+        },
+        {
+          "info": {
+            "name": "Grant component access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/component-grants"
+          },
+          "docs": "Grants a client permission to use the specified shared component."
+        },
+        {
+          "info": {
+            "name": "List component granters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-grants/granters"
+          },
+          "docs": "Returns the clients that have granted component access to others."
+        },
+        {
+          "info": {
+            "name": "Grant access to all components",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/component-grants/all"
+          },
+          "docs": "Grants a client permission to use all available shared components in the library."
+        },
+        {
+          "info": {
+            "name": "Revoke a component grant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/component-grants/:grantId",
+            "params": [
+              {
+                "name": "grantId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a previously granted component permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

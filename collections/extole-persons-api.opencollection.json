@@ -1,0 +1,1208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Persons API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Persons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a person's profile picture URL (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/person/profile-picture-url/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Use `GET /api/v4/persons/{personId}/profile-picture-url` instead. Returns the profile picture URL for the person identified by `personId` as plain text."
+        },
+        {
+          "info": {
+            "name": "Get a public person profile (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/person/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Use `GET /api/v4/persons/{personId}` instead. Returns the public profile for the person identified by `personId`."
+        },
+        {
+          "info": {
+            "name": "Search for persons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons",
+            "params": [
+              {
+                "name": "identity_key_value",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "person_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for persons by identity key value or client-defined person keys (supply in `name:value` format, e.g. `partner_conversion_id:abc123`). Returns an array because the same key may resolve to multiple Extole profiles. Supply at least one search criterion via query parameters."
+        },
+        {
+          "info": {
+            "name": "Create a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/persons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new person profile in the Extole platform and returns the persisted record with its server-assigned id. Use this to provision person profiles outside of the normal event-tracking flow (e.g. bulk imports)."
+        },
+        {
+          "info": {
+            "name": "List partner keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/partner-keys",
+            "params": [
+              {
+                "name": "include_campaign_ignoring_state",
+                "value": "",
+                "type": "query",
+                "description": "Include partner keys of the specified campaign, ignoring state"
+              }
+            ]
+          },
+          "docs": "Returns the set of partner key names configured for the calling client. Partner keys are client-defined person identifier types (e.g. `partner_conversion_id`, `partner_shipment_id`) that supplement Extole's built-in identifiers. Supply the optional `include_campaign_ignoring_state` parameter to include partner keys declared in a specific campaign regardless of that campaign's state."
+        },
+        {
+          "info": {
+            "name": "Get a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              }
+            ]
+          },
+          "docs": "Returns the person profile for the specified `person_id`. The response includes the person's current identity key and value, locale settings, and version. Returns `403 person_not_found` if the person does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Update a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Id for person to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity key value on the specified person profile. Returns `403 person_not_found` if the person does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Get person block status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/block",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              }
+            ]
+          },
+          "docs": "Returns the block record for the specified person, indicating whether they are blocked from participating in referral campaigns and the reason for the block."
+        },
+        {
+          "info": {
+            "name": "Update person block status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/block",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the block record for the specified person. Set `type` to `EVENTS` to block event participation, `REWARDS` to block reward fulfilment, or `NONE` to remove any block. Supply an optional `reason` string for audit purposes. Returns the updated block record."
+        },
+        {
+          "info": {
+            "name": "List person data parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/data",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all data parameters for the specified person, sorted by updated date in descending order. Use query parameters to filter by name or date range. Returns `403 person_not_found` if the person is not accessible."
+        },
+        {
+          "info": {
+            "name": "Create a person data parameter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/data",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new named data parameter for the specified person. Returns `400 data_already_exists` if a parameter with the same name already exists; use PUT to update an existing parameter. Returns `403 person_not_found` if the person is not accessible."
+        },
+        {
+          "info": {
+            "name": "Get a person data parameter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/data/:name",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the data parameter."
+              }
+            ]
+          },
+          "docs": "Returns the named data parameter for the specified person. Person data parameters are arbitrary key-value pairs attached to a person profile and can be used in campaign targeting and personalization. Returns `400 data_not_found` if the name does not exist, or `403 person_not_found` if the person is not accessible."
+        },
+        {
+          "info": {
+            "name": "Update a person data parameter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/data/:name",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the data parameter."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the value of the named data parameter for the specified person. Returns `400 data_not_found` if the parameter does not exist, or `400 read_only_name` if the parameter name is read-only. Returns `403 person_not_found` if the person is not accessible."
+        },
+        {
+          "info": {
+            "name": "Delete a person data parameter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/data/:name",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the data parameter."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the named data parameter for the specified person. Returns `400 data_not_found` if the parameter does not exist. Returns `403 person_not_found` if the person is not accessible."
+        },
+        {
+          "info": {
+            "name": "Get identity history for a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/identity-history",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Extole person id."
+              }
+            ]
+          },
+          "docs": "Returns the chronological log of identity-merge and identity-link events for the specified person. Each entry records the event type, the previous identity key information, and the event date. Use this to audit how a person's unified profile evolved over time."
+        },
+        {
+          "info": {
+            "name": "List person journeys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/journeys",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "programs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "containers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_values",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key_values",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns campaign journeys for the specified person, sorted by start date in descending order. A journey represents a person's participation lifecycle in a specific campaign (e.g. share, refer-a-friend, purchase)."
+        },
+        {
+          "info": {
+            "name": "Get a person journey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/journeys/:journey_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "journey_id",
+                "value": "",
+                "type": "path",
+                "description": "Journey id parameter."
+              }
+            ]
+          },
+          "docs": "Returns the specified campaign journey for the given person, including the program, campaign, container, journey entry data, and timestamps."
+        },
+        {
+          "info": {
+            "name": "List person locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/locations",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "countries",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns request context location records for the specified person, sorted by created date in descending order. Locations capture the geographic context (country, region, city) observed at the time of person interactions."
+        },
+        {
+          "info": {
+            "name": "List person audience memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/memberships",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "audience_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "audience_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns audience memberships for the specified person, sorted by created date in descending order. Each membership indicates which audiences the person currently belongs to."
+        },
+        {
+          "info": {
+            "name": "Create a person audience membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/memberships",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified person to an audience by creating a new audience membership."
+        },
+        {
+          "info": {
+            "name": "List person relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/relationships",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "my_roles",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "containers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "programs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_values",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_anonymous",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_duplicate_identities",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_self_referrals",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the referral relationships for the specified person, showing advocate-friend connections created through campaign participation."
+        },
+        {
+          "info": {
+            "name": "List person rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/rewards",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "programs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "containers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_values",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reward_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reward_states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_key_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_key_values",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all rewards for the specified person, sorted by created date in descending order. Supports filtering by state, supplier type, and date range."
+        },
+        {
+          "info": {
+            "name": "Get a person reward",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/rewards/:reward_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path",
+                "description": "Reward id parameter"
+              }
+            ]
+          },
+          "docs": "Returns the specified reward for the given person, including its state, face value, and associated campaign."
+        },
+        {
+          "info": {
+            "name": "List person shareables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shareables",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_values",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all shareables for the specified person, sorted by created date in descending order. Each shareable is a unique referral link or code associated with a campaign."
+        },
+        {
+          "info": {
+            "name": "Create a person shareable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shareables",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new shareable for the specified person. A shareable is a unique referral link or code associated with a campaign that the person can share to invite friends."
+        },
+        {
+          "info": {
+            "name": "Get a person shareable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shareables/:code",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Shareable id parameter"
+              }
+            ]
+          },
+          "docs": "Returns the shareable for the specified person identified by its share code. A shareable is a unique share link or code that allows a person to invite friends to participate in a referral campaign."
+        },
+        {
+          "info": {
+            "name": "Update a person shareable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shareables/:code",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Shareable id parameter"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content of an existing shareable identified by its share code for the specified person."
+        },
+        {
+          "info": {
+            "name": "List person shares",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shares",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "programs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "partner_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_values",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all share events for the specified person, sorted by created date in descending order. A share is recorded each time the person distributes a shareable link via a channel (social, email, etc.)."
+        },
+        {
+          "info": {
+            "name": "Get a person share",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/shares/:share_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "share_id",
+                "value": "",
+                "type": "path",
+                "description": "Share id parameter"
+              }
+            ]
+          },
+          "docs": "Returns the specified share event for the given person, including its channel, shareable, and associated campaign journey."
+        },
+        {
+          "info": {
+            "name": "List person steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/steps",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "containers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "programs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_primary",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_keys",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cause_event_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "root_event_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_key_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "journey_key_values",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns campaign flow steps for the specified person, sorted by event date in descending order. Steps represent discrete tracked actions (e.g. conversion, share, reward earned) within the person's journey."
+        },
+        {
+          "info": {
+            "name": "Forward an identity profile to another identity profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/forward",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Source identity profile Extole unique identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges the specified identity profile into the target identity profile. All activity associated with the source identity profile, is forwarded to the target identity profile. After the operation the source profile is no longer independently addressable; lookups by any of its identifiers resolve to the target. Used to consolidate duplicate profiles."
+        },
+        {
+          "info": {
+            "name": "Delete a person audience membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v5/persons/:person_id/memberships/:audience_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "audience_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the specified person from the audience identified by the audience ID."
+        },
+        {
+          "info": {
+            "name": "Get a public person profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/persons/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the public profile for the person identified by `personId`. The response includes display name, profile picture URL, and custom `parameters` visible to the caller's access token. Use when rendering another participant's profile in a referral or social context."
+        },
+        {
+          "info": {
+            "name": "Get a person's profile picture URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/persons/:personId/profile-picture-url",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the profile picture URL for the person identified by `personId` as plain text. Use when you need only the image URL rather than the full public profile from `GET /api/v4/persons/{personId}`."
+        },
+        {
+          "info": {
+            "name": "Get public steps for a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/persons/:personId/steps",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "program_label",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "step_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns program steps completed by the person identified by `personId` that are visible in public scope. Filter by `campaign_id`, `program_label`, or `step_name` when you need a subset. For the authenticated consumer's own steps use `GET /api/v4/me/steps` instead."
+        },
+        {
+          "info": {
+            "name": "Download a person asset by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/web/persons/:personId/assets/download",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default_url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the binary content of the named asset for the person identified by `personId`. The `name` query parameter selects the asset; omit it to download the person's default asset (if one exists). Returns the asset content stream with the asset's stored content type. Supply `default_url` to redirect to a fallback URL when the asset is not found instead of returning an error."
+        },
+        {
+          "info": {
+            "name": "Download a person asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/web/persons/:personId/assets/:assetId/download",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this user at Extole."
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The Extole unique profile identifier of this asset at Extole."
+              },
+              {
+                "name": "default_url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the binary content of the asset identified by `assetId` for the person identified by `personId`. Returns the asset content stream with the asset's stored content type. If the asset has no downloadable content the server returns 400 with `asset_content_not_downloadable`. Supply `default_url` to redirect the caller to a fallback URL instead of returning an error when the asset is not found."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

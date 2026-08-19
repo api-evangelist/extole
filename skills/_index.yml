@@ -1,4 +1,4 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: generated
 skills:
 - file: extole-refer-a-friend.md
@@ -27,3 +27,16 @@ skills:
   - getWebhook
   - updateWebhook
   - archiveWebhook
+- file: extole-run-a-report.md
+  name: Run an Extole report and download the results
+  api: openapi/_original/extole-management-openapi.json
+  operations:
+  - listReportTypes
+  - listReportTypeRecommendations
+  - createReport
+  - getReport
+  - downloadReport
+  - getLatestReport
+  - downloadLatestReport
+  - cancelReport
+  - retryReport

@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/reference/authentication-overview
+docs: https://docs.extole.com/reference/authentication-overview
+note: >-
+  Extole has TWO scope surfaces and they are not the same vocabulary. (1) The REST API's own token
+  scopes, published in the Authentication reference — these gate endpoints and produce 403
+  scopes_denied when insufficient. The four published OpenAPI 3.0.1 documents declare only apiKey
+  security schemes and carry NO oauth2 flows, so these scopes are documented in prose, not in the
+  spec; derive-oauth-scopes.py finds nothing in the specs and this file is therefore searched, not
+  derived. (2) The MCP server's OAuth 2.1 scopes, served anonymously at
+  https://mcp.extole.com/.well-known/oauth-protected-resource and .../oauth-authorization-server —
+  these are OIDC identity scopes that authorize an MCP client to act as an Extole user; the user's own
+  Extole permissions then apply inside the session.
+schemes:
+- name: extole-api-token
+  kind: bearer-token
+  surface: REST API (api.extole.io, {brand}.extole.io)
+  source: https://docs.extole.com/reference/authentication-overview
+  note: Scopes are carried on the access token; endpoints declare a required scope.
+  denied_error:
+    status: 403
+    code: scopes_denied
+- name: extole-mcp-oauth
+  kind: oauth2
+  surface: MCP server (https://mcp.extole.com)
+  spec: OAuth 2.1 authorization code + PKCE (S256)
+  issuer: https://idp.extole.com
+  authorization_endpoint: https://idp.extole.com/oauth2/authorize
+  token_endpoint: https://idp.extole.com/oauth2/token
+  introspection_endpoint: https://idp.extole.com/oauth2/introspect
+  revocation_endpoint: https://idp.extole.com/oauth2/revoke
+  jwks_uri: https://idp.extole.com/oauth2/jwks
+  grant_types:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  source: https://mcp.extole.com/.well-known/oauth-authorization-server
+  files:
+  - well-known/extole-mcp-oauth-authorization-server.json
+  - well-known/extole-mcp-oauth-protected-resource.json
+  - well-known/extole-mcp-openid-configuration.json
+scopes:
+- scope: CLIENT_ADMIN
+  description: Full read and write on the client's configuration and data.
+  surface: rest
+  schemes:
+  - extole-api-token
+  sources:
+  - https://docs.extole.com/reference/authentication-overview
+- scope: CAMPAIGN_EDIT
+  description: Read and write on campaigns and their components.
+  surface: rest
+  schemes:
+  - extole-api-token
+  sources:
+  - https://docs.extole.com/reference/authentication-overview
+- scope: USER_SUPPORT
+  description: Read access for support tooling.
+  surface: rest
+  schemes:
+  - extole-api-token
+  sources:
+  - https://docs.extole.com/reference/authentication-overview
+- scope: ANY
+  description: Any authenticated scope; used on endpoints that only require a valid token.
+  surface: rest
+  schemes:
+  - extole-api-token
+  sources:
+  - https://docs.extole.com/reference/authentication-overview
+- scope: VERIFIED_CONSUMER
+  description: Carried by a consumer access token whose identity has been confirmed. Grants full access
+    to the participant's own profile, including updating profile properties. Reached via JWT
+    verification, email verification, or an OAuth Resource Owner Credential Grant.
+  surface: consumer
+  schemes:
+  - extole-api-token
+  sources:
+  - https://docs.extole.com/reference/authentication-overview
+  - https://docs.extole.com/docs/verifying-consumers
+- scope: openid
+  description: OIDC identity scope requested by MCP clients connecting to https://mcp.extole.com.
+  surface: mcp
+  schemes:
+  - extole-mcp-oauth
+  sources:
+  - https://mcp.extole.com/.well-known/oauth-protected-resource
+- scope: profile
+  description: OIDC profile scope requested by MCP clients.
+  surface: mcp
+  schemes:
+  - extole-mcp-oauth
+  sources:
+  - https://mcp.extole.com/.well-known/oauth-protected-resource
+- scope: email
+  description: OIDC email scope requested by MCP clients.
+  surface: mcp
+  schemes:
+  - extole-mcp-oauth
+  sources:
+  - https://mcp.extole.com/.well-known/oauth-protected-resource
+consumer_identity_levels:
+- level: anonymous
+  description: Device-only token. Records journey activity without an identity profile.
+- level: identified
+  description: Token associated with an email address or partner_user_id. Can add journey information;
+    cannot modify profile properties or read private profile data (last name, friend information,
+    reward information). First name is public on an identified profile.
+- level: verified
+  description: Carries VERIFIED_CONSUMER. Full access to the profile including updates.
+guidance:
+  scope_minimization: Issue tokens with the smallest scope set the integration needs; a read-only
+    integration should not carry CLIENT_ADMIN.
+  source: https://docs.extole.com/reference/authentication-overview
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/authentication-overview.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-protected-resource
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://mcp.extole.com/.well-known/oauth-authorization-server
+  http_status: 200

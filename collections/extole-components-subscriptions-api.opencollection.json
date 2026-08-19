@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Components Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List component subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-subscriptions"
+          },
+          "docs": "Returns all component subscriptions for the current client."
+        },
+        {
+          "info": {
+            "name": "Subscribe to a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/component-subscriptions"
+          },
+          "docs": "Subscribes a client to receive updates from the specified shared component."
+        },
+        {
+          "info": {
+            "name": "List built component subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-subscriptions/built"
+          },
+          "docs": "Returns all component subscriptions in their built (evaluated) form."
+        },
+        {
+          "info": {
+            "name": "List component subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-subscriptions/subscribers"
+          },
+          "docs": "Returns the clients subscribed to the specified shared component."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/component-subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a client's subscription to the specified shared component."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

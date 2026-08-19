@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Blocks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/blocks",
+            "params": [
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all content blocks for the client."
+        },
+        {
+          "info": {
+            "name": "Create a block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/blocks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new named content block used as a reusable fragment in campaign experiences. Returns the created block with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List global blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/blocks/global",
+            "params": [
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all globally available content blocks that can be shared across clients."
+        },
+        {
+          "info": {
+            "name": "Get a block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/blocks/:blockId",
+            "params": [
+              {
+                "name": "blockId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the content block for the specified id."
+        },
+        {
+          "info": {
+            "name": "Delete a block",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/blocks/:blockId",
+            "params": [
+              {
+                "name": "blockId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the content block for the specified id. Returns the deleted block."
+        },
+        {
+          "info": {
+            "name": "Test a block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/blocks/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluates the block configuration against a test payload without persisting any changes. Returns the rendered output and any validation errors."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

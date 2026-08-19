@@ -1,0 +1,383 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get consumer token details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v5/token"
+          },
+          "docs": "Returns the metadata for the access token supplied in the `access_token` query parameter or bearer header. If no token is supplied, the server attempts to resolve a token from the HTTP authorization header. Returns the token's expiry, scopes, and the identity it represents."
+        },
+        {
+          "info": {
+            "name": "Create a consumer access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v5/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues a new access token for the identity supplied in the request. Pass an `email` to identify a consumer when the client identity key is `email`. Pass a `jwt` to assert a trusted identity via JWT verification. Omit both to issue an anonymous token. The optional `duration_seconds` field caps the token lifetime."
+        },
+        {
+          "info": {
+            "name": "Delete a consumer access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/api/v5/token"
+          },
+          "docs": "Revokes the access token supplied in the `access_token` query parameter or bearer header. If no token is supplied, the server attempts to resolve a token from the HTTP authorization header and revokes that one. After revocation the token is immediately invalidated."
+        },
+        {
+          "info": {
+            "name": "Get current access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/tokens"
+          },
+          "docs": "Returns the metadata for the access token used to authenticate the request (`type`, `client_id`, `identity_id`, `expires_in`, `scopes`). Equivalent to `GET /v4/tokens/{token}` but without having to repeat the token in the URL path."
+        },
+        {
+          "info": {
+            "name": "Create access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mints a bearer token for server-to-Extole calls by a client. The body is optional: when omitted, the new token mirrors the calling identity's scopes; when supplied, the body can narrow the scope set (subset of the caller's scopes), bind the token to a specific `client_id`, supply email/password credentials in lieu of a calling token, or override the default lifetime via `duration_seconds`. Returns the new token, its `expires_in` (seconds), the resolved `client_id`, the `identity_id` of the user "
+        },
+        {
+          "info": {
+            "name": "Get access token by value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/tokens/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the metadata for the supplied token value (`type`, `client_id`, `identity_id`, `expires_in`, `scopes`). Use this when the caller has the token string and needs to introspect it; for the calling identity's own active token use `GET /v4/tokens` instead."
+        },
+        {
+          "info": {
+            "name": "Invalidate access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v4/tokens/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Invalidates the supplied access token immediately. Subsequent requests using the same token return `401 invalid_access_token`. Returns `200` with an empty body on success."
+        },
+        {
+          "info": {
+            "name": "Exchange access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v4/tokens/exchange/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Exchanges the supplied access token for a fresh one with the same scopes and a renewed expiry. The original token is invalidated immediately on success. Use this to rotate long-lived integration tokens without re-authenticating."
+        },
+        {
+          "info": {
+            "name": "Get resource access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/tokens/resource"
+          },
+          "docs": "Returns the resource-scoped access token associated with the current credentials."
+        },
+        {
+          "info": {
+            "name": "Upgrade consumer authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/consumers/:accessToken/authorize",
+            "params": [
+              {
+                "name": "accessToken",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Upgrades an anonymous consumer access token to an authenticated token by associating it with a verified consumer identity. Returns the upgraded consumer token."
+        },
+        {
+          "info": {
+            "name": "Create consumer authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/consumers/:personId/token",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a consumer access token for the specified person id. Returns the new consumer token."
+        },
+        {
+          "info": {
+            "name": "Create OAuth client credentials token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/oauth/tokens",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchanges OAuth client credentials (client_id and client_secret) for an API access token using the client credentials grant flow. Returns the access token and expiry information."
+        },
+        {
+          "info": {
+            "name": "Create a managed token via authorization code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/tokens/managed/openid-connect/authorization-code-flow",
+            "headers": [
+              {
+                "name": "X-CSRF-TOKEN",
+                "value": ""
+              },
+              {
+                "name": "X-NONCE",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a managed access token by exchanging an OpenID Connect authorization code. Returns the created token."
+        },
+        {
+          "info": {
+            "name": "Exchange OIDC authorization code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/tokens/openid-connect/authorization-code-flow",
+            "headers": [
+              {
+                "name": "X-CSRF-TOKEN",
+                "value": ""
+              },
+              {
+                "name": "X-NONCE",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges an OpenID Connect authorization-code response for an Extole access token. Pair the body's `code` and `state` with the `X-CSRF-TOKEN` and `X-NONCE` headers - all four are required by the OIDC validator. Marked as `expert`: most integrators authenticate via `POST /v4/tokens` instead."
+        },
+        {
+          "info": {
+            "name": "Exchange an IdP-initiated OIDC authorization code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/tokens/openid-connect/idp-initiated-authorization-code-flow",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates an authorization code returned by an IdP-initiated OpenID Connect SSO flow and exchanges it for an Extole access token. Expert-only; most integrators use `POST /v4/tokens` instead."
+        },
+        {
+          "info": {
+            "name": "Exchange OAuth authorization code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/security/oauth/flow/exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges an OAuth authorization code for an access token using the authorization code flow. Returns the access token and associated session information."
+        },
+        {
+          "info": {
+            "name": "Delete a resource access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v4/tokens/resource/:access_token_to_delete",
+            "params": [
+              {
+                "name": "access_token_to_delete",
+                "value": "",
+                "type": "path",
+                "description": "Resource-scoped access token to revoke."
+              }
+            ]
+          },
+          "docs": "Revokes the specified resource-scoped access token."
+        },
+        {
+          "info": {
+            "name": "Debug consumer access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/consumers/:accessToken/debug",
+            "params": [
+              {
+                "name": "accessToken",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata for a consumer (person) access token by value, including tokens that are expired or invalidated. Distinct from client access token debug (`GET /v4/tokens/{token}/debug`) and managed API tokens (`/v4/tokens/managed`). Requires a user access token with the `CLIENT_ADMIN` scope."
+        },
+        {
+          "info": {
+            "name": "List managed access tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/tokens/managed"
+          },
+          "docs": "Returns all managed API access tokens for the client."
+        },
+        {
+          "info": {
+            "name": "Create a managed access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/tokens/managed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new server-generated managed API access token with configurable scopes and expiry. Returns the created token with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Delete a managed access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v4/tokens/managed/:access_token_id",
+            "params": [
+              {
+                "name": "access_token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes and removes the managed API access token for the specified id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

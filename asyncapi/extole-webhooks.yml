@@ -1,30 +1,85 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/extole-management-openapi.json (Webhooks tag) + developers.extole.com
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/docs/webhooks
+docs:
+- https://docs.extole.com/docs/webhooks
+- https://docs.extole.com/docs/webhook-creation
+- https://docs.extole.com/docs/reward-webhooks
 spec_type: Webhooks
-note: Extole exposes webhook subscription management. No AsyncAPI document is published; this captures
-  the webhook management surface.
+asyncapi_published: false
+note: >-
+  Extole publishes NO AsyncAPI document — this is the webhook catalog, upgraded from derived to searched
+  against the docs. The event surface is real and outbound: when something happens in a program, Extole
+  POSTs to a destination the brand configures. Two things are worth an integrator's attention and both
+  are recorded verbatim below rather than summarised away: webhook delivery is signed or
+  bearer-authenticated with a client key created in the My.Extole Security Center, and failed deliveries
+  have a published retry schedule ending in a 7-day dead-letter queue. Enabling webhooks is not
+  self-serve — an account must have the feature switched on by Extole staff.
 management_api: https://api.extole.io
-docs: https://developers.extole.com/
-operations:
-- method: GET
-  path: /v6/webhooks
-  operationId: listWebhooks
-- method: POST
-  path: /v6/webhooks
-  operationId: createWebhook
-- method: GET
-  path: /v6/webhooks/{webhook_id}
-  operationId: getWebhook
-- method: PUT
-  path: /v6/webhooks/{webhook_id}
-  operationId: updateWebhook
-- method: DELETE
-  path: /v6/webhooks/{webhook_id}
-  operationId: archiveWebhook
-- method: GET
-  path: /v6/webhooks/built
-  operationId: listBuiltWebhooks
-- method: GET
-  path: /v6/webhooks/{webhook_id}/built
-  operationId: getBuiltWebhook
+management_operations:
+- {method: GET, path: /v6/webhooks, operationId: listWebhooks}
+- {method: POST, path: /v6/webhooks, operationId: createWebhook}
+- {method: GET, path: '/v6/webhooks/{webhook_id}', operationId: getWebhook}
+- {method: PUT, path: '/v6/webhooks/{webhook_id}', operationId: updateWebhook}
+- {method: DELETE, path: '/v6/webhooks/{webhook_id}', operationId: archiveWebhook}
+- {method: GET, path: /v6/webhooks/built, operationId: listBuiltWebhooks}
+- {method: GET, path: '/v6/webhooks/{webhook_id}/built', operationId: getBuiltWebhook}
+ui: https://my.extole.com/tech-center/outbound-webhooks
+enablement:
+  self_serve: false
+  note: Outbound webhooks must be enabled on the account by a CSM, Implementation Manager or Solutions
+    Architect before the Tech Center page becomes available.
+event_types:
+- name: Shares
+  description: Extole notifies your system when a successful advocate share is detected.
+- name: Registrations
+  description: Extole notifies your system upon a successful registration.
+- name: Email Captures
+  description: Extole notifies your system when an email capture is detected from a referred friend.
+- name: Conversions
+  description: Extole notifies your system when a referral conversion event occurs.
+- name: Rewards
+  description: Extole notifies your system when a reward has been earned.
+  docs: https://docs.extole.com/docs/reward-webhooks
+event_type_note: The docs present these as example use cases rather than an exhaustive enum; payload
+  and event selection are configurable per webhook with a Solutions Architect. No closed event catalog
+  is published, which is why no AsyncAPI channel list is derived here.
+delivery:
+  method: POST
+  destination: the payload URL configured on the webhook
+  payload: The entire object is POSTed as-is unless an Advanced Configuration mapping is defined, in
+    which case the brand chooses exactly which fields leave the platform.
+security:
+  credential: client key ("Webhook" type) created in the My.Extole Security Center
+  create_at: https://my.extole.com/security-center
+  schemes:
+  - type: Password
+    header: 'Authorization: Bearer <key>'
+  - type: HTTP_Basic
+    header: 'Authorization: Basic <base64EncodedKey>'
+  - type: HS256
+    header: 'X-Extole-Signature: <hs256_encoded_body_using_the_provided_key>'
+    note: HMAC-SHA256 signature over the request body — the verifiable option.
+retries:
+  on: any non-200 response from the destination
+  attempts: 5
+  schedule: [1s, 1h, 3h, 12h, 12h]
+  dead_letter_queue: 7 days
+observability:
+  live_view: Webhook Live Event view in Tech Center > Outbound Webhooks tracks every attempt with its
+    response code and message.
+  report: Webhook Events Report (run by a Solutions Architect or Support Engineer).
+  replay_endpoint: POST /v6/webhooks/events/send
+  replay_note: Accepts the event in its raw form as the request body. Documented as operated by Extole
+    staff rather than by the brand.
+cross_links:
+  conventions: conventions/extole-conventions.yml
+  errors: errors/extole-error-codes.yml
+  authentication: authentication/extole-authentication.yml
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/webhooks.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/docs/webhook-creation.md
+  http_status: 200

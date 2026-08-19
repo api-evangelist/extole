@@ -1,0 +1,1107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Components API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List component categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-facets",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns component facet (category) definitions for the calling client. Facets group component types into logical categories shown in the campaign editor. Use `GET /v1/component-facets/default` to retrieve the platform-default categories."
+        },
+        {
+          "info": {
+            "name": "Create a component category",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/component-facets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new component facet (category) definition and returns the persisted record. Component facets group types shown in the campaign editor."
+        },
+        {
+          "info": {
+            "name": "List default component categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-facets/default"
+          },
+          "docs": "Returns the platform-default component facet (category) definitions. Default facets are provided by Extole and are available to all clients."
+        },
+        {
+          "info": {
+            "name": "Get a component category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/component-facets/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component category to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns the component facet (category) definition for the supplied name. Returns `400 component_facet_not_found` if the name does not match any accessible facet."
+        },
+        {
+          "info": {
+            "name": "Update a component category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/component-facets/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component category to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied component facet. Returns `400 component_facet_not_found` if the name does not match any accessible facet."
+        },
+        {
+          "info": {
+            "name": "Archive a component category",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/component-facets/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the component category to archive."
+              }
+            ]
+          },
+          "docs": "Archives the supplied component facet. Fails with `400 facet_associated_with_components` if the facet is still assigned to active components. Remove those associations before archiving. Returns the archived facet."
+        },
+        {
+          "info": {
+            "name": "List components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_filter_collection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_socket_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_all",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_granted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_subscribed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all components visible to the current client. Components are the reusable building blocks that campaigns assemble — creatives, content blocks, and sub-experiences."
+        },
+        {
+          "info": {
+            "name": "Upload a component bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a new component bundle archive, creating a new component and its sub-resources from the bundled definition."
+        },
+        {
+          "info": {
+            "name": "List built components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/built",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_filter_collection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_socket_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_all",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_granted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_subscribed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all components in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get available component upgrades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/available-upgrades",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a map of available upgrade targets for the specified component, keyed by target component id."
+        },
+        {
+          "info": {
+            "name": "Diff two components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/diff/:other_component_id",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "other_component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a diff between two component versions, showing added, removed, and changed settings."
+        },
+        {
+          "info": {
+            "name": "Download translatable component variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/translatable.:format",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_disabled_creatives",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_inheriting",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enabled_variants_only",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the translatable variable values for the specified component for localisation."
+        },
+        {
+          "info": {
+            "name": "List duplicatable components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/duplicatable",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "source_client_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_filter_collection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_socket_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_all",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all components that are eligible for duplication by the current client."
+        },
+        {
+          "info": {
+            "name": "List built duplicatable components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/duplicatable/built",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "source_client_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version_state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_settings",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_setting_filter_collection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_socket_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_all",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all duplicatable components in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "List component assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all file assets attached to the component identified by `component_id`."
+        },
+        {
+          "info": {
+            "name": "Create a component asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "asset",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a new file asset to the component identified by `component_id`. Supply asset metadata in the `asset` form field and file content in the `file` form field."
+        },
+        {
+          "info": {
+            "name": "List built component assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/built",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the built (compiled) asset representations for all assets on the specified component."
+        },
+        {
+          "info": {
+            "name": "Get a component asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/:asset_id",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata for the asset identified by `asset_id` on the specified component."
+        },
+        {
+          "info": {
+            "name": "Update a component asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/:asset_id",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "asset",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Replaces or updates the asset identified by `asset_id` on the specified component. Supply updated metadata in the `asset` form field and optional new file content in `file`."
+        },
+        {
+          "info": {
+            "name": "Delete a component asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/:asset_id",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the asset identified by `asset_id` from the specified component and returns the deleted asset metadata."
+        },
+        {
+          "info": {
+            "name": "Get a built component asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/:asset_id/built",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the built (compiled) representation of the asset identified by `asset_id` on the specified component."
+        },
+        {
+          "info": {
+            "name": "Get component asset content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/assets/:asset_id/content",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Streams the raw file content of the asset identified by `asset_id` on the specified component."
+        },
+        {
+          "info": {
+            "name": "Get a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id:version",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified component, optionally at a specific version. If no version is specified, returns the current version."
+        },
+        {
+          "info": {
+            "name": "Delete a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/components/:component_id:version",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Recursively deletes the specified component and all its children. If the deleted component is the root component of a campaign, the entire campaign is archived. The `version` path segment is used as an optimistic-lock guard."
+        },
+        {
+          "info": {
+            "name": "Get a built component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id:version/built",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the specified component, with expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "Get component anchors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/components/:component_id:version/anchors",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the anchor details for the specified component."
+        },
+        {
+          "info": {
+            "name": "Upgrade a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id/upgrade",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Upgrades the component to the latest version of its component type definition."
+        },
+        {
+          "info": {
+            "name": "Duplicate a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/components/:component_id:version/duplicate",
+            "params": [
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a deep copy of the specified component and all its child settings and assets."
+        },
+        {
+          "info": {
+            "name": "Upload translatable component variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/components/translatable",
+            "params": [
+              {
+                "name": "target_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ignore_unknown_variables",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads translated variable values from a CSV or Excel file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

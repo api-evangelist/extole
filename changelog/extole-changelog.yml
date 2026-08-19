@@ -1,11 +1,76 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
-source: github.com/extole/extole-specification (release-please) + npm @extole/specification
-scheme: semver (spec package) + uri-path api versions
-current_spec_version: 1.1.2
-note: Extole publishes its OpenAPI + Postman specs via the extole-specification repo using release-please;
-  the npm @extole/specification package tracks spec releases.
-entries:
-- version: 1.1.2
-  source: npm @extole/specification
-  highlights: Latest published OpenAPI specifications and Postman collections for the Extole API.
+source: registry.npmjs.org (@extole/specification, @extole/cli) + github.com/extole/extole-specification
+  (release-please) + https://docs.extole.com/
+docs: https://github.com/extole/extole-specification/releases
+scheme: semver on the published artifacts + uri-path versions on the API itself
+note: >-
+  Extole publishes no dated, human-readable API changelog page. What it does publish is versioned
+  RELEASE STREAMS for the artifacts that carry the contract — the @extole/specification npm package
+  (the OpenAPI documents and Postman collections, released through release-please) and the @extole/cli
+  package. Those are the closest thing to a change record an integrator can subscribe to, and they are
+  dated, so they are captured here. Two dated release streams and no narrative changelog is the honest
+  shape of this provider; nothing is invented to fill a changelog page that does not exist.
+changelog_page:
+  published: false
+  note: No /changelog, /releases or "what's new" page is published on docs.extole.com or extole.com.
+    The docs pages themselves carry an `updatedAt` timestamp in their frontmatter, which is a
+    per-page freshness signal rather than a changelog.
+current:
+  specification_package: 1.1.2
+  cli: 0.7.3
+  api_versions_in_use: [v1, v2, v3, v4, v5, v6, v7]
+streams:
+- stream: specification
+  package: '@extole/specification'
+  registry: npm
+  repo: https://github.com/extole/extole-specification
+  release_process: release-please
+  description: Extole's own OpenAPI 3.0.1 specifications and Postman collections. The upstream of the
+    four documents in openapi/_original/.
+  entries:
+  - {version: 1.1.2, date: '2026-07-17'}
+  - {version: 1.1.1, date: '2026-07-08'}
+  - {version: 1.1.0, date: '2026-07-01'}
+- stream: cli
+  package: '@extole/cli'
+  registry: npm
+  repo: https://github.com/extole/extole-cli
+  description: The Extole developer CLI.
+  entries:
+  - {version: 0.7.3, date: '2026-08-12'}
+  - {version: 0.7.2, date: '2026-08-12'}
+  - {version: 0.7.1, date: '2026-08-11'}
+  - {version: 0.7.0, date: '2026-07-24'}
+  - {version: 0.6.2, date: '2026-07-24'}
+  - {version: 0.6.0, date: '2026-06-15'}
+platform_milestones:
+- date: '2026-06-15'
+  change: Extole MCP Server documented at docs.extole.com/docs/extole-mcp (page updatedAt
+    2026-06-15). Remote MCP endpoint https://mcp.extole.com, OAuth 2.1 + PKCE.
+  source: https://docs.extole.com/docs/extole-mcp
+- date: '2026-06-03'
+  change: MCP authentication guide published (page updatedAt 2026-06-03) — OAuth vs Access Token.
+  source: https://docs.extole.com/docs/mcp-authentication
+- date: '2026-05-27'
+  change: Authentication reference rewritten (page updatedAt 2026-05-27) — token models, scopes,
+    consumer identity levels, sandbox.
+  source: https://docs.extole.com/reference/authentication-overview
+- date: '2026-05-26'
+  change: Errors reference rewritten (page updatedAt 2026-05-26) — stable error-code enum, published
+    rate limits, retry matrix.
+  source: https://docs.extole.com/reference/common-errors
+- date: '2026'
+  change: Developer center migrated from developers.extole.com to docs.extole.com (ReadMe). The old
+    host now returns HTTP 204 with an empty body.
+  source: https://www.extole.com/blog/extole-evolves-its-developer-platform-for-ai-assisted-teams/
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://registry.npmjs.org/@extole%2Fspecification
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://registry.npmjs.org/@extole%2Fcli
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://developers.extole.com/
+  http_status: 204

@@ -1,0 +1,365 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Event Streams API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Streams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List event streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all event-stream subscriptions configured for the client. Event streams push a filtered view of client-event activity to a downstream consumer such as a webhook or Kafka topic. Use `GET /v6/event-streams/built` to retrieve evaluated runtime configs."
+        },
+        {
+          "info": {
+            "name": "Create an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/event-streams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new event-stream subscription for the client. Event streams push a filtered view of client-event activity to a downstream consumer such as a webhook or Kafka topic. Returns the created event stream with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built event streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/built",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the evaluated runtime configuration for all event-stream subscriptions of the client. Built representations reflect component inheritance and dynamic overrides applied at runtime."
+        },
+        {
+          "info": {
+            "name": "Get an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the event-stream subscription for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the event-stream subscription. Only fields present in the request body are changed. Returns the updated event stream."
+        },
+        {
+          "info": {
+            "name": "Archive an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives the event-stream subscription, stopping event delivery without permanently removing the configuration. Returns the archived event stream."
+        },
+        {
+          "info": {
+            "name": "Get a built event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/built",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the evaluated runtime configuration for the specified event-stream subscription. The built representation reflects component inheritance and dynamic overrides applied at runtime."
+        },
+        {
+          "info": {
+            "name": "List events from an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/events",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "json_path_filters",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns events captured by the event stream identified by `eventStreamId`, sorted newest first. Use `limit`, `offset`, and date-range filter parameters to page and narrow the result set. Each entry includes the event type, timestamp, and the full event payload as recorded by the stream."
+        },
+        {
+          "info": {
+            "name": "List event stream filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/filters",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all filter rules configured on the specified event stream."
+        },
+        {
+          "info": {
+            "name": "Create an event stream filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/filters",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new filter rule on the specified event stream. Filters restrict which events are delivered to the downstream consumer. Returns the created filter with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Get an event stream filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/filters/:filterId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filterId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the filter rule for the specified id on the given event stream."
+        },
+        {
+          "info": {
+            "name": "Update an event stream filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/filters/:filterId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filterId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the filter rule on the specified event stream. Only fields present in the request body are changed. Returns the updated filter."
+        },
+        {
+          "info": {
+            "name": "Archive an event stream filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/filters/:filterId",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filterId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives the filter rule on the specified event stream. Returns the archived filter."
+        },
+        {
+          "info": {
+            "name": "Delete an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/delete",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the event-stream subscription. Returns the deleted event stream."
+        },
+        {
+          "info": {
+            "name": "Unarchive an event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/event-streams/:eventStreamId/unarchive",
+            "params": [
+              {
+                "name": "eventStreamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a previously archived event-stream subscription, resuming event delivery. Returns the restored event stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

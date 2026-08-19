@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Javascript Core Extensions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Javascript Core Extensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List JavaScript SDK core extensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/extended-cores",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query",
+                "description": "Optional includeArchived filter"
+              }
+            ]
+          },
+          "docs": "Returns all JavaScript SDK core extensions (extended cores) for the client. Extended cores inject custom JavaScript into the Extole Web SDK's core loader, letting integrators extend SDK behaviour without modifying the page embed code. Set `include_archived=true` to include archived (disabled) extensions in the response."
+        },
+        {
+          "info": {
+            "name": "Create a JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/extended-cores",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new extended core definition. Returns the persisted extended core with its server-assigned id. The extension is created in an active state; archive it with `DELETE /v1/extended-cores/{id}` to disable it without deleting it permanently."
+        },
+        {
+          "info": {
+            "name": "List built JavaScript SDK core extensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/extended-cores/built",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query",
+                "description": "Optional includeArchived filter"
+              }
+            ]
+          },
+          "docs": "Returns all extended cores in their fully evaluated (built) runtime form, with all evaluatable fields resolved to their current values. Use this when the calling system needs the effective JavaScript payloads rather than the source definitions. Set `include_archived=true` to include archived extensions."
+        },
+        {
+          "info": {
+            "name": "Get a JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/extended-cores/:extendedCoreId",
+            "params": [
+              {
+                "name": "extendedCoreId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the extended core to be retrieved."
+              }
+            ]
+          },
+          "docs": "Returns the source definition of the supplied extended core, including its JavaScript payload, conditions, and lifecycle state. Returns `404 extended_core_not_found` if the id does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Update a JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/extended-cores/:extendedCoreId",
+            "params": [
+              {
+                "name": "extendedCoreId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the extended core to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied extended core. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted extended core after the update. Returns `404 extended_core_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Archive a JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/extended-cores/:extendedCoreId",
+            "params": [
+              {
+                "name": "extendedCoreId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the extended core to be archived."
+              }
+            ]
+          },
+          "docs": "Archives (soft-deletes) the supplied extended core. The extension is removed from the SDK core loader immediately but its definition is retained. Restore it with `POST /v1/extended-cores/{id}/unarchive`. Returns the updated extended core. Returns `404 extended_core_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Get a built JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/extended-cores/:extendedCoreId/built",
+            "params": [
+              {
+                "name": "extendedCoreId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the extended core to be retrieved."
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the supplied extended core, with all evaluatable fields resolved to their current values. Returns `404 extended_core_not_found` if the id does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Unarchive a JavaScript SDK core extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/extended-cores/:extendedCoreId/unarchive",
+            "params": [
+              {
+                "name": "extendedCoreId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the extended core to be unarchived."
+              }
+            ]
+          },
+          "docs": "Restores a previously archived extended core and re-inserts it into the SDK core loader. Returns the restored extended core. Returns `404 extended_core_not_found` if the id does not exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

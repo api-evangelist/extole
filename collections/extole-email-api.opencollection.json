@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Email API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get email send status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/api/v4/me/email/status/:polling_id",
+            "params": [
+              {
+                "name": "polling_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deprecated. Returns the processing status for a prior `POST /api/v4/me/email` call identified by `polling_id`. Poll until the send reaches a terminal state."
+        },
+        {
+          "info": {
+            "name": "Send an email as the authenticated consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/api/v4/me/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. Sends an email on behalf of the authenticated consumer and returns a `polling_id` for status polling. Prefer event-based email flows where available."
+        },
+        {
+          "info": {
+            "name": "Generate DKIM records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/email-domains/:emailDomainId/generate-dkim-records",
+            "params": [
+              {
+                "name": "emailDomainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Generates new DKIM DNS records for the custom sending domain. Returns the records that must be added to DNS to enable DKIM signing."
+        },
+        {
+          "info": {
+            "name": "Validate an email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/email/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks whether the supplied email address is syntactically valid and acceptable for use in Extole programs. Returns validation status without creating or updating a consumer identity."
+        },
+        {
+          "info": {
+            "name": "List email domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/email-domains"
+          },
+          "docs": "Returns all custom sending domains configured for the client."
+        },
+        {
+          "info": {
+            "name": "Create an email domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/email-domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom sending domain for campaign emails. DNS verification records are generated for the domain. Returns the created domain with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Get an email domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/email-domains/:emailDomainId",
+            "params": [
+              {
+                "name": "emailDomainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the custom sending domain for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update an email domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v4/email-domains/:emailDomainId",
+            "params": [
+              {
+                "name": "emailDomainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the custom sending domain. Only fields present in the request body are changed. Returns the updated domain."
+        },
+        {
+          "info": {
+            "name": "Delete an email domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v4/email-domains/:emailDomainId",
+            "params": [
+              {
+                "name": "emailDomainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the custom sending domain. Returns the deleted domain."
+        },
+        {
+          "info": {
+            "name": "Validate an email domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/email-domains/:emailDomainId/validate",
+            "params": [
+              {
+                "name": "emailDomainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Checks DNS records for the custom sending domain to confirm verification status. Returns the current validation result without making changes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

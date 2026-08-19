@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/webhooks",
+            "params": [
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks for the client. Filter by `enabled` or `type` to narrow the result set. Use `GET /v6/webhooks/built` for the fully evaluated runtime form. Webhooks are outbound HTTP callbacks Extole fires when specific platform events occur."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook definition and returns the persisted record with its server-assigned id. The webhook fires immediately for matching events once created; set `enabled=false` in the request body to create it in a disabled state."
+        },
+        {
+          "info": {
+            "name": "List built webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/webhooks/built",
+            "params": [
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks in their fully evaluated (built) runtime form, with all evaluatable fields resolved. Supports finer filtering than the source list: `name`, `include_archived`, `limit`, and `offset` are only available on this endpoint. Use this when you need effective endpoint URLs and headers."
+        },
+        {
+          "info": {
+            "name": "Get a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the source definition of the supplied webhook, including its URL, headers, event filters, and state. Returns `400 webhook_not_found` if the id does not exist or is not accessible."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the webhook to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied webhook. Only the fields present in the body are changed; omitted fields are left intact. Returns the persisted webhook after the update. Returns `400 webhook_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Archive a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the webhook to be deleted."
+              }
+            ]
+          },
+          "docs": "Archives (soft-deletes) the supplied webhook. The webhook stops firing immediately but its definition is retained. Fails with `400 webhook_associated_with_webhook_controller_action` if the webhook is referenced by a controller action, or `400 webhook_associated_with_webhook_user_subscription_channel` if it is referenced by a user subscription channel. Remove those references before archiving."
+        },
+        {
+          "info": {
+            "name": "Get a built webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/webhooks/:webhook_id/built",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the supplied webhook, with all evaluatable fields resolved. Returns `400 webhook_not_found` if the id does not exist or is not accessible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

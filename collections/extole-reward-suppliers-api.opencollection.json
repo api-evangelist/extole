@@ -1,0 +1,652 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Reward Suppliers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reward Suppliers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mark custom reward failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/custom-reward/:reward_id/failed",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the custom reward as failed, recording a fulfilment failure."
+        },
+        {
+          "info": {
+            "name": "Mark custom reward fulfilled",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/custom-reward/:reward_id/fulfilled",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the custom reward as fulfilled, signalling that the client system has completed fulfilment."
+        },
+        {
+          "info": {
+            "name": "Mark custom reward fulfilled and sent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/custom-reward/:reward_id/fulfilled_and_sent",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the custom reward as fulfilled and sent to the participant."
+        },
+        {
+          "info": {
+            "name": "Mark custom reward redeemed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/custom-reward/:reward_id/redeemed",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the custom reward as redeemed by the participant."
+        },
+        {
+          "info": {
+            "name": "Mark custom reward sent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/rewards/custom-reward/:reward_id/sent",
+            "params": [
+              {
+                "name": "reward_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks the custom reward as sent to the participant."
+        },
+        {
+          "info": {
+            "name": "Download manual coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/coupons",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "issued",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_expired",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the current coupon pool for the manual coupon supplier as a JSON response."
+        },
+        {
+          "info": {
+            "name": "Upload manual coupons file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/coupons",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "allow_restricted_characters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "allow_expired",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "discard_duplicated",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default_expiry_date",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a coupon code file (CSV or text) to the manual coupon supplier's pool."
+        },
+        {
+          "info": {
+            "name": "Delete manual coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/coupons",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Removes coupons from the manual coupon supplier's pool."
+        },
+        {
+          "info": {
+            "name": "Download manual coupons file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/coupons:extension",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "extension",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "issued",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_expired",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the current coupon pool for the manual coupon supplier as a file."
+        },
+        {
+          "info": {
+            "name": "Get manual coupon operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/operations",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a log of recent upload and delete operations for this manual coupon supplier."
+        },
+        {
+          "info": {
+            "name": "Get manual coupon stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/manual-coupons/:reward_supplier_id/stats",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns usage statistics for the coupon pool on this manual coupon supplier."
+        },
+        {
+          "info": {
+            "name": "List Salesforce coupon pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/salesforce-coupons/list-available-coupon-pools"
+          },
+          "docs": "Returns the available Salesforce coupon pools that can be linked to a reward supplier."
+        },
+        {
+          "info": {
+            "name": "Get Salesforce coupon operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/salesforce-coupons/:reward_supplier_id/operations",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a log of recent Salesforce sync operations for this coupon supplier."
+        },
+        {
+          "info": {
+            "name": "Get Salesforce coupon stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/salesforce-coupons/:reward_supplier_id/stats",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns usage statistics for the coupon pool on this Salesforce coupon supplier."
+        },
+        {
+          "info": {
+            "name": "Get Tango catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/tango/catalog"
+          },
+          "docs": "Returns the available Tango gift card brands and denominations from the Tango Card API."
+        },
+        {
+          "info": {
+            "name": "List reward suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all reward supplier configurations for the client, across all supplier types. Reward suppliers are integrations with upstream providers that fulfil reward issuance (gift cards, coupons, payouts, etc.). Use the `types` query parameter to filter by supplier type."
+        },
+        {
+          "info": {
+            "name": "Create a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new reward supplier configuration. Returns the persisted supplier with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built reward suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/built",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_disabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_types",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all reward suppliers in their fully evaluated (built) runtime form."
+        },
+        {
+          "info": {
+            "name": "Get reward supplier display types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/display-types"
+          },
+          "docs": "Returns the available display type labels for reward suppliers on this client."
+        },
+        {
+          "info": {
+            "name": "Get a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the reward supplier configuration for the specified supplier id."
+        },
+        {
+          "info": {
+            "name": "Update a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the reward supplier on the client. Only fields present in the request body are changed. Returns the updated supplier."
+        },
+        {
+          "info": {
+            "name": "Archive a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives the reward supplier, removing it from active use. Returns the archived supplier."
+        },
+        {
+          "info": {
+            "name": "Get a built reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id/built",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the specified reward supplier."
+        },
+        {
+          "info": {
+            "name": "Refill Salesforce coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/salesforce-coupons/:reward_supplier_id/coupons",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Triggers a sync to pull new coupon codes from the Salesforce coupon pool into the supplier."
+        },
+        {
+          "info": {
+            "name": "Delete Salesforce coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/reward-suppliers/salesforce-coupons/:reward_supplier_id/coupons",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "operation_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Removes all unused coupons from the Salesforce coupon pool."
+        },
+        {
+          "info": {
+            "name": "Unarchive a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id/unarchive",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a previously archived reward supplier to active use. Returns the restored supplier."
+        },
+        {
+          "info": {
+            "name": "Delete a reward supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/reward-suppliers/:reward_supplier_id/delete",
+            "params": [
+              {
+                "name": "reward_supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the reward supplier. Returns the deleted supplier record."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,357 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Domains API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List client domain patterns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all domain pattern definitions for the calling client. Domain patterns define which URL patterns the Extole platform recognises as belonging to this client — they control campaign-tracking domain matching, shareable link generation, and zone-rendering domain allow-listing. Each entry includes its `pattern`, `type` (`GLOB`, `DOMAIN`, or `SUB_DOMAIN`), and the optional `client_domain_id` that links it to a specific program domain configuration."
+        },
+        {
+          "info": {
+            "name": "Create client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new domain pattern definition and returns the persisted record with its server-assigned id. The `pattern` field is required. `type` defaults to `GLOB` when omitted. Set `test=true` to create a test-only pattern that is not used in production domain matching. The pattern must be buildable; complex `BuildtimeEvaluatable` expressions are evaluated at build time."
+        },
+        {
+          "info": {
+            "name": "List built client domain patterns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/built",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all domain patterns in their fully evaluated (built) runtime form, with all `BuildtimeEvaluatable` fields resolved to their current string values. Use this when the calling system needs the effective pattern expressions rather than the source template definitions. Use `GET /v1/client-domain-patterns` for the editable source definitions."
+        },
+        {
+          "info": {
+            "name": "Get client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns the source definition for the supplied domain pattern, including its `pattern` expression, `type`, optional `client_domain_id`, and `test` flag. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client. For the compiled runtime snapshot use `GET /v1/client-domain-patterns/{id}/built` instead."
+        },
+        {
+          "info": {
+            "name": "Update client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the supplied domain pattern. Only the fields present in the body are changed; omitted fields are left intact. Returns the updated pattern record on success. Returns `400 client_domain_pattern_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Archive client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to archive."
+              }
+            ]
+          },
+          "docs": "Soft-archives the supplied domain pattern. Archived patterns are retained but are no longer used in domain matching. Reversible via `POST /v1/client-domain-patterns/{id}/unarchive`. Returns the updated pattern record. Returns `400 client_domain_pattern_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Get built client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id/built",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to retrieve in built form."
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form for the supplied domain pattern, with all `BuildtimeEvaluatable` fields resolved. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client."
+        },
+        {
+          "info": {
+            "name": "Delete client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id/delete",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to delete."
+              }
+            ]
+          },
+          "docs": "Hard-deletes the supplied domain pattern. Unlike archiving, deletion is irreversible. Returns the deleted pattern record on success. Returns `400 client_domain_pattern_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "Unarchive client domain pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/client-domain-patterns/:id/unarchive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the client domain pattern to unarchive."
+              }
+            ]
+          },
+          "docs": "Restores a previously archived domain pattern so it is active in domain matching again. Returns the restored pattern record. Returns `400 client_domain_pattern_not_found` if the id does not exist."
+        },
+        {
+          "info": {
+            "name": "List client domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domains",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List client domains"
+        },
+        {
+          "info": {
+            "name": "Create client domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/client-domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create client domain"
+        },
+        {
+          "info": {
+            "name": "Get client domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domains/:client_domain_id",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get client domain"
+        },
+        {
+          "info": {
+            "name": "Update client domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v1/client-domains/:client_domain_id",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update client domain"
+        },
+        {
+          "info": {
+            "name": "Archive client domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v1/client-domains/:client_domain_id",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Archive client domain"
+        },
+        {
+          "info": {
+            "name": "Get client domain with decrypted SSL private key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v1/client-domains/:client_domain_id/decrypt",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get client domain with decrypted SSL private key"
+        },
+        {
+          "info": {
+            "name": "Validate client domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v1/client-domains/:client_domain_id/validate",
+            "params": [
+              {
+                "name": "client_domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Validate client domain"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

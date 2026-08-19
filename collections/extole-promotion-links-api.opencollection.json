@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Promotion Links API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Promotion Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List promotion links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/promotion-links"
+          },
+          "docs": "Returns all promotion links for the client. Promotion links are the short URLs that participants share to drive referrals."
+        },
+        {
+          "info": {
+            "name": "Create a promotion link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/promotion-links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new promotion link for a participant. Returns the created link with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Get a promotion link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/promotion-links/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the promotion link for the specified code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

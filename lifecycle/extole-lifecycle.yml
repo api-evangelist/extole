@@ -1,6 +1,6 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
-source: developers.extole.com + status.extole.com
+source: https://docs.extole.com/ + https://status.extole.com/ + openapi/
 versioning:
   scheme: uri-path
   versions_in_use:
@@ -11,11 +11,50 @@ versioning:
   - v5
   - v6
   - v7
-  docs: https://developers.extole.com/
+  docs: https://docs.extole.com/reference/authentication-overview
 deprecation:
-  signals: operations flagged deprecated in the OpenAPI specs
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  signals: deprecated:true on operations in the OpenAPI documents
   deprecated_operation_count: 25
+  note: Extole publishes NO written deprecation or sunset policy, and no RFC 8594 Sunset or Deprecation
+    response header is documented. Deprecation is communicated only in the spec, as deprecated:true on
+    25 operations — a real, machine-readable signal, but one a running client never sees. 24 of the 25
+    sit in the consumer Integration API, where an older v4 share/shareable surface has been superseded
+    by v6; the 25th is verifyJwtClientKey in the Management Expert API.
 status_page: https://status.extole.com/
+status_page_provider: Extole (status.extole.com, HTTP 200 2026-08-13)
+sla:
+  published: false
+  note: No public SLA or uptime target is published; terms are contractual.
+docs_host_migration:
+  from: https://developers.extole.com/
+  to: https://docs.extole.com/
+  from_status: 204
+  to_status: 200
+  note: The former developer portal now answers HTTP 204 with an empty body on every path, including /llms.txt
+    and /openapi.json. Any consumer still pointed at developers.extole.com gets a silent empty response
+    rather than a redirect or a 404 — recorded because a 204 is the hardest deprecation to notice.
+  checked: '2026-08-13'
+support:
+  email: support@extole.com
+  note: No public support portal URL; support is via email and the in-app Intercom channel.
+cross_links:
+  changelog: changelog/extole-changelog.yml
+  conventions: conventions/extole-conventions.yml
+  conformance: conformance/extole-conformance.yml
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://status.extole.com/
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://developers.extole.com/
+  http_status: 204
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/
+  http_status: 200
 deprecated_operations:
 - openapi/extole-integration-consumer-to-extole-openapi.json#shareEventStatus
 - openapi/extole-integration-consumer-to-extole-openapi.json#getAdvocateRelationships

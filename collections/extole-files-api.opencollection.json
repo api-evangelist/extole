@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Files API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List file assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/files",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of file assets for the authenticated client. Filter by `name`, `statuses`, `tags`, or `user_id`. Results are ordered by creation date descending. Default page size is 100."
+        },
+        {
+          "info": {
+            "name": "Upload a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/files",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a file and creates a file asset record. The request is a multipart/form-data body containing the file content and optional metadata (name, tags, format). Supported formats: `CSV`, `PSV`, `JSON`, `JSONL`, `XLSX`. Once uploaded, the file asset can be used as the `data_source` of a batch job via `POST /v6/batches`. The file enters `AVAILABLE` status on successful upload; use `POST /v6/files/{fileId}/expire` to release it when no longer needed."
+        },
+        {
+          "info": {
+            "name": "Get a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File asset ID."
+              }
+            ]
+          },
+          "docs": "Returns the metadata record for a single file asset, including `status`, `review_status`, `size`, `format`, and `tags`. To retrieve the file content, use `GET /v6/files/{fileId}/download`."
+        },
+        {
+          "info": {
+            "name": "Update a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the mutable metadata of an existing file asset: `name` and `tags`. File content is immutable after upload. The file asset must be in `AVAILABLE` status; expired file assets cannot be updated."
+        },
+        {
+          "info": {
+            "name": "Delete a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/files/:fileId",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File asset ID."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a file asset record and releases its stored content. This action is irreversible. Batch jobs that have already ingested this file asset are not affected."
+        },
+        {
+          "info": {
+            "name": "Download a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/files/:fileId/download",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File asset ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to skip before returning results."
+              }
+            ]
+          },
+          "docs": "Downloads the raw content of a file asset. The response body contains the file content in its original format (CSV, PSV, or JSON). Use the `limit` and `offset` parameters to paginate large files. Returns a 404 if the file asset has expired."
+        },
+        {
+          "info": {
+            "name": "Expire a file asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/files/:fileId/expire",
+            "params": [
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path",
+                "description": "File asset ID."
+              }
+            ]
+          },
+          "docs": "Marks a file asset as expired, releasing the stored file content. Expired file assets remain queryable but cannot be used as a batch job data source. Any batch jobs already referencing this file asset are not affected if they have already started processing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

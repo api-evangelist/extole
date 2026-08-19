@@ -1,0 +1,668 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Campaign Flow Steps API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Flow Steps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campaign flow steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all flow steps for the specified campaign."
+        },
+        {
+          "info": {
+            "name": "Create a campaign flow step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new flow step to the specified campaign. Flow steps are the visual builder blocks of a participant's journey through a campaign. Returns the created flow step with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built campaign flow steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_path",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all campaign flow steps in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get a campaign flow step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the campaign flow step for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update a campaign flow step",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified campaign flow step. Only fields present in the request body are changed. Returns the updated flow step."
+        },
+        {
+          "info": {
+            "name": "Delete a campaign flow step",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the specified campaign flow step and returns the deleted record."
+        },
+        {
+          "info": {
+            "name": "Get a built campaign flow step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the campaign flow step, with expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "List campaign flow step apps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all apps for the specified campaign flow step."
+        },
+        {
+          "info": {
+            "name": "Create a campaign flow step app",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new app to the specified campaign flow step. Returns the created app with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built campaign flow step apps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all campaign flow step apps in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get a campaign flow step app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps/:flowStepAppId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepAppId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the campaign flow step app for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update a campaign flow step app",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps/:flowStepAppId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepAppId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified campaign flow step app. Only fields present in the request body are changed. Returns the updated app."
+        },
+        {
+          "info": {
+            "name": "Delete a campaign flow step app",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps/:flowStepAppId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepAppId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the specified campaign flow step app and returns the deleted record."
+        },
+        {
+          "info": {
+            "name": "Get a built campaign flow step app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/apps/:flowStepAppId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepAppId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the campaign flow step app, with expression fields resolved."
+        },
+        {
+          "info": {
+            "name": "List campaign flow step metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all metrics for the specified campaign flow step."
+        },
+        {
+          "info": {
+            "name": "Create a campaign flow step metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new tracking metric to the specified campaign flow step. Returns the created metric with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "List built campaign flow step metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all campaign flow step metrics in their fully evaluated runtime form."
+        },
+        {
+          "info": {
+            "name": "Get a campaign flow step metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics/:flowStepMetricId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepMetricId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the campaign flow step metric for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update a campaign flow step metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics/:flowStepMetricId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepMetricId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified campaign flow step metric. Only fields present in the request body are changed. Returns the updated metric."
+        },
+        {
+          "info": {
+            "name": "Delete a campaign flow step metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics/:flowStepMetricId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepMetricId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the specified campaign flow step metric and returns the deleted record."
+        },
+        {
+          "info": {
+            "name": "Get a built campaign flow step metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/campaigns/:campaignId:version/flow-steps/:flowStepId/metrics/:flowStepMetricId/built",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flowStepMetricId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the fully evaluated (built) runtime form of the campaign flow step metric, with expression fields resolved."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

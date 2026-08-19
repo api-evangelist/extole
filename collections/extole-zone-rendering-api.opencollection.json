@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Zone Rendering API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zone Rendering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch a rendered zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v5/zones/:zone_name",
+            "params": [
+              {
+                "name": "zone_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Renders the named zone with no targeting data and returns its configured content. Useful for fetching static or anonymous zones from a server-rendered page or backend service. Identity (`email`, `partner_user_id`, `person_id`) and additional targeting fields are not accepted on this GET form - use `POST /v5/zones/{zone_name}` to pass them. Authenticated with a USER_SUPPORT scope access token."
+        },
+        {
+          "info": {
+            "name": "Render a zone with targeting data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/zones/:zone_name",
+            "params": [
+              {
+                "name": "zone_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renders the named zone, merging the request body's open data map into the targeting context. Recognised identity fields are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer. Returns the zone's configured content (HTML, JavaScript, JSON, or plain text) plus `X-Extole-*` headers describing the matched campaign, frontend controller, creative, and input event. If no identity is provided the zon"
+        },
+        {
+          "info": {
+            "name": "Render a zone with the name in the body",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v5/zones",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renders a zone using a request body that carries both the zone name and the targeting data. Functionally equivalent to `POST /v5/zones/{zone_name}`; the path-based form is the recommended primary entry point. Use this form when the calling code constructs the full request payload upstream and prefers a single body shape. Returns the zone's configured content (HTML, JavaScript, JSON, or plain text) plus `X-Extole-*` headers describing the matched campaign and creative. Authenticated with a USER_S"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

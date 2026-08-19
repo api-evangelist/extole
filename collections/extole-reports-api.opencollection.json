@@ -1,0 +1,521 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports",
+            "params": [
+              {
+                "name": "report_type_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "creation_interval",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all report runs visible to the authenticated client, optionally filtered by the provided query parameters."
+        },
+        {
+          "info": {
+            "name": "Create a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a new report run for the specified report type and parameters. The report executes asynchronously; poll the returned report ID to check status."
+        },
+        {
+          "info": {
+            "name": "List report tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports-tags",
+            "params": [
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the list of tags available for filtering reports."
+        },
+        {
+          "info": {
+            "name": "Get the latest report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/latest",
+            "params": [
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the most recent completed report run matching the specified report name and optional parameter filters."
+        },
+        {
+          "info": {
+            "name": "Download the latest report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/latest/download:format",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_any_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_having_all_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the output of the most recent completed report run matching the specified report name and optional filters. Append a format extension to select the download format."
+        },
+        {
+          "info": {
+            "name": "List report recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/recommendations",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Recommendation type, can be one of: SCHEDULE"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter for limit, defaults to 4."
+              }
+            ]
+          },
+          "docs": "Returns reports recommended for scheduling according to the selected recommendation type."
+        },
+        {
+          "info": {
+            "name": "Get a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the status and metadata for the report run identified by its report ID."
+        },
+        {
+          "info": {
+            "name": "Update a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the parameters of a pending report run identified by its report ID."
+        },
+        {
+          "info": {
+            "name": "Delete a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the report run identified by its report ID, including its output data."
+        },
+        {
+          "info": {
+            "name": "Get report debug info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/debug",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns internal debug information for the report run identified by its report ID. Restricted to client superusers."
+        },
+        {
+          "info": {
+            "name": "Download a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/download:format",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads the output of a completed report run. Append a format extension (`.csv`, `.json`, `.jsonl`, `.xlsx`, `.psv`) to select the download format, or omit it to use the report's default format."
+        },
+        {
+          "info": {
+            "name": "Get report info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/info",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata about a completed report across all available formats, including row count and available column sets."
+        },
+        {
+          "info": {
+            "name": "Get report format info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/info/:format",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata about a completed report in the specified format, such as row count and column names."
+        },
+        {
+          "info": {
+            "name": "Get public view of a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/views/public",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the publicly accessible view of the specified report."
+        },
+        {
+          "info": {
+            "name": "Cancel a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/cancel",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels a pending or in-progress report run identified by its report ID."
+        },
+        {
+          "info": {
+            "name": "Retry a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/retry",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retries a previously submitted report run identified by its report ID. Use this to re-run a failed or cancelled report with the same parameters."
+        },
+        {
+          "info": {
+            "name": "Create a shared token for a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v4/reports/:reportId/sharedToken",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a shareable access token for the specified report, allowing the report to be accessed without full authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

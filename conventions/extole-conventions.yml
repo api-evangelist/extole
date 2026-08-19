@@ -1,52 +1,122 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/ + docs (developers.extole.com)
+generated: '2026-08-13'
+method: searched
+source: https://docs.extole.com/reference/common-errors + https://docs.extole.com/reference/authentication-overview
+  + openapi/
+docs:
+- https://docs.extole.com/reference/authentication-overview
+- https://docs.extole.com/reference/common-errors
+note: Upgraded from derived to searched against the docs.extole.com reference (the developers.extole.com
+  host the 2026-07-19 pass read now returns HTTP 204 with an empty body).
 authentication:
-  style: apiKey token
+  style: bearer token (apiKey in OpenAPI terms) + OAuth 2.1 on the MCP surface
   locations:
-  - Authorization header (Bearer)
-  - extole_token cookie
-  - access_token query parameter
-  token_endpoint: POST https://api.extole.io/v4/token (client_id + client_secret -> access_token)
+  - 'Authorization: Bearer <token> (preferred)'
+  - extole_token / access_token cookie
+  - access_token query parameter (discouraged — writes the token into logs and browser history)
+  token_endpoint: POST /v4/tokens
+  models: [bearer-access-token, consumer-access-token, oauth2-mcp]
   ref: authentication/extole-authentication.yml
 idempotency:
   supported: false
-  note: No idempotency-key header/parameter is declared in the OpenAPI specs.
+  header: null
+  note: >-
+    Extole publishes NO idempotency-key header or parameter, and none appears in any of the four
+    OpenAPI documents. The docs acknowledge the gap rather than close it: the retry guidance says "For
+    state-changing operations (POST, PATCH, PUT, DELETE), be cautious about retrying after a 5xx. The
+    operation may have succeeded server-side even if the response did not return. Where the API
+    supports idempotency, use it." — without naming a mechanism. The only idempotent affordance is
+    per-operation, not cross-cutting: POST /api/v6/me/shareables/get-or-create (operationId getOrCreate)
+    is documented as an "Idempotent helper for mobile and headless integrations" that returns an
+    existing shareable matching the criteria or creates one. That is a single get-or-create endpoint,
+    not an idempotency contract, so NO Idempotency pointer is emitted in apis.yml.
+  partial_affordances:
+  - operation: getOrCreate
+    path: POST /api/v6/me/shareables/get-or-create
+    spec: openapi/_original/extole-integration-consumer-to-extole-openapi.json
+    description: Returns an existing shareable matching the request criteria or creates one if none
+      exists.
 pagination:
   style: offset-limit
-  params:
-  - offset
-  - limit
-  note: List endpoints page via offset and limit query parameters.
+  params: [offset, limit]
+  max_page_size: 1000
+  errors: [invalid_limit, invalid_offset, max_fetch_size_1000]
+  note: List endpoints page via offset and limit query parameters. Requesting more than 1000 returns
+    400 max_fetch_size_1000.
+filtering:
+  note: List endpoints commonly accept resource-specific filters (name, tags, status, user_id,
+    event_name) as query parameters.
 versioning:
   scheme: uri-path
-  versions_in_use:
-  - v1
-  - v2
-  - v3
-  - v4
-  - v5
-  - v6
-  - v7
-  note: Version is embedded in the path segment; multiple versions coexist across resources.
+  versions_in_use: [v1, v2, v3, v4, v5, v6, v7]
+  note: Version is embedded in the path segment; multiple versions coexist across resources. Extole
+    publishes no dated-release or header-based version train.
+  ref: lifecycle/extole-lifecycle.yml
+hosts:
+  management: https://api.extole.io
+  server_integration: https://api.extole.io
+  consumer_integration: https://{brand}.extole.io or https://share.{brand-domain}
+  mcp: https://mcp.extole.com
+  note: The consumer surface is deliberately served from the brand's own program domain, not the shared
+    API host.
 error_envelope:
-  ref: errors/extole-problem-types.yml
+  ref: errors/extole-error-codes.yml
   media_type: application/json
-  fields:
-  - unique_id
-  - http_status_code
-  - code
-  - error_code
-  - message
-  - parameters
+  rfc9457: false
+  fields: [unique_id, http_status_code, code, message, parameters]
+  contract: '`code` is a stable string enum suitable for switch/pattern-match logic. `message` is for
+    humans. `unique_id` is the value to quote in a support ticket.'
+  sub_errors: [parameters.reason, parameters.description]
+async_semantics:
+  note: >-
+    The consumer event endpoints (POST /events, GET /events/{event_name}) ALWAYS return HTTP 200,
+    regardless of whether the event was processed, so that a failure never blocks the participant's
+    session. Processing errors are surfaced in response headers rather than the status line. Any client
+    that branches only on status code will silently treat failed events as successful.
+  affected_endpoints: [POST /events, 'GET /events/{event_name}']
+  docs: https://docs.extole.com/reference/common-errors
 rate_limiting:
-  signal: HTTP 429 on limit exceeded
-  note: 429 responses present across specs; no documented header budget captured.
+  ref: rate-limits/extole-rate-limits.yml
+  limits:
+  - 100 requests per minute per IP address or token
+  - 10 requests per second per identified person
+  exempt: /v6/async-events
+  signal:
+    status: 429
+    code: too_many_requests
+  headers_documented: false
+  note: No RateLimit-*/X-RateLimit-*/Retry-After headers are documented. The only runtime signal is the
+    429 itself.
+retries:
+  retryable: [429, 500]
+  not_retryable: [400, 401, 403, 415]
+  strategy: exponential backoff
+  caution: For state-changing operations, be cautious retrying after 5xx — the operation may have
+    succeeded server-side.
+tracing:
+  request_id_header: null
+  correlation_field: unique_id (returned on errors only)
+  note: Extole returns a correlating unique_id on error responses. No request-id header is documented
+    for successful responses.
 webhooks:
   supported: true
   management: /v6/webhooks CRUD (createWebhook/listWebhooks/getWebhook/updateWebhook/archiveWebhook)
+  docs: https://docs.extole.com/docs/webhooks
   ref: asyncapi/extole-webhooks.yml
+content_type:
+  required: application/json
+  error: 415 unsupported_media_type when Content-Type is missing or wrong
 cross_links:
-  errors: errors/extole-problem-types.yml
+  errors: errors/extole-error-codes.yml
+  problem_types: errors/extole-problem-types.yml
   lifecycle: lifecycle/extole-lifecycle.yml
   authentication: authentication/extole-authentication.yml
+  scopes: scopes/extole-scopes.yml
+  rate_limits: rate-limits/extole-rate-limits.yml
+  sandbox: sandbox/extole-sandbox.yml
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/common-errors.md
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://docs.extole.com/reference/authentication-overview.md
+  http_status: 200

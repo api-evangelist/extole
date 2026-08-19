@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a consumer event by URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/events/:event_name",
+            "params": [
+              {
+                "name": "event_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fires the named consumer event using data from the query string and optional JWT claim. Always returns HTTP 200 regardless of outcome — check for an `X-Extole-Error-Message` response header to detect processing errors. A new `access_token` cookie may be set on the response when the event establishes or upgrades a consumer identity."
+        },
+        {
+          "info": {
+            "name": "Submit an event asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/async-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a consumer event asynchronously. No per-request rate limit - use for high-volume or bulk integrations. May return 429 only if the downstream ingestion queue is saturated. Only `event_id` is returned; person identification occurs asynchronously after the request returns."
+        },
+        {
+          "info": {
+            "name": "Submit a named event asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/async-events/:event_name",
+            "params": [
+              {
+                "name": "event_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a specific named consumer event asynchronously. The event name is supplied in the URL path and the body is an open data map. No per-request rate limit. Returns `event_id` only; person identification occurs asynchronously."
+        },
+        {
+          "info": {
+            "name": "Submit an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a consumer event synchronously. Returns both `event_id` and `person_id`. Use when you need immediate confirmation that the event was processed and identity resolution has completed. For high-volume ingestion use `POST /v6/async-events` instead."
+        },
+        {
+          "info": {
+            "name": "Submit a named event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/events/:event_name",
+            "params": [
+              {
+                "name": "event_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a specific named consumer event synchronously. The event name is supplied in the URL path rather than in the request body, and the body is an open data map."
+        },
+        {
+          "info": {
+            "name": "getStatus_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v3/signals/step/status/:pollingId",
+            "params": [
+              {
+                "name": "pollingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

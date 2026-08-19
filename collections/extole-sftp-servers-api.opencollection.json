@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences SFTP Servers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SFTP Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List SFTP destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all SFTP destination connection profiles configured for the client."
+        },
+        {
+          "info": {
+            "name": "Create an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new SFTP destination connection profile used for automated report file delivery. Returns the created destination with its server-assigned id."
+        },
+        {
+          "info": {
+            "name": "Get an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations/:sftpDestinationId",
+            "params": [
+              {
+                "name": "sftpDestinationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the SFTP destination for the specified id."
+        },
+        {
+          "info": {
+            "name": "Update an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations/:sftpDestinationId",
+            "params": [
+              {
+                "name": "sftpDestinationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the SFTP destination connection profile. Only fields present in the request body are changed. Returns the updated destination."
+        },
+        {
+          "info": {
+            "name": "Delete an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations/:sftpDestinationId",
+            "params": [
+              {
+                "name": "sftpDestinationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the SFTP destination connection profile. Returns the deleted destination."
+        },
+        {
+          "info": {
+            "name": "Sync an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations/:sftpDestinationId/sync",
+            "params": [
+              {
+                "name": "sftpDestinationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Triggers an immediate synchronisation of the SFTP destination with its external server. Returns the updated destination after sync."
+        },
+        {
+          "info": {
+            "name": "Validate an SFTP destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v6/sftp-destinations/:sftpDestinationId/validate",
+            "params": [
+              {
+                "name": "sftpDestinationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Validates the SFTP destination connection profile without persisting any changes. Returns any connectivity or configuration errors."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

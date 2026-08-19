@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Integration API - Consumer to Extole Audiences Settings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accessible clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/me/clients"
+          },
+          "docs": "Returns all clients accessible to the currently authenticated staff user."
+        },
+        {
+          "info": {
+            "name": "Get the client logo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/logo"
+          },
+          "docs": "Returns the current logo image metadata for the client."
+        },
+        {
+          "info": {
+            "name": "Upload a client logo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/logo",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a new logo image for the client via multipart form upload. Returns the created logo metadata."
+        },
+        {
+          "info": {
+            "name": "Archive the client logo",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/logo"
+          },
+          "docs": "Archives the current client logo, removing it from active use. Returns the archived logo metadata."
+        },
+        {
+          "info": {
+            "name": "Download logo image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/logo/image"
+          },
+          "docs": "Downloads the client logo as a PNG image binary."
+        },
+        {
+          "info": {
+            "name": "List timeline entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/timeline-entries",
+            "params": [
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all campaign timeline entries for the client, optionally filtered by tags."
+        },
+        {
+          "info": {
+            "name": "Create a timeline entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{brand}.extole.io/v2/timeline-entries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new named milestone in the campaign timeline visible in the console. Returns the created entry with its server-assigned name."
+        },
+        {
+          "info": {
+            "name": "Get a timeline entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{brand}.extole.io/v2/timeline-entries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the campaign timeline entry for the specified name."
+        },
+        {
+          "info": {
+            "name": "Update a timeline entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{brand}.extole.io/v2/timeline-entries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the campaign timeline entry for the specified name. Only fields present in the request body are changed. Returns the updated entry."
+        },
+        {
+          "info": {
+            "name": "Delete a timeline entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{brand}.extole.io/v2/timeline-entries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes the campaign timeline entry for the specified name. Returns the deleted entry."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
