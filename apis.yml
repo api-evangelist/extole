@@ -49,6 +49,15 @@ tags:
 - Rewards
 - Marketing
 - Customer Acquisition
+- Software-as-a-Service
+tags_raw:
+- Company
+- Referral Marketing
+- Advocacy
+- Loyalty
+- Rewards
+- Marketing
+- Customer Acquisition
 - SaaS
 apis:
 - aid: extole:extole-audiences-api
@@ -270,6 +279,8 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -291,6 +302,8 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -312,6 +325,8 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
+  - Opt-Out
+  tags_raw:
   - Optout
   properties:
   - type: OpenAPI
@@ -472,6 +487,8 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -482,6 +499,8 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
