@@ -1,0 +1,66 @@
+slug: extole
+provider: Extole
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Persons
+  spec_file: extole-persons-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.75
+  evidence: POST /v5/persons createPerson_2 Create a person; GET /v5/persons searchPersons Search for
+    persons; schemas PersonRequest, IdentityKey, PersonResponse
+  reason: Operations create, search, update and enrich consumer person records with identity keys and
+    custom data parameters for a consumer-brand marketing platform — this is the customer master / golden-record
+    surface, i.e. Customer Data Management. Not HR 'persons' despite the noun.
+- tag: Audiences
+  spec_file: extole-audiences-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.72
+  evidence: '"Create audience", "List audience members", schema AudienceStatsResponse / PersonListAudienceOperationDataSourceResponse'
+  reason: Vendor is a referral/loyalty marketing platform; these operations build and maintain named audiences
+    of persons with membership operations — customer segmentation for marketing treatment.
+- tag: Erasure
+  spec_file: extole-erasure-api-openapi.yml
+  capability_id: BC-130.50
+  capability_id_l1: BC-130
+  capability_name: Privacy & Data Protection Management
+  confidence: 0.72
+  evidence: POST /v4/erasures createErasure 'Create an erasure request'; ErasureRequest / ErasureResponse
+  reason: An erasure request endpoint exists to service data-subject deletion rights (GDPR/CCPA) over
+    consumer personal data held by the platform, which is privacy and data protection management. Only
+    one thin operation, so confidence is moderate.
+- tag: Rewards
+  spec_file: extole-rewards-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.72
+  evidence: GET /v2/rewards/{reward_id}/redeems Get reward redeems; POST /v2/rewards/{reward_id}/cancel
+    Cancel a reward; RewardStateSummaryResponse
+  reason: Lifecycle of advocate/referral rewards — issue, send, fulfil, redeem, revoke, cancel — which
+    is the reward-programme mechanics of a loyalty and advocacy platform.
+- tag: Webhooks
+  spec_file: extole-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: GET /v6/webhooks listWebhooks; POST /v6/webhooks createWebhook; DELETE /v6/webhooks/{webhook_id}
+    archiveWebhook; RewardWebhookFilterResponse
+  reason: Full lifecycle of outbound webhook definitions (create/update/archive, built webhook views,
+    request/response handlers) matches Webhook & Event Subscription Management in the Software & Technology
+    frame. Confidence held at 0.7 because webhook config is also arguably pure integration plumbing.

@@ -533,6 +533,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/extole-capability-edges.yml
+  name: Extole Business Capability Map
 - type: Website
   url: https://extole.com
 - type: DeveloperPortal
