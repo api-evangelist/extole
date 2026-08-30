@@ -337,7 +337,7 @@ apis:
   humanURL: https://docs.extole.com/
   baseURL: https://api.extole.io
   tags:
-  - Opt-Out
+  - Optout
   tags_raw:
   - Optout
   properties:
