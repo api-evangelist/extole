@@ -331,18 +331,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/extole-javascript-core-extensions-api-openapi.yml
-- aid: extole:extole-optout-api
-  name: Extole Optout API
-  description: The Optout API from Extole — 1 operation(s) for optout.
-  humanURL: https://docs.extole.com/
-  baseURL: https://api.extole.io
-  tags:
-  - Opt-Out
-  tags_raw:
-  - Optout
-  properties:
-  - type: OpenAPI
-    url: openapi/extole-optout-api-openapi.yml
 - aid: extole:extole-persons-api
   name: Extole Persons API
   description: The Persons API from Extole — 28 operation(s) for persons.
@@ -527,6 +515,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/extole-zone-rendering-api-openapi.yml
+- aid: extole:extole-opt-out-api
+  name: Extole opt Out API
+  description: The opt Out API from Extole — 1 operation(s) for opt out.
+  humanURL: https://docs.extole.com/
+  baseURL: https://api.extole.io
+  tags:
+  - opt Out
+  properties:
+  - type: OpenAPI
+    url: openapi/extole-opt-out-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
