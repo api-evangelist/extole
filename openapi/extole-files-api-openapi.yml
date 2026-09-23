@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Files API
+  description: 'Server-to-Extole integration endpoints: event submission, person lookup, zone rendering, token management, and reward retrieval for backend services authenticating with client credentials.'
+  title: Integration API - Server to Extole Files API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -712,28 +708,28 @@ paths:
       x-extole-visibility: visible
 components:
   examples:
+    file_asset_duplicated_name:
+      summary: file_asset_duplicated_name
+      value:
+        code: file_asset_duplicated_name
+        http_status_code: 400
+        message: Duplicated file asset name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_extole_public_key:
+      summary: missing_extole_public_key
+      value:
+        code: missing_extole_public_key
+        http_status_code: 400
+        message: Cannot decrypt file as extole public key is not created
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     file_asset_not_found:
       summary: file_asset_not_found
       value:
         code: file_asset_not_found
         http_status_code: 400
         message: File Asset not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_expired:
-      summary: file_asset_expired
-      value:
-        code: file_asset_expired
-        http_status_code: 400
-        message: File Asset is expired
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     decryption_error:
@@ -744,76 +740,12 @@ components:
         message: Could not decrypt file
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
       value:
-        code: invalid_offset
+        code: max_fetch_size_1000
         http_status_code: 400
-        message: Offset should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_null:
-      summary: invalid_null
-      value:
-        code: invalid_null
-        http_status_code: 400
-        message: The attribute may be omitted but not nullified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_invalid_tags:
-      summary: file_asset_invalid_tags
-      value:
-        code: file_asset_invalid_tags
-        http_status_code: 400
-        message: Tags cannot be null, empty or longer than 255 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_input_file_missing:
-      summary: file_asset_input_file_missing
-      value:
-        code: file_asset_input_file_missing
-        http_status_code: 400
-        message: Input file is mandatory
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
+        message: Maximum allowed difference between limit and offset should be 1000
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     file_asset_file_processing_error:
@@ -824,6 +756,30 @@ components:
         message: Failed to process uploaded file
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_invalid_tags:
+      summary: file_asset_invalid_tags
+      value:
+        code: file_asset_invalid_tags
+        http_status_code: 400
+        message: Tags cannot be null, empty or longer than 255 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
       summary: binding_error
       value:
@@ -832,12 +788,12 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
+    invalid_limit:
+      summary: invalid_limit
       value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
@@ -856,22 +812,6 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_duplicated_name:
-      summary: file_asset_duplicated_name
-      value:
-        code: file_asset_duplicated_name
-        http_status_code: 400
-        message: Duplicated file asset name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_limit:
-      summary: invalid_limit
-      value:
-        code: invalid_limit
-        http_status_code: 400
-        message: Limit should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     file_asset_invalid_name:
       summary: file_asset_invalid_name
       value:
@@ -880,12 +820,60 @@ components:
         message: Name max length is 255 and should contain only alphanumeric characters
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_extole_public_key:
-      summary: missing_extole_public_key
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: missing_extole_public_key
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
         http_status_code: 400
-        message: Cannot decrypt file as extole public key is not created
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_expired:
+      summary: file_asset_expired
+      value:
+        code: file_asset_expired
+        http_status_code: 400
+        message: File Asset is expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_offset:
+      summary: invalid_offset
+      value:
+        code: invalid_offset
+        http_status_code: 400
+        message: Offset should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_input_file_missing:
+      summary: file_asset_input_file_missing
+      value:
+        code: file_asset_input_file_missing
+        http_status_code: 400
+        message: Input file is mandatory
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     file_asset_download_error:
@@ -896,15 +884,60 @@ components:
         message: File Asset can't be downloaded
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
+    access_denied:
+      summary: access_denied
       value:
-        code: max_fetch_size_1000
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
         http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
+        message: The attribute may be omitted but not nullified
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    FileAttributes:
+      properties:
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
     FileAssetUpdateRequest:
       description: Body of a `PUT /v6/files/{fileId}` request.
       properties:
@@ -955,43 +988,6 @@ components:
           type: array
           uniqueItems: true
       type: object
-    FileAttributes:
-      properties:
-        fileName:
-          type: string
-        size:
-          format: int64
-          type: integer
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
   securitySchemes:
     COOKIE:
       in: cookie
@@ -1007,12 +1003,14 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Integration API - Server to Extole
   tags:
   - Authentication
-  - Content
-  - Email
+  - Batch Jobs
   - Events
+  - Files
   - Persons
-  - Profile Assets
-  - Profiles
+  - Reward Suppliers
+  - Rewards
+  - SFTP Servers
+  - Zone Rendering

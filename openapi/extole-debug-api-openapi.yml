@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Debug API
+  description: 'Advanced configuration endpoints for Extole platform experts: campaign controllers, typed actions and triggers, advanced component types and facets, source mapping, report post-handlers, pre-handlers, and other expert configuration surfaces not included in the standard Management API.'
+  title: Management Expert Debug API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -349,118 +345,24 @@ paths:
       x-extole-bundle: management-expert
       x-extole-visibility: expert
 components:
-  examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_container:
-      summary: invalid_container
-      value:
-        code: invalid_container
-        http_status_code: 403
-        message: Container only allows alphanumeric or - characters.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    ContentSecurityPolicyReportRequest:
+    CreateCreativeClientEventResponse:
       properties:
-        csp-report:
-          $ref: '#/components/schemas/ReportRequest'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        event_id:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
       required:
-      - csp-report
+      - data
+      - event_id
+      - tags
       type: object
     CreateCreativeLogResponse:
       properties:
@@ -468,22 +370,6 @@ components:
           type: string
       required:
       - polling_id
-      type: object
-    CreateCreativeLogRequest:
-      properties:
-        level:
-          enum:
-          - DEBUG
-          - ERROR
-          - INFO
-          - WARN
-          nullable: true
-          type: string
-        message:
-          type: string
-      required:
-      - level
-      - message
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -519,16 +405,18 @@ components:
         data:
           additionalProperties:
             type: string
-          nullable: true
-          type: object
+          type:
+          - object
+          - 'null'
         level:
           enum:
           - DEBUG
           - ERROR
           - INFO
           - WARN
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         message:
           type: string
         name:
@@ -536,8 +424,9 @@ components:
         tags:
           items:
             type: string
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
           uniqueItems: true
       required:
       - data
@@ -547,54 +436,175 @@ components:
       - tags
       type: object
     ReportRequest:
-      nullable: true
       properties:
         blocked-uri:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         disposition:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         document-uri:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         effective-directive:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         original-policy:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         referrer:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         script-sample:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         status-code:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         violated-directive:
-          nullable: true
-          type: string
-      type: object
-    CreateCreativeClientEventResponse:
+          type:
+          - string
+          - 'null'
+      type:
+      - object
+      - 'null'
+    CreateCreativeLogRequest:
       properties:
-        data:
-          additionalProperties:
-            type: string
-          type: object
-        event_id:
+        level:
+          enum:
+          - DEBUG
+          - ERROR
+          - INFO
+          - WARN
+          type:
+          - string
+          - 'null'
+        message:
           type: string
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
       required:
-      - data
-      - event_id
-      - tags
+      - level
+      - message
       type: object
+    ContentSecurityPolicyReportRequest:
+      properties:
+        csp-report:
+          $ref: '#/components/schemas/ReportRequest'
+      required:
+      - csp-report
+      type: object
+  examples:
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_container:
+      summary: invalid_container
+      value:
+        code: invalid_container
+        http_status_code: 403
+        message: Container only allows alphanumeric or - characters.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -610,12 +620,28 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management Expert API
   tags:
   - Authentication
+  - Campaign Controllers
+  - Campaign Controllers Actions
+  - Campaign Controllers Triggers
+  - Campaign Flow Steps
+  - Components
+  - Components Grants
+  - Components Subscriptions
+  - Components Types
   - Content
+  - Debug
+  - Domains
   - Email
+  - Event Prehandlers
   - Events
+  - Javascript Core Extensions
   - Persons
-  - Profile Assets
   - Profiles
+  - Report Schedules
+  - Report Types
+  - Reporting
+  - Security Keys
+  - Settings

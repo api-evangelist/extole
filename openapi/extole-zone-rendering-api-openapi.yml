@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Zone Rendering API
+  description: 'Server-to-Extole integration endpoints: event submission, person lookup, zone rendering, token management, and reward retrieval for backend services authenticating with client credentials.'
+  title: Integration API - Server to Extole Zone Rendering API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -290,23 +286,6 @@ paths:
       x-extole-visibility: visible
 components:
   schemas:
-    ClientRenderZoneRequest:
-      description: Request body for `POST /v5/zones`. Carries both the zone name to render and an open data map of identity and targeting fields.
-      properties:
-        data:
-          additionalProperties:
-            description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
-            type: object
-          description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
-          type: object
-        zone_name:
-          description: Name of the zone to render. Must match a zone configured on the client account.
-          example: global_header
-          type: string
-      required:
-      - data
-      - zone_name
-      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -336,21 +315,38 @@ components:
       - parameters
       - unique_id
       type: object
+    ClientRenderZoneRequest:
+      description: Request body for `POST /v5/zones`. Carries both the zone name to render and an open data map of identity and targeting fields.
+      properties:
+        data:
+          additionalProperties:
+            description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+            type: object
+          description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+          type: object
+        zone_name:
+          description: Name of the zone to render. Must match a zone configured on the client account.
+          example: global_header
+          type: string
+      required:
+      - data
+      - zone_name
+      type: object
   examples:
-    invalid_time_format:
-      summary: invalid_time_format
-      value:
-        code: invalid_time_format
-        http_status_code: 400
-        message: 'Invalid time format. Expected: ISO8601 format'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     unsupported_media_type:
       summary: unsupported_media_type
       value:
         code: unsupported_media_type
         http_status_code: 415
         message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_time_format:
+      summary: invalid_time_format
+      value:
+        code: invalid_time_format
+        http_status_code: 400
+        message: 'Invalid time format. Expected: ISO8601 format'
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
@@ -361,20 +357,12 @@ components:
         message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_zone_name:
-      summary: missing_zone_name
+    no_creative:
+      summary: no_creative
       value:
-        code: missing_zone_name
+        code: no_creative
         http_status_code: 400
-        message: Zone name must be present
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_redirect:
-      summary: invalid_redirect
-      value:
-        code: invalid_redirect
-        http_status_code: 400
-        message: Invalid redirect
+        message: No Configured creative.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     access_denied:
@@ -385,12 +373,20 @@ components:
         message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
+    too_many_requests:
+      summary: too_many_requests
       value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
@@ -401,20 +397,20 @@ components:
         message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    no_creative:
-      summary: no_creative
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: no_creative
-        http_status_code: 400
-        message: No Configured creative.
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
+    invalid_redirect:
+      summary: invalid_redirect
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
+        code: invalid_redirect
+        http_status_code: 400
+        message: Invalid redirect
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
@@ -432,12 +428,14 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Integration API - Server to Extole
   tags:
   - Authentication
-  - Content
-  - Email
+  - Batch Jobs
   - Events
+  - Files
   - Persons
-  - Profile Assets
-  - Profiles
+  - Reward Suppliers
+  - Rewards
+  - SFTP Servers
+  - Zone Rendering

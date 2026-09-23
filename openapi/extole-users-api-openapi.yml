@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Users API
+  description: 'Configuration endpoints for the Extole platform: campaigns, components, audiences, persons, rewards, reporting, integrations setup, and administrative tooling.'
+  title: Management Users API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -27,8 +23,9 @@ paths:
         name: scope
         schema:
           default: account
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       responses:
         '200':
           content:
@@ -1413,220 +1410,12 @@ paths:
       x-extole-visibility: visible
 components:
   examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_name:
-      summary: invalid_length_name
-      value:
-        code: invalid_length_name
-        http_status_code: 403
-        message: Name must be between 2 and 255 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_scope:
-      summary: invalid_scope
-      value:
-        code: invalid_scope
-        http_status_code: 403
-        message: Invalid scope
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     user_scopes_missing:
       summary: user_scopes_missing
       value:
         code: user_scopes_missing
         http_status_code: 400
         message: User must have at least one scope
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_password_strength_letters_digits:
-      summary: invalid_password_strength_letters_digits
-      value:
-        code: invalid_password_strength_letters_digits
-        http_status_code: 400
-        message: Password is too weak, it must contain at least one digit, one lowercase, and one uppercase letter
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unauthorized_scope:
-      summary: unauthorized_scope
-      value:
-        code: unauthorized_scope
-        http_status_code: 400
-        message: User is not authorized to have the specified role
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_value:
-      summary: invalid_length_value
-      value:
-        code: invalid_length_value
-        http_status_code: 403
-        message: Value must be under 255 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    null_value:
-      summary: null_value
-      value:
-        code: null_value
-        http_status_code: 403
-        message: Value cannot be null
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    duplicate_property:
-      summary: duplicate_property
-      value:
-        code: duplicate_property
-        http_status_code: 403
-        message: Property already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    common_password:
-      summary: common_password
-      value:
-        code: common_password
-        http_status_code: 400
-        message: Password is too weak
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    account_disabled:
-      summary: account_disabled
-      value:
-        code: account_disabled
-        http_status_code: 403
-        message: The credentials provided with this request are invalid. Account has been disabled.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_password_length:
-      summary: invalid_password_length
-      value:
-        code: invalid_password_length
-        http_status_code: 400
-        message: Password is too short
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3:
-      summary: use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3
-      value:
-        code: use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3
-        http_status_code: 400
-        message: '"use_legacy_label_targeting" client property is only supported by clients using targeting V3'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_password_strength_letters_digits_punctuation:
-      summary: invalid_password_strength_letters_digits_punctuation
-      value:
-        code: invalid_password_strength_letters_digits_punctuation
-        http_status_code: 400
-        message: Password is too weak, it must contain at least one digit, one lowercase letter, one uppercase letter, and one punctuation mark
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    email_invalid:
-      summary: email_invalid
-      value:
-        code: email_invalid
-        http_status_code: 400
-        message: The provided email address is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_email:
-      summary: invalid_user_email
-      value:
-        code: invalid_user_email
-        http_status_code: 400
-        message: The provided user email was invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_first_name:
-      summary: invalid_user_first_name
-      value:
-        code: invalid_user_first_name
-        http_status_code: 400
-        message: The provided user first name was invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_id:
-      summary: invalid_user_id
-      value:
-        code: invalid_user_id
-        http_status_code: 400
-        message: Invalid user id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_user_last_name:
@@ -1637,20 +1426,20 @@ components:
         message: The provided user last name was invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    user_self_scopes_update:
-      summary: user_self_scopes_update
+    invalid_password_length:
+      summary: invalid_password_length
       value:
-        code: user_self_scopes_update
+        code: invalid_password_length
         http_status_code: 400
-        message: User cannot update its own scopes
+        message: Password is too short
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_password_change_limit:
-      summary: invalid_password_change_limit
+    unauthorized_scope:
+      summary: unauthorized_scope
       value:
-        code: invalid_password_change_limit
+        code: unauthorized_scope
         http_status_code: 400
-        message: 'Password has been changed too many times. Your account has been disabled. Please contact: support@extole.com'
+        message: User is not authorized to have the specified role
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     password_already_used:
@@ -1661,12 +1450,212 @@ components:
         message: Password had already been used, choose another one
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_name:
-      summary: invalid_name
+    email_invalid:
+      summary: email_invalid
       value:
-        code: invalid_name
+        code: email_invalid
         http_status_code: 400
-        message: The provided client name was invalid
+        message: The provided email address is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_first_name:
+      summary: invalid_user_first_name
+      value:
+        code: invalid_user_first_name
+        http_status_code: 400
+        message: The provided user first name was invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3:
+      summary: use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3
+      value:
+        code: use_legacy_label_targeting_client_property_is_only_supported_with_targeting_v3
+        http_status_code: 400
+        message: '"use_legacy_label_targeting" client property is only supported by clients using targeting V3'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    common_password:
+      summary: common_password
+      value:
+        code: common_password
+        http_status_code: 400
+        message: Password is too weak
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    user_self_scopes_update:
+      summary: user_self_scopes_update
+      value:
+        code: user_self_scopes_update
+        http_status_code: 400
+        message: User cannot update its own scopes
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_length_name:
+      summary: invalid_length_name
+      value:
+        code: invalid_length_name
+        http_status_code: 403
+        message: Name must be between 2 and 255 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_password_strength_letters_digits_punctuation:
+      summary: invalid_password_strength_letters_digits_punctuation
+      value:
+        code: invalid_password_strength_letters_digits_punctuation
+        http_status_code: 400
+        message: Password is too weak, it must contain at least one digit, one lowercase letter, one uppercase letter, and one punctuation mark
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_property:
+      summary: duplicate_property
+      value:
+        code: duplicate_property
+        http_status_code: 403
+        message: Property already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_id:
+      summary: invalid_user_id
+      value:
+        code: invalid_user_id
+        http_status_code: 400
+        message: Invalid user id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    account_disabled:
+      summary: account_disabled
+      value:
+        code: account_disabled
+        http_status_code: 403
+        message: The credentials provided with this request are invalid. Account has been disabled.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    null_value:
+      summary: null_value
+      value:
+        code: null_value
+        http_status_code: 403
+        message: Value cannot be null
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_length_value:
+      summary: invalid_length_value
+      value:
+        code: invalid_length_value
+        http_status_code: 403
+        message: Value must be under 255 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_email:
+      summary: invalid_user_email
+      value:
+        code: invalid_user_email
+        http_status_code: 400
+        message: The provided user email was invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_scope:
+      summary: invalid_scope
+      value:
+        code: invalid_scope
+        http_status_code: 403
+        message: Invalid scope
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_password_change_limit:
+      summary: invalid_password_change_limit
+      value:
+        code: invalid_password_change_limit
+        http_status_code: 400
+        message: 'Password has been changed too many times. Your account has been disabled. Please contact: support@extole.com'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_password_strength_letters_digits:
+      summary: invalid_password_strength_letters_digits
+      value:
+        code: invalid_password_strength_letters_digits
+        http_status_code: 400
+        message: Password is too weak, it must contain at least one digit, one lowercase, and one uppercase letter
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     duplicate_user:
@@ -1677,7 +1666,91 @@ components:
         message: User already exists
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_name:
+      summary: invalid_name
+      value:
+        code: invalid_name
+        http_status_code: 400
+        message: The provided client name was invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    PasswordResetRequest:
+      properties:
+        email:
+          type: string
+      required:
+      - email
+      type: object
+    UserCreationRequest:
+      properties:
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+        scopes:
+          items:
+            enum:
+            - CLIENT_ADMIN
+            - CLIENT_SUPERUSER
+            - SELF_SERVICE
+            - USER_SUPPORT
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - email
+      type: object
+    PropertyResponse:
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    SuccessResponse:
+      properties:
+        status:
+          type: string
+      required:
+      - status
+      type: object
     UserResponse:
       properties:
         email:
@@ -1711,22 +1784,41 @@ components:
       - scopes
       - user_id
       type: object
-    PasswordResetRequest:
+    PropertyUpdateRequest:
+      description: Body of a `PUT /v2/users/{user_id}/properties/{name}` request.
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+      required:
+      - value
+      type: object
+    UserUpdateRequest:
+      description: Body of a `PUT /v2/users/{userId}` request.
       properties:
         email:
           type: string
-      required:
-      - email
-      type: object
-    PropertyResponse:
-      properties:
-        name:
+        first_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+        password:
           type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
+        scopes:
+          items:
+            enum:
+            - CLIENT_ADMIN
+            - CLIENT_SUPERUSER
+            - SELF_SERVICE
+            - USER_SUPPORT
+            type: string
+          type: array
+          uniqueItems: true
       type: object
     UserPasswordUpdateRequest:
       description: Body of a `PUT /v2/users/update-password` request.
@@ -1743,62 +1835,6 @@ components:
       required:
       - access_token
       type: object
-    UserUpdateRequest:
-      description: Body of a `PUT /v2/users/{userId}` request.
-      properties:
-        email:
-          type: string
-        first_name:
-          nullable: true
-          type: string
-        last_name:
-          nullable: true
-          type: string
-        password:
-          type: string
-        scopes:
-          items:
-            enum:
-            - CLIENT_ADMIN
-            - CLIENT_SUPERUSER
-            - SELF_SERVICE
-            - USER_SUPPORT
-            type: string
-          type: array
-          uniqueItems: true
-      type: object
-    PropertyUpdateRequest:
-      description: Body of a `PUT /v2/users/{user_id}/properties/{name}` request.
-      properties:
-        value:
-          nullable: true
-          type: string
-      required:
-      - value
-      type: object
-    UserCreationRequest:
-      properties:
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        password:
-          type: string
-        scopes:
-          items:
-            enum:
-            - CLIENT_ADMIN
-            - CLIENT_SUPERUSER
-            - SELF_SERVICE
-            - USER_SUPPORT
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - email
-      type: object
     PropertyCreationRequest:
       properties:
         name:
@@ -1808,42 +1844,6 @@ components:
       required:
       - name
       - value
-      type: object
-    SuccessResponse:
-      properties:
-        status:
-          type: string
-      required:
-      - status
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
       type: object
   securitySchemes:
     COOKIE:
@@ -1860,12 +1860,30 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management API
   tags:
+  - Audiences
   - Authentication
-  - Content
+  - Batch Jobs
+  - Blocks
+  - Campaigns
+  - Components
+  - Components Settings
+  - Domains
   - Email
-  - Events
-  - Persons
-  - Profile Assets
+  - Erasure
+  - Event Streams
+  - File Validation Monitors
+  - Optout
   - Profiles
+  - Promotion Links
+  - Report Schedules
+  - Report Types
+  - Reports
+  - Reward Suppliers
+  - Security Keys
+  - Settings
+  - User Notifications
+  - User Subscriptions
+  - Users
+  - Webhooks

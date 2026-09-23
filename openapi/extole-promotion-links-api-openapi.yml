@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Promotion Links API
+  description: 'Configuration endpoints for the Extole platform: campaigns, components, audiences, persons, rewards, reporting, integrations setup, and administrative tooling.'
+  title: Management Promotion Links API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -320,108 +316,12 @@ paths:
       x-extole-visibility: visible
 components:
   examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    description_length_out_of_range:
-      summary: description_length_out_of_range
-      value:
-        code: description_length_out_of_range
-        http_status_code: 400
-        message: Description is too long
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     code_missing:
       summary: code_missing
       value:
         code: code_missing
         http_status_code: 403
         message: Missing code
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    program_not_found:
-      summary: program_not_found
-      value:
-        code: program_not_found
-        http_status_code: 400
-        message: Promotion link program not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_image_url_invalid:
-      summary: content_image_url_invalid
-      value:
-        code: content_image_url_invalid
-        http_status_code: 403
-        message: Invalid content image_url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_length_out_of_range:
-      summary: data_attribute_value_length_out_of_range
-      value:
-        code: data_attribute_value_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute value length is out of range. Max 2000 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_taken:
-      summary: code_taken
-      value:
-        code: code_taken
-        http_status_code: 403
-        message: The code associated with this shareable has already been specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    label_contains_illegal_character:
-      summary: label_contains_illegal_character
-      value:
-        code: label_contains_illegal_character
-        http_status_code: 400
-        message: Label name can only contain alphanumeric, dash and underscore characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    promotion_link_not_found:
-      summary: promotion_link_not_found
-      value:
-        code: promotion_link_not_found
-        http_status_code: 403
-        message: Promotion link not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     promotion_label_name_out_of_range:
@@ -432,12 +332,44 @@ components:
         message: Promotion label name is not of valid length
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    code_contains_reserved_word:
-      summary: code_contains_reserved_word
+    code_invalid:
+      summary: code_invalid
       value:
-        code: code_contains_reserved_word
+        code: code_invalid
+        http_status_code: 400
+        message: Promotion link code can only contain alphanumeric characters, dashes and underscores
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_length_out_of_range:
+      summary: code_length_out_of_range
+      value:
+        code: code_length_out_of_range
+        http_status_code: 400
+        message: Promotion link code length must be between 4 and 50
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_taken:
+      summary: code_taken
+      value:
+        code: code_taken
         http_status_code: 403
-        message: Shareable code contains reserved word
+        message: The code associated with this shareable has already been specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_length_out_of_range:
+      summary: data_attribute_name_length_out_of_range
+      value:
+        code: data_attribute_name_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute name length is out of range. Max 200 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    promotion_link_not_found:
+      summary: promotion_link_not_found
+      value:
+        code: promotion_link_not_found
+        http_status_code: 403
+        message: Promotion link not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -448,28 +380,20 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    program_url_invalid:
-      summary: program_url_invalid
+    label_contains_illegal_character:
+      summary: label_contains_illegal_character
       value:
-        code: program_url_invalid
+        code: label_contains_illegal_character
         http_status_code: 400
-        message: Promotion link program url is invalid
+        message: Label name can only contain alphanumeric, dash and underscore characters
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_invalid:
-      summary: data_attribute_value_invalid
+    data_attribute_name_invalid:
+      summary: data_attribute_name_invalid
       value:
-        code: data_attribute_value_invalid
+        code: data_attribute_name_invalid
         http_status_code: 403
-        message: Shareable data value is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        message: Shareable data attribute name is invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -478,6 +402,14 @@ components:
         code: binding_error
         http_status_code: 400
         message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
@@ -496,12 +428,92 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_invalid:
-      summary: data_attribute_name_invalid
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: data_attribute_name_invalid
+        code: missing_access_token
         http_status_code: 403
-        message: Shareable data attribute name is invalid
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    program_not_found:
+      summary: program_not_found
+      value:
+        code: program_not_found
+        http_status_code: 400
+        message: Promotion link program not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_invalid:
+      summary: data_attribute_value_invalid
+      value:
+        code: data_attribute_value_invalid
+        http_status_code: 403
+        message: Shareable data value is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    program_url_invalid:
+      summary: program_url_invalid
+      value:
+        code: program_url_invalid
+        http_status_code: 400
+        message: Promotion link program url is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_contains_reserved_word:
+      summary: code_contains_reserved_word
+      value:
+        code: code_contains_reserved_word
+        http_status_code: 403
+        message: Shareable code contains reserved word
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_length_out_of_range:
+      summary: data_attribute_value_length_out_of_range
+      value:
+        code: data_attribute_value_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute value length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_image_url_invalid:
+      summary: content_image_url_invalid
+      value:
+        code: content_image_url_invalid
+        http_status_code: 403
+        message: Invalid content image_url
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     content_url_invalid:
@@ -512,43 +524,43 @@ components:
         message: Promotion link content url is invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_length_out_of_range:
-      summary: data_attribute_name_length_out_of_range
+    description_length_out_of_range:
+      summary: description_length_out_of_range
       value:
-        code: data_attribute_name_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute name length is out of range. Max 200 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_length_out_of_range:
-      summary: code_length_out_of_range
-      value:
-        code: code_length_out_of_range
+        code: description_length_out_of_range
         http_status_code: 400
-        message: Promotion link code length must be between 4 and 50
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_invalid:
-      summary: code_invalid
-      value:
-        code: code_invalid
-        http_status_code: 400
-        message: Promotion link code can only contain alphanumeric characters, dashes and underscores
+        message: Description is too long
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    PromotionLinkContentResponse:
+    RestExceptionResponse:
+      description: Represents the API error response
       properties:
-        content_id:
+        code:
+          description: Specific error code for this error type, documented per endpoint
           type: string
-        description:
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
           type: string
-        image_url:
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
           type: string
-        title:
-          type: string
-        url:
-          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
       type: object
     PromotionLinkResponse:
       properties:
@@ -580,6 +592,42 @@ components:
       - program_url
       - promotion_url
       type: object
+    PromotionLinkContentRequest:
+      properties:
+        content_id:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        image_url:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      type: object
+    PromotionLinkContentResponse:
+      properties:
+        content_id:
+          type: string
+        description:
+          type: string
+        image_url:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+      type: object
     PromotionLinkCreateRequest:
       description: Body of a `POST /v2/promotion-links` request.
       properties:
@@ -592,67 +640,23 @@ components:
             type: string
           type: object
         description:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         key:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         label:
           type: string
         program_url:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       required:
       - code
       - key
       - program_url
-      type: object
-    PromotionLinkContentRequest:
-      properties:
-        content_id:
-          nullable: true
-          type: string
-        description:
-          nullable: true
-          type: string
-        image_url:
-          nullable: true
-          type: string
-        title:
-          nullable: true
-          type: string
-        url:
-          nullable: true
-          type: string
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
       type: object
   securitySchemes:
     COOKIE:
@@ -669,12 +673,30 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management API
   tags:
+  - Audiences
   - Authentication
-  - Content
+  - Batch Jobs
+  - Blocks
+  - Campaigns
+  - Components
+  - Components Settings
+  - Domains
   - Email
-  - Events
-  - Persons
-  - Profile Assets
+  - Erasure
+  - Event Streams
+  - File Validation Monitors
+  - Optout
   - Profiles
+  - Promotion Links
+  - Report Schedules
+  - Report Types
+  - Reports
+  - Reward Suppliers
+  - Security Keys
+  - Settings
+  - User Notifications
+  - User Subscriptions
+  - Users
+  - Webhooks

@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Authentication API
+  title: Extole Authentication API
   version: '1.0'
+  description: 'Operations tagged Authentication across 4 of this provider''s published API definitions: extole-integration-consumer-to-extole-openapi.json, extole-integration-server-to-extole-openapi.json, extole-management-expert-openapi.json, extole-management-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
   url: https://{brand}.extole.io
@@ -10,6 +10,8 @@ servers:
     brand:
       default: yourcompany
       description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+- description: Production
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -250,6 +252,13 @@ paths:
       - Authentication
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /v4/tokens:
     get:
       description: Returns the metadata for the access token used to authenticate the request (`type`, `client_id`, `identity_id`, `expires_in`, `scopes`). Equivalent to `GET /v4/tokens/{token}` but without having to repeat the token in the URL path.
@@ -417,6 +426,9 @@ paths:
       - Authentication
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/{token}:
     get:
       description: Returns the metadata for the supplied token value (`type`, `client_id`, `identity_id`, `expires_in`, `scopes`). Use this when the caller has the token string and needs to introspect it; for the calling identity's own active token use `GET /v4/tokens` instead.
@@ -584,6 +596,9 @@ paths:
       - Authentication
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/exchange/{token}:
     put:
       description: Exchanges the supplied access token for a fresh one with the same scopes and a renewed expiry. The original token is invalidated immediately on success. Use this to rotate long-lived integration tokens without re-authenticating.
@@ -670,6 +685,9 @@ paths:
       - Authentication
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/resource:
     get:
       description: Returns the resource-scoped access token associated with the current credentials.
@@ -750,6 +768,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/consumers/{accessToken}/authorize:
     post:
       description: Upgrades an anonymous consumer access token to an authenticated token by associating it with a verified consumer identity. Returns the upgraded consumer token.
@@ -840,6 +861,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/consumers/{personId}/token:
     post:
       description: Creates a consumer access token for the specified person id. Returns the new consumer token.
@@ -929,6 +953,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/oauth/tokens:
     post:
       description: Exchanges OAuth client credentials (client_id and client_secret) for an API access token using the client credentials grant flow. Returns the access token and expiry information.
@@ -950,8 +977,9 @@ paths:
                 grant_type:
                   type: string
                 scope:
-                  nullable: true
-                  type: string
+                  type:
+                  - string
+                  - 'null'
               type: object
       responses:
         '200':
@@ -1049,6 +1077,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/managed/openid-connect/authorization-code-flow:
     post:
       description: Creates a managed access token by exchanging an OpenID Connect authorization code. Returns the created token.
@@ -1176,6 +1207,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/openid-connect/authorization-code-flow:
     post:
       description: 'Exchanges an OpenID Connect authorization-code response for an Extole access token. Pair the body''s `code` and `state` with the `X-CSRF-TOKEN` and `X-NONCE` headers - all four are required by the OIDC validator. Marked as `expert`: most integrators authenticate via `POST /v4/tokens` instead.'
@@ -1292,6 +1326,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/openid-connect/idp-initiated-authorization-code-flow:
     post:
       description: Validates an authorization code returned by an IdP-initiated OpenID Connect SSO flow and exchanges it for an Extole access token. Expert-only; most integrators use `POST /v4/tokens` instead.
@@ -1399,6 +1436,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v6/security/oauth/flow/exchange:
     post:
       description: Exchanges an OAuth authorization code for an access token using the authorization code flow. Returns the access token and associated session information.
@@ -1501,6 +1541,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/resource/{access_token_to_delete}:
     delete:
       description: Revokes the specified resource-scoped access token.
@@ -1612,6 +1655,9 @@ paths:
       - Authentication
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/consumers/{accessToken}/debug:
     get:
       description: Returns metadata for a consumer (person) access token by value, including tokens that are expired or invalidated. Distinct from client access token debug (`GET /v4/tokens/{token}/debug`) and managed API tokens (`/v4/tokens/managed`). Requires a user access token with the `CLIENT_ADMIN` scope.
@@ -1698,6 +1744,9 @@ paths:
       - Authentication
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/managed:
     get:
       description: Returns all managed API access tokens for the client.
@@ -1896,6 +1945,9 @@ paths:
       - Authentication
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/tokens/managed/{access_token_id}:
     delete:
       description: Revokes and removes the managed API access token for the specified id.
@@ -2004,150 +2056,17 @@ paths:
       - Authentication
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
   examples:
-    authorization_code_missing_csrf_token:
-      summary: authorization_code_missing_csrf_token
+    invalid_access_token_duration:
+      summary: invalid_access_token_duration
       value:
-        code: authorization_code_missing_csrf_token
-        http_status_code: 403
-        message: Authorization Code Flow required csrf token header is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
+        code: invalid_access_token_duration
         http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    consumer_token_invalid:
-      summary: consumer_token_invalid
-      value:
-        code: consumer_token_invalid
-        http_status_code: 400
-        message: Provided consumer access token is not valid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    no_such_resource_token:
-      summary: no_such_resource_token
-      value:
-        code: no_such_resource_token
-        http_status_code: 400
-        message: The access_token provided is could not be found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_key_exchange_response:
-      summary: invalid_key_exchange_response
-      value:
-        code: invalid_key_exchange_response
-        http_status_code: 403
-        message: Received invalid response when exchange code to access token
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    key_exchange_exception:
-      summary: key_exchange_exception
-      value:
-        code: key_exchange_exception
-        http_status_code: 403
-        message: Failed to exchange code
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    consumer_token_upgrade_not_allowed:
-      summary: consumer_token_upgrade_not_allowed
-      value:
-        code: consumer_token_upgrade_not_allowed
-        http_status_code: 403
-        message: Could not upgrade provided access token
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_nonce:
-      summary: authorization_code_missing_nonce
-      value:
-        code: authorization_code_missing_nonce
-        http_status_code: 403
-        message: Authorization Code Flow required nonce header is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    exchanged_client_key_creation_failed:
-      summary: exchanged_client_key_creation_failed
-      value:
-        code: exchanged_client_key_creation_failed
-        http_status_code: 403
-        message: Failed to create a client key using exchanged access token
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_key_exchanger_not_found:
-      summary: client_key_exchanger_not_found
-      value:
-        code: client_key_exchanger_not_found
-        http_status_code: 403
-        message: Failed to exchange code to an access token, client key exchanger not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    account_disabled:
-      summary: account_disabled
-      value:
-        code: account_disabled
-        http_status_code: 403
-        message: The credentials provided with this request are invalid. Account has been disabled.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_error:
-      summary: jwt_error
-      value:
-        code: jwt_error
-        http_status_code: 403
-        message: The jwt authentication verification failed.
+        message: The duration provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_access_token:
@@ -2158,28 +2077,20 @@ components:
         message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_grant_type:
-      summary: unsupported_grant_type
+    email_not_applicable:
+      summary: email_not_applicable
       value:
-        code: unsupported_grant_type
+        code: email_not_applicable
         http_status_code: 400
-        message: Unsupported grant_type
+        message: Email attribute is not applicable for current identity key
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_duration:
-      summary: invalid_duration
+    expired_access_token:
+      summary: expired_access_token
       value:
-        code: invalid_duration
-        http_status_code: 400
-        message: The requested duration for this token must end within the first ten millenium
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    no_such_managed_token:
-      summary: no_such_managed_token
-      value:
-        code: no_such_managed_token
-        http_status_code: 400
-        message: The access_token provided is could not be found.
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -2190,20 +2101,12 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_code:
-      summary: authorization_code_missing_code
+    method_unauthorized:
+      summary: method_unauthorized
       value:
-        code: authorization_code_missing_code
-        http_status_code: 403
-        message: Authorization Code Flow required code parameter is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    scopes_denied:
-      summary: scopes_denied
-      value:
-        code: scopes_denied
-        http_status_code: 403
-        message: Requested scopes is not a subset of current scopes.
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -2214,52 +2117,12 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    email_mismatch:
-      summary: email_mismatch
-      value:
-        code: email_mismatch
-        http_status_code: 403
-        message: Mismatch in specified emails
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    exchange_client_key_not_found:
-      summary: exchange_client_key_not_found
-      value:
-        code: exchange_client_key_not_found
-        http_status_code: 403
-        message: Exchange ClientKey not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
       summary: too_many_requests
       value:
         code: too_many_requests
         http_status_code: 429
         message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_id:
-      summary: invalid_user_id
-      value:
-        code: invalid_user_id
-        http_status_code: 400
-        message: Invalid user id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_auth_provider_type_id:
-      summary: authorization_code_missing_auth_provider_type_id
-      value:
-        code: authorization_code_missing_auth_provider_type_id
-        http_status_code: 403
-        message: IdP initiated Authorization Code Flow required auth_provider_type_id parameter is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_parameter:
@@ -2270,12 +2133,252 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token_duration:
-      summary: invalid_access_token_duration
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: invalid_access_token_duration
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
         http_status_code: 400
-        message: The duration provided with this request is invalid.
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_email:
+      summary: invalid_email
+      value:
+        code: invalid_email
+        http_status_code: 400
+        message: Invalid email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_error:
+      summary: jwt_error
+      value:
+        code: jwt_error
+        http_status_code: 403
+        message: The jwt authentication verification failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    email_mismatch:
+      summary: email_mismatch
+      value:
+        code: email_mismatch
+        http_status_code: 403
+        message: Mismatch in specified emails
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    scopes_denied:
+      summary: scopes_denied
+      value:
+        code: scopes_denied
+        http_status_code: 403
+        message: Requested scopes is not a subset of current scopes.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_credentials:
+      summary: missing_credentials
+      value:
+        code: missing_credentials
+        http_status_code: 403
+        message: No credentials provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_duration:
+      summary: invalid_duration
+      value:
+        code: invalid_duration
+        http_status_code: 400
+        message: The requested duration for this token must end within the first ten millenium
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_credentials:
+      summary: invalid_credentials
+      value:
+        code: invalid_credentials
+        http_status_code: 403
+        message: The credentials provided with this request are invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_id:
+      summary: invalid_client_id
+      value:
+        code: invalid_client_id
+        http_status_code: 400
+        message: Invalid client id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_such_managed_token:
+      summary: no_such_managed_token
+      value:
+        code: no_such_managed_token
+        http_status_code: 400
+        message: The access_token provided is could not be found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    key_exchange_exception:
+      summary: key_exchange_exception
+      value:
+        code: key_exchange_exception
+        http_status_code: 403
+        message: Failed to exchange code
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    exchange_client_key_not_found:
+      summary: exchange_client_key_not_found
+      value:
+        code: exchange_client_key_not_found
+        http_status_code: 403
+        message: Exchange ClientKey not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    maximum_name_length:
+      summary: maximum_name_length
+      value:
+        code: maximum_name_length
+        http_status_code: 400
+        message: Name cannot be null, empty or blank and cannot be too long
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    exchanged_client_key_creation_failed:
+      summary: exchanged_client_key_creation_failed
+      value:
+        code: exchanged_client_key_creation_failed
+        http_status_code: 403
+        message: Failed to create a client key using exchanged access token
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_code:
+      summary: authorization_code_missing_code
+      value:
+        code: authorization_code_missing_code
+        http_status_code: 403
+        message: Authorization Code Flow required code parameter is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_nonce:
+      summary: authorization_code_missing_nonce
+      value:
+        code: authorization_code_missing_nonce
+        http_status_code: 403
+        message: Authorization Code Flow required nonce header is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_response_invalid:
+      summary: authorization_code_response_invalid
+      value:
+        code: authorization_code_response_invalid
+        http_status_code: 403
+        message: Authorization Code Response is invalid or expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_credentials:
+      summary: expired_credentials
+      value:
+        code: expired_credentials
+        http_status_code: 403
+        message: The credentials provided with this request are expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_key_already_exists:
+      summary: client_key_already_exists
+      value:
+        code: client_key_already_exists
+        http_status_code: 403
+        message: Client key for this integration already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_key_exchanger_not_found:
+      summary: client_key_exchanger_not_found
+      value:
+        code: client_key_exchanger_not_found
+        http_status_code: 403
+        message: Failed to exchange code to an access token, client key exchanger not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_such_resource_token:
+      summary: no_such_resource_token
+      value:
+        code: no_such_resource_token
+        http_status_code: 400
+        message: The access_token provided is could not be found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_auth_provider_type_id:
+      summary: authorization_code_missing_auth_provider_type_id
+      value:
+        code: authorization_code_missing_auth_provider_type_id
+        http_status_code: 403
+        message: IdP initiated Authorization Code Flow required auth_provider_type_id parameter is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    account_disabled:
+      summary: account_disabled
+      value:
+        code: account_disabled
+        http_status_code: 403
+        message: The credentials provided with this request are invalid. Account has been disabled.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_id:
+      summary: invalid_user_id
+      value:
+        code: invalid_user_id
+        http_status_code: 400
+        message: Invalid user id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_csrf_token:
+      summary: authorization_code_missing_csrf_token
+      value:
+        code: authorization_code_missing_csrf_token
+        http_status_code: 403
+        message: Authorization Code Flow required csrf token header is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_state:
+      summary: authorization_code_missing_state
+      value:
+        code: authorization_code_missing_state
+        http_status_code: 403
+        message: Authorization Code Flow required state parameter is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     account_locked:
@@ -2294,103 +2397,169 @@ components:
         message: Person not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    client_key_already_exists:
-      summary: client_key_already_exists
+    unsupported_grant_type:
+      summary: unsupported_grant_type
       value:
-        code: client_key_already_exists
-        http_status_code: 403
-        message: Client key for this integration already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_email:
-      summary: invalid_email
-      value:
-        code: invalid_email
+        code: unsupported_grant_type
         http_status_code: 400
-        message: Invalid email
+        message: Unsupported grant_type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_credentials:
-      summary: missing_credentials
+    invalid_key_exchange_response:
+      summary: invalid_key_exchange_response
       value:
-        code: missing_credentials
+        code: invalid_key_exchange_response
         http_status_code: 403
-        message: No credentials provided with this request.
+        message: Received invalid response when exchange code to access token
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_credentials:
-      summary: invalid_credentials
+    consumer_token_invalid:
+      summary: consumer_token_invalid
       value:
-        code: invalid_credentials
-        http_status_code: 403
-        message: The credentials provided with this request are invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_credentials:
-      summary: expired_credentials
-      value:
-        code: expired_credentials
-        http_status_code: 403
-        message: The credentials provided with this request are expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_client_id:
-      summary: invalid_client_id
-      value:
-        code: invalid_client_id
+        code: consumer_token_invalid
         http_status_code: 400
-        message: Invalid client id
+        message: Provided consumer access token is not valid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    email_not_applicable:
-      summary: email_not_applicable
+    consumer_token_upgrade_not_allowed:
+      summary: consumer_token_upgrade_not_allowed
       value:
-        code: email_not_applicable
-        http_status_code: 400
-        message: Email attribute is not applicable for current identity key
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    maximum_name_length:
-      summary: maximum_name_length
-      value:
-        code: maximum_name_length
-        http_status_code: 400
-        message: Name cannot be null, empty or blank and cannot be too long
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_response_invalid:
-      summary: authorization_code_response_invalid
-      value:
-        code: authorization_code_response_invalid
+        code: consumer_token_upgrade_not_allowed
         http_status_code: 403
-        message: Authorization Code Response is invalid or expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_state:
-      summary: authorization_code_missing_state
-      value:
-        code: authorization_code_missing_state
-        http_status_code: 403
-        message: Authorization Code Flow required state parameter is missing
+        message: Could not upgrade provided access token
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    OAuthFlowCodeExchangeRequest:
+    RestExceptionResponse:
+      description: Represents the API error response
       properties:
-        client_key_id:
-          type: string
         code:
+          description: Specific error code for this error type, documented per endpoint
           type: string
-        key_type:
-          enum:
-          - STANDARD
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
           type: string
-        redirect_uri:
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
           type: string
       required:
-      - client_key_id
       - code
-      - redirect_uri
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    CreateTokenRequest:
+      properties:
+        duration_seconds:
+          description: Requested token lifetime in seconds. Defaults to the client configuration value when omitted.
+          format: int64
+          type:
+          - integer
+          - 'null'
+        email:
+          description: Email address used to identify or create the consumer. Ignored when `jwt` is present.
+          type:
+          - string
+          - 'null'
+        jwt:
+          description: Signed JWT carrying consumer identity claims. When supplied, identity is derived from the token claims rather than from `email`.
+          type:
+          - string
+          - 'null'
+      required:
+      - duration_seconds
+      - email
+      - jwt
+      type: object
+    SuccessResponse:
+      properties:
+        status:
+          type: string
+      required:
+      - status
+      type: object
+    TokenResponse:
+      properties:
+        access_token:
+          description: Opaque access token for the consumer session. Pass as a Bearer token or `access_token` query parameter on subsequent requests.
+          type: string
+        expires_in:
+          description: Seconds until the token expires.
+          format: int64
+          type: integer
+        scopes:
+          description: Set of permission scopes granted to this token.
+          items:
+            description: Set of permission scopes granted to this token.
+            enum:
+            - UPDATE_PROFILE
+            - VERIFIED_CONSUMER
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - access_token
+      - expires_in
+      - scopes
+      type: object
+    AccessTokenCreationRequest:
+      description: Optional body for `POST /v4/tokens`. Omit the body entirely to mirror the calling identity's scopes; supply a body to bind the new token to a specific `client_id`, narrow its `scopes`, override the default lifetime via `duration_seconds`, or authenticate with email/password credentials in lieu of a calling token.
+      properties:
+        client_id:
+          description: Stable Extole identifier for the client (tenant) the new token should authenticate against. Required when authenticating with email/password credentials; optional when the calling identity already implies the client.
+          type: string
+        duration_seconds:
+          description: Override the default token lifetime, in seconds. Must keep the token's expiry within the next ten millennia; out-of-range values return `400 invalid_duration` with the default lifetime in `default_duration`.
+          format: int64
+          type:
+          - integer
+          - 'null'
+        email:
+          description: Email address of the dashboard user to authenticate. Pair with `password`. Returns `403 invalid_credentials` if the pair is wrong.
+          type:
+          - string
+          - 'null'
+        password:
+          description: Password for the dashboard user identified by `email`. Returns `403 invalid_credentials` if wrong, `403 expired_credentials` if expired, `403 account_locked` if the account is locked, and `403 account_disabled` if disabled.
+          type:
+          - string
+          - 'null'
+        scopes:
+          description: Subset of the calling identity's scopes to grant on the new token. Must be a strict subset; requesting a privilege the caller does not hold returns `403 scopes_denied` with the offending scopes in `denied_scopes`. Omit to mirror the caller's scopes.
+          items:
+            description: Subset of the calling identity's scopes to grant on the new token. Must be a strict subset; requesting a privilege the caller does not hold returns `403 scopes_denied` with the offending scopes in `denied_scopes`. Omit to mirror the caller's scopes.
+            enum:
+            - BACKEND
+            - CLIENT_ADMIN
+            - CLIENT_REPORT_DOWNLOAD
+            - CLIENT_SUPERUSER
+            - ONE_TIME
+            - PASSWORD_RESET
+            - UPDATE_PROFILE
+            - USER_SUPPORT
+            - VERIFIED_CONSUMER
+            type: string
+          type:
+          - array
+          - 'null'
+          uniqueItems: true
+      required:
+      - client_id
+      - duration_seconds
+      - email
+      - password
+      - scopes
       type: object
     AccessTokenResponse:
       description: Access-token metadata returned by `POST /v4/tokens`, `POST /v4/tokens/openid-connect/authorization-code-flow`, `GET /v4/tokens`, `GET /v4/tokens/{token}`, and `PUT /v4/tokens/exchange/{token}`. Pass `access_token` in the `Authorization` header (`Bearer ...`) on subsequent requests.
@@ -2437,14 +2606,99 @@ components:
           - USER
           type: string
       type: object
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    ResourceAccessTokenResponse:
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          format: int64
+          type: integer
+        identity_id:
+          type: string
+        resources:
+          items:
+            $ref: '#/components/schemas/AccessTokenResourceResponse'
+          type: array
+      required:
+      - access_token
+      - expires_in
+      - identity_id
+      - resources
+      type: object
+    AccessTokenResourceResponse:
+      properties:
+        id:
+          type: string
+        type:
+          enum:
+          - PUBLIC_REPORT
+          type: string
+      type: object
+    OAuthFlowCodeExchangeResponse:
+      properties:
+        client_key_id:
+          type: string
+      required:
+      - client_key_id
+      type: object
+    OAuthFlowCodeExchangeRequest:
+      properties:
+        client_key_id:
+          type: string
+        code:
+          type: string
+        key_type:
+          enum:
+          - STANDARD
+          type: string
+        redirect_uri:
+          type: string
+      required:
+      - client_key_id
+      - code
+      - redirect_uri
+      type: object
+    AuthCodeResponseValidateRequest:
+      description: Body of `POST /v4/tokens/openid-connect/authorization-code-flow`. Pair with the `X-CSRF-TOKEN` and `X-NONCE` headers minted alongside the authorization-code response.
+      properties:
+        code:
+          description: Authorization code received from the OpenID Connect provider. Validated alongside the `X-CSRF-TOKEN` and `X-NONCE` headers; missing or expired codes return `403 authorization_code_response_invalid`.
+          type: string
+        state:
+          description: Opaque state value the relying party round-tripped through the authorization-code flow. Must match the value the relying party generated when starting the flow; mismatches return `403 authorization_code_missing_state`.
+          type: string
+      required:
+      - code
+      - state
+      type: object
+    OAuthAccessTokenResponse:
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          format: int64
+          type: integer
+        token_type:
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - token_type
+      type: object
     AuthCodeManagedAccessTokenCreationRequest:
       properties:
         code:
           type: string
         duration_seconds:
           format: int64
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         name:
           type: string
         scopes:
@@ -2460,8 +2714,9 @@ components:
             - USER_SUPPORT
             - VERIFIED_CONSUMER
             type: string
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
           uniqueItems: true
         state:
           type: string
@@ -2471,6 +2726,65 @@ components:
       - name
       - scopes
       - state
+      type: object
+    IdpInitiatedAuthCodeResponseValidateRequest:
+      properties:
+        auth_provider_type_id:
+          type: string
+        code:
+          type: string
+      required:
+      - auth_provider_type_id
+      - code
+      type: object
+    ManagedAccessTokenResponse:
+      properties:
+        access_token:
+          type: string
+        access_token_id:
+          type: string
+        access_token_response:
+          $ref: '#/components/schemas/AccessTokenResponse'
+        client_id:
+          type: string
+        create_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        created_at:
+          format: int64
+          type: integer
+        expire_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        expires_in:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+      - access_token
+      - access_token_id
+      - access_token_response
+      - client_id
+      - create_date
+      - created_at
+      - expire_date
+      - expires_in
+      - name
+      type: object
+    ConsumerTokenResponse:
+      properties:
+        access_token:
+          type: string
+        client_id:
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - access_token
+      - client_id
+      - scopes
       type: object
     ConsumerTokenDetailsResponse:
       properties:
@@ -2510,156 +2824,6 @@ components:
       - scopes
       - updated_at
       type: object
-    IdpInitiatedAuthCodeResponseValidateRequest:
-      properties:
-        auth_provider_type_id:
-          type: string
-        code:
-          type: string
-      required:
-      - auth_provider_type_id
-      - code
-      type: object
-    TokenResponse:
-      properties:
-        access_token:
-          description: Opaque access token for the consumer session. Pass as a Bearer token or `access_token` query parameter on subsequent requests.
-          type: string
-        expires_in:
-          description: Seconds until the token expires.
-          format: int64
-          type: integer
-        scopes:
-          description: Set of permission scopes granted to this token.
-          items:
-            description: Set of permission scopes granted to this token.
-            enum:
-            - UPDATE_PROFILE
-            - VERIFIED_CONSUMER
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - access_token
-      - expires_in
-      - scopes
-      type: object
-    AccessTokenCreationRequest:
-      description: Optional body for `POST /v4/tokens`. Omit the body entirely to mirror the calling identity's scopes; supply a body to bind the new token to a specific `client_id`, narrow its `scopes`, override the default lifetime via `duration_seconds`, or authenticate with email/password credentials in lieu of a calling token.
-      properties:
-        client_id:
-          description: Stable Extole identifier for the client (tenant) the new token should authenticate against. Required when authenticating with email/password credentials; optional when the calling identity already implies the client.
-          type: string
-        duration_seconds:
-          description: Override the default token lifetime, in seconds. Must keep the token's expiry within the next ten millennia; out-of-range values return `400 invalid_duration` with the default lifetime in `default_duration`.
-          format: int64
-          nullable: true
-          type: integer
-        email:
-          description: Email address of the dashboard user to authenticate. Pair with `password`. Returns `403 invalid_credentials` if the pair is wrong.
-          nullable: true
-          type: string
-        password:
-          description: Password for the dashboard user identified by `email`. Returns `403 invalid_credentials` if wrong, `403 expired_credentials` if expired, `403 account_locked` if the account is locked, and `403 account_disabled` if disabled.
-          nullable: true
-          type: string
-        scopes:
-          description: Subset of the calling identity's scopes to grant on the new token. Must be a strict subset; requesting a privilege the caller does not hold returns `403 scopes_denied` with the offending scopes in `denied_scopes`. Omit to mirror the caller's scopes.
-          items:
-            description: Subset of the calling identity's scopes to grant on the new token. Must be a strict subset; requesting a privilege the caller does not hold returns `403 scopes_denied` with the offending scopes in `denied_scopes`. Omit to mirror the caller's scopes.
-            enum:
-            - BACKEND
-            - CLIENT_ADMIN
-            - CLIENT_REPORT_DOWNLOAD
-            - CLIENT_SUPERUSER
-            - ONE_TIME
-            - PASSWORD_RESET
-            - UPDATE_PROFILE
-            - USER_SUPPORT
-            - VERIFIED_CONSUMER
-            type: string
-          nullable: true
-          type: array
-          uniqueItems: true
-      required:
-      - client_id
-      - duration_seconds
-      - email
-      - password
-      - scopes
-      type: object
-    AccessTokenResourceResponse:
-      properties:
-        id:
-          type: string
-        type:
-          enum:
-          - PUBLIC_REPORT
-          type: string
-      type: object
-    OAuthAccessTokenResponse:
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          format: int64
-          type: integer
-        token_type:
-          type: string
-      required:
-      - access_token
-      - expires_in
-      - token_type
-      type: object
-    ConsumerTokenResponse:
-      properties:
-        access_token:
-          type: string
-        client_id:
-          type: string
-        scopes:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - access_token
-      - client_id
-      - scopes
-      type: object
-    ManagedAccessTokenResponse:
-      properties:
-        access_token:
-          type: string
-        access_token_id:
-          type: string
-        access_token_response:
-          $ref: '#/components/schemas/AccessTokenResponse'
-        client_id:
-          type: string
-        create_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        created_at:
-          format: int64
-          type: integer
-        expire_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        expires_in:
-          format: int64
-          type: integer
-        name:
-          type: string
-      required:
-      - access_token
-      - access_token_id
-      - access_token_response
-      - client_id
-      - create_date
-      - created_at
-      - expire_date
-      - expires_in
-      - name
-      type: object
     ManagedAccessTokenCreationRequest:
       properties:
         duration_seconds:
@@ -2687,106 +2851,6 @@ components:
       required:
       - password
       type: object
-    ResourceAccessTokenResponse:
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          format: int64
-          type: integer
-        identity_id:
-          type: string
-        resources:
-          items:
-            $ref: '#/components/schemas/AccessTokenResourceResponse'
-          type: array
-      required:
-      - access_token
-      - expires_in
-      - identity_id
-      - resources
-      type: object
-    CreateTokenRequest:
-      properties:
-        duration_seconds:
-          description: Requested token lifetime in seconds. Defaults to the client configuration value when omitted.
-          format: int64
-          nullable: true
-          type: integer
-        email:
-          description: Email address used to identify or create the consumer. Ignored when `jwt` is present.
-          nullable: true
-          type: string
-        jwt:
-          description: Signed JWT carrying consumer identity claims. When supplied, identity is derived from the token claims rather than from `email`.
-          nullable: true
-          type: string
-      required:
-      - duration_seconds
-      - email
-      - jwt
-      type: object
-    OAuthFlowCodeExchangeResponse:
-      properties:
-        client_key_id:
-          type: string
-      required:
-      - client_key_id
-      type: object
-    AuthCodeResponseValidateRequest:
-      description: Body of `POST /v4/tokens/openid-connect/authorization-code-flow`. Pair with the `X-CSRF-TOKEN` and `X-NONCE` headers minted alongside the authorization-code response.
-      properties:
-        code:
-          description: Authorization code received from the OpenID Connect provider. Validated alongside the `X-CSRF-TOKEN` and `X-NONCE` headers; missing or expired codes return `403 authorization_code_response_invalid`.
-          type: string
-        state:
-          description: Opaque state value the relying party round-tripped through the authorization-code flow. Must match the value the relying party generated when starting the flow; mismatches return `403 authorization_code_missing_state`.
-          type: string
-      required:
-      - code
-      - state
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
-    SuccessResponse:
-      properties:
-        status:
-          type: string
-      required:
-      - status
-      type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
   securitySchemes:
     COOKIE:
       in: cookie
@@ -2801,6 +2865,11 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-integration-consumer-to-extole-openapi.json
+- extole-integration-server-to-extole-openapi.json
+- extole-management-expert-openapi.json
+- extole-management-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:

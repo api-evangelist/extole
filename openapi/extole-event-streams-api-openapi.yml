@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Event Streams API
+  description: 'Configuration endpoints for the Extole platform: campaigns, components, audiences, persons, rewards, reporting, integrations setup, and administrative tooling.'
+  title: Management Event Streams API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -1939,386 +1935,57 @@ paths:
       x-extole-bundle: management
       x-extole-visibility: visible
 components:
-  examples:
-    event_stream_filter_validation_exception:
-      summary: event_stream_filter_validation_exception
-      value:
-        code: event_stream_filter_validation_exception
-        http_status_code: 400
-        message: Filter validation failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    self_component_reference:
-      summary: self_component_reference
-      value:
-        code: self_component_reference
-        http_status_code: 400
-        message: Self campaign component reference is not allowed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_id_missing:
-      summary: campaign_component_id_missing
-      value:
-        code: campaign_component_id_missing
-        http_status_code: 400
-        message: Campaign component id is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_stream_validation_failed:
-      summary: event_stream_validation_failed
-      value:
-        code: event_stream_validation_failed
-        http_status_code: 400
-        message: Filter validation failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_reference_socket_name:
-      summary: invalid_component_reference_socket_name
-      value:
-        code: invalid_component_reference_socket_name
-        http_status_code: 400
-        message: Invalid component reference socket name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    external_elements_cannot_have_multiple_references:
-      summary: external_elements_cannot_have_multiple_references
-      value:
-        code: external_elements_cannot_have_multiple_references
-        http_status_code: 400
-        message: External elements cannot have multiple references
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    orphan_external_component_reference:
-      summary: orphan_external_component_reference
-      value:
-        code: orphan_external_component_reference
-        http_status_code: 400
-        message: Orphan external referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_stream_missing_name:
-      summary: event_stream_missing_name
-      value:
-        code: event_stream_missing_name
-        http_status_code: 400
-        message: Required name is not specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    build_failed:
-      summary: build_failed
-      value:
-        code: build_failed
-        http_status_code: 400
-        message: Build failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_display_name_contains_illegal_character:
-      summary: campaign_component_display_name_contains_illegal_character
-      value:
-        code: campaign_component_display_name_contains_illegal_character
-        http_status_code: 400
-        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_stream_invalid_name:
-      summary: event_stream_invalid_name
-      value:
-        code: event_stream_invalid_name
-        http_status_code: 400
-        message: Invalid name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_external_component_reference:
-      summary: invalid_external_component_reference
-      value:
-        code: invalid_external_component_reference
-        http_status_code: 400
-        message: Unknown external referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_stream_filter_not_found:
-      summary: event_stream_filter_not_found
-      value:
-        code: event_stream_filter_not_found
-        http_status_code: 400
-        message: EventStream filter was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    excessive_component_reference:
-      summary: excessive_component_reference
-      value:
-        code: excessive_component_reference
-        http_status_code: 400
-        message: Root campaign component may have at most one reference
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_already_in_use:
-      summary: campaign_component_name_already_in_use
-      value:
-        code: campaign_component_name_already_in_use
-        http_status_code: 400
-        message: Campaign component name is already used by another component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_installed_into_socket:
-      summary: invalid_component_installed_into_socket
-      value:
-        code: invalid_component_installed_into_socket
-        http_status_code: 400
-        message: Invalid component installed into socket
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_out_of_range:
-      summary: campaign_component_name_out_of_range
-      value:
-        code: campaign_component_name_out_of_range
-        http_status_code: 400
-        message: Campaign component name length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_stream_not_found:
-      summary: event_stream_not_found
-      value:
-        code: event_stream_not_found
-        http_status_code: 400
-        message: EventStream was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_reference:
-      summary: invalid_component_reference
-      value:
-        code: invalid_component_reference
-        http_status_code: 400
-        message: Unknown referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_type_validation_failed:
-      summary: campaign_component_type_validation_failed
-      value:
-        code: campaign_component_type_validation_failed
-        http_status_code: 400
-        message: Campaign component type validation failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    redundant_component_reference:
-      summary: redundant_component_reference
-      value:
-        code: redundant_component_reference
-        http_status_code: 400
-        message: Same reference defined multiple times
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_description_out_of_range:
-      summary: campaign_component_description_out_of_range
-      value:
-        code: campaign_component_description_out_of_range
-        http_status_code: 400
-        message: Campaign component description length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_contains_illegal_character:
-      summary: campaign_component_name_contains_illegal_character
-      value:
-        code: campaign_component_name_contains_illegal_character
-        http_status_code: 400
-        message: Campaign component name can only contain alphanumeric, dash and underscore characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    circular_component_reference:
-      summary: circular_component_reference
-      value:
-        code: circular_component_reference
-        http_status_code: 400
-        message: Circular campaign component reference is not allowed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    component_facets_not_found:
-      summary: component_facets_not_found
-      value:
-        code: component_facets_not_found
-        http_status_code: 400
-        message: Component facets not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    external_element_is_referenced_by_active_configuration:
-      summary: external_element_is_referenced_by_active_configuration
-      value:
-        code: external_element_is_referenced_by_active_configuration
-        http_status_code: 400
-        message: External element is referenced by active configuration
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_absolute_name_missing:
-      summary: campaign_component_absolute_name_missing
-      value:
-        code: campaign_component_absolute_name_missing
-        http_status_code: 400
-        message: Campaign component absolute name is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_display_name_out_of_range:
-      summary: campaign_component_display_name_out_of_range
-      value:
-        code: campaign_component_display_name_out_of_range
-        http_status_code: 400
-        message: Campaign component display name length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    EventStreamApplicationTypeFilterCreateRequest:
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    EventStreamEventTypeFilterCreateRequest:
       allOf:
       - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
       - properties:
-          app_types:
+          event_types:
             items:
+              enum:
+              - ADD_SHAREABLE
+              - ASSET
+              - AUDIENCE_MEMBERSHIP_CREATED
+              - AUDIENCE_MEMBERSHIP_REMOVED
+              - AUDIENCE_MEMBERSHIP_UPDATED
+              - DATA_INTELLIGENCE
+              - DISPLACED
+              - DISPLACED_BY
+              - FORWARDED
+              - IDENTIFIED
+              - INCENTIVIZED
+              - INPUT
+              - INTERNAL
+              - LEGACY_CONSUMER_EVENT
+              - MESSAGE
+              - MESSAGE_NOT_DELIVERED
+              - REDEEMED
+              - REFERRED
+              - REFERRED_BY
+              - REWARD
+              - SEND_REWARD
+              - SHARE
+              - SHAREABLE
+              - STEP
               type: string
             type: array
           type:
             enum:
-            - APPLICATION_TYPE
+            - EVENT_TYPE
             type: string
         type: object
       required:
       - type
       type: object
-    EventStreamPersonIdFilterResponse:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
-      - properties:
-          id:
-            readOnly: true
-            type: string
-          person_ids:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - PERSON_ID
-            type: string
-        type: object
-      required:
-      - id
-      - person_ids
-      - type
-      type: object
-    EventStreamFilterCreateRequest:
-      description: Body of a `POST /v6/event-streams/{eventStreamId}/filters` request.
-      discriminator:
-        mapping:
-          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterCreateRequest'
-          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterCreateRequest'
-          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterCreateRequest'
-          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterCreateRequest'
-          SANDBOX: '#/components/schemas/EventStreamSandboxFilterCreateRequest'
-        propertyName: type
+    DescriptionInEventStreamResponse:
+      description: 'The description as configured: a literal value, or an expression (type:string) when defined dynamically.'
       oneOf:
-      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterCreateRequest'
-      - $ref: '#/components/schemas/EventStreamEventNameFilterCreateRequest'
-      - $ref: '#/components/schemas/EventStreamEventTypeFilterCreateRequest'
-      - $ref: '#/components/schemas/EventStreamPersonIdFilterCreateRequest'
-      - $ref: '#/components/schemas/EventStreamSandboxFilterCreateRequest'
-      required:
-      - type
-    EventStreamFilterResponseBase:
-      properties:
-        id:
-          readOnly: true
-          type: string
-        type:
-          enum:
-          - APPLICATION_TYPE
-          - EVENT_NAME
-          - EVENT_TYPE
-          - PERSON_ID
-          - SANDBOX
-          type: string
-      type: object
-    DescriptionInEventStreamCreateRequest:
-      description: Choose between static or dynamic description
-      oneOf:
-      - description: Static description
-        nullable: true
+      - description: Literal description
         title: Static Value
         type: string
       - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
@@ -2337,6 +2004,124 @@ components:
         pattern: ^javascript@buildtime:.*
         title: Buildtime - Javascript
         type: string
+    EventStreamSandboxFilterCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - properties:
+          containers:
+            items:
+              type: string
+            type: array
+          sandboxes:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - SANDBOX
+            type: string
+        type: object
+      required:
+      - type
+      type: object
+    DescriptionInEventStreamUpdateRequest:
+      description: Choose between static or dynamic description
+      oneOf:
+      - description: Static description
+        title: Static Value
+        type:
+        - string
+        - 'null'
+      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{description}}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    EventStreamFilterResponse:
+      discriminator:
+        mapping:
+          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterResponse'
+          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterResponse'
+          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterResponse'
+          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterResponse'
+          SANDBOX: '#/components/schemas/EventStreamSandboxFilterResponse'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterResponse'
+      - $ref: '#/components/schemas/EventStreamEventNameFilterResponse'
+      - $ref: '#/components/schemas/EventStreamEventTypeFilterResponse'
+      - $ref: '#/components/schemas/EventStreamPersonIdFilterResponse'
+      - $ref: '#/components/schemas/EventStreamSandboxFilterResponse'
+      required:
+      - id
+      - type
+    BuiltEventStreamResponse:
+      description: event stream after buildtime evaluation. Fields `name` and `description` are already evaluated.
+      properties:
+        component_ids:
+          items:
+            type: string
+          type: array
+        created_date:
+          $ref: '#/components/schemas/Instant'
+        description:
+          type: string
+        filters:
+          items:
+            $ref: '#/components/schemas/EventStreamFilterResponse'
+          type: array
+        id:
+          readOnly: true
+          type: string
+        name:
+          type: string
+        stop_at:
+          $ref: '#/components/schemas/Instant'
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        updated_date:
+          $ref: '#/components/schemas/Instant'
+      required:
+      - component_ids
+      - created_date
+      - description
+      - filters
+      - id
+      - name
+      - stop_at
+      - tags
+      - updated_date
+      type: object
+    EventStreamEventNameFilterUpdateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
+      - properties:
+          event_names:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - EVENT_NAME
+            type: string
+        type: object
+      required:
+      - type
+      type: object
     EventStreamEventNameFilterResponse:
       allOf:
       - $ref: '#/components/schemas/EventStreamFilterResponseBase'
@@ -2358,47 +2143,14 @@ components:
       - id
       - type
       type: object
-    EventStreamApplicationTypeFilterResponse:
+    EventStreamSandboxFilterUpdateRequest:
       allOf:
-      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
-      - properties:
-          app_types:
-            items:
-              type: string
-            type: array
-          id:
-            readOnly: true
-            type: string
-          type:
-            enum:
-            - APPLICATION_TYPE
-            type: string
-        type: object
-      required:
-      - app_types
-      - id
-      - type
-      type: object
-    ComponentReferenceRequest:
-      properties:
-        component_id:
-          type: string
-        socket_names:
-          items:
-            type: string
-          type: array
-      type: object
-    EventStreamSandboxFilterResponse:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
+      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
       - properties:
           containers:
             items:
               type: string
             type: array
-          id:
-            readOnly: true
-            type: string
           sandboxes:
             items:
               type: string
@@ -2409,52 +2161,80 @@ components:
             type: string
         type: object
       required:
-      - containers
-      - id
-      - sandboxes
       - type
       type: object
-    NameInEventStreamCreateRequest:
-      description: Choose between static or dynamic name
-      oneOf:
-      - allOf:
-        - type: string
-        - not:
-            anyOf:
-            - pattern: ^handlebars@buildtime:.*
-              type: string
-            - pattern: ^javascript@buildtime:.*
-              type: string
-          type: string
-        description: Static name
-        title: Static Value
-      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{name}}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    EventStreamEventNameFilterCreateRequest:
+    EventStreamApplicationTypeFilterUpdateRequest:
       allOf:
-      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
       - properties:
-          event_names:
+          app_types:
             items:
               type: string
             type: array
           type:
             enum:
-            - EVENT_NAME
+            - APPLICATION_TYPE
+            type: string
+        type: object
+      required:
+      - type
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    EventStreamPersonIdFilterCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - properties:
+          person_ids:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - PERSON_ID
+            type: string
+        type: object
+      required:
+      - type
+      type: object
+    EventStreamPersonIdFilterUpdateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
+      - properties:
+          person_ids:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - PERSON_ID
             type: string
         type: object
       required:
@@ -2500,44 +2280,17 @@ components:
       - tags
       - updated_date
       type: object
-    NameInEventStreamResponse:
-      description: 'The name as configured: a literal value, or an expression (type:string) when defined dynamically.'
-      oneOf:
-      - allOf:
-        - type: string
-        - not:
-            anyOf:
-            - pattern: ^handlebars@buildtime:.*
-              type: string
-            - pattern: ^javascript@buildtime:.*
-              type: string
-          type: string
-        description: Literal name
-        title: Static Value
-      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{name}}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    EventStreamSandboxFilterCreateRequest:
+    EventStreamSandboxFilterResponse:
       allOf:
-      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
       - properties:
           containers:
             items:
               type: string
             type: array
+          id:
+            readOnly: true
+            type: string
           sandboxes:
             items:
               type: string
@@ -2548,146 +2301,65 @@ components:
             type: string
         type: object
       required:
+      - containers
+      - id
+      - sandboxes
       - type
       type: object
-    EventStreamSandboxFilterUpdateRequest:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
-      - properties:
-          containers:
-            items:
-              type: string
-            type: array
-          sandboxes:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - SANDBOX
-            type: string
-        type: object
-      required:
-      - type
-      type: object
-    EventStreamPersonIdFilterUpdateRequest:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
-      - properties:
-          person_ids:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - PERSON_ID
-            type: string
-        type: object
-      required:
-      - type
-      type: object
-    DescriptionInEventStreamUpdateRequest:
-      description: Choose between static or dynamic description
-      oneOf:
-      - description: Static description
-        nullable: true
-        title: Static Value
-        type: string
-      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{description}}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    EventStreamPersonIdFilterCreateRequest:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
-      - properties:
-          person_ids:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - PERSON_ID
-            type: string
-        type: object
-      required:
-      - type
-      type: object
-    DescriptionInEventStreamResponse:
-      description: 'The description as configured: a literal value, or an expression (type:string) when defined dynamically.'
-      oneOf:
-      - description: Literal description
-        title: Static Value
-        type: string
-      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{description}}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
-        externalDocs:
-          description: EventStreamBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    EventStreamEventNameFilterUpdateRequest:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
-      - properties:
-          event_names:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - EVENT_NAME
-            type: string
-        type: object
-      required:
-      - type
-      type: object
-    EventStreamEventResponse:
-      description: Event captured by an event stream, including identifiers, timestamp, and raw event payload.
+    EventStreamFilterUpdateRequestBase:
       properties:
-        event:
-          description: Raw event payload captured by the event stream.
-          type: object
-        event_id:
-          description: Identifier of the captured event.
+        type:
+          enum:
+          - APPLICATION_TYPE
+          - EVENT_NAME
+          - EVENT_TYPE
+          - PERSON_ID
+          - SANDBOX
           type: string
-        event_stream_id:
-          description: Identifier of the event stream that captured the event.
-          type: string
-        event_time:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - event
-      - event_id
-      - event_stream_id
-      - event_time
       type: object
-    Instant:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) UTC date-time with a `Z` suffix. Precision up to milliseconds.'
-      example: '2025-10-24T09:00:00.000Z'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$
-      type: string
+    EventStreamCreateRequest:
+      description: Body of a `POST /v6/event-streams` request.
+      properties:
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        description:
+          $ref: '#/components/schemas/DescriptionInEventStreamCreateRequest'
+        name:
+          $ref: '#/components/schemas/NameInEventStreamCreateRequest'
+        stop_at:
+          $ref: '#/components/schemas/Instant'
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - name
+      type: object
+    EventStreamFilterCreateRequest:
+      description: Body of a `POST /v6/event-streams/{eventStreamId}/filters` request.
+      discriminator:
+        mapping:
+          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterCreateRequest'
+          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterCreateRequest'
+          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterCreateRequest'
+          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterCreateRequest'
+          SANDBOX: '#/components/schemas/EventStreamSandboxFilterCreateRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterCreateRequest'
+      - $ref: '#/components/schemas/EventStreamEventNameFilterCreateRequest'
+      - $ref: '#/components/schemas/EventStreamEventTypeFilterCreateRequest'
+      - $ref: '#/components/schemas/EventStreamPersonIdFilterCreateRequest'
+      - $ref: '#/components/schemas/EventStreamSandboxFilterCreateRequest'
+      required:
+      - type
     EventStreamEventTypeFilterResponse:
       allOf:
       - $ref: '#/components/schemas/EventStreamFilterResponseBase'
@@ -2734,7 +2406,100 @@ components:
       - id
       - type
       type: object
-    EventStreamFilterUpdateRequestBase:
+    EventStreamEventResponse:
+      description: Event captured by an event stream, including identifiers, timestamp, and raw event payload.
+      properties:
+        event:
+          description: Raw event payload captured by the event stream.
+          type: object
+        event_id:
+          description: Identifier of the captured event.
+          type: string
+        event_stream_id:
+          description: Identifier of the event stream that captured the event.
+          type: string
+        event_time:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - event
+      - event_id
+      - event_stream_id
+      - event_time
+      type: object
+    EventStreamFilterResponseBase:
+      properties:
+        id:
+          readOnly: true
+          type: string
+        type:
+          enum:
+          - APPLICATION_TYPE
+          - EVENT_NAME
+          - EVENT_TYPE
+          - PERSON_ID
+          - SANDBOX
+          type: string
+      type: object
+    ComponentReferenceRequest:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    EventStreamEventNameFilterCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - properties:
+          event_names:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - EVENT_NAME
+            type: string
+        type: object
+      required:
+      - type
+      type: object
+    EventStreamFilterUpdateRequest:
+      description: Body of a `PUT /v6/event-streams/{eventStreamId}/filters/{filterId}` request.
+      discriminator:
+        mapping:
+          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterUpdateRequest'
+          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterUpdateRequest'
+          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterUpdateRequest'
+          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterUpdateRequest'
+          SANDBOX: '#/components/schemas/EventStreamSandboxFilterUpdateRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterUpdateRequest'
+      - $ref: '#/components/schemas/EventStreamEventNameFilterUpdateRequest'
+      - $ref: '#/components/schemas/EventStreamEventTypeFilterUpdateRequest'
+      - $ref: '#/components/schemas/EventStreamPersonIdFilterUpdateRequest'
+      - $ref: '#/components/schemas/EventStreamSandboxFilterUpdateRequest'
+      required:
+      - type
+    EventStreamApplicationTypeFilterCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - properties:
+          app_types:
+            items:
+              type: string
+            type: array
+          type:
+            enum:
+            - APPLICATION_TYPE
+            type: string
+        type: object
+      required:
+      - type
+      type: object
+    EventStreamFilterCreateRequestBase:
       properties:
         type:
           enum:
@@ -2744,6 +2509,113 @@ components:
           - PERSON_ID
           - SANDBOX
           type: string
+      type: object
+    DescriptionInEventStreamCreateRequest:
+      description: Choose between static or dynamic description
+      oneOf:
+      - description: Static description
+        title: Static Value
+        type:
+        - string
+        - 'null'
+      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{description}}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('description');}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    NameInEventStreamCreateRequest:
+      description: Choose between static or dynamic name
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static name
+        title: Static Value
+      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{name}}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    NameInEventStreamUpdateRequest:
+      description: Choose between static or dynamic name
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static name
+        title: Static Value
+      - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{name}}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('name');}
+        externalDocs:
+          description: EventStreamBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    EventStreamUpdateRequest:
+      description: Body of a `PUT /v6/event-streams/{eventStreamId}` request.
+      properties:
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        description:
+          $ref: '#/components/schemas/DescriptionInEventStreamUpdateRequest'
+        name:
+          $ref: '#/components/schemas/NameInEventStreamUpdateRequest'
+        stop_at:
+          $ref: '#/components/schemas/Instant'
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
       type: object
     EventStreamEventTypeFilterUpdateRequest:
       allOf:
@@ -2786,142 +2658,8 @@ components:
       required:
       - type
       type: object
-    EventStreamFilterUpdateRequest:
-      description: Body of a `PUT /v6/event-streams/{eventStreamId}/filters/{filterId}` request.
-      discriminator:
-        mapping:
-          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterUpdateRequest'
-          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterUpdateRequest'
-          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterUpdateRequest'
-          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterUpdateRequest'
-          SANDBOX: '#/components/schemas/EventStreamSandboxFilterUpdateRequest'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterUpdateRequest'
-      - $ref: '#/components/schemas/EventStreamEventNameFilterUpdateRequest'
-      - $ref: '#/components/schemas/EventStreamEventTypeFilterUpdateRequest'
-      - $ref: '#/components/schemas/EventStreamPersonIdFilterUpdateRequest'
-      - $ref: '#/components/schemas/EventStreamSandboxFilterUpdateRequest'
-      required:
-      - type
-    EventStreamCreateRequest:
-      description: Body of a `POST /v6/event-streams` request.
-      properties:
-        component_ids:
-          items:
-            type: string
-          type: array
-        component_references:
-          items:
-            $ref: '#/components/schemas/ComponentReferenceRequest'
-          type: array
-        description:
-          $ref: '#/components/schemas/DescriptionInEventStreamCreateRequest'
-        name:
-          $ref: '#/components/schemas/NameInEventStreamCreateRequest'
-        stop_at:
-          $ref: '#/components/schemas/Instant'
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - name
-      type: object
-    EventStreamUpdateRequest:
-      description: Body of a `PUT /v6/event-streams/{eventStreamId}` request.
-      properties:
-        component_ids:
-          items:
-            type: string
-          type: array
-        component_references:
-          items:
-            $ref: '#/components/schemas/ComponentReferenceRequest'
-          type: array
-        description:
-          $ref: '#/components/schemas/DescriptionInEventStreamUpdateRequest'
-        name:
-          $ref: '#/components/schemas/NameInEventStreamUpdateRequest'
-        stop_at:
-          $ref: '#/components/schemas/Instant'
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
-    EventStreamApplicationTypeFilterUpdateRequest:
-      allOf:
-      - $ref: '#/components/schemas/EventStreamFilterUpdateRequestBase'
-      - properties:
-          app_types:
-            items:
-              type: string
-            type: array
-          type:
-            enum:
-            - APPLICATION_TYPE
-            type: string
-        type: object
-      required:
-      - type
-      type: object
-    EventStreamFilterResponse:
-      discriminator:
-        mapping:
-          APPLICATION_TYPE: '#/components/schemas/EventStreamApplicationTypeFilterResponse'
-          EVENT_NAME: '#/components/schemas/EventStreamEventNameFilterResponse'
-          EVENT_TYPE: '#/components/schemas/EventStreamEventTypeFilterResponse'
-          PERSON_ID: '#/components/schemas/EventStreamPersonIdFilterResponse'
-          SANDBOX: '#/components/schemas/EventStreamSandboxFilterResponse'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/EventStreamApplicationTypeFilterResponse'
-      - $ref: '#/components/schemas/EventStreamEventNameFilterResponse'
-      - $ref: '#/components/schemas/EventStreamEventTypeFilterResponse'
-      - $ref: '#/components/schemas/EventStreamPersonIdFilterResponse'
-      - $ref: '#/components/schemas/EventStreamSandboxFilterResponse'
-      required:
-      - id
-      - type
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
-    NameInEventStreamUpdateRequest:
-      description: Choose between static or dynamic name
+    NameInEventStreamResponse:
+      description: 'The name as configured: a literal value, or an expression (type:string) when defined dynamically.'
       oneOf:
       - allOf:
         - type: string
@@ -2932,7 +2670,7 @@ components:
             - pattern: ^javascript@buildtime:.*
               type: string
           type: string
-        description: Static name
+        description: Literal name
         title: Static Value
       - description: Handlebars expression with [EventStreamBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/event/stream/EventStreamBuildtimeContext.d.ts).
         example: handlebars@buildtime:{{name}}
@@ -2950,98 +2688,358 @@ components:
         pattern: ^javascript@buildtime:.*
         title: Buildtime - Javascript
         type: string
-    BuiltEventStreamResponse:
-      description: event stream after buildtime evaluation. Fields `name` and `description` are already evaluated.
-      properties:
-        component_ids:
-          items:
-            type: string
-          type: array
-        created_date:
-          $ref: '#/components/schemas/Instant'
-        description:
-          type: string
-        filters:
-          items:
-            $ref: '#/components/schemas/EventStreamFilterResponse'
-          type: array
-        id:
-          readOnly: true
-          type: string
-        name:
-          type: string
-        stop_at:
-          $ref: '#/components/schemas/Instant'
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        updated_date:
-          $ref: '#/components/schemas/Instant'
-      required:
-      - component_ids
-      - created_date
-      - description
-      - filters
-      - id
-      - name
-      - stop_at
-      - tags
-      - updated_date
-      type: object
-    EventStreamFilterCreateRequestBase:
-      properties:
-        type:
-          enum:
-          - APPLICATION_TYPE
-          - EVENT_NAME
-          - EVENT_TYPE
-          - PERSON_ID
-          - SANDBOX
-          type: string
-      type: object
-    EventStreamEventTypeFilterCreateRequest:
+    EventStreamPersonIdFilterResponse:
       allOf:
-      - $ref: '#/components/schemas/EventStreamFilterCreateRequestBase'
+      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
       - properties:
-          event_types:
+          id:
+            readOnly: true
+            type: string
+          person_ids:
             items:
-              enum:
-              - ADD_SHAREABLE
-              - ASSET
-              - AUDIENCE_MEMBERSHIP_CREATED
-              - AUDIENCE_MEMBERSHIP_REMOVED
-              - AUDIENCE_MEMBERSHIP_UPDATED
-              - DATA_INTELLIGENCE
-              - DISPLACED
-              - DISPLACED_BY
-              - FORWARDED
-              - IDENTIFIED
-              - INCENTIVIZED
-              - INPUT
-              - INTERNAL
-              - LEGACY_CONSUMER_EVENT
-              - MESSAGE
-              - MESSAGE_NOT_DELIVERED
-              - REDEEMED
-              - REFERRED
-              - REFERRED_BY
-              - REWARD
-              - SEND_REWARD
-              - SHARE
-              - SHAREABLE
-              - STEP
               type: string
             type: array
           type:
             enum:
-            - EVENT_TYPE
+            - PERSON_ID
             type: string
         type: object
       required:
+      - id
+      - person_ids
       - type
       type: object
+    Instant:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) UTC date-time with a `Z` suffix. Precision up to milliseconds.'
+      example: '2025-10-24T09:00:00.000Z'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$
+      type: string
+    EventStreamApplicationTypeFilterResponse:
+      allOf:
+      - $ref: '#/components/schemas/EventStreamFilterResponseBase'
+      - properties:
+          app_types:
+            items:
+              type: string
+            type: array
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - APPLICATION_TYPE
+            type: string
+        type: object
+      required:
+      - app_types
+      - id
+      - type
+      type: object
+  examples:
+    circular_component_reference:
+      summary: circular_component_reference
+      value:
+        code: circular_component_reference
+        http_status_code: 400
+        message: Circular campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_elements_cannot_have_multiple_references:
+      summary: external_elements_cannot_have_multiple_references
+      value:
+        code: external_elements_cannot_have_multiple_references
+        http_status_code: 400
+        message: External elements cannot have multiple references
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_filter_not_found:
+      summary: event_stream_filter_not_found
+      value:
+        code: event_stream_filter_not_found
+        http_status_code: 400
+        message: EventStream filter was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_not_found:
+      summary: event_stream_not_found
+      value:
+        code: event_stream_not_found
+        http_status_code: 400
+        message: EventStream was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_filter_validation_exception:
+      summary: event_stream_filter_validation_exception
+      value:
+        code: event_stream_filter_validation_exception
+        http_status_code: 400
+        message: Filter validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_missing_name:
+      summary: event_stream_missing_name
+      value:
+        code: event_stream_missing_name
+        http_status_code: 400
+        message: Required name is not specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_installed_into_socket:
+      summary: invalid_component_installed_into_socket
+      value:
+        code: invalid_component_installed_into_socket
+        http_status_code: 400
+        message: Invalid component installed into socket
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_description_out_of_range:
+      summary: campaign_component_description_out_of_range
+      value:
+        code: campaign_component_description_out_of_range
+        http_status_code: 400
+        message: Campaign component description length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_out_of_range:
+      summary: campaign_component_name_out_of_range
+      value:
+        code: campaign_component_name_out_of_range
+        http_status_code: 400
+        message: Campaign component name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    excessive_component_reference:
+      summary: excessive_component_reference
+      value:
+        code: excessive_component_reference
+        http_status_code: 400
+        message: Root campaign component may have at most one reference
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_facets_not_found:
+      summary: component_facets_not_found
+      value:
+        code: component_facets_not_found
+        http_status_code: 400
+        message: Component facets not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_contains_illegal_character:
+      summary: campaign_component_display_name_contains_illegal_character
+      value:
+        code: campaign_component_display_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_invalid_name:
+      summary: event_stream_invalid_name
+      value:
+        code: event_stream_invalid_name
+        http_status_code: 400
+        message: Invalid name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_id_missing:
+      summary: campaign_component_id_missing
+      value:
+        code: campaign_component_id_missing
+        http_status_code: 400
+        message: Campaign component id is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    self_component_reference:
+      summary: self_component_reference
+      value:
+        code: self_component_reference
+        http_status_code: 400
+        message: Self campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_type_validation_failed:
+      summary: campaign_component_type_validation_failed
+      value:
+        code: campaign_component_type_validation_failed
+        http_status_code: 400
+        message: Campaign component type validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_contains_illegal_character:
+      summary: campaign_component_name_contains_illegal_character
+      value:
+        code: campaign_component_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    redundant_component_reference:
+      summary: redundant_component_reference
+      value:
+        code: redundant_component_reference
+        http_status_code: 400
+        message: Same reference defined multiple times
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_element_is_referenced_by_active_configuration:
+      summary: external_element_is_referenced_by_active_configuration
+      value:
+        code: external_element_is_referenced_by_active_configuration
+        http_status_code: 400
+        message: External element is referenced by active configuration
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_absolute_name_missing:
+      summary: campaign_component_absolute_name_missing
+      value:
+        code: campaign_component_absolute_name_missing
+        http_status_code: 400
+        message: Campaign component absolute name is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_stream_validation_failed:
+      summary: event_stream_validation_failed
+      value:
+        code: event_stream_validation_failed
+        http_status_code: 400
+        message: Filter validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    orphan_external_component_reference:
+      summary: orphan_external_component_reference
+      value:
+        code: orphan_external_component_reference
+        http_status_code: 400
+        message: Orphan external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_external_component_reference:
+      summary: invalid_external_component_reference
+      value:
+        code: invalid_external_component_reference
+        http_status_code: 400
+        message: Unknown external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference:
+      summary: invalid_component_reference
+      value:
+        code: invalid_component_reference
+        http_status_code: 400
+        message: Unknown referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_already_in_use:
+      summary: campaign_component_name_already_in_use
+      value:
+        code: campaign_component_name_already_in_use
+        http_status_code: 400
+        message: Campaign component name is already used by another component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    build_failed:
+      summary: build_failed
+      value:
+        code: build_failed
+        http_status_code: 400
+        message: Build failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_out_of_range:
+      summary: campaign_component_display_name_out_of_range
+      value:
+        code: campaign_component_display_name_out_of_range
+        http_status_code: 400
+        message: Campaign component display name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference_socket_name:
+      summary: invalid_component_reference_socket_name
+      value:
+        code: invalid_component_reference_socket_name
+        http_status_code: 400
+        message: Invalid component reference socket name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -3057,12 +3055,30 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management API
   tags:
+  - Audiences
   - Authentication
-  - Content
+  - Batch Jobs
+  - Blocks
+  - Campaigns
+  - Components
+  - Components Settings
+  - Domains
   - Email
-  - Events
-  - Persons
-  - Profile Assets
+  - Erasure
+  - Event Streams
+  - File Validation Monitors
+  - Optout
   - Profiles
+  - Promotion Links
+  - Report Schedules
+  - Report Types
+  - Reports
+  - Reward Suppliers
+  - Security Keys
+  - Settings
+  - User Notifications
+  - User Subscriptions
+  - Users
+  - Webhooks

@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Components Types API
+  description: 'Advanced configuration endpoints for Extole platform experts: campaign controllers, typed actions and triggers, advanced component types and facets, source mapping, report post-handlers, pre-handlers, and other expert configuration surfaces not included in the standard Management API.'
+  title: Management Expert Components Types API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -578,20 +574,36 @@ paths:
       x-extole-visibility: expert
 components:
   examples:
-    invalid_json:
-      summary: invalid_json
+    missing_component_type_schema:
+      summary: missing_component_type_schema
       value:
-        code: invalid_json
+        code: missing_component_type_schema
         http_status_code: 400
-        message: JSON is invalid
+        message: Component type schema is not specified
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_type_display_name_length:
-      summary: invalid_component_type_display_name_length
+    invalid_component_type_schema:
+      summary: invalid_component_type_schema
       value:
-        code: invalid_component_type_display_name_length
+        code: invalid_component_type_schema
         http_status_code: 400
-        message: Component type display name length is invalid
+        message: Invalid component type schema
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_type_name_contains_illegal_characters:
+      summary: component_type_name_contains_illegal_characters
+      value:
+        code: component_type_name_contains_illegal_characters
+        http_status_code: 400
+        message: Component type name should contain alphanumeric, dot, underscore and dash characters only
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_type_parent:
+      summary: invalid_component_type_parent
+      value:
+        code: invalid_component_type_parent
+        http_status_code: 400
+        message: Invalid component type parent
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_component_type_name:
@@ -602,6 +614,54 @@ components:
         message: Component type name is not specified
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_type_not_found:
+      summary: component_type_not_found
+      value:
+        code: component_type_not_found
+        http_status_code: 400
+        message: Component type was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
       summary: missing_access_token
       value:
@@ -610,12 +670,44 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_type_name_length:
+      summary: invalid_component_type_name_length
+      value:
+        code: invalid_component_type_name_length
+        http_status_code: 400
+        message: Component type name length is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_type_display_name_length:
+      summary: invalid_component_type_display_name_length
+      value:
+        code: invalid_component_type_display_name_length
+        http_status_code: 400
+        message: Component type display name length is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
       summary: payment_required
       value:
         code: payment_required
         http_status_code: 402
         message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_type_display_name_contains_illegal_characters:
+      summary: component_type_display_name_contains_illegal_characters
+      value:
+        code: component_type_display_name_contains_illegal_characters
+        http_status_code: 400
+        message: Component type display name should contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters only
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     component_type_name_already_used:
@@ -634,46 +726,6 @@ components:
         message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    component_type_not_found:
-      summary: component_type_not_found
-      value:
-        code: component_type_not_found
-        http_status_code: 400
-        message: Component type was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_component_type_schema:
-      summary: missing_component_type_schema
-      value:
-        code: missing_component_type_schema
-        http_status_code: 400
-        message: Component type schema is not specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     access_denied:
       summary: access_denied
       value:
@@ -682,112 +734,7 @@ components:
         message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    component_type_display_name_contains_illegal_characters:
-      summary: component_type_display_name_contains_illegal_characters
-      value:
-        code: component_type_display_name_contains_illegal_characters
-        http_status_code: 400
-        message: Component type display name should contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters only
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    component_type_name_contains_illegal_characters:
-      summary: component_type_name_contains_illegal_characters
-      value:
-        code: component_type_name_contains_illegal_characters
-        http_status_code: 400
-        message: Component type name should contain alphanumeric, dot, underscore and dash characters only
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_type_schema:
-      summary: invalid_component_type_schema
-      value:
-        code: invalid_component_type_schema
-        http_status_code: 400
-        message: Invalid component type schema
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_type_parent:
-      summary: invalid_component_type_parent
-      value:
-        code: invalid_component_type_parent
-        http_status_code: 400
-        message: Invalid component type parent
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_type_name_length:
-      summary: invalid_component_type_name_length
-      value:
-        code: invalid_component_type_name_length
-        http_status_code: 400
-        message: Component type name length is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    ComponentTypeUpdateRequest:
-      description: Body of a `PUT /v1/component-types/{name}` request.
-      properties:
-        display_name:
-          nullable: true
-          type: string
-      type: object
-    ComponentTypeCreateRequest:
-      description: Body of a `POST /v1/component-types` request.
-      properties:
-        display_name:
-          type: string
-        name:
-          type: string
-        parent:
-          type: string
-        schema:
-          type: string
-      required:
-      - name
-      - schema
-      type: object
-    ComponentTypeResponse:
-      description: Component type definition that describes the settings schema, display metadata, and parent relationship for campaign components.
-      properties:
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        display_name:
-          description: Optional human-readable display name for the component type.
-          type: string
-        name:
-          description: Unique component type name used when creating or filtering campaign components.
-          type: string
-        parent:
-          description: Optional parent component type name inherited by this component type.
-          type: string
-        schema:
-          description: JSON schema that defines the settings and facets available on components of this type.
-          type: string
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - created_date
-      - display_name
-      - name
-      - parent
-      - schema
-      - updated_date
-      type: object
     ZonedDateTime:
       description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
       example: '2025-10-24T02:00:00-07:00'
@@ -822,6 +769,56 @@ components:
       - parameters
       - unique_id
       type: object
+    ComponentTypeResponse:
+      description: Component type definition that describes the settings schema, display metadata, and parent relationship for campaign components.
+      properties:
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        display_name:
+          description: Optional human-readable display name for the component type.
+          type: string
+        name:
+          description: Unique component type name used when creating or filtering campaign components.
+          type: string
+        parent:
+          description: Optional parent component type name inherited by this component type.
+          type: string
+        schema:
+          description: JSON schema that defines the settings and facets available on components of this type.
+          type: string
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - created_date
+      - display_name
+      - name
+      - parent
+      - schema
+      - updated_date
+      type: object
+    ComponentTypeUpdateRequest:
+      description: Body of a `PUT /v1/component-types/{name}` request.
+      properties:
+        display_name:
+          type:
+          - string
+          - 'null'
+      type: object
+    ComponentTypeCreateRequest:
+      description: Body of a `POST /v1/component-types` request.
+      properties:
+        display_name:
+          type: string
+        name:
+          type: string
+        parent:
+          type: string
+        schema:
+          type: string
+      required:
+      - name
+      - schema
+      type: object
   securitySchemes:
     COOKIE:
       in: cookie
@@ -837,12 +834,28 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management Expert API
   tags:
   - Authentication
+  - Campaign Controllers
+  - Campaign Controllers Actions
+  - Campaign Controllers Triggers
+  - Campaign Flow Steps
+  - Components
+  - Components Grants
+  - Components Subscriptions
+  - Components Types
   - Content
+  - Debug
+  - Domains
   - Email
+  - Event Prehandlers
   - Events
+  - Javascript Core Extensions
   - Persons
-  - Profile Assets
   - Profiles
+  - Report Schedules
+  - Report Types
+  - Reporting
+  - Security Keys
+  - Settings

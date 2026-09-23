@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Domains API
+  title: Extole Domains API
   version: '1.0'
+  description: 'Operations tagged Domains across 2 of this provider''s published API definitions: extole-management-expert-openapi.json, extole-management-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -264,6 +260,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domain-patterns/built:
     get:
       description: Returns all domain patterns in their fully evaluated (built) runtime form, with all `BuildtimeEvaluatable` fields resolved to their current string values. Use this when the calling system needs the effective pattern expressions rather than the source template definitions. Use `GET /v1/client-domain-patterns` for the editable source definitions.
@@ -365,6 +364,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domain-patterns/{id}:
     get:
       description: Returns the source definition for the supplied domain pattern, including its `pattern` expression, `type`, optional `client_domain_id`, and `test` flag. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client. For the compiled runtime snapshot use `GET /v1/client-domain-patterns/{id}/built` instead.
@@ -623,6 +625,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domain-patterns/{id}/built:
     get:
       description: Returns the fully evaluated (built) runtime form for the supplied domain pattern, with all `BuildtimeEvaluatable` fields resolved. Returns `400 client_domain_pattern_not_found` if the id does not exist or is not accessible to the calling client.
@@ -704,6 +709,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domain-patterns/{id}/delete:
     post:
       description: Hard-deletes the supplied domain pattern. Unlike archiving, deletion is irreversible. Returns the deleted pattern record on success. Returns `400 client_domain_pattern_not_found` if the id does not exist.
@@ -785,6 +793,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domain-patterns/{id}/unarchive:
     post:
       description: Restores a previously archived domain pattern so it is active in domain matching again. Returns the restored pattern record. Returns `400 client_domain_pattern_not_found` if the id does not exist.
@@ -866,6 +877,9 @@ paths:
       - Domains
       x-extole-bundle: management-expert
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domains:
     get:
       operationId: listClientDomains
@@ -1099,6 +1113,9 @@ paths:
       - Domains
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domains/{client_domain_id}:
     get:
       operationId: getClientDomain
@@ -1441,6 +1458,9 @@ paths:
       - Domains
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domains/{client_domain_id}/decrypt:
     get:
       operationId: getDecrypt
@@ -1532,6 +1552,9 @@ paths:
       - Domains
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v1/client-domains/{client_domain_id}/validate:
     post:
       operationId: validate
@@ -1623,134 +1646,17 @@ paths:
       - Domains
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
   examples:
-    ssl_private_key_invalid:
-      summary: ssl_private_key_invalid
-      value:
-        code: ssl_private_key_invalid
-        http_status_code: 400
-        message: Invalid format for SSL private key
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_private_key_invalid_format:
-      summary: ssl_private_key_invalid_format
-      value:
-        code: ssl_private_key_invalid_format
-        http_status_code: 400
-        message: Invalid format for SSL private key
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_uri_syntax:
-      summary: invalid_uri_syntax
-      value:
-        code: invalid_uri_syntax
-        http_status_code: 403
-        message: A uri supplied has syntax errors
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_display_name_contains_illegal_character:
-      summary: campaign_component_display_name_contains_illegal_character
-      value:
-        code: campaign_component_display_name_contains_illegal_character
-        http_status_code: 400
-        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    last_extole_client_domain:
-      summary: last_extole_client_domain
-      value:
-        code: last_extole_client_domain
-        http_status_code: 400
-        message: Cannot archive last Extole client domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    cannot_archive_valid_client_domain:
-      summary: cannot_archive_valid_client_domain
-      value:
-        code: cannot_archive_valid_client_domain
-        http_status_code: 400
-        message: Cannot archive a valid client domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_public_key_expired:
-      summary: ssl_public_key_expired
-      value:
-        code: ssl_public_key_expired
-        http_status_code: 400
-        message: Public key expired
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_private_key_missing:
-      summary: ssl_private_key_missing
-      value:
-        code: ssl_private_key_missing
-        http_status_code: 400
-        message: SSL private key is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_public_private_keys_mismatch:
-      summary: ssl_public_private_keys_mismatch
-      value:
-        code: ssl_public_private_keys_mismatch
-        http_status_code: 400
-        message: Key pair public/private does not match
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    redundant_component_reference:
-      summary: redundant_component_reference
-      value:
-        code: redundant_component_reference
-        http_status_code: 400
-        message: Same reference defined multiple times
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     circular_component_reference:
       summary: circular_component_reference
       value:
         code: circular_component_reference
         http_status_code: 400
         message: Circular campaign component reference is not allowed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    component_facets_not_found:
-      summary: component_facets_not_found
-      value:
-        code: component_facets_not_found
-        http_status_code: 400
-        message: Component facets not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_domain_pattern_build_failed:
-      summary: client_domain_pattern_build_failed
-      value:
-        code: client_domain_pattern_build_failed
-        http_status_code: 400
-        message: Client domain pattern build failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_client_domain_pattern_domain:
@@ -1761,228 +1667,12 @@ components:
         message: The client domain pattern must be a valid domain
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    client_domain_not_found:
-      summary: client_domain_not_found
+    external_elements_cannot_have_multiple_references:
+      summary: external_elements_cannot_have_multiple_references
       value:
-        code: client_domain_not_found
+        code: external_elements_cannot_have_multiple_references
         http_status_code: 400
-        message: Was unable to find client domain with ID
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_display_name_out_of_range:
-      summary: campaign_component_display_name_out_of_range
-      value:
-        code: campaign_component_display_name_out_of_range
-        http_status_code: 400
-        message: Campaign component display name length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    self_component_reference:
-      summary: self_component_reference
-      value:
-        code: self_component_reference
-        http_status_code: 400
-        message: Self campaign component reference is not allowed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_id_missing:
-      summary: campaign_component_id_missing
-      value:
-        code: campaign_component_id_missing
-        http_status_code: 400
-        message: Campaign component id is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_reference_socket_name:
-      summary: invalid_component_reference_socket_name
-      value:
-        code: invalid_component_reference_socket_name
-        http_status_code: 400
-        message: Invalid component reference socket name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_client_domain_pattern:
-      summary: missing_client_domain_pattern
-      value:
-        code: missing_client_domain_pattern
-        http_status_code: 400
-        message: Client domain pattern is required
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_external_component_reference:
-      summary: invalid_external_component_reference
-      value:
-        code: invalid_external_component_reference
-        http_status_code: 400
-        message: Unknown external referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    excessive_component_reference:
-      summary: excessive_component_reference
-      value:
-        code: excessive_component_reference
-        http_status_code: 400
-        message: Root campaign component may have at most one reference
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    cname_target_invalid_format:
-      summary: cname_target_invalid_format
-      value:
-        code: cname_target_invalid_format
-        http_status_code: 400
-        message: 'CNAME target has invalid format. Expected: *.extole.io or *.extole.com'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unknown_client_domain:
-      summary: unknown_client_domain
-      value:
-        code: unknown_client_domain
-        http_status_code: 400
-        message: The provided client domain url is not associated with an existing client domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_key_invalid:
-      summary: ssl_key_invalid
-      value:
-        code: ssl_key_invalid
-        http_status_code: 400
-        message: Invalid format for public key
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_chain_key_expired:
-      summary: ssl_chain_key_expired
-      value:
-        code: ssl_chain_key_expired
-        http_status_code: 400
-        message: Chain key expired
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_client_domain:
-      summary: invalid_client_domain
-      value:
-        code: invalid_client_domain
-        http_status_code: 400
-        message: Invalid client domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_domain_redirect_generates_loop:
-      summary: client_domain_redirect_generates_loop
-      value:
-        code: client_domain_redirect_generates_loop
-        http_status_code: 400
-        message: Client domain redirect generates loop
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_keys_not_allowed_for_extole_domain:
-      summary: ssl_keys_not_allowed_for_extole_domain
-      value:
-        code: ssl_keys_not_allowed_for_extole_domain
-        http_status_code: 400
-        message: Cannot specify SSL attributes for extole.io or extole.com domains
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_public_key_not_yet_valid:
-      summary: ssl_public_key_not_yet_valid
-      value:
-        code: ssl_public_key_not_yet_valid
-        http_status_code: 400
-        message: Public Key not yet valid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_name:
-      summary: invalid_name
-      value:
-        code: invalid_name
-        http_status_code: 400
-        message: The provided client name was invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_client_domain_pattern_syntax:
-      summary: invalid_client_domain_pattern_syntax
-      value:
-        code: invalid_client_domain_pattern_syntax
-        http_status_code: 400
-        message: The client domain pattern has syntax errors
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    orphan_external_component_reference:
-      summary: orphan_external_component_reference
-      value:
-        code: orphan_external_component_reference
-        http_status_code: 400
-        message: Orphan external referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_self_signed_certificate_not_accepted:
-      summary: ssl_self_signed_certificate_not_accepted
-      value:
-        code: ssl_self_signed_certificate_not_accepted
-        http_status_code: 400
-        message: Self-signed certificates cannot be used
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_domain_pattern_not_found:
-      summary: client_domain_pattern_not_found
-      value:
-        code: client_domain_pattern_not_found
-        http_status_code: 400
-        message: Client domain pattern was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_null:
-      summary: invalid_null
-      value:
-        code: invalid_null
-        http_status_code: 400
-        message: The attribute may be omitted but not nullified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
+        message: External elements cannot have multiple references
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_component_installed_into_socket:
@@ -1993,140 +1683,12 @@ components:
         message: Invalid component installed into socket
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_certificate_not_signed_by_chain:
-      summary: ssl_certificate_not_signed_by_chain
+    client_domain_pattern_build_failed:
+      summary: client_domain_pattern_build_failed
       value:
-        code: ssl_certificate_not_signed_by_chain
+        code: client_domain_pattern_build_failed
         http_status_code: 400
-        message: Certificate not signed by the chain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    non_existent_redirect_client_domain_id:
-      summary: non_existent_redirect_client_domain_id
-      value:
-        code: non_existent_redirect_client_domain_id
-        http_status_code: 400
-        message: Redirect client domain doesn't exist
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_contains_illegal_character:
-      summary: campaign_component_name_contains_illegal_character
-      value:
-        code: campaign_component_name_contains_illegal_character
-        http_status_code: 400
-        message: Campaign component name can only contain alphanumeric, dash and underscore characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    last_client_domain:
-      summary: last_client_domain
-      value:
-        code: last_client_domain
-        http_status_code: 400
-        message: Cannot archive last client domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_certificate_invalid_domain:
-      summary: ssl_certificate_invalid_domain
-      value:
-        code: ssl_certificate_invalid_domain
-        http_status_code: 400
-        message: SSL Certificate does not match client domain domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    external_element_is_referenced_by_active_configuration:
-      summary: external_element_is_referenced_by_active_configuration
-      value:
-        code: external_element_is_referenced_by_active_configuration
-        http_status_code: 400
-        message: External element is referenced by active configuration
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_chain_key_not_yet_valid:
-      summary: ssl_chain_key_not_yet_valid
-      value:
-        code: ssl_chain_key_not_yet_valid
-        http_status_code: 400
-        message: Chain key chain not yet valid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    external_elements_cannot_have_multiple_references:
-      summary: external_elements_cannot_have_multiple_references
-      value:
-        code: external_elements_cannot_have_multiple_references
-        http_status_code: 400
-        message: External elements cannot have multiple references
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    cname_target_not_applicable_for_extole_domains:
-      summary: cname_target_not_applicable_for_extole_domains
-      value:
-        code: cname_target_not_applicable_for_extole_domains
-        http_status_code: 400
-        message: Can't set CNAME target for Extole domains
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    proxy_requires_redirect_client_domain_id:
-      summary: proxy_requires_redirect_client_domain_id
-      value:
-        code: proxy_requires_redirect_client_domain_id
-        http_status_code: 400
-        message: A proxy client domain requires a redirect_client_domain_id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_already_in_use:
-      summary: campaign_component_name_already_in_use
-      value:
-        code: campaign_component_name_already_in_use
-        http_status_code: 400
-        message: Campaign component name is already used by another component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_name_out_of_range:
-      summary: campaign_component_name_out_of_range
-      value:
-        code: campaign_component_name_out_of_range
-        http_status_code: 400
-        message: Campaign component name length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_component_reference:
-      summary: invalid_component_reference
-      value:
-        code: invalid_component_reference
-        http_status_code: 400
-        message: Unknown referenced campaign component
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_type_validation_failed:
-      summary: campaign_component_type_validation_failed
-      value:
-        code: campaign_component_type_validation_failed
-        http_status_code: 400
-        message: Campaign component type validation failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    campaign_component_description_out_of_range:
-      summary: campaign_component_description_out_of_range
-      value:
-        code: campaign_component_description_out_of_range
-        http_status_code: 400
-        message: Campaign component description length is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ssl_key_chain_or_private_key_missing_or_invalid:
-      summary: ssl_key_chain_or_private_key_missing_or_invalid
-      value:
-        code: ssl_key_chain_or_private_key_missing_or_invalid
-        http_status_code: 400
-        message: One of the SSL keys (public, chain, private) is missing or invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    duplicate_client_domain:
-      summary: duplicate_client_domain
-      value:
-        code: duplicate_client_domain
-        http_status_code: 403
-        message: The client domain already exists
+        message: Client domain pattern build failed
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -2137,12 +1699,164 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    cname_target_duplicate:
-      summary: cname_target_duplicate
+    campaign_component_description_out_of_range:
+      summary: campaign_component_description_out_of_range
       value:
-        code: cname_target_duplicate
+        code: campaign_component_description_out_of_range
         http_status_code: 400
-        message: The CNAME target is being used by another program
+        message: Campaign component description length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_out_of_range:
+      summary: campaign_component_name_out_of_range
+      value:
+        code: campaign_component_name_out_of_range
+        http_status_code: 400
+        message: Campaign component name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    excessive_component_reference:
+      summary: excessive_component_reference
+      value:
+        code: excessive_component_reference
+        http_status_code: 400
+        message: Root campaign component may have at most one reference
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    component_facets_not_found:
+      summary: component_facets_not_found
+      value:
+        code: component_facets_not_found
+        http_status_code: 400
+        message: Component facets not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_contains_illegal_character:
+      summary: campaign_component_display_name_contains_illegal_character
+      value:
+        code: campaign_component_display_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component display name can only contain alphanumeric, dash, underscore, whitespace, asterisk, hash, dollar characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_id_missing:
+      summary: campaign_component_id_missing
+      value:
+        code: campaign_component_id_missing
+        http_status_code: 400
+        message: Campaign component id is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    self_component_reference:
+      summary: self_component_reference
+      value:
+        code: self_component_reference
+        http_status_code: 400
+        message: Self campaign component reference is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_type_validation_failed:
+      summary: campaign_component_type_validation_failed
+      value:
+        code: campaign_component_type_validation_failed
+        http_status_code: 400
+        message: Campaign component type validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_contains_illegal_character:
+      summary: campaign_component_name_contains_illegal_character
+      value:
+        code: campaign_component_name_contains_illegal_character
+        http_status_code: 400
+        message: Campaign component name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_pattern_not_found:
+      summary: client_domain_pattern_not_found
+      value:
+        code: client_domain_pattern_not_found
+        http_status_code: 400
+        message: Client domain pattern was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    redundant_component_reference:
+      summary: redundant_component_reference
+      value:
+        code: redundant_component_reference
+        http_status_code: 400
+        message: Same reference defined multiple times
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_client_domain_pattern:
+      summary: missing_client_domain_pattern
+      value:
+        code: missing_client_domain_pattern
+        http_status_code: 400
+        message: Client domain pattern is required
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    external_element_is_referenced_by_active_configuration:
+      summary: external_element_is_referenced_by_active_configuration
+      value:
+        code: external_element_is_referenced_by_active_configuration
+        http_status_code: 400
+        message: External element is referenced by active configuration
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     campaign_component_absolute_name_missing:
@@ -2153,6 +1867,294 @@ components:
         message: Campaign component absolute name is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    orphan_external_component_reference:
+      summary: orphan_external_component_reference
+      value:
+        code: orphan_external_component_reference
+        http_status_code: 400
+        message: Orphan external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_external_component_reference:
+      summary: invalid_external_component_reference
+      value:
+        code: invalid_external_component_reference
+        http_status_code: 400
+        message: Unknown external referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference:
+      summary: invalid_component_reference
+      value:
+        code: invalid_component_reference
+        http_status_code: 400
+        message: Unknown referenced campaign component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_domain_pattern_syntax:
+      summary: invalid_client_domain_pattern_syntax
+      value:
+        code: invalid_client_domain_pattern_syntax
+        http_status_code: 400
+        message: The client domain pattern has syntax errors
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_name_already_in_use:
+      summary: campaign_component_name_already_in_use
+      value:
+        code: campaign_component_name_already_in_use
+        http_status_code: 400
+        message: Campaign component name is already used by another component
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    campaign_component_display_name_out_of_range:
+      summary: campaign_component_display_name_out_of_range
+      value:
+        code: campaign_component_display_name_out_of_range
+        http_status_code: 400
+        message: Campaign component display name length is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_component_reference_socket_name:
+      summary: invalid_component_reference_socket_name
+      value:
+        code: invalid_component_reference_socket_name
+        http_status_code: 400
+        message: Invalid component reference socket name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cannot_archive_valid_client_domain:
+      summary: cannot_archive_valid_client_domain
+      value:
+        code: cannot_archive_valid_client_domain
+        http_status_code: 400
+        message: Cannot archive a valid client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_key_invalid:
+      summary: ssl_key_invalid
+      value:
+        code: ssl_key_invalid
+        http_status_code: 400
+        message: Invalid format for public key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_key_chain_or_private_key_missing_or_invalid:
+      summary: ssl_key_chain_or_private_key_missing_or_invalid
+      value:
+        code: ssl_key_chain_or_private_key_missing_or_invalid
+        http_status_code: 400
+        message: One of the SSL keys (public, chain, private) is missing or invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_invalid_format:
+      summary: cname_target_invalid_format
+      value:
+        code: cname_target_invalid_format
+        http_status_code: 400
+        message: 'CNAME target has invalid format. Expected: *.extole.io or *.extole.com'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_private_keys_mismatch:
+      summary: ssl_public_private_keys_mismatch
+      value:
+        code: ssl_public_private_keys_mismatch
+        http_status_code: 400
+        message: Key pair public/private does not match
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_not_applicable_for_extole_domains:
+      summary: cname_target_not_applicable_for_extole_domains
+      value:
+        code: cname_target_not_applicable_for_extole_domains
+        http_status_code: 400
+        message: Can't set CNAME target for Extole domains
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_chain_key_expired:
+      summary: ssl_chain_key_expired
+      value:
+        code: ssl_chain_key_expired
+        http_status_code: 400
+        message: Chain key expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unknown_client_domain:
+      summary: unknown_client_domain
+      value:
+        code: unknown_client_domain
+        http_status_code: 400
+        message: The provided client domain url is not associated with an existing client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    cname_target_duplicate:
+      summary: cname_target_duplicate
+      value:
+        code: cname_target_duplicate
+        http_status_code: 400
+        message: The CNAME target is being used by another program
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_client_domain:
+      summary: duplicate_client_domain
+      value:
+        code: duplicate_client_domain
+        http_status_code: 403
+        message: The client domain already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_self_signed_certificate_not_accepted:
+      summary: ssl_self_signed_certificate_not_accepted
+      value:
+        code: ssl_self_signed_certificate_not_accepted
+        http_status_code: 400
+        message: Self-signed certificates cannot be used
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    non_existent_redirect_client_domain_id:
+      summary: non_existent_redirect_client_domain_id
+      value:
+        code: non_existent_redirect_client_domain_id
+        http_status_code: 400
+        message: Redirect client domain doesn't exist
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_private_key_invalid_format:
+      summary: ssl_private_key_invalid_format
+      value:
+        code: ssl_private_key_invalid_format
+        http_status_code: 400
+        message: Invalid format for SSL private key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_not_found:
+      summary: client_domain_not_found
+      value:
+        code: client_domain_not_found
+        http_status_code: 400
+        message: Was unable to find client domain with ID
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_chain_key_not_yet_valid:
+      summary: ssl_chain_key_not_yet_valid
+      value:
+        code: ssl_chain_key_not_yet_valid
+        http_status_code: 400
+        message: Chain key chain not yet valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_uri_syntax:
+      summary: invalid_uri_syntax
+      value:
+        code: invalid_uri_syntax
+        http_status_code: 403
+        message: A uri supplied has syntax errors
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_private_key_invalid:
+      summary: ssl_private_key_invalid
+      value:
+        code: ssl_private_key_invalid
+        http_status_code: 400
+        message: Invalid format for SSL private key
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_domain_redirect_generates_loop:
+      summary: client_domain_redirect_generates_loop
+      value:
+        code: client_domain_redirect_generates_loop
+        http_status_code: 400
+        message: Client domain redirect generates loop
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_certificate_not_signed_by_chain:
+      summary: ssl_certificate_not_signed_by_chain
+      value:
+        code: ssl_certificate_not_signed_by_chain
+        http_status_code: 400
+        message: Certificate not signed by the chain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    last_client_domain:
+      summary: last_client_domain
+      value:
+        code: last_client_domain
+        http_status_code: 400
+        message: Cannot archive last client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_client_domain:
+      summary: invalid_client_domain
+      value:
+        code: invalid_client_domain
+        http_status_code: 400
+        message: Invalid client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_keys_not_allowed_for_extole_domain:
+      summary: ssl_keys_not_allowed_for_extole_domain
+      value:
+        code: ssl_keys_not_allowed_for_extole_domain
+        http_status_code: 400
+        message: Cannot specify SSL attributes for extole.io or extole.com domains
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_certificate_invalid_domain:
+      summary: ssl_certificate_invalid_domain
+      value:
+        code: ssl_certificate_invalid_domain
+        http_status_code: 400
+        message: SSL Certificate does not match client domain domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_key_not_yet_valid:
+      summary: ssl_public_key_not_yet_valid
+      value:
+        code: ssl_public_key_not_yet_valid
+        http_status_code: 400
+        message: Public Key not yet valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    proxy_requires_redirect_client_domain_id:
+      summary: proxy_requires_redirect_client_domain_id
+      value:
+        code: proxy_requires_redirect_client_domain_id
+        http_status_code: 400
+        message: A proxy client domain requires a redirect_client_domain_id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_public_key_expired:
+      summary: ssl_public_key_expired
+      value:
+        code: ssl_public_key_expired
+        http_status_code: 400
+        message: Public key expired
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     cname_target_invalid:
       summary: cname_target_invalid
       value:
@@ -2161,7 +2163,112 @@ components:
         message: Invalid CNAME target domain
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_name:
+      summary: invalid_name
+      value:
+        code: invalid_name
+        http_status_code: 400
+        message: The provided client name was invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ssl_private_key_missing:
+      summary: ssl_private_key_missing
+      value:
+        code: ssl_private_key_missing
+        http_status_code: 400
+        message: SSL private key is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    last_extole_client_domain:
+      summary: last_extole_client_domain
+      value:
+        code: last_extole_client_domain
+        http_status_code: 400
+        message: Cannot archive last Extole client domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    TestInClientDomainPatternResponse:
+      description: Build-time expression that marks whether the pattern is used for test traffic only.
+      oneOf:
+      - description: Literal test
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{test}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    PatternInClientDomainPatternCreateRequest:
+      description: Choose between static or dynamic pattern
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Static pattern
+        title: Static Value
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{pattern}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
     ClientDomainPatternCreateRequest:
       description: Body of a `POST /v1/client-domain-patterns` request.
       properties:
@@ -2188,10 +2295,36 @@ components:
       required:
       - pattern
       type: object
-    TestInClientDomainPatternResponse:
-      description: Build-time expression that marks whether the pattern is used for test traffic only.
+    ClientDomainPatternUpdateRequest:
+      description: Body of a `PUT /v1/client-domain-patterns/{id}` request.
+      properties:
+        client_domain_id:
+          type:
+          - object
+          - 'null'
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceRequest'
+          type: array
+        pattern:
+          $ref: '#/components/schemas/PatternInClientDomainPatternUpdateRequest'
+        test:
+          $ref: '#/components/schemas/TestInClientDomainPatternUpdateRequest'
+        type:
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      type: object
+    TestInClientDomainPatternUpdateRequest:
+      description: Choose between static or dynamic test
       oneOf:
-      - description: Literal test
+      - description: Static test
         title: Static Value
         type: boolean
       - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
@@ -2210,48 +2343,8 @@ components:
         pattern: ^javascript@buildtime:.*
         title: Buildtime - Javascript
         type: string
-    ClientDomainCreateRequest:
-      description: Body of a `POST /v1/client-domains` request.
-      properties:
-        cname_target:
-          type: string
-        domain:
-          type: string
-        name:
-          type: string
-        proxy:
-          type: boolean
-        redirect_client_domain_id:
-          type: string
-        share_uri:
-          type: string
-        ssl_certificate:
-          type: string
-        ssl_certificate_chain:
-          type: string
-        ssl_generation_policy:
-          enum:
-          - DISABLED
-          - GENERATE
-          - GENERATE_FORCE
-          - PROVIDED
-          type: string
-        ssl_private_key:
-          type: string
-      required:
-      - cname_target
-      - domain
-      - name
-      - proxy
-      - redirect_client_domain_id
-      - share_uri
-      - ssl_certificate
-      - ssl_certificate_chain
-      - ssl_generation_policy
-      - ssl_private_key
-      type: object
-    PatternInClientDomainPatternResponse:
-      description: Build-time expression that resolves to the domain pattern used for matching.
+    PatternInClientDomainPatternUpdateRequest:
+      description: Choose between static or dynamic pattern
       oneOf:
       - allOf:
         - type: string
@@ -2262,7 +2355,7 @@ components:
             - pattern: ^javascript@buildtime:.*
               type: string
           type: string
-        description: Literal pattern
+        description: Static pattern
         title: Static Value
       - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
         example: handlebars@buildtime:{{pattern}}
@@ -2274,6 +2367,86 @@ components:
         type: string
       - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
         example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ComponentReferenceResponse:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    ComponentReferenceRequest:
+      properties:
+        component_id:
+          type: string
+        socket_names:
+          items:
+            type: string
+          type: array
+      type: object
+    BuiltClientDomainPatternResponse:
+      description: Built client domain pattern with evaluated runtime values used for domain matching.
+      properties:
+        client_domain_id:
+          description: Optional program domain identifier associated with this pattern.
+          type: string
+        component_ids:
+          items:
+            type: string
+          type: array
+        component_references:
+          items:
+            $ref: '#/components/schemas/ComponentReferenceResponse'
+          type: array
+        id:
+          description: Unique identifier for the client domain pattern.
+          readOnly: true
+          type: string
+        pattern:
+          description: Evaluated domain pattern used by runtime matching.
+          type: string
+        test:
+          description: Whether the built pattern is used for test traffic only.
+          type: boolean
+        type:
+          description: Pattern matching type that controls how the pattern is interpreted.
+          enum:
+          - DOMAIN
+          - GLOB
+          - SUB_DOMAIN
+          type: string
+      required:
+      - client_domain_id
+      - component_ids
+      - component_references
+      - id
+      - pattern
+      - test
+      - type
+      type: object
+    TestInClientDomainPatternCreateRequest:
+      description: Choose between static or dynamic test
+      oneOf:
+      - description: Static test
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{test}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
         externalDocs:
           description: ClientDomainPatternBuildtimeContext
           url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
@@ -2318,30 +2491,91 @@ components:
       - test
       - type
       type: object
-    ClientDomainPatternUpdateRequest:
-      description: Body of a `PUT /v1/client-domain-patterns/{id}` request.
+    PatternInClientDomainPatternResponse:
+      description: Build-time expression that resolves to the domain pattern used for matching.
+      oneOf:
+      - allOf:
+        - type: string
+        - not:
+            anyOf:
+            - pattern: ^handlebars@buildtime:.*
+              type: string
+            - pattern: ^javascript@buildtime:.*
+              type: string
+          type: string
+        description: Literal pattern
+        title: Static Value
+      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: handlebars@buildtime:{{pattern}}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^handlebars@buildtime:.*
+        title: Buildtime - Handlebars
+        type: string
+      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
+        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
+        externalDocs:
+          description: ClientDomainPatternBuildtimeContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
+        pattern: ^javascript@buildtime:.*
+        title: Buildtime - Javascript
+        type: string
+    ClientDomainGlobPatternResponse:
       properties:
-        client_domain_id:
-          nullable: true
-          type: object
-        component_ids:
-          items:
-            type: string
-          type: array
-        component_references:
-          items:
-            $ref: '#/components/schemas/ComponentReferenceRequest'
-          type: array
         pattern:
-          $ref: '#/components/schemas/PatternInClientDomainPatternUpdateRequest'
-        test:
-          $ref: '#/components/schemas/TestInClientDomainPatternUpdateRequest'
+          type: string
+        regex:
+          type: string
         type:
           enum:
           - DOMAIN
           - GLOB
           - SUB_DOMAIN
           type: string
+      type: object
+    ClientDomainUpdateRequest:
+      description: Body of a `PUT /v1/client-domains/{client_domain_id}` request.
+      properties:
+        cname_target:
+          type: string
+        name:
+          type: string
+        proxy:
+          type: boolean
+        redirect_client_domain_id:
+          type:
+          - string
+          - 'null'
+        ssl_certificate:
+          type: string
+        ssl_certificate_chain:
+          type: string
+        ssl_generation_policy:
+          enum:
+          - DISABLED
+          - GENERATE
+          - GENERATE_FORCE
+          - PROVIDED
+          type: string
+        ssl_private_key:
+          type: string
+      type: object
+    ClientDomainDomainValidationResponse:
+      properties:
+        canonical_name:
+          type: string
+        client_domain:
+          type: string
+        domain_validation_status:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+      required:
+      - canonical_name
+      - client_domain
+      - domain_validation_status
       type: object
     ClientDomainResponse:
       properties:
@@ -2397,215 +2631,20 @@ components:
       - ssl_generation_policy
       - ssl_private_key
       type: object
-    ClientDomainGlobPatternResponse:
-      properties:
-        pattern:
-          type: string
-        regex:
-          type: string
-        type:
-          enum:
-          - DOMAIN
-          - GLOB
-          - SUB_DOMAIN
-          type: string
-      type: object
-    BuiltClientDomainPatternResponse:
-      description: Built client domain pattern with evaluated runtime values used for domain matching.
-      properties:
-        client_domain_id:
-          description: Optional program domain identifier associated with this pattern.
-          type: string
-        component_ids:
-          items:
-            type: string
-          type: array
-        component_references:
-          items:
-            $ref: '#/components/schemas/ComponentReferenceResponse'
-          type: array
-        id:
-          description: Unique identifier for the client domain pattern.
-          readOnly: true
-          type: string
-        pattern:
-          description: Evaluated domain pattern used by runtime matching.
-          type: string
-        test:
-          description: Whether the built pattern is used for test traffic only.
-          type: boolean
-        type:
-          description: Pattern matching type that controls how the pattern is interpreted.
-          enum:
-          - DOMAIN
-          - GLOB
-          - SUB_DOMAIN
-          type: string
-      required:
-      - client_domain_id
-      - component_ids
-      - component_references
-      - id
-      - pattern
-      - test
-      - type
-      type: object
-    PatternInClientDomainPatternCreateRequest:
-      description: Choose between static or dynamic pattern
-      oneOf:
-      - allOf:
-        - type: string
-        - not:
-            anyOf:
-            - pattern: ^handlebars@buildtime:.*
-              type: string
-            - pattern: ^javascript@buildtime:.*
-              type: string
-          type: string
-        description: Static pattern
-        title: Static Value
-      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{pattern}}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    TestInClientDomainPatternUpdateRequest:
-      description: Choose between static or dynamic test
-      oneOf:
-      - description: Static test
-        title: Static Value
-        type: boolean
-      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{test}}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
-    ComponentReferenceResponse:
-      properties:
-        component_id:
-          type: string
-        socket_names:
-          items:
-            type: string
-          type: array
-      type: object
-    PatternInClientDomainPatternUpdateRequest:
-      description: Choose between static or dynamic pattern
-      oneOf:
-      - allOf:
-        - type: string
-        - not:
-            anyOf:
-            - pattern: ^handlebars@buildtime:.*
-              type: string
-            - pattern: ^javascript@buildtime:.*
-              type: string
-          type: string
-        description: Static pattern
-        title: Static Value
-      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{pattern}}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('pattern');}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
-    ComponentReferenceRequest:
-      properties:
-        component_id:
-          type: string
-        socket_names:
-          items:
-            type: string
-          type: array
-      type: object
-    ClientDomainDomainValidationResponse:
-      properties:
-        canonical_name:
-          type: string
-        client_domain:
-          type: string
-        domain_validation_status:
-          enum:
-          - FAIL
-          - PASS
-          type: string
-      required:
-      - canonical_name
-      - client_domain
-      - domain_validation_status
-      type: object
-    ClientDomainUpdateRequest:
-      description: Body of a `PUT /v1/client-domains/{client_domain_id}` request.
+    ClientDomainCreateRequest:
+      description: Body of a `POST /v1/client-domains` request.
       properties:
         cname_target:
+          type: string
+        domain:
           type: string
         name:
           type: string
         proxy:
           type: boolean
         redirect_client_domain_id:
-          nullable: true
+          type: string
+        share_uri:
           type: string
         ssl_certificate:
           type: string
@@ -2620,29 +2659,18 @@ components:
           type: string
         ssl_private_key:
           type: string
+      required:
+      - cname_target
+      - domain
+      - name
+      - proxy
+      - redirect_client_domain_id
+      - share_uri
+      - ssl_certificate
+      - ssl_certificate_chain
+      - ssl_generation_policy
+      - ssl_private_key
       type: object
-    TestInClientDomainPatternCreateRequest:
-      description: Choose between static or dynamic test
-      oneOf:
-      - description: Static test
-        title: Static Value
-        type: boolean
-      - description: Handlebars expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: handlebars@buildtime:{{test}}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^handlebars@buildtime:.*
-        title: Buildtime - Handlebars
-        type: string
-      - description: Javascript expression with [ClientDomainPatternBuildtimeContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts).
-        example: javascript@buildtime:function() { return context.getVariableContext().get('test');}
-        externalDocs:
-          description: ClientDomainPatternBuildtimeContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/client/domain/pattern/ClientDomainPatternBuildtimeContext.d.ts
-        pattern: ^javascript@buildtime:.*
-        title: Buildtime - Javascript
-        type: string
   securitySchemes:
     COOKIE:
       in: cookie
@@ -2657,6 +2685,9 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-management-expert-openapi.json
+- extole-management-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:

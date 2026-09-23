@@ -11,16 +11,15 @@ docs:
   - https://docs.extole.com/docs/setup-cursor
   - https://docs.extole.com/docs/setup-chatgpt
   - https://docs.extole.com/docs/setup-codex
-note: >-
-  Extole ships a first-party REMOTE MCP server at https://mcp.extole.com, announced 2026 and documented
+note: 'Extole ships a first-party REMOTE MCP server at https://mcp.extole.com, announced 2026 and documented
   at docs.extole.com. Confirmed live by probe: an unauthenticated POST of tools/list returns HTTP 401
-  with an Extole error envelope (errorCode AUTHENTICATION_REQUIRED) and a WWW-Authenticate Bearer
-  challenge naming realm mcp.extole.com and resource_metadata
-  https://mcp.extole.com/.well-known/oauth-protected-resource. The tool list itself is therefore
-  AUTH-GATED — tool names and inputSchemas require an authenticated tools/list call and are NOT recorded
-  here. What IS anonymous and captured verbatim is the server's own toolset manifest at
-  /.well-known/mcp (saved as mcp/extole-mcp-manifest.json), which enumerates 31 named toolset endpoints.
-  This supersedes the 2026-07-19 derived candidate file, which wrongly recorded mode none.
+  with an Extole error envelope (errorCode AUTHENTICATION_REQUIRED) and a WWW-Authenticate Bearer challenge
+  naming realm mcp.extole.com and resource_metadata https://mcp.extole.com/.well-known/oauth-protected-resource.
+  The tool list itself is therefore AUTH-GATED — tool names and inputSchemas require an authenticated
+  tools/list call and are NOT recorded here. What IS anonymous and captured verbatim is the server''s
+  own toolset manifest at /.well-known/mcp (saved as mcp/extole-mcp-manifest.json), which enumerates 31
+  named toolset endpoints. This supersedes the 2026-07-19 derived candidate file, which wrongly recorded
+  mode none.'
 server:
   name: extole
   transport: streamable-http
@@ -28,10 +27,11 @@ server:
   manifest: https://mcp.extole.com/.well-known/mcp
   manifest_file: extole-mcp-manifest.json
 deployment:
-  mode: remote
-  endpoint: https://mcp.extole.com
-  auth: oauth
-  verified: probed
+  mode: none
+  verified: derived
+  tools: 7
+  checked: '2026-08-12'
+  source: catalog MCP census
 authentication:
   methods:
   - kind: oauth
@@ -44,14 +44,13 @@ authentication:
     - profile
     - email
     protected_resource_metadata: https://mcp.extole.com/.well-known/oauth-protected-resource
-    note: Extole mints an access token bound to the signed-in Extole user; MCP calls run under that
-      user's own Extole permissions and are attributed to them in the Extole change log.
+    note: Extole mints an access token bound to the signed-in Extole user; MCP calls run under that user's
+      own Extole permissions and are attributed to them in the Extole change log.
   - kind: api-key
     scheme: Authorization Bearer
-    note: A long-lived Access Token created in the My.Extole Security Center
-      (https://my.extole.com/security-center#access-token) may be passed as
-      "Authorization Bearer <token>" for clients that do not support OAuth, for CI/CD, or for service
-      accounts. Actions then run under the token creator's permissions.
+    note: A long-lived Access Token created in the My.Extole Security Center (https://my.extole.com/security-center#access-token)
+      may be passed as "Authorization Bearer <token>" for clients that do not support OAuth, for CI/CD,
+      or for service accounts. Actions then run under the token creator's permissions.
 install:
 - client: Claude Code
   command: claude mcp add --transport http extole https://mcp.extole.com
@@ -161,8 +160,8 @@ tools:
   status: auth-gated
   note: tools/list returns 401 AUTHENTICATION_REQUIRED without a bearer token. Tool names, descriptions
     and inputSchemas are deliberately NOT recorded — they require authenticated introspection with an
-    Extole user account. See mcp/extole-tool-crosswalk.yml for the toolset-level mapping to the REST
-    surface that IS knowable anonymously.
+    Extole user account. See mcp/extole-tool-crosswalk.yml for the toolset-level mapping to the REST surface
+    that IS knowable anonymously.
 x-evidence:
 - fetched: '2026-08-13'
   url: https://mcp.extole.com/mcp

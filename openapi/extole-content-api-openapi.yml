@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Content API
+  title: Extole Content API
   version: '1.0'
+  description: 'Operations tagged Content across 2 of this provider''s published API definitions: extole-integration-consumer-to-extole-openapi.json, extole-management-expert-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
   url: https://{brand}.extole.io
@@ -10,6 +10,8 @@ servers:
     brand:
       default: yourcompany
       description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+- description: Production
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -106,6 +108,13 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /api/v6/zones/{event_name}:
     post:
       description: API-friendly zone rendering at `POST /api/v6/zones/{event_name}`. Intended for backend rendering where the caller supplies a bearer access token directly. Renders the zone identified by the `event_name` path parameter and returns the structured zone content as JSON. Pass zone input data in the request body. Returns an error when no content backs the zone. For browser or in-app rendering use `POST /zones/{zone_name}` instead.
@@ -199,6 +208,13 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /zones:
     post:
       description: 'Web-friendly zone rendering at `POST /zones`. Intended for direct use from a browser page or web SDK embed — accepts form-encoded, plain-text, and multipart bodies in addition to JSON, and handles cookie-based identity automatically. Renders the zone identified by `event_name` in the request body, applies any other body fields as targeting data passed to the creative, and returns the rendered creative content (HTML, JavaScript, JSON, or plain text). If `event_name` is omitted, returns an empty 200 with `Extole-Log: target zone=unknown`; the access token is still allocated and written as a cookie. For backend zone rendering use `POST /api/v6/zones` instead.'
@@ -296,6 +312,13 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /zones/{zone_name}:
     post:
       description: Web-friendly zone rendering at `POST /zones/{zone_name}`. Intended for direct use from a browser page or web SDK embed — accepts form-encoded and multipart bodies in addition to JSON, and handles cookie-based identity automatically. Renders the zone identified by `zone_name` and returns its content (HTML, JavaScript, JSON, or plain text). For backend zone rendering use `POST /api/v6/zones/{event_name}` instead.
@@ -403,6 +426,13 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /web/me/assets/download:
     get:
       operationId: downloadAssetByName_2
@@ -489,6 +519,11 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Download asset by name 2
+      x-summary-source: derived
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /web/me/assets/{assetId}/download:
     get:
       operationId: downloadAssetById_2
@@ -576,56 +611,86 @@ paths:
       - Content
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Download asset by id 2
+      x-summary-source: derived
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
+  schemas:
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    ZoneResponse:
+      properties:
+        campaign_id:
+          description: Extole campaign id that served this zone. Absent if not determinable.
+          type: string
+        data:
+          additionalProperties:
+            description: Creative output for this zone. Structure varies by campaign configuration.
+            type: object
+          description: Creative output for this zone. Structure varies by campaign configuration.
+          type: object
+        event_id:
+          description: Extole event id generated for this zone render request.
+          type: string
+      required:
+      - campaign_id
+      - data
+      - event_id
+      type: object
+    RenderZoneRequest:
+      properties:
+        data:
+          additionalProperties:
+            type: object
+          type:
+          - object
+          - 'null'
+        event_name:
+          type: string
+        id_token:
+          type:
+          - string
+          - 'null'
+        jwt:
+          type:
+          - string
+          - 'null'
+      required:
+      - data
+      - event_name
+      - id_token
+      - jwt
+      type: object
   examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_zone_name:
-      summary: invalid_zone_name
-      value:
-        code: invalid_zone_name
-        http_status_code: 403
-        message: Invalid zone name (not an EMAIL zone)
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_not_found:
-      summary: asset_not_found
-      value:
-        code: asset_not_found
-        http_status_code: 400
-        message: Asset not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_creative_result:
-      summary: invalid_creative_result
-      value:
-        code: invalid_creative_result
-        http_status_code: 400
-        message: Configured creative did not return json.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     jwt_authentication_error:
       summary: jwt_authentication_error
       value:
@@ -642,28 +707,12 @@ components:
         message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
+    expired_access_token:
+      summary: expired_access_token
       value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_zone_name:
-      summary: missing_zone_name
-      value:
-        code: missing_zone_name
-        http_status_code: 400
-        message: Zone name must be present
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
+        code: expired_access_token
         http_status_code: 403
-        message: The access_token provided with this request is invalid.
+        message: The access_token provided with this request has expired.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -674,12 +723,20 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    asset_content_not_downloadable:
-      summary: asset_content_not_downloadable
+    invalid_json:
+      summary: invalid_json
       value:
-        code: asset_content_not_downloadable
+        code: invalid_json
         http_status_code: 400
-        message: Asset content could not be downloaded
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -714,76 +771,62 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-  schemas:
-    ZoneResponse:
-      properties:
-        campaign_id:
-          description: Extole campaign id that served this zone. Absent if not determinable.
-          type: string
-        data:
-          additionalProperties:
-            description: Creative output for this zone. Structure varies by campaign configuration.
-            type: object
-          description: Creative output for this zone. Structure varies by campaign configuration.
-          type: object
-        event_id:
-          description: Extole event id generated for this zone render request.
-          type: string
-      required:
-      - campaign_id
-      - data
-      - event_id
-      type: object
-    RenderZoneRequest:
-      properties:
-        data:
-          additionalProperties:
-            type: object
-          nullable: true
-          type: object
-        event_name:
-          type: string
-        id_token:
-          nullable: true
-          type: string
-        jwt:
-          nullable: true
-          type: string
-      required:
-      - data
-      - event_name
-      - id_token
-      - jwt
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_creative_result:
+      summary: invalid_creative_result
+      value:
+        code: invalid_creative_result
+        http_status_code: 400
+        message: Configured creative did not return json.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_zone_name:
+      summary: invalid_zone_name
+      value:
+        code: invalid_zone_name
+        http_status_code: 403
+        message: Invalid zone name (not an EMAIL zone)
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_not_found:
+      summary: asset_not_found
+      value:
+        code: asset_not_found
+        http_status_code: 400
+        message: Asset not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_content_not_downloadable:
+      summary: asset_content_not_downloadable
+      value:
+        code: asset_content_not_downloadable
+        http_status_code: 400
+        message: Asset content could not be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -798,6 +841,9 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-integration-consumer-to-extole-openapi.json
+- extole-management-expert-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:

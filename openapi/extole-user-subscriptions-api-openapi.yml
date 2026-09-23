@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences User Subscriptions API
+  description: 'Configuration endpoints for the Extole platform: campaigns, components, audiences, persons, rewards, reporting, integrations setup, and administrative tooling.'
+  title: Management User Subscriptions API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -25,13 +21,15 @@ paths:
       - in: query
         name: having_any_tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: query
         name: having_all_tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       responses:
         '200':
           content:
@@ -612,252 +610,7 @@ paths:
       x-extole-bundle: management
       x-extole-visibility: visible
 components:
-  examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    user_subscription_channel_missing_slack_webhook_url:
-      summary: user_subscription_channel_missing_slack_webhook_url
-      value:
-        code: user_subscription_channel_missing_slack_webhook_url
-        http_status_code: 400
-        message: WebhookUrl is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    user_subscription_channel_malformed_webhook_url:
-      summary: user_subscription_channel_malformed_webhook_url
-      value:
-        code: user_subscription_channel_malformed_webhook_url
-        http_status_code: 400
-        message: Malformed webhook url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    duplicate_user_subscription:
-      summary: duplicate_user_subscription
-      value:
-        code: duplicate_user_subscription
-        http_status_code: 403
-        message: User subscription already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_scope:
-      summary: invalid_scope
-      value:
-        code: invalid_scope
-        http_status_code: 403
-        message: Invalid scope
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_recipient:
-      summary: invalid_recipient
-      value:
-        code: invalid_recipient
-        http_status_code: 400
-        message: Recipient email is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_dedupe_duration:
-      summary: invalid_dedupe_duration
-      value:
-        code: invalid_dedupe_duration
-        http_status_code: 400
-        message: unacceptable dedupe duration
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_webhook_type:
-      summary: invalid_webhook_type
-      value:
-        code: invalid_webhook_type
-        http_status_code: 400
-        message: Webhook type is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_recipient:
-      summary: missing_recipient
-      value:
-        code: missing_recipient
-        http_status_code: 400
-        message: Recipient email is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_subscription_id:
-      summary: invalid_subscription_id
-      value:
-        code: invalid_subscription_id
-        http_status_code: 400
-        message: Invalid subscription id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    recipient_is_existing_user:
-      summary: recipient_is_existing_user
-      value:
-        code: recipient_is_existing_user
-        http_status_code: 400
-        message: Recipient email belongs to an existing user
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    handlebars_expression_invalid_syntax:
-      summary: handlebars_expression_invalid_syntax
-      value:
-        code: handlebars_expression_invalid_syntax
-        http_status_code: 400
-        message: Expression has invalid syntax and/or contains forbidden statements
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_id:
-      summary: invalid_user_id
-      value:
-        code: invalid_user_id
-        http_status_code: 400
-        message: Invalid user id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_channel_types_for_zero_dedupe_duration:
-      summary: invalid_channel_types_for_zero_dedupe_duration
-      value:
-        code: invalid_channel_types_for_zero_dedupe_duration
-        http_status_code: 400
-        message: invalid channel types for 0ms dedupe duration
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    javascript_expression_invalid_syntax:
-      summary: javascript_expression_invalid_syntax
-      value:
-        code: javascript_expression_invalid_syntax
-        http_status_code: 400
-        message: Expression has invalid syntax and/or contains forbidden statements
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_tags:
-      summary: invalid_tags
-      value:
-        code: invalid_tags
-        http_status_code: 400
-        message: total length of tags cannot exceed 1024 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    webhook_not_found:
-      summary: webhook_not_found
-      value:
-        code: webhook_not_found
-        http_status_code: 400
-        message: Was unable to find webhook with id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    spel_expression_invalid_syntax:
-      summary: spel_expression_invalid_syntax
-      value:
-        code: spel_expression_invalid_syntax
-        http_status_code: 400
-        message: Expression has invalid syntax and/or contains forbidden statements
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    WebhookSubscriptionChannelRequest:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
-      - properties:
-          type:
-            enum:
-            - WEBHOOK
-            type: string
-          webhook_id:
-            type: string
-        type: object
-      required:
-      - type
-      - webhook_id
-      type: object
-    SubscriptionUserResponse:
-      properties:
-        email:
-          type: string
-        first_name:
-          nullable: true
-          type: string
-        last_name:
-          nullable: true
-          type: string
-        user_id:
-          type: string
-      type: object
     FilterExpressionInUserSubscriptionRequest:
       description: Choose between static or dynamic filter expression
       oneOf:
@@ -880,30 +633,6 @@ components:
         pattern: ^javascript@runtime:.*
         title: Runtime - Javascript
         type: string
-    EmailSubscriptionChannelRequest:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
-      - properties:
-          type:
-            enum:
-            - EMAIL
-            type: string
-      required:
-      - type
-      type: object
-    SubscriptionChannelResponseBase:
-      properties:
-        id:
-          type: string
-        type:
-          enum:
-          - EMAIL
-          - EXTOLE_CLIENT_SLACK
-          - SLACK
-          - THIRD_PARTY_EMAIL
-          - WEBHOOK
-          type: string
-      type: object
     SubscriptionChannelRequestBase:
       properties:
         type:
@@ -915,21 +644,6 @@ components:
           - WEBHOOK
           type: string
       type: object
-    SubscriptionChannelResponse:
-      discriminator:
-        mapping:
-          EMAIL: '#/components/schemas/EmailSubscriptionChannelResponse'
-          EXTOLE_CLIENT_SLACK: '#/components/schemas/ExtoleClientSlackSubscriptionChannelResponse'
-          SLACK: '#/components/schemas/SlackSubscriptionChannelResponse'
-          THIRD_PARTY_EMAIL: '#/components/schemas/ThirdPartyEmailSubscriptionChannelResponse'
-          WEBHOOK: '#/components/schemas/WebhookSubscriptionChannelResponse'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/EmailSubscriptionChannelResponse'
-      - $ref: '#/components/schemas/ExtoleClientSlackSubscriptionChannelResponse'
-      - $ref: '#/components/schemas/SlackSubscriptionChannelResponse'
-      - $ref: '#/components/schemas/ThirdPartyEmailSubscriptionChannelResponse'
-      - $ref: '#/components/schemas/WebhookSubscriptionChannelResponse'
     UserSubscriptionUpdateRequest:
       description: Body of a `PUT /v6/users/{user_id}/subscriptions/{subscription_id}` request.
       properties:
@@ -954,120 +668,6 @@ components:
             type: string
           type: array
           uniqueItems: true
-      type: object
-    WebhookSubscriptionChannelResponse:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
-      - properties:
-          id:
-            readOnly: true
-            type: string
-          type:
-            enum:
-            - WEBHOOK
-            type: string
-          webhook_id:
-            type: string
-        type: object
-      required:
-      - id
-      - type
-      - webhook_id
-      type: object
-    SlackSubscriptionChannelResponse:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
-      - properties:
-          id:
-            readOnly: true
-            type: string
-          type:
-            enum:
-            - SLACK
-            type: string
-          webhook_url:
-            type: string
-        type: object
-      required:
-      - id
-      - type
-      - webhook_url
-      type: object
-    ThirdPartyEmailSubscriptionChannelResponse:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
-      - properties:
-          id:
-            readOnly: true
-            type: string
-          recipient:
-            type: string
-          type:
-            enum:
-            - THIRD_PARTY_EMAIL
-            type: string
-        type: object
-      required:
-      - id
-      - recipient
-      - type
-      type: object
-    UserSubscriptionRequest:
-      properties:
-        channels:
-          items:
-            $ref: '#/components/schemas/SubscriptionChannelRequest'
-          type: array
-        dedupe_duration_ms:
-          format: int64
-          type: integer
-        filter_expression:
-          $ref: '#/components/schemas/FilterExpressionInUserSubscriptionRequest'
-        filtering_level:
-          enum:
-          - ALL
-          - NONE
-          - NOTEWORTHY
-          - SOME
-          type: string
-        having_all_tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - filtering_level
-      - having_all_tags
-      type: object
-    SubscriptionChannelRequest:
-      discriminator:
-        mapping:
-          EMAIL: '#/components/schemas/EmailSubscriptionChannelRequest'
-          EXTOLE_CLIENT_SLACK: '#/components/schemas/ExtoleClientSlackSubscriptionChannelRequest'
-          SLACK: '#/components/schemas/SlackSubscriptionChannelRequest'
-          THIRD_PARTY_EMAIL: '#/components/schemas/ThirdPartyEmailSubscriptionChannelRequest'
-          WEBHOOK: '#/components/schemas/WebhookSubscriptionChannelRequest'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/EmailSubscriptionChannelRequest'
-      - $ref: '#/components/schemas/ExtoleClientSlackSubscriptionChannelRequest'
-      - $ref: '#/components/schemas/SlackSubscriptionChannelRequest'
-      - $ref: '#/components/schemas/ThirdPartyEmailSubscriptionChannelRequest'
-      - $ref: '#/components/schemas/WebhookSubscriptionChannelRequest'
-    SlackSubscriptionChannelRequest:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
-      - properties:
-          type:
-            enum:
-            - SLACK
-            type: string
-          webhook_url:
-            type: string
-        type: object
-      required:
-      - type
-      - webhook_url
       type: object
     UserSubscriptionResponse:
       properties:
@@ -1102,32 +702,6 @@ components:
       - having_all_tags
       - subscription_id
       type: object
-    ExtoleClientSlackSubscriptionChannelRequest:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
-      - properties:
-          type:
-            enum:
-            - EXTOLE_CLIENT_SLACK
-            type: string
-      required:
-      - type
-      type: object
-    ThirdPartyEmailSubscriptionChannelRequest:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
-      - properties:
-          recipient:
-            type: string
-          type:
-            enum:
-            - THIRD_PARTY_EMAIL
-            type: string
-        type: object
-      required:
-      - recipient
-      - type
-      type: object
     EmailSubscriptionChannelResponse:
       allOf:
       - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
@@ -1144,35 +718,6 @@ components:
       - id
       - type
       type: object
-    SuccessResponse:
-      properties:
-        status:
-          type: string
-      required:
-      - status
-      type: object
-    FilterExpressionInUserSubscriptionUpdateRequest:
-      description: Choose between static or dynamic filter expression
-      oneOf:
-      - description: Static filter expression
-        title: Static Value
-        type: boolean
-      - description: Handlebars expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
-        example: handlebars@runtime:{{filterExpression}}
-        externalDocs:
-          description: UserSubscriptionFilterContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
-        pattern: ^handlebars@runtime:.*
-        title: Runtime - Handlebars
-        type: string
-      - description: Javascript expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
-        example: javascript@runtime:function() { return context.get('filterExpression');}
-        externalDocs:
-          description: UserSubscriptionFilterContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
-        pattern: ^javascript@runtime:.*
-        title: Runtime - Javascript
-        type: string
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -1202,28 +747,51 @@ components:
       - parameters
       - unique_id
       type: object
-    FilterExpressionInUserSubscriptionResponse:
-      description: 'The filter expression as configured: a literal value, or an expression (type:string) when defined dynamically.'
+    SubscriptionChannelRequest:
+      discriminator:
+        mapping:
+          EMAIL: '#/components/schemas/EmailSubscriptionChannelRequest'
+          EXTOLE_CLIENT_SLACK: '#/components/schemas/ExtoleClientSlackSubscriptionChannelRequest'
+          SLACK: '#/components/schemas/SlackSubscriptionChannelRequest'
+          THIRD_PARTY_EMAIL: '#/components/schemas/ThirdPartyEmailSubscriptionChannelRequest'
+          WEBHOOK: '#/components/schemas/WebhookSubscriptionChannelRequest'
+        propertyName: type
       oneOf:
-      - description: Literal filter expression
-        title: Static Value
-        type: boolean
-      - description: Handlebars expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
-        example: handlebars@runtime:{{filterExpression}}
-        externalDocs:
-          description: UserSubscriptionFilterContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
-        pattern: ^handlebars@runtime:.*
-        title: Runtime - Handlebars
-        type: string
-      - description: Javascript expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
-        example: javascript@runtime:function() { return context.get('filterExpression');}
-        externalDocs:
-          description: UserSubscriptionFilterContext
-          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
-        pattern: ^javascript@runtime:.*
-        title: Runtime - Javascript
-        type: string
+      - $ref: '#/components/schemas/EmailSubscriptionChannelRequest'
+      - $ref: '#/components/schemas/ExtoleClientSlackSubscriptionChannelRequest'
+      - $ref: '#/components/schemas/SlackSubscriptionChannelRequest'
+      - $ref: '#/components/schemas/ThirdPartyEmailSubscriptionChannelRequest'
+      - $ref: '#/components/schemas/WebhookSubscriptionChannelRequest'
+    ThirdPartyEmailSubscriptionChannelRequest:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
+      - properties:
+          recipient:
+            type: string
+          type:
+            enum:
+            - THIRD_PARTY_EMAIL
+            type: string
+        type: object
+      required:
+      - recipient
+      - type
+      type: object
+    SlackSubscriptionChannelRequest:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
+      - properties:
+          type:
+            enum:
+            - SLACK
+            type: string
+          webhook_url:
+            type: string
+        type: object
+      required:
+      - type
+      - webhook_url
+      type: object
     SubscriptionResponse:
       properties:
         channels:
@@ -1257,6 +825,221 @@ components:
       - subscription_id
       - user
       type: object
+    SubscriptionChannelResponse:
+      discriminator:
+        mapping:
+          EMAIL: '#/components/schemas/EmailSubscriptionChannelResponse'
+          EXTOLE_CLIENT_SLACK: '#/components/schemas/ExtoleClientSlackSubscriptionChannelResponse'
+          SLACK: '#/components/schemas/SlackSubscriptionChannelResponse'
+          THIRD_PARTY_EMAIL: '#/components/schemas/ThirdPartyEmailSubscriptionChannelResponse'
+          WEBHOOK: '#/components/schemas/WebhookSubscriptionChannelResponse'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/EmailSubscriptionChannelResponse'
+      - $ref: '#/components/schemas/ExtoleClientSlackSubscriptionChannelResponse'
+      - $ref: '#/components/schemas/SlackSubscriptionChannelResponse'
+      - $ref: '#/components/schemas/ThirdPartyEmailSubscriptionChannelResponse'
+      - $ref: '#/components/schemas/WebhookSubscriptionChannelResponse'
+    SuccessResponse:
+      properties:
+        status:
+          type: string
+      required:
+      - status
+      type: object
+    ThirdPartyEmailSubscriptionChannelResponse:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          recipient:
+            type: string
+          type:
+            enum:
+            - THIRD_PARTY_EMAIL
+            type: string
+        type: object
+      required:
+      - id
+      - recipient
+      - type
+      type: object
+    SubscriptionUserResponse:
+      properties:
+        email:
+          type: string
+        first_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+        user_id:
+          type: string
+      type: object
+    WebhookSubscriptionChannelResponse:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - WEBHOOK
+            type: string
+          webhook_id:
+            type: string
+        type: object
+      required:
+      - id
+      - type
+      - webhook_id
+      type: object
+    SubscriptionChannelResponseBase:
+      properties:
+        id:
+          type: string
+        type:
+          enum:
+          - EMAIL
+          - EXTOLE_CLIENT_SLACK
+          - SLACK
+          - THIRD_PARTY_EMAIL
+          - WEBHOOK
+          type: string
+      type: object
+    FilterExpressionInUserSubscriptionResponse:
+      description: 'The filter expression as configured: a literal value, or an expression (type:string) when defined dynamically.'
+      oneOf:
+      - description: Literal filter expression
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
+        example: handlebars@runtime:{{filterExpression}}
+        externalDocs:
+          description: UserSubscriptionFilterContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
+        pattern: ^handlebars@runtime:.*
+        title: Runtime - Handlebars
+        type: string
+      - description: Javascript expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
+        example: javascript@runtime:function() { return context.get('filterExpression');}
+        externalDocs:
+          description: UserSubscriptionFilterContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
+        pattern: ^javascript@runtime:.*
+        title: Runtime - Javascript
+        type: string
+    ExtoleClientSlackSubscriptionChannelRequest:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
+      - properties:
+          type:
+            enum:
+            - EXTOLE_CLIENT_SLACK
+            type: string
+      required:
+      - type
+      type: object
+    UserSubscriptionRequest:
+      properties:
+        channels:
+          items:
+            $ref: '#/components/schemas/SubscriptionChannelRequest'
+          type: array
+        dedupe_duration_ms:
+          format: int64
+          type: integer
+        filter_expression:
+          $ref: '#/components/schemas/FilterExpressionInUserSubscriptionRequest'
+        filtering_level:
+          enum:
+          - ALL
+          - NONE
+          - NOTEWORTHY
+          - SOME
+          type: string
+        having_all_tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - filtering_level
+      - having_all_tags
+      type: object
+    WebhookSubscriptionChannelRequest:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
+      - properties:
+          type:
+            enum:
+            - WEBHOOK
+            type: string
+          webhook_id:
+            type: string
+        type: object
+      required:
+      - type
+      - webhook_id
+      type: object
+    SlackSubscriptionChannelResponse:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
+      - properties:
+          id:
+            readOnly: true
+            type: string
+          type:
+            enum:
+            - SLACK
+            type: string
+          webhook_url:
+            type: string
+        type: object
+      required:
+      - id
+      - type
+      - webhook_url
+      type: object
+    EmailSubscriptionChannelRequest:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionChannelRequestBase'
+      - properties:
+          type:
+            enum:
+            - EMAIL
+            type: string
+      required:
+      - type
+      type: object
+    FilterExpressionInUserSubscriptionUpdateRequest:
+      description: Choose between static or dynamic filter expression
+      oneOf:
+      - description: Static filter expression
+        title: Static Value
+        type: boolean
+      - description: Handlebars expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
+        example: handlebars@runtime:{{filterExpression}}
+        externalDocs:
+          description: UserSubscriptionFilterContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
+        pattern: ^handlebars@runtime:.*
+        title: Runtime - Handlebars
+        type: string
+      - description: Javascript expression with [UserSubscriptionFilterContext](https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts).
+        example: javascript@runtime:function() { return context.get('filterExpression');}
+        externalDocs:
+          description: UserSubscriptionFilterContext
+          url: https://github.com/extole/extole-specification/blob/main/openapi/expression-context/com/extole/api/notification/subscription/UserSubscriptionFilterContext.d.ts
+        pattern: ^javascript@runtime:.*
+        title: Runtime - Javascript
+        type: string
     ExtoleClientSlackSubscriptionChannelResponse:
       allOf:
       - $ref: '#/components/schemas/SubscriptionChannelResponseBase'
@@ -1273,6 +1056,223 @@ components:
       - id
       - type
       type: object
+  examples:
+    spel_expression_invalid_syntax:
+      summary: spel_expression_invalid_syntax
+      value:
+        code: spel_expression_invalid_syntax
+        http_status_code: 400
+        message: Expression has invalid syntax and/or contains forbidden statements
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_recipient:
+      summary: missing_recipient
+      value:
+        code: missing_recipient
+        http_status_code: 400
+        message: Recipient email is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_channel_types_for_zero_dedupe_duration:
+      summary: invalid_channel_types_for_zero_dedupe_duration
+      value:
+        code: invalid_channel_types_for_zero_dedupe_duration
+        http_status_code: 400
+        message: invalid channel types for 0ms dedupe duration
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    recipient_is_existing_user:
+      summary: recipient_is_existing_user
+      value:
+        code: recipient_is_existing_user
+        http_status_code: 400
+        message: Recipient email belongs to an existing user
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_tags:
+      summary: invalid_tags
+      value:
+        code: invalid_tags
+        http_status_code: 400
+        message: total length of tags cannot exceed 1024 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_recipient:
+      summary: invalid_recipient
+      value:
+        code: invalid_recipient
+        http_status_code: 400
+        message: Recipient email is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_dedupe_duration:
+      summary: invalid_dedupe_duration
+      value:
+        code: invalid_dedupe_duration
+        http_status_code: 400
+        message: unacceptable dedupe duration
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    javascript_expression_invalid_syntax:
+      summary: javascript_expression_invalid_syntax
+      value:
+        code: javascript_expression_invalid_syntax
+        http_status_code: 400
+        message: Expression has invalid syntax and/or contains forbidden statements
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    user_subscription_channel_malformed_webhook_url:
+      summary: user_subscription_channel_malformed_webhook_url
+      value:
+        code: user_subscription_channel_malformed_webhook_url
+        http_status_code: 400
+        message: Malformed webhook url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_user_subscription:
+      summary: duplicate_user_subscription
+      value:
+        code: duplicate_user_subscription
+        http_status_code: 403
+        message: User subscription already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_subscription_id:
+      summary: invalid_subscription_id
+      value:
+        code: invalid_subscription_id
+        http_status_code: 400
+        message: Invalid subscription id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_id:
+      summary: invalid_user_id
+      value:
+        code: invalid_user_id
+        http_status_code: 400
+        message: Invalid user id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    user_subscription_channel_missing_slack_webhook_url:
+      summary: user_subscription_channel_missing_slack_webhook_url
+      value:
+        code: user_subscription_channel_missing_slack_webhook_url
+        http_status_code: 400
+        message: WebhookUrl is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_webhook_type:
+      summary: invalid_webhook_type
+      value:
+        code: invalid_webhook_type
+        http_status_code: 400
+        message: Webhook type is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_scope:
+      summary: invalid_scope
+      value:
+        code: invalid_scope
+        http_status_code: 403
+        message: Invalid scope
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    handlebars_expression_invalid_syntax:
+      summary: handlebars_expression_invalid_syntax
+      value:
+        code: handlebars_expression_invalid_syntax
+        http_status_code: 400
+        message: Expression has invalid syntax and/or contains forbidden statements
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    webhook_not_found:
+      summary: webhook_not_found
+      value:
+        code: webhook_not_found
+        http_status_code: 400
+        message: Was unable to find webhook with id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -1288,12 +1288,30 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management API
   tags:
+  - Audiences
   - Authentication
-  - Content
+  - Batch Jobs
+  - Blocks
+  - Campaigns
+  - Components
+  - Components Settings
+  - Domains
   - Email
-  - Events
-  - Persons
-  - Profile Assets
+  - Erasure
+  - Event Streams
+  - File Validation Monitors
+  - Optout
   - Profiles
+  - Promotion Links
+  - Report Schedules
+  - Report Types
+  - Reports
+  - Reward Suppliers
+  - Security Keys
+  - Settings
+  - User Notifications
+  - User Subscriptions
+  - Users
+  - Webhooks

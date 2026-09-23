@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Reporting API
+  description: 'Advanced configuration endpoints for Extole platform experts: campaign controllers, typed actions and triggers, advanced component types and facets, source mapping, report post-handlers, pre-handlers, and other expert configuration surfaces not included in the standard Management API.'
+  title: Management Expert Reporting API
   version: '1.0'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -24,13 +20,15 @@ paths:
       - in: query
         name: tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: query
         name: exclude_tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       responses:
         '200':
           content:
@@ -109,6 +107,8 @@ paths:
       - Reporting
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Read latest report
+      x-summary-source: derived
   /v4/reports/latest/download{format}:
     get:
       operationId: downloadLatestReport
@@ -120,13 +120,15 @@ paths:
       - in: query
         name: tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: query
         name: exclude_tags
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: path
         name: format
         required: true
@@ -209,6 +211,8 @@ paths:
       - Reporting
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Download latest report
+      x-summary-source: derived
   /v4/reports/{reportId}:
     get:
       operationId: readReport
@@ -296,6 +300,8 @@ paths:
       - Reporting
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Read report
+      x-summary-source: derived
   /v4/reports/{reportId}/download{format}:
     get:
       operationId: downloadReport
@@ -391,6 +397,8 @@ paths:
       - Reporting
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Download report
+      x-summary-source: derived
   /v4/reports/{reportId}/info/{format}:
     get:
       operationId: getReportInfo
@@ -484,6 +492,8 @@ paths:
       - Reporting
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Get report info
+      x-summary-source: derived
   /v6/dimensions:
     get:
       operationId: getSummaryDimensions
@@ -585,7 +595,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RestExceptionResponse'
           description: Too Many Requests
-      summary: Get dimension combinations.
+      summary: Get dimension combinations
       tags:
       - Reporting
       x-extole-bundle: management-expert
@@ -708,99 +718,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/RestExceptionResponse'
           description: Too Many Requests
-      summary: Get dimension values.
+      summary: Get dimension values
       tags:
       - Reporting
       x-extole-bundle: management-expert
       x-extole-visibility: expert
 components:
   examples:
-    invalid_json:
-      summary: invalid_json
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
       value:
-        code: invalid_json
+        code: max_fetch_size_1000
         http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    report_not_found:
-      summary: report_not_found
-      value:
-        code: report_not_found
-        http_status_code: 400
-        message: Report not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
-      value:
-        code: invalid_offset
-        http_status_code: 400
-        message: Offset should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    report_content_not_supported:
-      summary: report_content_not_supported
-      value:
-        code: report_content_not_supported
-        http_status_code: 400
-        message: Report content type not supported
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    report_content_not_found:
-      summary: report_content_not_found
-      value:
-        code: report_content_not_found
-        http_status_code: 400
-        message: Report content exceed max size
+        message: Maximum allowed difference between limit and offset should be 1000
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_access_token:
@@ -811,12 +741,36 @@ components:
         message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    report_content_not_supported:
+      summary: report_content_not_supported
+      value:
+        code: report_content_not_supported
+        http_status_code: 400
+        message: Report content type not supported
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
       summary: missing_request_body
       value:
         code: missing_request_body
         http_status_code: 400
         message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -827,12 +781,12 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
+    invalid_limit:
+      summary: invalid_limit
       value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
@@ -851,45 +805,120 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_limit:
-      summary: invalid_limit
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: invalid_limit
-        http_status_code: 400
-        message: Limit should be a non negative integer
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
       value:
-        code: max_fetch_size_1000
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
         http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    report_not_found:
+      summary: report_not_found
+      value:
+        code: report_not_found
+        http_status_code: 400
+        message: Report not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    report_content_not_found:
+      summary: report_content_not_found
+      value:
+        code: report_content_not_found
+        http_status_code: 400
+        message: Report content exceed max size
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_offset:
+      summary: invalid_offset
+      value:
+        code: invalid_offset
+        http_status_code: 400
+        message: Offset should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    FormatReportInfoResponse:
+    RestExceptionResponse:
+      description: Represents the API error response
       properties:
-        content_length:
-          format: int64
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
           type: integer
-        total_rows:
-          format: int64
-          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
       required:
-      - content_length
-      - total_rows
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
       type: object
     ReportResponse:
       properties:
         completed_date:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         display_name:
           type: string
         download_uri:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         formats:
           items:
             enum:
@@ -923,35 +952,6 @@ components:
       - report_type
       - tags
       type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
     DimensionStatsResponse:
       properties:
         count:
@@ -962,6 +962,18 @@ components:
       required:
       - count
       - value
+      type: object
+    FormatReportInfoResponse:
+      properties:
+        content_length:
+          format: int64
+          type: integer
+        total_rows:
+          format: int64
+          type: integer
+      required:
+      - content_length
+      - total_rows
       type: object
   securitySchemes:
     COOKIE:
@@ -978,12 +990,28 @@ components:
       name: access_token
       type: apiKey
 x-tagGroups:
-- name: Integration API - Consumer to Extole
+- name: Management Expert API
   tags:
   - Authentication
+  - Campaign Controllers
+  - Campaign Controllers Actions
+  - Campaign Controllers Triggers
+  - Campaign Flow Steps
+  - Components
+  - Components Grants
+  - Components Subscriptions
+  - Components Types
   - Content
+  - Debug
+  - Domains
   - Email
+  - Event Prehandlers
   - Events
+  - Javascript Core Extensions
   - Persons
-  - Profile Assets
   - Profiles
+  - Report Schedules
+  - Report Types
+  - Reporting
+  - Security Keys
+  - Settings

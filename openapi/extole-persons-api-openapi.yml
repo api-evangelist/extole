@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Persons API
+  title: Extole Persons API
   version: '1.0'
+  description: 'Operations tagged Persons across 3 of this provider''s published API definitions: extole-integration-consumer-to-extole-openapi.json, extole-integration-server-to-extole-openapi.json, extole-management-expert-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
   url: https://{brand}.extole.io
@@ -10,6 +10,8 @@ servers:
     brand:
       default: yourcompany
       description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+- description: Production
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -119,6 +121,13 @@ paths:
       - Persons
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /api/v4/person/{personId}:
     get:
       deprecated: true
@@ -221,6 +230,13 @@ paths:
       - Persons
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /v5/persons:
     get:
       description: Searches for persons by identity key value or client-defined person keys (supply in `name:value` format, e.g. `partner_conversion_id:abc123`). Returns an array because the same key may resolve to multiple Extole profiles. Supply at least one search criterion via query parameters.
@@ -424,6 +440,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/partner-keys:
     get:
       description: Returns the set of partner key names configured for the calling client. Partner keys are client-defined person identifier types (e.g. `partner_conversion_id`, `partner_shipment_id`) that supplement Extole's built-in identifiers. Supply the optional `include_campaign_ignoring_state` parameter to include partner keys declared in a specific campaign regardless of that campaign's state.
@@ -513,6 +532,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}:
     get:
       description: Returns the person profile for the specified `person_id`. The response includes the person's current identity key and value, locale settings, and version. Returns `403 person_not_found` if the person does not exist or is not accessible.
@@ -697,6 +719,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/block:
     get:
       description: Returns the block record for the specified person, indicating whether they are blocked from participating in referral campaigns and the reason for the block.
@@ -894,6 +919,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/data:
     get:
       description: Returns all data parameters for the specified person, sorted by updated date in descending order. Use query parameters to filter by name or date range. Returns `403 person_not_found` if the person is not accessible.
@@ -1090,6 +1118,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/data/{name}:
     get:
       description: Returns the named data parameter for the specified person. Person data parameters are arbitrary key-value pairs attached to a person profile and can be used in campaign targeting and personalization. Returns `400 data_not_found` if the name does not exist, or `403 person_not_found` if the person is not accessible.
@@ -1347,6 +1378,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/identity-history:
     get:
       description: Returns the chronological log of identity-merge and identity-link events for the specified person. Each entry records the event type, the previous identity key information, and the event date. Use this to audit how a person's unified profile evolved over time.
@@ -1438,6 +1472,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/journeys:
     get:
       description: Returns campaign journeys for the specified person, sorted by start date in descending order. A journey represents a person's participation lifecycle in a specific campaign (e.g. share, refer-a-friend, purchase).
@@ -1595,6 +1632,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/journeys/{journey_id}:
     get:
       description: Returns the specified campaign journey for the given person, including the program, campaign, container, journey entry data, and timestamps.
@@ -1692,6 +1732,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/locations:
     get:
       description: Returns request context location records for the specified person, sorted by created date in descending order. Locations capture the geographic context (country, region, city) observed at the time of person interactions.
@@ -1799,6 +1842,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/memberships:
     get:
       description: Returns audience memberships for the specified person, sorted by created date in descending order. Each membership indicates which audiences the person currently belongs to.
@@ -2017,6 +2063,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/relationships:
     get:
       description: Returns the referral relationships for the specified person, showing advocate-friend connections created through campaign participation.
@@ -2171,6 +2220,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/rewards:
     get:
       description: Returns all rewards for the specified person, sorted by created date in descending order. Supports filtering by state, supplier type, and date range.
@@ -2348,6 +2400,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/rewards/{reward_id}:
     get:
       description: Returns the specified reward for the given person, including its state, face value, and associated campaign.
@@ -2445,6 +2500,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/shareables:
     get:
       description: Returns all shareables for the specified person, sorted by created date in descending order. Each shareable is a unique referral link or code associated with a campaign.
@@ -2716,6 +2774,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/shareables/{code}:
     get:
       description: Returns the shareable for the specified person identified by its share code. A shareable is a unique share link or code that allows a person to invite friends to participate in a referral campaign.
@@ -2972,6 +3033,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/shares:
     get:
       description: Returns all share events for the specified person, sorted by created date in descending order. A share is recorded each time the person distributes a shareable link via a channel (social, email, etc.).
@@ -3107,6 +3171,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/shares/{share_id}:
     get:
       description: Returns the specified share event for the given person, including its channel, shareable, and associated campaign journey.
@@ -3204,6 +3271,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/steps:
     get:
       description: Returns campaign flow steps for the specified person, sorted by event date in descending order. Steps represent discrete tracked actions (e.g. conversion, share, reward earned) within the person's journey.
@@ -3381,6 +3451,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/forward:
     post:
       description: Merges the specified identity profile into the target identity profile. All activity associated with the source identity profile, is forwarded to the target identity profile. After the operation the source profile is no longer independently addressable; lookups by any of its identifiers resolve to the target. Used to consolidate duplicate profiles.
@@ -3489,6 +3562,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v5/persons/{person_id}/memberships/{audience_id}:
     delete:
       description: Removes the specified person from the audience identified by the audience ID.
@@ -3588,6 +3664,9 @@ paths:
       - Persons
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/persons/{personId}:
     get:
       description: Returns the public profile for the person identified by `personId`. The response includes display name, profile picture URL, and custom `parameters` visible to the caller's access token. Use when rendering another participant's profile in a referral or social context.
@@ -3689,6 +3768,9 @@ paths:
       - Persons
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/persons/{personId}/profile-picture-url:
     get:
       description: Returns the profile picture URL for the person identified by `personId` as plain text. Use when you need only the image URL rather than the full public profile from `GET /api/v4/persons/{personId}`.
@@ -3790,6 +3872,9 @@ paths:
       - Persons
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v4/persons/{personId}/steps:
     get:
       description: Returns program steps completed by the person identified by `personId` that are visible in public scope. Filter by `campaign_id`, `program_label`, or `step_name` when you need a subset. For the authenticated consumer's own steps use `GET /api/v4/me/steps` instead.
@@ -3803,18 +3888,21 @@ paths:
       - in: query
         name: campaign_id
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: query
         name: program_label
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       - in: query
         name: step_name
         schema:
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       responses:
         '200':
           content:
@@ -3908,6 +3996,9 @@ paths:
       - Persons
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /web/persons/{personId}/assets/download:
     get:
       description: Downloads the binary content of the named asset for the person identified by `personId`. The `name` query parameter selects the asset; omit it to download the person's default asset (if one exists). Returns the asset content stream with the asset's stored content type. Supply `default_url` to redirect to a fallback URL when the asset is not found instead of returning an error.
@@ -3997,6 +4088,9 @@ paths:
       - Persons
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /web/persons/{personId}/assets/{assetId}/download:
     get:
       description: Downloads the binary content of the asset identified by `assetId` for the person identified by `personId`. Returns the asset content stream with the asset's stored content type. If the asset has no downloadable content the server returns 400 with `asset_content_not_downloadable`. Supply `default_url` to redirect the caller to a fallback URL instead of returning an error when the asset is not found.
@@ -4088,8 +4182,43 @@ paths:
       - Persons
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
   examples:
+    invalid_person_id:
+      summary: invalid_person_id
+      value:
+        code: invalid_person_id
+        http_status_code: 400
+        message: Invalid person_id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_person_email:
+      summary: invalid_person_email
+      value:
+        code: invalid_person_email
+        http_status_code: 400
+        message: Invalid person email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    partner_user_id_invalid_length:
+      summary: partner_user_id_invalid_length
+      value:
+        code: partner_user_id_invalid_length
+        http_status_code: 400
+        message: Partner user id length greater than 255 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     expired_access_token:
       summary: expired_access_token
       value:
@@ -4098,100 +4227,20 @@ components:
         message: The access_token provided with this request has expired.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    label_name_length_out_of_range:
-      summary: label_name_length_out_of_range
+    missing_request_body:
+      summary: missing_request_body
       value:
-        code: label_name_length_out_of_range
-        http_status_code: 403
-        message: Label name is not of valid length
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_not_found:
-      summary: data_not_found
-      value:
-        code: data_not_found
+        code: missing_request_body
         http_status_code: 400
-        message: Data not found
+        message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    partner_user_id_already_defined:
-      summary: partner_user_id_already_defined
+    method_unauthorized:
+      summary: method_unauthorized
       value:
-        code: partner_user_id_already_defined
-        http_status_code: 400
-        message: Partner user id already defined
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_image_url_invalid:
-      summary: content_image_url_invalid
-      value:
-        code: content_image_url_invalid
-        http_status_code: 403
-        message: Invalid content image_url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_not_rewardable:
-      summary: person_not_rewardable
-      value:
-        code: person_not_rewardable
-        http_status_code: 403
-        message: Person does not have email address
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    label_name_contains_illegal_character:
-      summary: label_name_contains_illegal_character
-      value:
-        code: label_name_contains_illegal_character
-        http_status_code: 403
-        message: Label name can only contain alphanumeric, dash and underscore characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_content_url:
-      summary: invalid_content_url
-      value:
-        code: invalid_content_url
-        http_status_code: 403
-        message: Invalid content url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    program_domain_not_found:
-      summary: program_domain_not_found
-      value:
-        code: program_domain_not_found
-        http_status_code: 403
-        message: Program domain does not exist
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    audience_not_found:
-      summary: audience_not_found
-      value:
-        code: audience_not_found
-        http_status_code: 400
-        message: Audience was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_last_name:
-      summary: invalid_length_last_name
-      value:
-        code: invalid_length_last_name
-        http_status_code: 400
-        message: Last Name length greater than 50 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_not_identified:
-      summary: person_not_identified
-      value:
-        code: person_not_identified
-        http_status_code: 400
-        message: Person is not identified
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -4200,22 +4249,6 @@ components:
         code: binding_error
         http_status_code: 400
         message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_invalid:
-      summary: data_attribute_value_invalid
-      value:
-        code: data_attribute_value_invalid
-        http_status_code: 403
-        message: Shareable data value is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    forwarding_profile_is_device:
-      summary: forwarding_profile_is_device
-      value:
-        code: forwarding_profile_is_device
-        http_status_code: 400
-        message: Forwarding profile is device
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
@@ -4234,70 +4267,6 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    read_only_name:
-      summary: read_only_name
-      value:
-        code: read_only_name
-        http_status_code: 400
-        message: One or more names supplied are read only
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_not_found:
-      summary: person_not_found
-      value:
-        code: person_not_found
-        http_status_code: 403
-        message: Person not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    label_is_missing:
-      summary: label_is_missing
-      value:
-        code: label_is_missing
-        http_status_code: 403
-        message: Label is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_first_name:
-      summary: invalid_length_first_name
-      value:
-        code: invalid_length_first_name
-        http_status_code: 400
-        message: First Name length greater than 50 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    shareable_not_found:
-      summary: shareable_not_found
-      value:
-        code: shareable_not_found
-        http_status_code: 403
-        message: Shareable not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_out_of_range:
-      summary: code_out_of_range
-      value:
-        code: code_out_of_range
-        http_status_code: 403
-        message: Code length must be between 4 and 50 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_length_out_of_range:
-      summary: data_attribute_value_length_out_of_range
-      value:
-        code: data_attribute_value_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute value length is out of range. Max 2000 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
       summary: missing_access_token
       value:
@@ -4306,148 +4275,20 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    content_description_length_exceeded:
-      summary: content_description_length_exceeded
+    invalid_length_last_name:
+      summary: invalid_length_last_name
       value:
-        code: content_description_length_exceeded
+        code: invalid_length_last_name
+        http_status_code: 400
+        message: Last Name length greater than 50 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
         http_status_code: 403
-        message: Content description length exceeded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_taken:
-      summary: code_taken
-      value:
-        code: code_taken
-        http_status_code: 403
-        message: The code associated with this shareable has already been specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_taken_by_promotion:
-      summary: code_taken_by_promotion
-      value:
-        code: code_taken_by_promotion
-        http_status_code: 400
-        message: The code associated with this shareable is already used by a promotion link
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    share_not_found:
-      summary: share_not_found
-      value:
-        code: share_not_found
-        http_status_code: 400
-        message: Share not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_url_length_out_of_range:
-      summary: content_url_length_out_of_range
-      value:
-        code: content_url_length_out_of_range
-        http_status_code: 400
-        message: Content url is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_contains_reserved_word:
-      summary: code_contains_reserved_word
-      value:
-        code: code_contains_reserved_word
-        http_status_code: 403
-        message: Shareable code contains reserved word
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_step_invalid_visit_type:
-      summary: person_step_invalid_visit_type
-      value:
-        code: person_step_invalid_visit_type
-        http_status_code: 400
-        message: Person step visit type is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_content_not_downloadable:
-      summary: asset_content_not_downloadable
-      value:
-        code: asset_content_not_downloadable
-        http_status_code: 400
-        message: Asset content could not be downloaded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_step_invalid_flow_query:
-      summary: person_step_invalid_flow_query
-      value:
-        code: person_step_invalid_flow_query
-        http_status_code: 400
-        message: Person step flow query is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_person_email:
-      summary: invalid_person_email
-      value:
-        code: invalid_person_email
-        http_status_code: 400
-        message: Invalid person email
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    partner_ids_invalid:
-      summary: partner_ids_invalid
-      value:
-        code: partner_ids_invalid
-        http_status_code: 400
-        message: Partner ids parameter format is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_already_exists:
-      summary: data_already_exists
-      value:
-        code: data_already_exists
-        http_status_code: 400
-        message: Data already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_not_found:
-      summary: reward_not_found
-      value:
-        code: reward_not_found
-        http_status_code: 400
-        message: Reward not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_person_id:
-      summary: invalid_person_id
-      value:
-        code: invalid_person_id
-        http_status_code: 400
-        message: Invalid person_id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    blocked_content_url:
-      summary: blocked_content_url
-      value:
-        code: blocked_content_url
-        http_status_code: 403
-        message: Content url is blocked
+        message: The jwt authentication failed.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_json:
@@ -4458,28 +4299,20 @@ components:
         message: JSON is invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    identity_key_value_already_taken:
-      summary: identity_key_value_already_taken
+    person_email_already_defined:
+      summary: person_email_already_defined
       value:
-        code: identity_key_value_already_taken
+        code: person_email_already_defined
         http_status_code: 400
-        message: Identity key value already taken
+        message: Person email already defined
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    membership_not_found:
-      summary: membership_not_found
+    invalid_length_first_name:
+      summary: invalid_length_first_name
       value:
-        code: membership_not_found
+        code: invalid_length_first_name
         http_status_code: 400
-        message: Membership was not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    forward_to_profile_is_device:
-      summary: forward_to_profile_is_device
-      value:
-        code: forward_to_profile_is_device
-        http_status_code: 400
-        message: Forward to profile is device
+        message: First Name length greater than 50 characters
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     unsupported_media_type:
@@ -4490,132 +4323,12 @@ components:
         message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    code_illegal_character:
-      summary: code_illegal_character
+    partner_user_id_already_defined:
+      summary: partner_user_id_already_defined
       value:
-        code: code_illegal_character
-        http_status_code: 403
-        message: Code can only contain alphanumeric, dash and underscore
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    journey_not_found:
-      summary: journey_not_found
-      value:
-        code: journey_not_found
+        code: partner_user_id_already_defined
         http_status_code: 400
-        message: Journey not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    value_does_not_follow_pattern:
-      summary: value_does_not_follow_pattern
-      value:
-        code: value_does_not_follow_pattern
-        http_status_code: 400
-        message: Value does not follow the key:value pattern
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    partner_user_id_invalid_length:
-      summary: partner_user_id_invalid_length
-      value:
-        code: partner_user_id_invalid_length
-        http_status_code: 400
-        message: Partner user id length greater than 255 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_values_invalid:
-      summary: data_values_invalid
-      value:
-        code: data_values_invalid
-        http_status_code: 400
-        message: Data values parameter format is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_not_found:
-      summary: asset_not_found
-      value:
-        code: asset_not_found
-        http_status_code: 400
-        message: Asset not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unknown_program:
-      summary: unknown_program
-      value:
-        code: unknown_program
-        http_status_code: 400
-        message: The provided program url is not associated with an existing program
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_email_already_defined:
-      summary: person_email_already_defined
-      value:
-        code: person_email_already_defined
-        http_status_code: 400
-        message: Person email already defined
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    shareable_key_taken:
-      summary: shareable_key_taken
-      value:
-        code: shareable_key_taken
-        http_status_code: 403
-        message: The key associated with this shareable has already been specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_block_reason:
-      summary: invalid_block_reason
-      value:
-        code: invalid_block_reason
-        http_status_code: 400
-        message: Block reason can't be empty
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_program:
-      summary: invalid_program
-      value:
-        code: invalid_program
-        http_status_code: 400
-        message: Invalid Program
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_audience_id:
-      summary: missing_audience_id
-      value:
-        code: missing_audience_id
-        http_status_code: 400
-        message: Audience ID is not specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_key_value:
-      summary: invalid_key_value
-      value:
-        code: invalid_key_value
-        http_status_code: 400
-        message: Invalid key value
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_invalid:
-      summary: data_attribute_name_invalid
-      value:
-        code: data_attribute_name_invalid
-        http_status_code: 403
-        message: Shareable data attribute name is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_length_out_of_range:
-      summary: data_attribute_name_length_out_of_range
-      value:
-        code: data_attribute_name_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute name length is out of range. Max 200 chars
+        message: Partner user id already defined
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_profile_picture_url:
@@ -4626,7 +4339,580 @@ components:
         message: Malformed profile_picture_url
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_found:
+      summary: person_not_found
+      value:
+        code: person_not_found
+        http_status_code: 403
+        message: Person not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_length_out_of_range:
+      summary: data_attribute_name_length_out_of_range
+      value:
+        code: data_attribute_name_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute name length is out of range. Max 200 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_name_length_out_of_range:
+      summary: label_name_length_out_of_range
+      value:
+        code: label_name_length_out_of_range
+        http_status_code: 403
+        message: Label name is not of valid length
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_step_invalid_visit_type:
+      summary: person_step_invalid_visit_type
+      value:
+        code: person_step_invalid_visit_type
+        http_status_code: 400
+        message: Person step visit type is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_out_of_range:
+      summary: code_out_of_range
+      value:
+        code: code_out_of_range
+        http_status_code: 403
+        message: Code length must be between 4 and 50 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_block_reason:
+      summary: invalid_block_reason
+      value:
+        code: invalid_block_reason
+        http_status_code: 400
+        message: Block reason can't be empty
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_url_length_out_of_range:
+      summary: content_url_length_out_of_range
+      value:
+        code: content_url_length_out_of_range
+        http_status_code: 400
+        message: Content url is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_invalid:
+      summary: data_attribute_value_invalid
+      value:
+        code: data_attribute_value_invalid
+        http_status_code: 403
+        message: Shareable data value is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_step_invalid_flow_query:
+      summary: person_step_invalid_flow_query
+      value:
+        code: person_step_invalid_flow_query
+        http_status_code: 400
+        message: Person step flow query is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    identity_key_value_already_taken:
+      summary: identity_key_value_already_taken
+      value:
+        code: identity_key_value_already_taken
+        http_status_code: 400
+        message: Identity key value already taken
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    program_domain_not_found:
+      summary: program_domain_not_found
+      value:
+        code: program_domain_not_found
+        http_status_code: 403
+        message: Program domain does not exist
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    shareable_key_taken:
+      summary: shareable_key_taken
+      value:
+        code: shareable_key_taken
+        http_status_code: 403
+        message: The key associated with this shareable has already been specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_already_exists:
+      summary: data_already_exists
+      value:
+        code: data_already_exists
+        http_status_code: 400
+        message: Data already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    forward_to_profile_is_device:
+      summary: forward_to_profile_is_device
+      value:
+        code: forward_to_profile_is_device
+        http_status_code: 400
+        message: Forward to profile is device
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_image_url_invalid:
+      summary: content_image_url_invalid
+      value:
+        code: content_image_url_invalid
+        http_status_code: 403
+        message: Invalid content image_url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    share_not_found:
+      summary: share_not_found
+      value:
+        code: share_not_found
+        http_status_code: 400
+        message: Share not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    blocked_content_url:
+      summary: blocked_content_url
+      value:
+        code: blocked_content_url
+        http_status_code: 403
+        message: Content url is blocked
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_invalid:
+      summary: data_attribute_name_invalid
+      value:
+        code: data_attribute_name_invalid
+        http_status_code: 403
+        message: Shareable data attribute name is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    shareable_not_found:
+      summary: shareable_not_found
+      value:
+        code: shareable_not_found
+        http_status_code: 403
+        message: Shareable not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_contains_reserved_word:
+      summary: code_contains_reserved_word
+      value:
+        code: code_contains_reserved_word
+        http_status_code: 403
+        message: Shareable code contains reserved word
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_identified:
+      summary: person_not_identified
+      value:
+        code: person_not_identified
+        http_status_code: 400
+        message: Person is not identified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_length_out_of_range:
+      summary: data_attribute_value_length_out_of_range
+      value:
+        code: data_attribute_value_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute value length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_not_found:
+      summary: reward_not_found
+      value:
+        code: reward_not_found
+        http_status_code: 400
+        message: Reward not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_not_found:
+      summary: data_not_found
+      value:
+        code: data_not_found
+        http_status_code: 400
+        message: Data not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unknown_program:
+      summary: unknown_program
+      value:
+        code: unknown_program
+        http_status_code: 400
+        message: The provided program url is not associated with an existing program
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    journey_not_found:
+      summary: journey_not_found
+      value:
+        code: journey_not_found
+        http_status_code: 400
+        message: Journey not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_content_url:
+      summary: invalid_content_url
+      value:
+        code: invalid_content_url
+        http_status_code: 403
+        message: Invalid content url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_taken:
+      summary: code_taken
+      value:
+        code: code_taken
+        http_status_code: 403
+        message: The code associated with this shareable has already been specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_key_value:
+      summary: invalid_key_value
+      value:
+        code: invalid_key_value
+        http_status_code: 400
+        message: Invalid key value
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    value_does_not_follow_pattern:
+      summary: value_does_not_follow_pattern
+      value:
+        code: value_does_not_follow_pattern
+        http_status_code: 400
+        message: Value does not follow the key:value pattern
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_rewardable:
+      summary: person_not_rewardable
+      value:
+        code: person_not_rewardable
+        http_status_code: 403
+        message: Person does not have email address
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_is_missing:
+      summary: label_is_missing
+      value:
+        code: label_is_missing
+        http_status_code: 403
+        message: Label is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    membership_not_found:
+      summary: membership_not_found
+      value:
+        code: membership_not_found
+        http_status_code: 400
+        message: Membership was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    read_only_name:
+      summary: read_only_name
+      value:
+        code: read_only_name
+        http_status_code: 400
+        message: One or more names supplied are read only
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_audience_id:
+      summary: missing_audience_id
+      value:
+        code: missing_audience_id
+        http_status_code: 400
+        message: Audience ID is not specified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_name_contains_illegal_character:
+      summary: label_name_contains_illegal_character
+      value:
+        code: label_name_contains_illegal_character
+        http_status_code: 403
+        message: Label name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    partner_ids_invalid:
+      summary: partner_ids_invalid
+      value:
+        code: partner_ids_invalid
+        http_status_code: 400
+        message: Partner ids parameter format is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_values_invalid:
+      summary: data_values_invalid
+      value:
+        code: data_values_invalid
+        http_status_code: 400
+        message: Data values parameter format is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    forwarding_profile_is_device:
+      summary: forwarding_profile_is_device
+      value:
+        code: forwarding_profile_is_device
+        http_status_code: 400
+        message: Forwarding profile is device
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_description_length_exceeded:
+      summary: content_description_length_exceeded
+      value:
+        code: content_description_length_exceeded
+        http_status_code: 403
+        message: Content description length exceeded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_illegal_character:
+      summary: code_illegal_character
+      value:
+        code: code_illegal_character
+        http_status_code: 403
+        message: Code can only contain alphanumeric, dash and underscore
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_taken_by_promotion:
+      summary: code_taken_by_promotion
+      value:
+        code: code_taken_by_promotion
+        http_status_code: 400
+        message: The code associated with this shareable is already used by a promotion link
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    audience_not_found:
+      summary: audience_not_found
+      value:
+        code: audience_not_found
+        http_status_code: 400
+        message: Audience was not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_program:
+      summary: invalid_program
+      value:
+        code: invalid_program
+        http_status_code: 400
+        message: Invalid Program
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_not_found:
+      summary: asset_not_found
+      value:
+        code: asset_not_found
+        http_status_code: 400
+        message: Asset not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_content_not_downloadable:
+      summary: asset_content_not_downloadable
+      value:
+        code: asset_content_not_downloadable
+        http_status_code: 400
+        message: Asset content could not be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    PublicPersonV4Response:
+      properties:
+        first_name:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        image_url:
+          type: string
+        parameters:
+          additionalProperties:
+            type: object
+          type: object
+      required:
+      - first_name
+      - id
+      - image_url
+      - parameters
+      type: object
+    PersonForwardRequest:
+      properties:
+        forward_to_profile_id:
+          description: Target identity profile Extole unique identifier.
+          type: string
+      required:
+      - forward_to_profile_id
+      type: object
+    IdentityKey:
+      description: Name of the identity key used to look up or create this person.
+      properties:
+        name:
+          type: string
+      type: object
+    IdentityLogResponse:
+      discriminator:
+        mapping:
+          IDENTITY_SHIFT: '#/components/schemas/PersonIdentityShapeShiftResponse'
+          SPLIT_LOSER: '#/components/schemas/PersonIdentityHistoryResponse'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/PersonIdentityShapeShiftResponse'
+      - $ref: '#/components/schemas/PersonIdentityHistoryResponse'
+      required:
+      - log_date
+      - old_identity_key_name
+      - old_identity_key_value
+      - type
+    PartnerEventIdResponse:
+      properties:
+        name:
+          description: Name of the partner event identifier (e.g. `order_id`).
+          type: string
+        value:
+          description: Value of the partner event identifier.
+          type: string
+      type:
+      - object
+      - 'null'
+    PersonShareableResponse:
+      properties:
+        code:
+          description: Unique shareable code used to generate this person's referral link.
+          type: string
+        content:
+          $ref: '#/components/schemas/PersonShareableContentResponse'
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/PersonShareableDataResponse'
+          description: Named data parameters attached to this shareable.
+          type: object
+        key:
+          description: Key identifying the shareable template or program slot.
+          type: string
+        label:
+          description: Human-readable label for this shareable. Absent if no label was set.
+          type: string
+        link:
+          description: Full referral link URL for this shareable.
+          type: string
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - code
+      - content
+      - created_date
+      - data
+      - key
+      - label
+      - link
+      - updated_date
+      type: object
+    PersonRequest:
+      description: Request body for creating or updating a person profile.
+      properties:
+        identity_key_value:
+          description: Value of the primary identity key for the person. Omit to leave the current value unchanged.
+          type: string
+      type: object
+    City:
+      properties:
+        name:
+          type: string
+      type: object
+    PersonShareableDataResponse:
+      description: Named data parameters attached to this shareable.
+      properties:
+        name:
+          description: Name of the data parameter.
+          type: string
+        value:
+          description: Value stored for the data parameter.
+          type: object
+      type: object
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    PersonJourneyResponse:
+      properties:
+        campaign_id:
+          description: Extole campaign id associated with this journey.
+          type: string
+        container:
+          description: Campaign container the journey belongs to.
+          type: string
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/PersonJourneyDataResponse'
+          description: Named data parameters attached to this journey entry.
+          type: object
+        id:
+          description: Extole-assigned unique identifier for this journey entry.
+          readOnly: true
+          type: string
+        key:
+          $ref: '#/components/schemas/JourneyKey'
+        name:
+          description: Name of the journey (program step) the person is on.
+          type: string
+        program:
+          description: Program key associated with this journey.
+          type: string
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - campaign_id
+      - container
+      - created_date
+      - data
+      - id
+      - key
+      - name
+      - program
+      - updated_date
+      type: object
     PersonRewardDataResponse:
       description: Named data parameters attached to this reward.
       properties:
@@ -4637,32 +4923,278 @@ components:
           description: Value stored for the data parameter.
           type: object
       type: object
-    PersonShareDataResponse:
-      description: Named data parameters attached to this share.
+    PersonMembershipCreateRequest:
+      description: Body of a `POST /v5/persons/{person_id}/memberships` request.
+      properties:
+        audience_id:
+          type: string
+      required:
+      - audience_id
+      type: object
+    PersonBlockRequest:
+      properties:
+        reason:
+          description: Optional human-readable reason for the block, stored for audit purposes.
+          type: string
+        type:
+          description: Block scope. `EVENTS` blocks event participation, `REWARDS` blocks reward fulfilment, `NONE` removes any existing block.
+          enum:
+          - EVENTS
+          - NONE
+          - REWARDS
+          type: string
+      required:
+      - reason
+      - type
+      type: object
+    PersonIdentityShapeShiftResponse:
+      allOf:
+      - $ref: '#/components/schemas/IdentityLogResponseBase'
+      - properties:
+          identity_profile_update_version:
+            description: Version number of the identity profile after the shift. Absent for older entries.
+            format: int32
+            type: integer
+          identity_shape_shift_type:
+            description: The specific type of identity shape shift that occurred.
+            enum:
+            - ANONYMOUS_NO_KEY
+            - ANONYMOUS_WITH_KEY
+            - DEVICE_AND_IDENTITY_MERGED
+            - DEVICE_AND_IDENTITY_WITH_DIFFERENT_KEY
+            - DEVICE_AND_IDENTITY_WITH_KEY
+            - DEVICE_MERGED
+            - DEVICE_NO_KEY
+            - DEVICE_NO_KEY_IDENTITY_WITH_KEY
+            - DEVICE_WITH_DIFFERENT_KEY
+            - DEVICE_WITH_KEY
+            - IDENTITY_MERGED
+            - IDENTITY_WITH_KEY
+            type: string
+          type:
+            enum:
+            - IDENTITY_SHIFT
+            type: string
+        type: object
+      required:
+      - identity_profile_update_version
+      - identity_shape_shift_type
+      - log_date
+      - old_identity_key_name
+      - old_identity_key_value
+      - type
+      type: object
+    PersonShareableContentRequest:
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        image_url:
+          type:
+          - string
+          - 'null'
+        partner_content_id:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      type: object
+    GeoIp:
+      properties:
+        accuracyRadiusKm:
+          format: int32
+          type:
+          - integer
+          - 'null'
+        city:
+          $ref: '#/components/schemas/City'
+        country:
+          $ref: '#/components/schemas/Country'
+        ipAddress:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        state:
+          $ref: '#/components/schemas/State'
+        zipCode:
+          type:
+          - string
+          - 'null'
+      type: object
+    PersonLocationResponse:
+      properties:
+        accuracy_radius_km:
+          description: Accuracy radius in kilometres for the geo-IP lookup. Absent if not available.
+          format: int32
+          type: integer
+        city:
+          $ref: '#/components/schemas/City'
+        country:
+          $ref: '#/components/schemas/Country'
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        device_id:
+          description: Device identifier associated with the request.
+          type: string
+        ip_address:
+          description: IP address of the request that produced this location record.
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        state:
+          $ref: '#/components/schemas/State'
+        zip_code:
+          description: Postal/ZIP code derived from the IP address. Absent if not resolvable.
+          type: string
+      required:
+      - accuracy_radius_km
+      - city
+      - country
+      - created_date
+      - device_id
+      - ip_address
+      - location
+      - state
+      - zip_code
+      type: object
+    PersonShareResponse:
+      properties:
+        campaign_id:
+          description: Extole campaign id associated with this share.
+          type: string
+        channel:
+          description: Channel through which the share was sent (e.g. `email`, `sms`). Absent if not recorded.
+          type: string
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/PersonShareDataResponse'
+          description: Named data parameters attached to this share.
+          type: object
+        id:
+          description: Extole-assigned unique identifier for this share.
+          readOnly: true
+          type: string
+        link:
+          description: Share link URL sent to the friend.
+          type: string
+        message:
+          description: Message body included with the share. Absent if no message was sent.
+          type: string
+        other_person_id:
+          description: Extole person id of the friend who received this share. Absent if the friend has not yet joined.
+          type: string
+        partner_id:
+          $ref: '#/components/schemas/PartnerEventIdResponse'
+        program:
+          description: Program key associated with this share.
+          type: string
+        shareable_code:
+          description: Shareable code used to generate the share link.
+          type: string
+        subject:
+          description: Subject line of the share message. Absent for channels that do not have subjects.
+          type: string
+      required:
+      - campaign_id
+      - channel
+      - created_date
+      - data
+      - id
+      - link
+      - message
+      - other_person_id
+      - partner_id
+      - program
+      - shareable_code
+      - subject
+      type: object
+    PersonStepDataResponse:
+      description: Named data parameters attached to this step.
       properties:
         name:
           description: Name of the data parameter.
+          type: string
+        scope:
+          description: Visibility scope of the data parameter.
+          enum:
+          - CLIENT
+          - PRIVATE
+          - PUBLIC
           type: string
         value:
           description: Value stored for the data parameter.
           type: object
       type: object
-    IdentityLogResponseBase:
+    PersonLocaleResponse:
       properties:
-        log_date:
+        last_browser:
+          description: BCP 47 locale tag last detected from the person's browser. Absent if not yet observed.
+          type: string
+        user_specified:
+          description: BCP 47 locale tag explicitly set by the person. Absent if not specified.
+          type: string
+      type: object
+    PersonRelationshipResponse:
+      properties:
+        campaign_id:
+          description: Extole campaign id associated with this relationship. Absent when no campaign is linked.
+          type: string
+        cause_event_id:
+          description: Id of the direct cause event for this relationship.
+          type: string
+        container:
+          description: Campaign container in which the relationship was established.
+          type: string
+        created_date:
           $ref: '#/components/schemas/ZonedDateTime'
-        old_identity_key_name:
-          description: Name of the identity key before the change. Absent if not applicable.
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/PersonRelationshipDataResponse'
+          description: Named data parameters attached to this relationship.
+          type: object
+        id:
+          description: Extole-assigned unique identifier for this relationship.
+          readOnly: true
           type: string
-        old_identity_key_value:
-          description: Value of the identity key before the change. Absent if not applicable.
-          type: string
-        type:
-          description: Type of identity event (`IDENTITY_SHIFT` or `SPLIT_LOSER`).
+        my_role:
+          description: This person's role in the relationship (`ADVOCATE` or `FRIEND`).
           enum:
-          - IDENTITY_SHIFT
-          - SPLIT_LOSER
+          - ADVOCATE
+          - FRIEND
           type: string
+        other_person_id:
+          description: Extole person id of the other party in the relationship.
+          type: string
+        program:
+          description: Program key associated with this relationship. Absent for relationships with no program context.
+          type: string
+        root_event_id:
+          description: Id of the root event that initiated this relationship.
+          type: string
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - campaign_id
+      - cause_event_id
+      - container
+      - created_date
+      - data
+      - id
+      - my_role
+      - other_person_id
+      - program
+      - root_event_id
+      - updated_date
       type: object
     PersonRewardResponse:
       properties:
@@ -4783,123 +5315,11 @@ components:
       - updated_date
       - value_of_rewarded_event
       type: object
-    PersonDataCreateRequest:
-      description: Body of a `POST /v5/persons/{person_id}/data` request.
+    JourneyKey:
       properties:
         name:
-          description: Name of the data parameter to create.
-          type: string
-        scope:
-          description: Visibility scope of the data parameter. Defaults to PRIVATE when omitted.
-          enum:
-          - CLIENT
-          - PRIVATE
-          - PUBLIC
           type: string
         value:
-          description: Value to store for the data parameter.
-          type: object
-      required:
-      - name
-      - value
-      type: object
-    PublicPersonStepResponse:
-      properties:
-        campaign_id:
-          nullable: true
-          type: string
-        data:
-          additionalProperties:
-            type: object
-          type: object
-        event_date:
-          type: string
-        journey_name:
-          nullable: true
-          type: string
-        program_label:
-          nullable: true
-          type: string
-        step_name:
-          type: string
-      required:
-      - campaign_id
-      - data
-      - event_date
-      - journey_name
-      - program_label
-      - step_name
-      type: object
-    PersonRelationshipResponse:
-      properties:
-        campaign_id:
-          description: Extole campaign id associated with this relationship. Absent when no campaign is linked.
-          type: string
-        cause_event_id:
-          description: Id of the direct cause event for this relationship.
-          type: string
-        container:
-          description: Campaign container in which the relationship was established.
-          type: string
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/PersonRelationshipDataResponse'
-          description: Named data parameters attached to this relationship.
-          type: object
-        id:
-          description: Extole-assigned unique identifier for this relationship.
-          readOnly: true
-          type: string
-        my_role:
-          description: This person's role in the relationship (`ADVOCATE` or `FRIEND`).
-          enum:
-          - ADVOCATE
-          - FRIEND
-          type: string
-        other_person_id:
-          description: Extole person id of the other party in the relationship.
-          type: string
-        program:
-          description: Program key associated with this relationship. Absent for relationships with no program context.
-          type: string
-        root_event_id:
-          description: Id of the root event that initiated this relationship.
-          type: string
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - campaign_id
-      - cause_event_id
-      - container
-      - created_date
-      - data
-      - id
-      - my_role
-      - other_person_id
-      - program
-      - root_event_id
-      - updated_date
-      type: object
-    GeoIp:
-      properties:
-        accuracyRadiusKm:
-          format: int32
-          nullable: true
-          type: integer
-        city:
-          $ref: '#/components/schemas/City'
-        country:
-          $ref: '#/components/schemas/Country'
-        ipAddress:
-          type: string
-        location:
-          $ref: '#/components/schemas/Location'
-        state:
-          $ref: '#/components/schemas/State'
-        zipCode:
-          nullable: true
           type: string
       type: object
     PersonShareableContentResponse:
@@ -4921,16 +5341,26 @@ components:
           description: Destination URL for the shared content. Absent if not set.
           type: string
       type: object
-    PersonRequest:
-      description: Request body for creating or updating a person profile.
+    PersonDataUpdateRequest:
+      description: Body of a `PUT /v5/persons/{person_id}/data/{name}` request.
       properties:
-        identity_key_value:
-          description: Value of the primary identity key for the person. Omit to leave the current value unchanged.
+        scope:
+          description: Visibility scope of the data parameter. Omit to leave unchanged.
+          enum:
+          - CLIENT
+          - PRIVATE
+          - PUBLIC
           type: string
+        value:
+          description: Value stored for the data parameter. Omit to leave unchanged.
+          type: object
       type: object
-    PersonStepDataResponse:
-      description: Named data parameters attached to this step.
+    PersonJourneyDataResponse:
+      description: Named data parameters attached to this journey entry.
       properties:
+        id:
+          description: Extole-assigned unique identifier for this data parameter entry.
+          type: string
         name:
           description: Name of the data parameter.
           type: string
@@ -4945,75 +5375,26 @@ components:
           description: Value stored for the data parameter.
           type: object
       type: object
-    PersonLocationResponse:
+    IdentityLogResponseBase:
       properties:
-        accuracy_radius_km:
-          description: Accuracy radius in kilometres for the geo-IP lookup. Absent if not available.
-          format: int32
-          type: integer
-        city:
-          $ref: '#/components/schemas/City'
-        country:
-          $ref: '#/components/schemas/Country'
-        created_date:
+        log_date:
           $ref: '#/components/schemas/ZonedDateTime'
-        device_id:
-          description: Device identifier associated with the request.
+        old_identity_key_name:
+          description: Name of the identity key before the change. Absent if not applicable.
           type: string
-        ip_address:
-          description: IP address of the request that produced this location record.
+        old_identity_key_value:
+          description: Value of the identity key before the change. Absent if not applicable.
           type: string
-        location:
-          $ref: '#/components/schemas/Location'
-        state:
-          $ref: '#/components/schemas/State'
-        zip_code:
-          description: Postal/ZIP code derived from the IP address. Absent if not resolvable.
-          type: string
-      required:
-      - accuracy_radius_km
-      - city
-      - country
-      - created_date
-      - device_id
-      - ip_address
-      - location
-      - state
-      - zip_code
-      type: object
-    PersonShareableContentRequest:
-      properties:
-        description:
-          nullable: true
-          type: string
-        image_url:
-          nullable: true
-          type: string
-        partner_content_id:
-          nullable: true
-          type: string
-        title:
-          nullable: true
-          type: string
-        url:
-          nullable: true
+        type:
+          description: Type of identity event (`IDENTITY_SHIFT` or `SPLIT_LOSER`).
+          enum:
+          - IDENTITY_SHIFT
+          - SPLIT_LOSER
           type: string
       type: object
-    PersonRelationshipDataResponse:
-      description: Named data parameters attached to this relationship.
+    PersonShareableUpdateRequest:
+      description: 'Body of a `PUT /v5/persons/{person_id}/shareables/{code : .+}` request.'
       properties:
-        name:
-          description: Name of the data parameter.
-          type: string
-        value:
-          description: Value stored for the data parameter.
-          type: object
-      type: object
-    PersonShareableCreateRequest:
-      description: Body of a `POST /v5/persons/{person_id}/shareables` request.
-      properties:
-        code:
-          type: string
         content:
           $ref: '#/components/schemas/PersonShareableContentRequest'
         data:
@@ -5021,54 +5402,14 @@ components:
             type: string
           type: object
         key:
-          type: string
-        label:
-          type: string
-        program_url:
-          type: string
-      required:
-      - label
-      type: object
-    PersonIdentityHistoryResponse:
-      allOf:
-      - $ref: '#/components/schemas/IdentityLogResponseBase'
-      - properties:
-          losing_identity_key_value:
-            description: Identity key value of this (losing) profile before the split. Absent if not applicable.
-            type: string
           type:
-            enum:
-            - SPLIT_LOSER
-            type: string
-          winning_identity_id:
-            description: Extole person id of the winning (surviving) profile. Absent if not applicable.
-            type: string
-          winning_identity_key_name:
-            description: Identity key name of the winning (surviving) profile after the split. Absent if not applicable.
-            type: string
-          winning_identity_key_value:
-            description: Identity key value of the winning (surviving) profile after the split. Absent if not applicable.
-            type: string
-        type: object
-      required:
-      - log_date
-      - losing_identity_key_value
-      - old_identity_key_name
-      - old_identity_key_value
-      - type
-      - winning_identity_id
-      - winning_identity_key_name
-      - winning_identity_key_value
-      type: object
-    IdentityKey:
-      description: Name of the identity key used to look up or create this person.
-      properties:
-        name:
-          type: string
-      type: object
-    City:
-      properties:
-        name:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        program_url:
           type: string
       type: object
     PersonResponse:
@@ -5099,139 +5440,17 @@ components:
       - locale
       - version
       type: object
-    JourneyKey:
+    Location:
       properties:
-        name:
+        createdDate:
           type: string
-        value:
+        deviceId:
           type: string
+        geoIp:
+          $ref: '#/components/schemas/GeoIp'
       type: object
-    PersonShareableUpdateRequest:
-      description: 'Body of a `PUT /v5/persons/{person_id}/shareables/{code : .+}` request.'
-      properties:
-        content:
-          $ref: '#/components/schemas/PersonShareableContentRequest'
-        data:
-          additionalProperties:
-            type: string
-          type: object
-        key:
-          nullable: true
-          type: string
-        label:
-          nullable: true
-          type: string
-        program_url:
-          type: string
-      type: object
-    IdentityLogResponse:
-      discriminator:
-        mapping:
-          IDENTITY_SHIFT: '#/components/schemas/PersonIdentityShapeShiftResponse'
-          SPLIT_LOSER: '#/components/schemas/PersonIdentityHistoryResponse'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/PersonIdentityShapeShiftResponse'
-      - $ref: '#/components/schemas/PersonIdentityHistoryResponse'
-      required:
-      - log_date
-      - old_identity_key_name
-      - old_identity_key_value
-      - type
-    PersonShareResponse:
-      properties:
-        campaign_id:
-          description: Extole campaign id associated with this share.
-          type: string
-        channel:
-          description: Channel through which the share was sent (e.g. `email`, `sms`). Absent if not recorded.
-          type: string
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/PersonShareDataResponse'
-          description: Named data parameters attached to this share.
-          type: object
-        id:
-          description: Extole-assigned unique identifier for this share.
-          readOnly: true
-          type: string
-        link:
-          description: Share link URL sent to the friend.
-          type: string
-        message:
-          description: Message body included with the share. Absent if no message was sent.
-          type: string
-        other_person_id:
-          description: Extole person id of the friend who received this share. Absent if the friend has not yet joined.
-          type: string
-        partner_id:
-          $ref: '#/components/schemas/PartnerEventIdResponse'
-        program:
-          description: Program key associated with this share.
-          type: string
-        shareable_code:
-          description: Shareable code used to generate the share link.
-          type: string
-        subject:
-          description: Subject line of the share message. Absent for channels that do not have subjects.
-          type: string
-      required:
-      - campaign_id
-      - channel
-      - created_date
-      - data
-      - id
-      - link
-      - message
-      - other_person_id
-      - partner_id
-      - program
-      - shareable_code
-      - subject
-      type: object
-    PersonDataUpdateRequest:
-      description: Body of a `PUT /v5/persons/{person_id}/data/{name}` request.
-      properties:
-        scope:
-          description: Visibility scope of the data parameter. Omit to leave unchanged.
-          enum:
-          - CLIENT
-          - PRIVATE
-          - PUBLIC
-          type: string
-        value:
-          description: Value stored for the data parameter. Omit to leave unchanged.
-          type: object
-      type: object
-    PersonForwardRequest:
-      properties:
-        forward_to_profile_id:
-          description: Target identity profile Extole unique identifier.
-          type: string
-      required:
-      - forward_to_profile_id
-      type: object
-    PartnerEventIdResponse:
-      nullable: true
-      properties:
-        name:
-          description: Name of the partner event identifier (e.g. `order_id`).
-          type: string
-        value:
-          description: Value of the partner event identifier.
-          type: string
-      type: object
-    State:
-      properties:
-        isoCode:
-          type: string
-        name:
-          type: string
-      type: object
-    PersonShareableDataResponse:
-      description: Named data parameters attached to this shareable.
+    PersonRelationshipDataResponse:
+      description: Named data parameters attached to this relationship.
       properties:
         name:
           description: Name of the data parameter.
@@ -5259,95 +5478,49 @@ components:
       - type
       - updated_date
       type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
-    RestExceptionResponse:
-      description: Represents the API error response
+    PersonMembershipResponse:
       properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
+        audience_id:
+          description: Extole-assigned unique identifier for the audience.
           type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
-    PersonJourneyResponse:
-      properties:
-        campaign_id:
-          description: Extole campaign id associated with this journey.
-          type: string
-        container:
-          description: Campaign container the journey belongs to.
+        audience_name:
+          description: Human-readable name of the audience.
           type: string
         created_date:
           $ref: '#/components/schemas/ZonedDateTime'
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/PersonJourneyDataResponse'
-          description: Named data parameters attached to this journey entry.
-          type: object
-        id:
-          description: Extole-assigned unique identifier for this journey entry.
-          readOnly: true
-          type: string
-        key:
-          $ref: '#/components/schemas/JourneyKey'
-        name:
-          description: Name of the journey (program step) the person is on.
-          type: string
-        program:
-          description: Program key associated with this journey.
-          type: string
         updated_date:
           $ref: '#/components/schemas/ZonedDateTime'
       required:
-      - campaign_id
-      - container
+      - audience_id
+      - audience_name
       - created_date
-      - data
-      - id
-      - key
-      - name
-      - program
       - updated_date
       type: object
-    PersonJourneyDataResponse:
-      description: Named data parameters attached to this journey entry.
+    PersonShareableCreateRequest:
+      description: Body of a `POST /v5/persons/{person_id}/shareables` request.
       properties:
-        id:
-          description: Extole-assigned unique identifier for this data parameter entry.
+        code:
           type: string
+        content:
+          $ref: '#/components/schemas/PersonShareableContentRequest'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        key:
+          type: string
+        label:
+          type: string
+        program_url:
+          type: string
+      required:
+      - label
+      type: object
+    PersonShareDataResponse:
+      description: Named data parameters attached to this share.
+      properties:
         name:
           description: Name of the data parameter.
-          type: string
-        scope:
-          description: Visibility scope of the data parameter.
-          enum:
-          - CLIENT
-          - PRIVATE
-          - PUBLIC
           type: string
         value:
           description: Value stored for the data parameter.
@@ -5384,114 +5557,25 @@ components:
       - updated_date
       - value
       type: object
-    PersonLocaleResponse:
+    PersonDataCreateRequest:
+      description: Body of a `POST /v5/persons/{person_id}/data` request.
       properties:
-        last_browser:
-          description: BCP 47 locale tag last detected from the person's browser. Absent if not yet observed.
+        name:
+          description: Name of the data parameter to create.
           type: string
-        user_specified:
-          description: BCP 47 locale tag explicitly set by the person. Absent if not specified.
+        scope:
+          description: Visibility scope of the data parameter. Defaults to PRIVATE when omitted.
+          enum:
+          - CLIENT
+          - PRIVATE
+          - PUBLIC
           type: string
-      type: object
-    PublicPersonV4Response:
-      properties:
-        first_name:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        image_url:
-          type: string
-        parameters:
-          additionalProperties:
-            type: object
+        value:
+          description: Value to store for the data parameter.
           type: object
       required:
-      - first_name
-      - id
-      - image_url
-      - parameters
-      type: object
-    Location:
-      properties:
-        createdDate:
-          type: string
-        deviceId:
-          type: string
-        geoIp:
-          $ref: '#/components/schemas/GeoIp'
-      type: object
-    PersonShareableResponse:
-      properties:
-        code:
-          description: Unique shareable code used to generate this person's referral link.
-          type: string
-        content:
-          $ref: '#/components/schemas/PersonShareableContentResponse'
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/PersonShareableDataResponse'
-          description: Named data parameters attached to this shareable.
-          type: object
-        key:
-          description: Key identifying the shareable template or program slot.
-          type: string
-        label:
-          description: Human-readable label for this shareable. Absent if no label was set.
-          type: string
-        link:
-          description: Full referral link URL for this shareable.
-          type: string
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - code
-      - content
-      - created_date
-      - data
-      - key
-      - label
-      - link
-      - updated_date
-      type: object
-    PersonIdentityShapeShiftResponse:
-      allOf:
-      - $ref: '#/components/schemas/IdentityLogResponseBase'
-      - properties:
-          identity_profile_update_version:
-            description: Version number of the identity profile after the shift. Absent for older entries.
-            format: int32
-            type: integer
-          identity_shape_shift_type:
-            description: The specific type of identity shape shift that occurred.
-            enum:
-            - ANONYMOUS_NO_KEY
-            - ANONYMOUS_WITH_KEY
-            - DEVICE_AND_IDENTITY_MERGED
-            - DEVICE_AND_IDENTITY_WITH_DIFFERENT_KEY
-            - DEVICE_AND_IDENTITY_WITH_KEY
-            - DEVICE_MERGED
-            - DEVICE_NO_KEY
-            - DEVICE_NO_KEY_IDENTITY_WITH_KEY
-            - DEVICE_WITH_DIFFERENT_KEY
-            - DEVICE_WITH_KEY
-            - IDENTITY_MERGED
-            - IDENTITY_WITH_KEY
-            type: string
-          type:
-            enum:
-            - IDENTITY_SHIFT
-            type: string
-        type: object
-      required:
-      - identity_profile_update_version
-      - identity_shape_shift_type
-      - log_date
-      - old_identity_key_name
-      - old_identity_key_value
-      - type
+      - name
+      - value
       type: object
     Country:
       properties:
@@ -5499,67 +5583,6 @@ components:
           type: string
         name:
           type: string
-      type: object
-    PersonBlockRequest:
-      properties:
-        reason:
-          description: Optional human-readable reason for the block, stored for audit purposes.
-          type: string
-        type:
-          description: Block scope. `EVENTS` blocks event participation, `REWARDS` blocks reward fulfilment, `NONE` removes any existing block.
-          enum:
-          - EVENTS
-          - NONE
-          - REWARDS
-          type: string
-      required:
-      - reason
-      - type
-      type: object
-    PersonMembershipResponse:
-      properties:
-        audience_id:
-          description: Extole-assigned unique identifier for the audience.
-          type: string
-        audience_name:
-          description: Human-readable name of the audience.
-          type: string
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - audience_id
-      - audience_name
-      - created_date
-      - updated_date
-      type: object
-    PublicPersonResponse:
-      properties:
-        first_name:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        image_url:
-          type: string
-        parameters:
-          additionalProperties:
-            type: object
-          type: object
-      required:
-      - first_name
-      - id
-      - image_url
-      - parameters
-      type: object
-    PersonMembershipCreateRequest:
-      description: Body of a `POST /v5/persons/{person_id}/memberships` request.
-      properties:
-        audience_id:
-          type: string
-      required:
-      - audience_id
       type: object
     PersonStepResponse:
       properties:
@@ -5640,6 +5663,93 @@ components:
       - scope
       - updated_date
       type: object
+    PersonIdentityHistoryResponse:
+      allOf:
+      - $ref: '#/components/schemas/IdentityLogResponseBase'
+      - properties:
+          losing_identity_key_value:
+            description: Identity key value of this (losing) profile before the split. Absent if not applicable.
+            type: string
+          type:
+            enum:
+            - SPLIT_LOSER
+            type: string
+          winning_identity_id:
+            description: Extole person id of the winning (surviving) profile. Absent if not applicable.
+            type: string
+          winning_identity_key_name:
+            description: Identity key name of the winning (surviving) profile after the split. Absent if not applicable.
+            type: string
+          winning_identity_key_value:
+            description: Identity key value of the winning (surviving) profile after the split. Absent if not applicable.
+            type: string
+        type: object
+      required:
+      - log_date
+      - losing_identity_key_value
+      - old_identity_key_name
+      - old_identity_key_value
+      - type
+      - winning_identity_id
+      - winning_identity_key_name
+      - winning_identity_key_value
+      type: object
+    State:
+      properties:
+        isoCode:
+          type: string
+        name:
+          type: string
+      type: object
+    PublicPersonResponse:
+      properties:
+        first_name:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        image_url:
+          type: string
+        parameters:
+          additionalProperties:
+            type: object
+          type: object
+      required:
+      - first_name
+      - id
+      - image_url
+      - parameters
+      type: object
+    PublicPersonStepResponse:
+      properties:
+        campaign_id:
+          type:
+          - string
+          - 'null'
+        data:
+          additionalProperties:
+            type: object
+          type: object
+        event_date:
+          type: string
+        journey_name:
+          type:
+          - string
+          - 'null'
+        program_label:
+          type:
+          - string
+          - 'null'
+        step_name:
+          type: string
+      required:
+      - campaign_id
+      - data
+      - event_date
+      - journey_name
+      - program_label
+      - step_name
+      type: object
   securitySchemes:
     COOKIE:
       in: cookie
@@ -5654,6 +5764,10 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-integration-consumer-to-extole-openapi.json
+- extole-integration-server-to-extole-openapi.json
+- extole-management-expert-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:

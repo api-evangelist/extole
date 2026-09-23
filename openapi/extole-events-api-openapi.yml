@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Events API
+  title: Extole Events API
   version: '1.0'
+  description: 'Operations tagged Events across 3 of this provider''s published API definitions: extole-integration-consumer-to-extole-openapi.json, extole-integration-server-to-extole-openapi.json, extole-management-expert-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
   url: https://{brand}.extole.io
@@ -10,6 +10,8 @@ servers:
     brand:
       default: yourcompany
       description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+- description: Production
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -99,6 +101,13 @@ paths:
       - Events
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://{brand}.extole.io
+      variables:
+        brand:
+          default: yourcompany
+          description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
   /v6/async-events:
     post:
       description: Submits a consumer event asynchronously. No per-request rate limit - use for high-volume or bulk integrations. May return 429 only if the downstream ingestion queue is saturated. Only `event_id` is returned; person identification occurs asynchronously after the request returns.
@@ -193,6 +202,9 @@ paths:
       - Events
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v6/async-events/{event_name}:
     post:
       description: Submits a specific named consumer event asynchronously. The event name is supplied in the URL path and the body is an open data map. No per-request rate limit. Returns `event_id` only; person identification occurs asynchronously.
@@ -290,6 +302,9 @@ paths:
       - Events
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v6/events:
     post:
       description: Submits a consumer event synchronously. Returns both `event_id` and `person_id`. Use when you need immediate confirmation that the event was processed and identity resolution has completed. For high-volume ingestion use `POST /v6/async-events` instead.
@@ -384,6 +399,9 @@ paths:
       - Events
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v6/events/{event_name}:
     post:
       description: Submits a specific named consumer event synchronously. The event name is supplied in the URL path rather than in the request body, and the body is an open data map.
@@ -481,6 +499,9 @@ paths:
       - Events
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v3/signals/step/status/{pollingId}:
     get:
       operationId: getStatus_2
@@ -562,286 +583,13 @@ paths:
       - Events
       x-extole-bundle: integration-consumer-to-extole
       x-extole-visibility: expert
+      summary: Get status 2
+      x-summary-source: derived
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
-  examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_event_time_format:
-      summary: invalid_event_time_format
-      value:
-        code: invalid_event_time_format
-        http_status_code: 400
-        message: 'Invalid event time format. Expected: ISO8601 format'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_blocked:
-      summary: event_blocked
-      value:
-        code: event_blocked
-        http_status_code: 400
-        message: Blocked due to client specific rules to ignore spurious events
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_event_name:
-      summary: missing_event_name
-      value:
-        code: missing_event_name
-        http_status_code: 400
-        message: Event name is required.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    QualityRuleResult:
-      properties:
-        rule_name:
-          type: string
-        score:
-          enum:
-          - ERROR
-          - HIGH
-          - LOW
-          type: string
-      type: object
-    StepSignalResponse:
-      properties:
-        polling_id:
-          type: string
-        signals:
-          items:
-            $ref: '#/components/schemas/StepSignal'
-          type: array
-      required:
-      - polling_id
-      - signals
-      type: object
-    SubmitEventResponse:
-      properties:
-        cookie_consent:
-          description: Cookie consent string set by the platform during event processing. Null when no consent update occurred.
-          nullable: true
-          type: string
-        id:
-          description: Extole-assigned event identifier for the fired event.
-          readOnly: true
-          type: string
-        token:
-          description: Current access token for the consumer. Allows client code to read the token without relying on cookies.
-          type: string
-      required:
-      - cookie_consent
-      - id
-      - token
-      type: object
-    PartnerEventIdResponse:
-      nullable: true
-      properties:
-        name:
-          description: Name of the partner event identifier (e.g. `order_id`).
-          type: string
-        value:
-          description: Value of the partner event identifier.
-          type: string
-      type: object
-    EventDispatcherRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/EventSubmissionData'
-        event_name:
-          description: Name of the event being submitted (for example, `conversion` or `registration`). Required.
-          type: string
-        event_time:
-          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events.
-          type: string
-      required:
-      - data
-      - event_name
-      - event_time
-      type: object
-    EventDispatcherAsyncResponse:
-      properties:
-        event_id:
-          description: Unique identifier for the queued event. Person identification occurs asynchronously after the request returns.
-          type: string
-      required:
-      - event_id
-      type: object
-    QualityResults:
-      properties:
-        quality_rule_results:
-          items:
-            $ref: '#/components/schemas/QualityRuleResult'
-          type: array
-        score:
-          enum:
-          - ERROR
-          - HIGH
-          - LOW
-          type: string
-      type: object
-    StepSignal:
-      properties:
-        aliases:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        data:
-          additionalProperties:
-            type: object
-          type: object
-        first_site_visit:
-          type: boolean
-        name:
-          type: string
-        partner_event_id:
-          $ref: '#/components/schemas/PartnerEventIdResponse'
-        quality_results:
-          $ref: '#/components/schemas/QualityResults'
-      type: object
-    EventSubmissionData:
-      additionalProperties: true
-      description: Open map of fields submitted with an event. May include keys beyond those listed here. `email` is the primary identity key and the only field that enables profile merging. `partner_user_id` is a secondary lookup key and is not guaranteed unique.
-      example:
-        email: user@example.com
-        event_time: '2024-01-15T12:00:00Z'
-        partner_user_id: usr_8392047156
-        person_id: 7465313346145957284
-      nullable: true
-      properties:
-        email:
-          description: Primary identity key. The only data-map field that enables profile merging when submitted.
-          example: user@example.com
-          format: email
-          type: string
-        event_time:
-          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events. On wrapped request bodies this is an alternative to the top-level `event_time` field.
-          example: '2024-01-15T12:00:00Z'
-          format: date-time
-          type: string
-        partner_user_id:
-          description: Secondary lookup key for an existing profile. Not guaranteed unique across your program.
-          example: usr_8392047156
-          type: string
-        person_id:
-          description: Extole person identifier. Numeric. Submit to target an existing profile instead of resolving by email or partner user id.
-          example: 7465313346145957284
-          format: int64
-          type: integer
-      type: object
-    EventDispatcherResponse:
-      properties:
-        event_id:
-          description: Unique identifier for the submitted event.
-          type: string
-        person_id:
-          description: Extole person ID resolved from the event data.
-          type: string
-      required:
-      - event_id
-      - person_id
-      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -871,6 +619,287 @@ components:
       - parameters
       - unique_id
       type: object
+    SubmitEventResponse:
+      properties:
+        cookie_consent:
+          description: Cookie consent string set by the platform during event processing. Null when no consent update occurred.
+          type:
+          - string
+          - 'null'
+        id:
+          description: Extole-assigned event identifier for the fired event.
+          readOnly: true
+          type: string
+        token:
+          description: Current access token for the consumer. Allows client code to read the token without relying on cookies.
+          type: string
+      required:
+      - cookie_consent
+      - id
+      - token
+      type: object
+    EventDispatcherAsyncResponse:
+      properties:
+        event_id:
+          description: Unique identifier for the queued event. Person identification occurs asynchronously after the request returns.
+          type: string
+      required:
+      - event_id
+      type: object
+    EventSubmissionData:
+      additionalProperties: true
+      description: Open map of fields submitted with an event. May include keys beyond those listed here. `email` is the primary identity key and the only field that enables profile merging. `partner_user_id` is a secondary lookup key and is not guaranteed unique.
+      example:
+        email: user@example.com
+        event_time: '2024-01-15T12:00:00Z'
+        partner_user_id: usr_8392047156
+        person_id: 7465313346145957284
+      properties:
+        email:
+          description: Primary identity key. The only data-map field that enables profile merging when submitted.
+          example: user@example.com
+          format: email
+          type: string
+        event_time:
+          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events. On wrapped request bodies this is an alternative to the top-level `event_time` field.
+          example: '2024-01-15T12:00:00Z'
+          format: date-time
+          type: string
+        partner_user_id:
+          description: Secondary lookup key for an existing profile. Not guaranteed unique across your program.
+          example: usr_8392047156
+          type: string
+        person_id:
+          description: Extole person identifier. Numeric. Submit to target an existing profile instead of resolving by email or partner user id.
+          example: 7465313346145957284
+          format: int64
+          type: integer
+      type:
+      - object
+      - 'null'
+    EventDispatcherRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/EventSubmissionData'
+        event_name:
+          description: Name of the event being submitted (for example, `conversion` or `registration`). Required.
+          type: string
+        event_time:
+          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events.
+          type: string
+      required:
+      - data
+      - event_name
+      - event_time
+      type: object
+    EventDispatcherResponse:
+      properties:
+        event_id:
+          description: Unique identifier for the submitted event.
+          type: string
+        person_id:
+          description: Extole person ID resolved from the event data.
+          type: string
+      required:
+      - event_id
+      - person_id
+      type: object
+    QualityResults:
+      properties:
+        quality_rule_results:
+          items:
+            $ref: '#/components/schemas/QualityRuleResult'
+          type: array
+        score:
+          enum:
+          - ERROR
+          - HIGH
+          - LOW
+          type: string
+      type: object
+    StepSignalResponse:
+      properties:
+        polling_id:
+          type: string
+        signals:
+          items:
+            $ref: '#/components/schemas/StepSignal'
+          type: array
+      required:
+      - polling_id
+      - signals
+      type: object
+    StepSignal:
+      properties:
+        aliases:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        data:
+          additionalProperties:
+            type: object
+          type: object
+        first_site_visit:
+          type: boolean
+        name:
+          type: string
+        partner_event_id:
+          $ref: '#/components/schemas/PartnerEventIdResponse'
+        quality_results:
+          $ref: '#/components/schemas/QualityResults'
+      type: object
+    QualityRuleResult:
+      properties:
+        rule_name:
+          type: string
+        score:
+          enum:
+          - ERROR
+          - HIGH
+          - LOW
+          type: string
+      type: object
+    PartnerEventIdResponse:
+      properties:
+        name:
+          description: Name of the partner event identifier (e.g. `order_id`).
+          type: string
+        value:
+          description: Value of the partner event identifier.
+          type: string
+      type:
+      - object
+      - 'null'
+  examples:
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_blocked:
+      summary: event_blocked
+      value:
+        code: event_blocked
+        http_status_code: 400
+        message: Blocked due to client specific rules to ignore spurious events
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_event_time_format:
+      summary: invalid_event_time_format
+      value:
+        code: invalid_event_time_format
+        http_status_code: 400
+        message: 'Invalid event time format. Expected: ISO8601 format'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_event_name:
+      summary: missing_event_name
+      value:
+        code: missing_event_name
+        http_status_code: 400
+        message: Event name is required.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -885,6 +914,10 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-integration-consumer-to-extole-openapi.json
+- extole-integration-server-to-extole-openapi.json
+- extole-management-expert-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:

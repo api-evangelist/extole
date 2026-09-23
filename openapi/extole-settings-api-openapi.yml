@@ -1,15 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  description: 'Consumer-to-Extole integration endpoints: consumer event submission, zone rendering, profile management, and SDK-backing operations for browser and native app environments.'
-  title: Integration API - Consumer to Extole Audiences Settings API
+  title: Extole Settings API
   version: '1.0'
+  description: 'Operations tagged Settings across 2 of this provider''s published API definitions: extole-management-expert-openapi.json, extole-management-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production
-  url: https://{brand}.extole.io
-  variables:
-    brand:
-      default: yourcompany
-      description: Your Extole client subdomain (e.g. 'mycompany' for mycompany.extole.io)
+  url: https://api.extole.io
 security:
 - HEADER: []
 - QUERY: []
@@ -99,6 +95,9 @@ paths:
       - Settings
       x-extole-bundle: management-expert
       x-extole-visibility: expert
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/logo:
     get:
       description: Returns the current logo image metadata for the client.
@@ -365,6 +364,9 @@ paths:
       - Settings
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/logo/image:
     get:
       description: Downloads the client logo as a PNG image binary.
@@ -446,6 +448,9 @@ paths:
       - Settings
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/timeline-entries:
     get:
       description: Returns all campaign timeline entries for the client, optionally filtered by tags.
@@ -456,8 +461,9 @@ paths:
         schema:
           items:
             type: string
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
           uniqueItems: true
       responses:
         '200':
@@ -641,6 +647,9 @@ paths:
       - Settings
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
   /v2/timeline-entries/{name}:
     get:
       description: Returns the campaign timeline entry for the specified name.
@@ -930,320 +939,11 @@ paths:
       - Settings
       x-extole-bundle: management
       x-extole-visibility: visible
+    servers:
+    - description: Production
+      url: https://api.extole.io
 components:
-  examples:
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_content_empty:
-      summary: logo_content_empty
-      value:
-        code: logo_content_empty
-        http_status_code: 400
-        message: Logo file is empty
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_not_found:
-      summary: logo_not_found
-      value:
-        code: logo_not_found
-        http_status_code: 400
-        message: Logo not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    not_modifiable:
-      summary: not_modifiable
-      value:
-        code: not_modifiable
-        http_status_code: 400
-        message: Entry cannot be modified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_content_length_exceeded:
-      summary: logo_content_length_exceeded
-      value:
-        code: logo_content_length_exceeded
-        http_status_code: 400
-        message: Logo content exceed max size
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    date_invalid:
-      summary: date_invalid
-      value:
-        code: date_invalid
-        http_status_code: 400
-        message: Date is invalid or not ISO-8601 compliant
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    date_missing:
-      summary: date_missing
-      value:
-        code: date_missing
-        http_status_code: 400
-        message: Date is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_content_download_error:
-      summary: logo_content_download_error
-      value:
-        code: logo_content_download_error
-        http_status_code: 400
-        message: Logo content could not be downloaded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    name_invalid:
-      summary: name_invalid
-      value:
-        code: name_invalid
-        http_status_code: 400
-        message: Name is mandatory, size should be between 1 and 255
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_format_not_supported:
-      summary: logo_format_not_supported
-      value:
-        code: logo_format_not_supported
-        http_status_code: 400
-        message: Logo format not supported
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_already_exists:
-      summary: logo_already_exists
-      value:
-        code: logo_already_exists
-        http_status_code: 400
-        message: Logo already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    name_missing:
-      summary: name_missing
-      value:
-        code: name_missing
-        http_status_code: 403
-        message: Name must be a non-null value upon creation
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    timeline_entry_not_found:
-      summary: timeline_entry_not_found
-      value:
-        code: timeline_entry_not_found
-        http_status_code: 400
-        message: Timeline entry not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    description_invalid:
-      summary: description_invalid
-      value:
-        code: description_invalid
-        http_status_code: 400
-        message: Description is of invalid format or length
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    entry_name_exists:
-      summary: entry_name_exists
-      value:
-        code: entry_name_exists
-        http_status_code: 400
-        message: Entry for given name already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    logo_content_upload_error:
-      summary: logo_content_upload_error
-      value:
-        code: logo_content_upload_error
-        http_status_code: 400
-        message: Logo content could not be uploaded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    MeClientResponse:
-      properties:
-        client_id:
-          type: string
-        name:
-          type: string
-      required:
-      - client_id
-      - name
-      type: object
-    LogoResponse:
-      properties:
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        logo_id:
-          type: string
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - created_date
-      - logo_id
-      - updated_date
-      type: object
-    FileInputStreamRequest:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/FileAttributes'
-        inputStream:
-          type: object
-      required:
-      - attributes
-      - inputStream
-      type: object
-    ClientTimelineEntryRequest:
-      properties:
-        date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        description:
-          nullable: true
-          type: string
-        name:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - date
-      - description
-      - name
-      - tags
-      type: object
-    ClientTimelineEntryResponse:
-      properties:
-        date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        description:
-          nullable: true
-          type: string
-        name:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        userId:
-          type: string
-      required:
-      - date
-      - description
-      - name
-      - tags
-      - userId
-      type: object
-    UpdateClientTimelineEntryRequest:
-      properties:
-        date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        description:
-          nullable: true
-          type: string
-        name:
-          nullable: true
-          type: string
-        tags:
-          items:
-            type: string
-          nullable: true
-          type: array
-          uniqueItems: true
-      required:
-      - date
-      - description
-      - name
-      - tags
-      type: object
-    FileAttributes:
-      properties:
-        fileName:
-          type: string
-        size:
-          format: int64
-          type: integer
-      type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -1273,6 +973,323 @@ components:
       - parameters
       - unique_id
       type: object
+    MeClientResponse:
+      properties:
+        client_id:
+          type: string
+        name:
+          type: string
+      required:
+      - client_id
+      - name
+      type: object
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    ClientTimelineEntryRequest:
+      properties:
+        date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        description:
+          type:
+          - string
+          - 'null'
+        name:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - date
+      - description
+      - name
+      - tags
+      type: object
+    FileAttributes:
+      properties:
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+      type: object
+    ClientTimelineEntryResponse:
+      properties:
+        date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        description:
+          type:
+          - string
+          - 'null'
+        name:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        userId:
+          type: string
+      required:
+      - date
+      - description
+      - name
+      - tags
+      - userId
+      type: object
+    UpdateClientTimelineEntryRequest:
+      properties:
+        date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        description:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        tags:
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          uniqueItems: true
+      required:
+      - date
+      - description
+      - name
+      - tags
+      type: object
+    FileInputStreamRequest:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileAttributes'
+        inputStream:
+          type: object
+      required:
+      - attributes
+      - inputStream
+      type: object
+    LogoResponse:
+      properties:
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        logo_id:
+          type: string
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - created_date
+      - logo_id
+      - updated_date
+      type: object
+  examples:
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    description_invalid:
+      summary: description_invalid
+      value:
+        code: description_invalid
+        http_status_code: 400
+        message: Description is of invalid format or length
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_format_not_supported:
+      summary: logo_format_not_supported
+      value:
+        code: logo_format_not_supported
+        http_status_code: 400
+        message: Logo format not supported
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_already_exists:
+      summary: logo_already_exists
+      value:
+        code: logo_already_exists
+        http_status_code: 400
+        message: Logo already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    entry_name_exists:
+      summary: entry_name_exists
+      value:
+        code: entry_name_exists
+        http_status_code: 400
+        message: Entry for given name already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_content_empty:
+      summary: logo_content_empty
+      value:
+        code: logo_content_empty
+        http_status_code: 400
+        message: Logo file is empty
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_content_upload_error:
+      summary: logo_content_upload_error
+      value:
+        code: logo_content_upload_error
+        http_status_code: 400
+        message: Logo content could not be uploaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_not_found:
+      summary: logo_not_found
+      value:
+        code: logo_not_found
+        http_status_code: 400
+        message: Logo not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    name_invalid:
+      summary: name_invalid
+      value:
+        code: name_invalid
+        http_status_code: 400
+        message: Name is mandatory, size should be between 1 and 255
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_content_download_error:
+      summary: logo_content_download_error
+      value:
+        code: logo_content_download_error
+        http_status_code: 400
+        message: Logo content could not be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    not_modifiable:
+      summary: not_modifiable
+      value:
+        code: not_modifiable
+        http_status_code: 400
+        message: Entry cannot be modified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    name_missing:
+      summary: name_missing
+      value:
+        code: name_missing
+        http_status_code: 403
+        message: Name must be a non-null value upon creation
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    timeline_entry_not_found:
+      summary: timeline_entry_not_found
+      value:
+        code: timeline_entry_not_found
+        http_status_code: 400
+        message: Timeline entry not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    logo_content_length_exceeded:
+      summary: logo_content_length_exceeded
+      value:
+        code: logo_content_length_exceeded
+        http_status_code: 400
+        message: Logo content exceed max size
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    date_missing:
+      summary: date_missing
+      value:
+        code: date_missing
+        http_status_code: 400
+        message: Date is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    date_invalid:
+      summary: date_invalid
+      value:
+        code: date_invalid
+        http_status_code: 400
+        message: Date is invalid or not ISO-8601 compliant
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
@@ -1287,6 +1304,9 @@ components:
       in: query
       name: access_token
       type: apiKey
+x-refined-from:
+- extole-management-expert-openapi.json
+- extole-management-openapi.json
 x-tagGroups:
 - name: Integration API - Consumer to Extole
   tags:
