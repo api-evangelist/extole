@@ -62,6 +62,7 @@ tags:
 - Marketing
 - Customer Acquisition
 - Software-as-a-Service
+- Loyalty & Incentives
 tags_raw:
 - Company
 - Referral Marketing
@@ -71,6 +72,7 @@ tags_raw:
 - Marketing
 - Customer Acquisition
 - SaaS
+- Loyalty & Incentives
 apis:
 - aid: extole:extole-audiences-api
   name: Extole Audiences API

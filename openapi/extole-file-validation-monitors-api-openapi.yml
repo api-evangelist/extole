@@ -1532,6 +1532,162 @@ paths:
       x-extole-visibility: visible
 components:
   schemas:
+    FileHeaderValidatorTaskRequest:
+      allOf:
+      - $ref: '#/components/schemas/TaskRequestBase'
+      - properties:
+          expected_headers:
+            items:
+              type: string
+            type: array
+          match_mode:
+            enum:
+            - EXACT_SET
+            - ORDERED
+            - SUBSET
+            type: string
+          on_mismatch:
+            enum:
+            - FAIL
+            - WARN
+            type: string
+          task_type:
+            enum:
+            - FILE_HEADER_VALIDATOR
+            type: string
+        type: object
+      required:
+      - expected_headers
+      - match_mode
+      - on_mismatch
+      - order
+      - task_type
+      type: object
+    StartBatchJobTaskRequest:
+      allOf:
+      - $ref: '#/components/schemas/TaskRequestBase'
+      - properties:
+          data_source_type:
+            enum:
+            - AUDIENCE_LIST
+            - FILE_ASSET
+            - REPORT
+            type: string
+          event_name:
+            type: string
+          task_type:
+            enum:
+            - START_BATCH_JOB
+            type: string
+        type: object
+      required:
+      - data_source_type
+      - event_name
+      - order
+      - task_type
+      type: object
+    LandsInDirectoryTriggerResponse:
+      allOf:
+      - $ref: '#/components/schemas/TriggerResponseBase'
+      - properties:
+          directory_path:
+            type: string
+          id:
+            readOnly: true
+            type: string
+          trigger_type:
+            enum:
+            - LANDS_IN_DIRECTORY
+            type: string
+        type: object
+      required:
+      - directory_path
+      - id
+      - trigger_type
+      type: object
+    FileNameMatchesTriggerRequest:
+      allOf:
+      - $ref: '#/components/schemas/TriggerRequestBase'
+      - properties:
+          match_type:
+            enum:
+            - EXACT
+            - REGEX
+            type: string
+          pattern:
+            type: string
+          trigger_type:
+            enum:
+            - FILE_NAME_MATCHES
+            type: string
+        type: object
+      required:
+      - match_type
+      - pattern
+      - trigger_type
+      type: object
+    FileHeaderValidatorTaskResponse:
+      allOf:
+      - $ref: '#/components/schemas/TaskResponseBase'
+      - properties:
+          expected_headers:
+            items:
+              type: string
+            type: array
+          id:
+            readOnly: true
+            type: string
+          match_mode:
+            enum:
+            - EXACT_SET
+            - ORDERED
+            - SUBSET
+            type: string
+          on_mismatch:
+            enum:
+            - FAIL
+            - WARN
+            type: string
+          task_type:
+            enum:
+            - FILE_HEADER_VALIDATOR
+            type: string
+        type: object
+      required:
+      - expected_headers
+      - id
+      - match_mode
+      - on_mismatch
+      - order
+      - task_type
+      type: object
+    LandsInDirectoryTriggerRequest:
+      allOf:
+      - $ref: '#/components/schemas/TriggerRequestBase'
+      - properties:
+          directory_path:
+            type: string
+          trigger_type:
+            enum:
+            - LANDS_IN_DIRECTORY
+            type: string
+        type: object
+      required:
+      - directory_path
+      - trigger_type
+      type: object
+    TriggerResponse:
+      discriminator:
+        mapping:
+          FILE_NAME_MATCHES: '#/components/schemas/FileNameMatchesTriggerResponse'
+          LANDS_IN_DIRECTORY: '#/components/schemas/LandsInDirectoryTriggerResponse'
+        propertyName: trigger_type
+      oneOf:
+      - $ref: '#/components/schemas/FileNameMatchesTriggerResponse'
+      - $ref: '#/components/schemas/LandsInDirectoryTriggerResponse'
+      required:
+      - id
+      - trigger_type
     ZonedDateTime:
       description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
       example: '2025-10-24T02:00:00-07:00'
@@ -1570,9 +1726,9 @@ components:
       - triggers
       - updated_date
       type: object
-    StartBatchJobTaskRequest:
+    StartBatchJobTaskResponse:
       allOf:
-      - $ref: '#/components/schemas/TaskRequestBase'
+      - $ref: '#/components/schemas/TaskResponseBase'
       - properties:
           data_source_type:
             enum:
@@ -1582,6 +1738,9 @@ components:
             type: string
           event_name:
             type: string
+          id:
+            readOnly: true
+            type: string
           task_type:
             enum:
             - START_BATCH_JOB
@@ -1590,8 +1749,35 @@ components:
       required:
       - data_source_type
       - event_name
+      - id
       - order
       - task_type
+      type: object
+    TaskRequest:
+      discriminator:
+        mapping:
+          FILE_HEADER_VALIDATOR: '#/components/schemas/FileHeaderValidatorTaskRequest'
+          START_BATCH_JOB: '#/components/schemas/StartBatchJobTaskRequest'
+        propertyName: task_type
+      oneOf:
+      - $ref: '#/components/schemas/FileHeaderValidatorTaskRequest'
+      - $ref: '#/components/schemas/StartBatchJobTaskRequest'
+      required:
+      - order
+      - task_type
+    TaskResponseBase:
+      properties:
+        id:
+          readOnly: true
+          type: string
+        order:
+          format: int32
+          type: integer
+        task_type:
+          enum:
+          - FILE_HEADER_VALIDATOR
+          - START_BATCH_JOB
+          type: string
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -1622,52 +1808,48 @@ components:
       - parameters
       - unique_id
       type: object
-    TriggerResponse:
+    TriggerRequest:
       discriminator:
         mapping:
-          FILE_NAME_MATCHES: '#/components/schemas/FileNameMatchesTriggerResponse'
-          LANDS_IN_DIRECTORY: '#/components/schemas/LandsInDirectoryTriggerResponse'
+          FILE_NAME_MATCHES: '#/components/schemas/FileNameMatchesTriggerRequest'
+          LANDS_IN_DIRECTORY: '#/components/schemas/LandsInDirectoryTriggerRequest'
         propertyName: trigger_type
       oneOf:
-      - $ref: '#/components/schemas/FileNameMatchesTriggerResponse'
-      - $ref: '#/components/schemas/LandsInDirectoryTriggerResponse'
+      - $ref: '#/components/schemas/FileNameMatchesTriggerRequest'
+      - $ref: '#/components/schemas/LandsInDirectoryTriggerRequest'
       required:
-      - id
       - trigger_type
-    FileHeaderValidatorTaskResponse:
-      allOf:
-      - $ref: '#/components/schemas/TaskResponseBase'
-      - properties:
-          expected_headers:
-            items:
-              type: string
-            type: array
-          id:
-            readOnly: true
-            type: string
-          match_mode:
-            enum:
-            - EXACT_SET
-            - ORDERED
-            - SUBSET
-            type: string
-          on_mismatch:
-            enum:
-            - FAIL
-            - WARN
-            type: string
-          task_type:
-            enum:
-            - FILE_HEADER_VALIDATOR
-            type: string
-        type: object
+    TaskResponse:
+      discriminator:
+        mapping:
+          FILE_HEADER_VALIDATOR: '#/components/schemas/FileHeaderValidatorTaskResponse'
+          START_BATCH_JOB: '#/components/schemas/StartBatchJobTaskResponse'
+        propertyName: task_type
+      oneOf:
+      - $ref: '#/components/schemas/FileHeaderValidatorTaskResponse'
+      - $ref: '#/components/schemas/StartBatchJobTaskResponse'
       required:
-      - expected_headers
       - id
-      - match_mode
-      - on_mismatch
       - order
       - task_type
+    TriggerRequestBase:
+      properties:
+        trigger_type:
+          enum:
+          - FILE_NAME_MATCHES
+          - LANDS_IN_DIRECTORY
+          type: string
+      type: object
+    TaskRequestBase:
+      properties:
+        order:
+          format: int32
+          type: integer
+        task_type:
+          enum:
+          - FILE_HEADER_VALIDATOR
+          - START_BATCH_JOB
+          type: string
       type: object
     TriggerResponseBase:
       properties:
@@ -1698,96 +1880,6 @@ components:
       - tasks
       - triggers
       type: object
-    TaskRequest:
-      discriminator:
-        mapping:
-          FILE_HEADER_VALIDATOR: '#/components/schemas/FileHeaderValidatorTaskRequest'
-          START_BATCH_JOB: '#/components/schemas/StartBatchJobTaskRequest'
-        propertyName: task_type
-      oneOf:
-      - $ref: '#/components/schemas/FileHeaderValidatorTaskRequest'
-      - $ref: '#/components/schemas/StartBatchJobTaskRequest'
-      required:
-      - order
-      - task_type
-    TaskRequestBase:
-      properties:
-        order:
-          format: int32
-          type: integer
-        task_type:
-          enum:
-          - FILE_HEADER_VALIDATOR
-          - START_BATCH_JOB
-          type: string
-      type: object
-    LandsInDirectoryTriggerRequest:
-      allOf:
-      - $ref: '#/components/schemas/TriggerRequestBase'
-      - properties:
-          directory_path:
-            type: string
-          trigger_type:
-            enum:
-            - LANDS_IN_DIRECTORY
-            type: string
-        type: object
-      required:
-      - directory_path
-      - trigger_type
-      type: object
-    FileNameMatchesTriggerRequest:
-      allOf:
-      - $ref: '#/components/schemas/TriggerRequestBase'
-      - properties:
-          match_type:
-            enum:
-            - EXACT
-            - REGEX
-            type: string
-          pattern:
-            type: string
-          trigger_type:
-            enum:
-            - FILE_NAME_MATCHES
-            type: string
-        type: object
-      required:
-      - match_type
-      - pattern
-      - trigger_type
-      type: object
-    FileHeaderValidatorTaskRequest:
-      allOf:
-      - $ref: '#/components/schemas/TaskRequestBase'
-      - properties:
-          expected_headers:
-            items:
-              type: string
-            type: array
-          match_mode:
-            enum:
-            - EXACT_SET
-            - ORDERED
-            - SUBSET
-            type: string
-          on_mismatch:
-            enum:
-            - FAIL
-            - WARN
-            type: string
-          task_type:
-            enum:
-            - FILE_HEADER_VALIDATOR
-            type: string
-        type: object
-      required:
-      - expected_headers
-      - match_mode
-      - on_mismatch
-      - order
-      - task_type
-      type: object
     FileNameMatchesTriggerResponse:
       allOf:
       - $ref: '#/components/schemas/TriggerResponseBase'
@@ -1813,105 +1905,45 @@ components:
       - pattern
       - trigger_type
       type: object
-    LandsInDirectoryTriggerResponse:
-      allOf:
-      - $ref: '#/components/schemas/TriggerResponseBase'
-      - properties:
-          directory_path:
-            type: string
-          id:
-            readOnly: true
-            type: string
-          trigger_type:
-            enum:
-            - LANDS_IN_DIRECTORY
-            type: string
-        type: object
-      required:
-      - directory_path
-      - id
-      - trigger_type
-      type: object
-    StartBatchJobTaskResponse:
-      allOf:
-      - $ref: '#/components/schemas/TaskResponseBase'
-      - properties:
-          data_source_type:
-            enum:
-            - AUDIENCE_LIST
-            - FILE_ASSET
-            - REPORT
-            type: string
-          event_name:
-            type: string
-          id:
-            readOnly: true
-            type: string
-          task_type:
-            enum:
-            - START_BATCH_JOB
-            type: string
-        type: object
-      required:
-      - data_source_type
-      - event_name
-      - id
-      - order
-      - task_type
-      type: object
-    TaskResponse:
-      discriminator:
-        mapping:
-          FILE_HEADER_VALIDATOR: '#/components/schemas/FileHeaderValidatorTaskResponse'
-          START_BATCH_JOB: '#/components/schemas/StartBatchJobTaskResponse'
-        propertyName: task_type
-      oneOf:
-      - $ref: '#/components/schemas/FileHeaderValidatorTaskResponse'
-      - $ref: '#/components/schemas/StartBatchJobTaskResponse'
-      required:
-      - id
-      - order
-      - task_type
-    TriggerRequest:
-      discriminator:
-        mapping:
-          FILE_NAME_MATCHES: '#/components/schemas/FileNameMatchesTriggerRequest'
-          LANDS_IN_DIRECTORY: '#/components/schemas/LandsInDirectoryTriggerRequest'
-        propertyName: trigger_type
-      oneOf:
-      - $ref: '#/components/schemas/FileNameMatchesTriggerRequest'
-      - $ref: '#/components/schemas/LandsInDirectoryTriggerRequest'
-      required:
-      - trigger_type
-    TriggerRequestBase:
-      properties:
-        trigger_type:
-          enum:
-          - FILE_NAME_MATCHES
-          - LANDS_IN_DIRECTORY
-          type: string
-      type: object
-    TaskResponseBase:
-      properties:
-        id:
-          readOnly: true
-          type: string
-        order:
-          format: int32
-          type: integer
-        task_type:
-          enum:
-          - FILE_HEADER_VALIDATOR
-          - START_BATCH_JOB
-          type: string
-      type: object
   examples:
-    trigger_type_required:
-      summary: trigger_type_required
+    start_batch_job_event_name_required:
+      summary: start_batch_job_event_name_required
       value:
-        code: trigger_type_required
+        code: start_batch_job_event_name_required
         http_status_code: 400
-        message: Trigger type is required
+        message: Start batch job task requires an event name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    task_order_out_of_range:
+      summary: task_order_out_of_range
+      value:
+        code: task_order_out_of_range
+        http_status_code: 400
+        message: Task order is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    start_batch_job_data_source_type_required:
+      summary: start_batch_job_data_source_type_required
+      value:
+        code: start_batch_job_data_source_type_required
+        http_status_code: 400
+        message: Start batch job task requires a data source type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    lands_in_directory_path_required:
+      summary: lands_in_directory_path_required
+      value:
+        code: lands_in_directory_path_required
+        http_status_code: 400
+        message: Lands in directory trigger requires a directory path
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     trigger_type_mismatch:
@@ -1922,12 +1954,84 @@ components:
         message: Trigger type does not match the stored trigger
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    job_name_duplicated:
-      summary: job_name_duplicated
+    file_header_validator_on_mismatch_required:
+      summary: file_header_validator_on_mismatch_required
       value:
-        code: job_name_duplicated
+        code: file_header_validator_on_mismatch_required
         http_status_code: 400
-        message: A job with this name already exists for the client
+        message: File header validator task requires an on-mismatch action
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    job_name_required:
+      summary: job_name_required
+      value:
+        code: job_name_required
+        http_status_code: 400
+        message: Job name is required
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_name_matches_pattern_required:
+      summary: file_name_matches_pattern_required
+      value:
+        code: file_name_matches_pattern_required
+        http_status_code: 400
+        message: File name matches trigger requires a pattern
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_name_matches_pattern_invalid_regex:
+      summary: file_name_matches_pattern_invalid_regex
+      value:
+        code: file_name_matches_pattern_invalid_regex
+        http_status_code: 400
+        message: File name matches trigger pattern is not a valid regular expression
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_header_validator_expected_headers_required:
+      summary: file_header_validator_expected_headers_required
+      value:
+        code: file_header_validator_expected_headers_required
+        http_status_code: 400
+        message: File header validator task requires expected headers
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     task_validation_failed:
@@ -1936,6 +2040,22 @@ components:
         code: task_validation_failed
         http_status_code: 400
         message: Task validation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    job_no_triggers:
+      summary: job_no_triggers
+      value:
+        code: job_no_triggers
+        http_status_code: 400
+        message: An enabled job requires at least one trigger
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     job_no_tasks:
@@ -1954,22 +2074,6 @@ components:
         message: Job name exceeds the maximum length of 255 characters
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    file_name_matches_pattern_required:
-      summary: file_name_matches_pattern_required
-      value:
-        code: file_name_matches_pattern_required
-        http_status_code: 400
-        message: File name matches trigger requires a pattern
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
       summary: method_unauthorized
       value:
@@ -1978,36 +2082,20 @@ components:
         message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
+    task_type_mismatch:
+      summary: task_type_mismatch
       value:
-        code: binding_error
+        code: task_type_mismatch
         http_status_code: 400
-        message: Argument is not of the expected type
+        message: Task type does not match the stored task
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
+    trigger_type_required:
+      summary: trigger_type_required
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
+        code: trigger_type_required
         http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_header_validator_expected_headers_required:
-      summary: file_header_validator_expected_headers_required
-      value:
-        code: file_header_validator_expected_headers_required
-        http_status_code: 400
-        message: File header validator task requires expected headers
+        message: Trigger type is required
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
@@ -2018,44 +2106,20 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    start_batch_job_event_name_required:
-      summary: start_batch_job_event_name_required
+    payment_required:
+      summary: payment_required
       value:
-        code: start_batch_job_event_name_required
-        http_status_code: 400
-        message: Start batch job task requires an event name
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    lands_in_directory_path_required:
-      summary: lands_in_directory_path_required
+    job_name_duplicated:
+      summary: job_name_duplicated
       value:
-        code: lands_in_directory_path_required
+        code: job_name_duplicated
         http_status_code: 400
-        message: Lands in directory trigger requires a directory path
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    task_order_out_of_range:
-      summary: task_order_out_of_range
-      value:
-        code: task_order_out_of_range
-        http_status_code: 400
-        message: Task order is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_header_validator_match_mode_required:
-      summary: file_header_validator_match_mode_required
-      value:
-        code: file_header_validator_match_mode_required
-        http_status_code: 400
-        message: File header validator task requires a match mode
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
+        message: A job with this name already exists for the client
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     task_type_required:
@@ -2066,6 +2130,14 @@ components:
         message: Task type is required
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    file_header_validator_match_mode_required:
+      summary: file_header_validator_match_mode_required
+      value:
+        code: file_header_validator_match_mode_required
+        http_status_code: 400
+        message: File header validator task requires a match mode
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     file_name_matches_match_type_required:
       summary: file_name_matches_match_type_required
       value:
@@ -2074,84 +2146,12 @@ components:
         message: File name matches trigger requires a match type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    job_no_triggers:
-      summary: job_no_triggers
+    invalid_parameter:
+      summary: invalid_parameter
       value:
-        code: job_no_triggers
+        code: invalid_parameter
         http_status_code: 400
-        message: An enabled job requires at least one trigger
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    start_batch_job_data_source_type_required:
-      summary: start_batch_job_data_source_type_required
-      value:
-        code: start_batch_job_data_source_type_required
-        http_status_code: 400
-        message: Start batch job task requires a data source type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    job_name_required:
-      summary: job_name_required
-      value:
-        code: job_name_required
-        http_status_code: 400
-        message: Job name is required
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_null:
-      summary: invalid_null
-      value:
-        code: invalid_null
-        http_status_code: 400
-        message: The attribute may be omitted but not nullified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_name_matches_pattern_invalid_regex:
-      summary: file_name_matches_pattern_invalid_regex
-      value:
-        code: file_name_matches_pattern_invalid_regex
-        http_status_code: 400
-        message: File name matches trigger pattern is not a valid regular expression
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_header_validator_on_mismatch_required:
-      summary: file_header_validator_on_mismatch_required
-      value:
-        code: file_header_validator_on_mismatch_required
-        http_status_code: 400
-        message: File header validator task requires an on-mismatch action
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    task_type_mismatch:
-      summary: task_type_mismatch
-      value:
-        code: task_type_mismatch
-        http_status_code: 400
-        message: Task type does not match the stored task
+        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:

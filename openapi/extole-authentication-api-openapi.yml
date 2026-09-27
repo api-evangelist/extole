@@ -2061,20 +2061,60 @@ paths:
       url: https://api.extole.io
 components:
   examples:
-    invalid_access_token_duration:
-      summary: invalid_access_token_duration
+    too_many_requests:
+      summary: too_many_requests
       value:
-        code: invalid_access_token_duration
-        http_status_code: 400
-        message: The duration provided with this request is invalid.
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
+    missing_request_body:
+      summary: missing_request_body
       value:
-        code: invalid_access_token
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_email:
+      summary: invalid_email
+      value:
+        code: invalid_email
+        http_status_code: 400
+        message: Invalid email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
         http_status_code: 403
-        message: The access_token provided with this request is invalid.
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     email_not_applicable:
@@ -2093,12 +2133,12 @@ components:
         message: The access_token provided with this request has expired.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
+    email_mismatch:
+      summary: email_mismatch
       value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
+        code: email_mismatch
+        http_status_code: 403
+        message: Mismatch in specified emails
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
@@ -2109,30 +2149,6 @@ components:
         message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
       summary: missing_access_token
       value:
@@ -2141,44 +2157,20 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
+    invalid_access_token_duration:
+      summary: invalid_access_token_duration
       value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
+        code: invalid_access_token_duration
         http_status_code: 400
-        message: JSON is invalid
+        message: The duration provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
+    invalid_access_token:
+      summary: invalid_access_token
       value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_email:
-      summary: invalid_email
-      value:
-        code: invalid_email
-        http_status_code: 400
-        message: Invalid email
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
+        code: invalid_access_token
         http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     jwt_error:
@@ -2189,12 +2181,20 @@ components:
         message: The jwt authentication verification failed.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    email_mismatch:
-      summary: email_mismatch
+    jwt_authentication_error:
+      summary: jwt_authentication_error
       value:
-        code: email_mismatch
+        code: jwt_authentication_error
         http_status_code: 403
-        message: Mismatch in specified emails
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     scopes_denied:
@@ -2205,28 +2205,12 @@ components:
         message: Requested scopes is not a subset of current scopes.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_credentials:
-      summary: missing_credentials
-      value:
-        code: missing_credentials
-        http_status_code: 403
-        message: No credentials provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_duration:
       summary: invalid_duration
       value:
         code: invalid_duration
         http_status_code: 400
         message: The requested duration for this token must end within the first ten millenium
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_credentials:
-      summary: invalid_credentials
-      value:
-        code: invalid_credentials
-        http_status_code: 403
-        message: The credentials provided with this request are invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
@@ -2237,6 +2221,14 @@ components:
         message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_credentials:
+      summary: invalid_credentials
+      value:
+        code: invalid_credentials
+        http_status_code: 403
+        message: The credentials provided with this request are invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_client_id:
       summary: invalid_client_id
       value:
@@ -2245,20 +2237,12 @@ components:
         message: Invalid client id
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    no_such_managed_token:
-      summary: no_such_managed_token
+    missing_credentials:
+      summary: missing_credentials
       value:
-        code: no_such_managed_token
-        http_status_code: 400
-        message: The access_token provided is could not be found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    key_exchange_exception:
-      summary: key_exchange_exception
-      value:
-        code: key_exchange_exception
+        code: missing_credentials
         http_status_code: 403
-        message: Failed to exchange code
+        message: No credentials provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     exchange_client_key_not_found:
@@ -2269,12 +2253,84 @@ components:
         message: Exchange ClientKey not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_nonce:
+      summary: authorization_code_missing_nonce
+      value:
+        code: authorization_code_missing_nonce
+        http_status_code: 403
+        message: Authorization Code Flow required nonce header is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_such_resource_token:
+      summary: no_such_resource_token
+      value:
+        code: no_such_resource_token
+        http_status_code: 400
+        message: The access_token provided is could not be found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    consumer_token_invalid:
+      summary: consumer_token_invalid
+      value:
+        code: consumer_token_invalid
+        http_status_code: 400
+        message: Provided consumer access token is not valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_response_invalid:
+      summary: authorization_code_response_invalid
+      value:
+        code: authorization_code_response_invalid
+        http_status_code: 403
+        message: Authorization Code Response is invalid or expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_user_id:
+      summary: invalid_user_id
+      value:
+        code: invalid_user_id
+        http_status_code: 400
+        message: Invalid user id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_such_managed_token:
+      summary: no_such_managed_token
+      value:
+        code: no_such_managed_token
+        http_status_code: 400
+        message: The access_token provided is could not be found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_csrf_token:
+      summary: authorization_code_missing_csrf_token
+      value:
+        code: authorization_code_missing_csrf_token
+        http_status_code: 403
+        message: Authorization Code Flow required csrf token header is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_found:
+      summary: person_not_found
+      value:
+        code: person_not_found
+        http_status_code: 403
+        message: Person not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     maximum_name_length:
       summary: maximum_name_length
       value:
         code: maximum_name_length
         http_status_code: 400
         message: Name cannot be null, empty or blank and cannot be too long
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_state:
+      summary: authorization_code_missing_state
+      value:
+        code: authorization_code_missing_state
+        http_status_code: 403
+        message: Authorization Code Flow required state parameter is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     exchanged_client_key_creation_failed:
@@ -2293,108 +2349,12 @@ components:
         message: Authorization Code Flow required code parameter is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_nonce:
-      summary: authorization_code_missing_nonce
+    key_exchange_exception:
+      summary: key_exchange_exception
       value:
-        code: authorization_code_missing_nonce
+        code: key_exchange_exception
         http_status_code: 403
-        message: Authorization Code Flow required nonce header is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_response_invalid:
-      summary: authorization_code_response_invalid
-      value:
-        code: authorization_code_response_invalid
-        http_status_code: 403
-        message: Authorization Code Response is invalid or expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_credentials:
-      summary: expired_credentials
-      value:
-        code: expired_credentials
-        http_status_code: 403
-        message: The credentials provided with this request are expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_key_already_exists:
-      summary: client_key_already_exists
-      value:
-        code: client_key_already_exists
-        http_status_code: 403
-        message: Client key for this integration already exists
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_key_exchanger_not_found:
-      summary: client_key_exchanger_not_found
-      value:
-        code: client_key_exchanger_not_found
-        http_status_code: 403
-        message: Failed to exchange code to an access token, client key exchanger not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    no_such_resource_token:
-      summary: no_such_resource_token
-      value:
-        code: no_such_resource_token
-        http_status_code: 400
-        message: The access_token provided is could not be found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_auth_provider_type_id:
-      summary: authorization_code_missing_auth_provider_type_id
-      value:
-        code: authorization_code_missing_auth_provider_type_id
-        http_status_code: 403
-        message: IdP initiated Authorization Code Flow required auth_provider_type_id parameter is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    account_disabled:
-      summary: account_disabled
-      value:
-        code: account_disabled
-        http_status_code: 403
-        message: The credentials provided with this request are invalid. Account has been disabled.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_user_id:
-      summary: invalid_user_id
-      value:
-        code: invalid_user_id
-        http_status_code: 400
-        message: Invalid user id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_csrf_token:
-      summary: authorization_code_missing_csrf_token
-      value:
-        code: authorization_code_missing_csrf_token
-        http_status_code: 403
-        message: Authorization Code Flow required csrf token header is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    authorization_code_missing_state:
-      summary: authorization_code_missing_state
-      value:
-        code: authorization_code_missing_state
-        http_status_code: 403
-        message: Authorization Code Flow required state parameter is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    account_locked:
-      summary: account_locked
-      value:
-        code: account_locked
-        http_status_code: 403
-        message: The credentials provided with this request are invalid. Account has been locked.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_not_found:
-      summary: person_not_found
-      value:
-        code: person_not_found
-        http_status_code: 403
-        message: Person not found
+        message: Failed to exchange code
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     unsupported_grant_type:
@@ -2405,6 +2365,14 @@ components:
         message: Unsupported grant_type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    expired_credentials:
+      summary: expired_credentials
+      value:
+        code: expired_credentials
+        http_status_code: 403
+        message: The credentials provided with this request are expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_key_exchange_response:
       summary: invalid_key_exchange_response
       value:
@@ -2413,12 +2381,44 @@ components:
         message: Received invalid response when exchange code to access token
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    consumer_token_invalid:
-      summary: consumer_token_invalid
+    client_key_exchanger_not_found:
+      summary: client_key_exchanger_not_found
       value:
-        code: consumer_token_invalid
-        http_status_code: 400
-        message: Provided consumer access token is not valid
+        code: client_key_exchanger_not_found
+        http_status_code: 403
+        message: Failed to exchange code to an access token, client key exchanger not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    account_locked:
+      summary: account_locked
+      value:
+        code: account_locked
+        http_status_code: 403
+        message: The credentials provided with this request are invalid. Account has been locked.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    account_disabled:
+      summary: account_disabled
+      value:
+        code: account_disabled
+        http_status_code: 403
+        message: The credentials provided with this request are invalid. Account has been disabled.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_key_already_exists:
+      summary: client_key_already_exists
+      value:
+        code: client_key_already_exists
+        http_status_code: 403
+        message: Client key for this integration already exists
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    authorization_code_missing_auth_provider_type_id:
+      summary: authorization_code_missing_auth_provider_type_id
+      value:
+        code: authorization_code_missing_auth_provider_type_id
+        http_status_code: 403
+        message: IdP initiated Authorization Code Flow required auth_provider_type_id parameter is missing
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     consumer_token_upgrade_not_allowed:
@@ -2459,6 +2459,13 @@ components:
       - parameters
       - unique_id
       type: object
+    SuccessResponse:
+      properties:
+        status:
+          type: string
+      required:
+      - status
+      type: object
     CreateTokenRequest:
       properties:
         duration_seconds:
@@ -2481,13 +2488,6 @@ components:
       - duration_seconds
       - email
       - jwt
-      type: object
-    SuccessResponse:
-      properties:
-        status:
-          type: string
-      required:
-      - status
       type: object
     TokenResponse:
       properties:
@@ -2611,6 +2611,22 @@ components:
       example: '2025-10-24T02:00:00-07:00'
       pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
       type: string
+    ConsumerTokenResponse:
+      properties:
+        access_token:
+          type: string
+        client_id:
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - access_token
+      - client_id
+      - scopes
+      type: object
     ResourceAccessTokenResponse:
       properties:
         access_token:
@@ -2630,6 +2646,53 @@ components:
       - identity_id
       - resources
       type: object
+    ManagedAccessTokenResponse:
+      properties:
+        access_token:
+          type: string
+        access_token_id:
+          type: string
+        access_token_response:
+          $ref: '#/components/schemas/AccessTokenResponse'
+        client_id:
+          type: string
+        create_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        created_at:
+          format: int64
+          type: integer
+        expire_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        expires_in:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+      - access_token
+      - access_token_id
+      - access_token_response
+      - client_id
+      - create_date
+      - created_at
+      - expire_date
+      - expires_in
+      - name
+      type: object
+    OAuthAccessTokenResponse:
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          format: int64
+          type: integer
+        token_type:
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - token_type
+      type: object
     AccessTokenResourceResponse:
       properties:
         id:
@@ -2638,13 +2701,6 @@ components:
           enum:
           - PUBLIC_REPORT
           type: string
-      type: object
-    OAuthFlowCodeExchangeResponse:
-      properties:
-        client_key_id:
-          type: string
-      required:
-      - client_key_id
       type: object
     OAuthFlowCodeExchangeRequest:
       properties:
@@ -2663,6 +2719,23 @@ components:
       - code
       - redirect_uri
       type: object
+    IdpInitiatedAuthCodeResponseValidateRequest:
+      properties:
+        auth_provider_type_id:
+          type: string
+        code:
+          type: string
+      required:
+      - auth_provider_type_id
+      - code
+      type: object
+    OAuthFlowCodeExchangeResponse:
+      properties:
+        client_key_id:
+          type: string
+      required:
+      - client_key_id
+      type: object
     AuthCodeResponseValidateRequest:
       description: Body of `POST /v4/tokens/openid-connect/authorization-code-flow`. Pair with the `X-CSRF-TOKEN` and `X-NONCE` headers minted alongside the authorization-code response.
       properties:
@@ -2675,20 +2748,6 @@ components:
       required:
       - code
       - state
-      type: object
-    OAuthAccessTokenResponse:
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          format: int64
-          type: integer
-        token_type:
-          type: string
-      required:
-      - access_token
-      - expires_in
-      - token_type
       type: object
     AuthCodeManagedAccessTokenCreationRequest:
       properties:
@@ -2726,65 +2785,6 @@ components:
       - name
       - scopes
       - state
-      type: object
-    IdpInitiatedAuthCodeResponseValidateRequest:
-      properties:
-        auth_provider_type_id:
-          type: string
-        code:
-          type: string
-      required:
-      - auth_provider_type_id
-      - code
-      type: object
-    ManagedAccessTokenResponse:
-      properties:
-        access_token:
-          type: string
-        access_token_id:
-          type: string
-        access_token_response:
-          $ref: '#/components/schemas/AccessTokenResponse'
-        client_id:
-          type: string
-        create_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        created_at:
-          format: int64
-          type: integer
-        expire_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        expires_in:
-          format: int64
-          type: integer
-        name:
-          type: string
-      required:
-      - access_token
-      - access_token_id
-      - access_token_response
-      - client_id
-      - create_date
-      - created_at
-      - expire_date
-      - expires_in
-      - name
-      type: object
-    ConsumerTokenResponse:
-      properties:
-        access_token:
-          type: string
-        client_id:
-          type: string
-        scopes:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-      required:
-      - access_token
-      - client_id
-      - scopes
       type: object
     ConsumerTokenDetailsResponse:
       properties:

@@ -5122,100 +5122,12 @@ paths:
       url: https://api.extole.io
 components:
   examples:
-    CHANNEL_MISSING:
-      summary: CHANNEL_MISSING
+    shareable_not_found:
+      summary: shareable_not_found
       value:
-        code: CHANNEL_MISSING
-        http_status_code: 400
-        message: Channel is missing
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_PARTNER_CONTENT_URL:
-      summary: INVALID_PARTNER_CONTENT_URL
-      value:
-        code: INVALID_PARTNER_CONTENT_URL
-        http_status_code: 400
-        message: Invalid partner content URL.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_shareable_id:
-      summary: invalid_shareable_id
-      value:
-        code: invalid_shareable_id
-        http_status_code: 400
-        message: Invalid shareable id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_params_value_length_out_of_range:
-      summary: client_params_value_length_out_of_range
-      value:
-        code: client_params_value_length_out_of_range
+        code: shareable_not_found
         http_status_code: 403
-        message: The value supplied is too long
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    RECIPIENTS_MISSING:
-      summary: RECIPIENTS_MISSING
-      value:
-        code: RECIPIENTS_MISSING
-        http_status_code: 400
-        message: Share recipient is missing.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_person_email:
-      summary: invalid_person_email
-      value:
-        code: invalid_person_email
-        http_status_code: 400
-        message: Invalid person email
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_length_out_of_range:
-      summary: data_attribute_name_length_out_of_range
-      value:
-        code: data_attribute_name_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute name length is out of range. Max 200 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SUBJECT_LENGTH:
-      summary: INVALID_SUBJECT_LENGTH
-      value:
-        code: INVALID_SUBJECT_LENGTH
-        http_status_code: 400
-        message: Email subject cannot exceed 78 characters.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    label_name_length_out_of_range:
-      summary: label_name_length_out_of_range
-      value:
-        code: label_name_length_out_of_range
-        http_status_code: 403
-        message: Label name is not of valid length
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    partner_user_id_invalid_length:
-      summary: partner_user_id_invalid_length
-      value:
-        code: partner_user_id_invalid_length
-        http_status_code: 400
-        message: Partner user id length greater than 255 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_RECIPIENT_SIZE:
-      summary: INVALID_RECIPIENT_SIZE
-      value:
-        code: INVALID_RECIPIENT_SIZE
-        http_status_code: 400
-        message: Cannot share to more than 25 recipients at once.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
+        message: Shareable not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     label_name_out_of_range:
@@ -5226,564 +5138,12 @@ components:
         message: Label name is not of valid length
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHARE_SUBJECT_CHARACTERS:
-      summary: INVALID_SHARE_SUBJECT_CHARACTERS
-      value:
-        code: INVALID_SHARE_SUBJECT_CHARACTERS
-        http_status_code: 400
-        message: Sorry, we can not put these characters in a share subject.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_out_of_range:
-      summary: code_out_of_range
-      value:
-        code: code_out_of_range
-        http_status_code: 403
-        message: Code length must be between 4 and 50 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    MISSING_MESSAGE:
-      summary: MISSING_MESSAGE
-      value:
-        code: MISSING_MESSAGE
-        http_status_code: 400
-        message: Share message is missing.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_url_length_out_of_range:
-      summary: content_url_length_out_of_range
-      value:
-        code: content_url_length_out_of_range
-        http_status_code: 400
-        message: Content url is out of range
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_invalid:
-      summary: data_attribute_value_invalid
-      value:
-        code: data_attribute_value_invalid
-        http_status_code: 403
-        message: Shareable data value is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_param_not_found:
-      summary: client_param_not_found
-      value:
-        code: client_param_not_found
-        http_status_code: 403
-        message: Parameter not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     key_taken:
       summary: key_taken
       value:
         code: key_taken
         http_status_code: 403
         message: The key associated with this shareable has already been specified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_profile_picture_url:
-      summary: invalid_profile_picture_url
-      value:
-        code: invalid_profile_picture_url
-        http_status_code: 400
-        message: Malformed profile_picture_url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_image_url_invalid:
-      summary: content_image_url_invalid
-      value:
-        code: content_image_url_invalid
-        http_status_code: 403
-        message: Invalid content image_url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_name:
-      summary: invalid_name
-      value:
-        code: invalid_name
-        http_status_code: 400
-        message: The provided client name was invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    NON_EXISTING_LINK:
-      summary: NON_EXISTING_LINK
-      value:
-        code: NON_EXISTING_LINK
-        http_status_code: 400
-        message: Link doesn't exist for update.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_person_id:
-      summary: invalid_person_id
-      value:
-        code: invalid_person_id
-        http_status_code: 400
-        message: Invalid person_id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    EXISTING_LINK:
-      summary: EXISTING_LINK
-      value:
-        code: EXISTING_LINK
-        http_status_code: 400
-        message: Link already exists.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    SHAREABLE_NOT_FOUND:
-      summary: SHAREABLE_NOT_FOUND
-      value:
-        code: SHAREABLE_NOT_FOUND
-        http_status_code: 403
-        message: Shareable Not Found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_name_invalid:
-      summary: data_attribute_name_invalid
-      value:
-        code: data_attribute_name_invalid
-        http_status_code: 403
-        message: Shareable data attribute name is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    blocked_content_url:
-      summary: blocked_content_url
-      value:
-        code: blocked_content_url
-        http_status_code: 403
-        message: Content url is blocked
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    shareable_not_found:
-      summary: shareable_not_found
-      value:
-        code: shareable_not_found
-        http_status_code: 403
-        message: Shareable not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHARE_URL:
-      summary: INVALID_SHARE_URL
-      value:
-        code: INVALID_SHARE_URL
-        http_status_code: 400
-        message: Invalid share URL.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    MESSAGE_MISSING:
-      summary: MESSAGE_MISSING
-      value:
-        code: MESSAGE_MISSING
-        http_status_code: 400
-        message: Email message is missing.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_mime_type_invalid:
-      summary: asset_mime_type_invalid
-      value:
-        code: asset_mime_type_invalid
-        http_status_code: 400
-        message: The supplied asset has an invalid mime type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_contains_reserved_word:
-      summary: code_contains_reserved_word
-      value:
-        code: code_contains_reserved_word
-        http_status_code: 403
-        message: Shareable code contains reserved word
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    data_attribute_value_length_out_of_range:
-      summary: data_attribute_value_length_out_of_range
-      value:
-        code: data_attribute_value_length_out_of_range
-        http_status_code: 403
-        message: Shareable data attribute value length is out of range. Max 2000 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_RECIPIENT:
-      summary: INVALID_RECIPIENT
-      value:
-        code: INVALID_RECIPIENT
-        http_status_code: 400
-        message: Recipient has a wrong syntax.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_value:
-      summary: invalid_value
-      value:
-        code: invalid_value
-        http_status_code: 400
-        message: Data value is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_MESSAGE_LENGTH:
-      summary: INVALID_MESSAGE_LENGTH
-      value:
-        code: INVALID_MESSAGE_LENGTH
-        http_status_code: 400
-        message: Share message cannot exceed 2048 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_content_url:
-      summary: invalid_content_url
-      value:
-        code: invalid_content_url
-        http_status_code: 403
-        message: Invalid content url
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    partner_id_missing:
-      summary: partner_id_missing
-      value:
-        code: partner_id_missing
-        http_status_code: 400
-        message: Please pass a partner id
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    RECEIPIENT_JSON_CONVERSION_ERROR:
-      summary: RECEIPIENT_JSON_CONVERSION_ERROR
-      value:
-        code: RECEIPIENT_JSON_CONVERSION_ERROR
-        http_status_code: 400
-        message: Error occurred when converting recipient list to JSON
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    SHAREABLE_ID_MISSING:
-      summary: SHAREABLE_ID_MISSING
-      value:
-        code: SHAREABLE_ID_MISSING
-        http_status_code: 400
-        message: ShareableId is missing in the share request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHARE_MESSAGE_CHARACTERS:
-      summary: INVALID_SHARE_MESSAGE_CHARACTERS
-      value:
-        code: INVALID_SHARE_MESSAGE_CHARACTERS
-        http_status_code: 400
-        message: Sorry, we can not put these characters in a share message.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHAREABLE_ID:
-      summary: INVALID_SHAREABLE_ID
-      value:
-        code: INVALID_SHAREABLE_ID
-        http_status_code: 400
-        message: ShareableId not valid in the share request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    client_params_name_length_out_of_range:
-      summary: client_params_name_length_out_of_range
-      value:
-        code: client_params_name_length_out_of_range
-        http_status_code: 403
-        message: The name supplied is too long
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    read_only_name:
-      summary: read_only_name
-      value:
-        code: read_only_name
-        http_status_code: 400
-        message: One or more names supplied are read only
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    MISSING_RECIPIENT:
-      summary: MISSING_RECIPIENT
-      value:
-        code: MISSING_RECIPIENT
-        http_status_code: 400
-        message: Recipient is missing.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    target_url_length_out_of_range:
-      summary: target_url_length_out_of_range
-      value:
-        code: target_url_length_out_of_range
-        http_status_code: 403
-        message: Target URL length is out of range. Max 2000 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_email_already_defined:
-      summary: person_email_already_defined
-      value:
-        code: person_email_already_defined
-        http_status_code: 400
-        message: Person email already defined
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    NO_RECIPIENT:
-      summary: NO_RECIPIENT
-      value:
-        code: NO_RECIPIENT
-        http_status_code: 400
-        message: There is no recipient in the share request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    UNREWARDABLE:
-      summary: UNREWARDABLE
-      value:
-        code: UNREWARDABLE
-        http_status_code: 400
-        message: User must have an associated email to create a shareable.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_size_invalid:
-      summary: asset_size_invalid
-      value:
-        code: asset_size_invalid
-        http_status_code: 400
-        message: The supplied asset has an invalid size
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    label_name_contains_illegal_character:
-      summary: label_name_contains_illegal_character
-      value:
-        code: label_name_contains_illegal_character
-        http_status_code: 403
-        message: Label name can only contain alphanumeric, dash and underscore characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    extole_destination_length_out_of_range:
-      summary: extole_destination_length_out_of_range
-      value:
-        code: extole_destination_length_out_of_range
-        http_status_code: 400
-        message: Extole destination length is out of range. Max 2000 chars
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_reward_filter:
-      summary: invalid_reward_filter
-      value:
-        code: invalid_reward_filter
-        http_status_code: 400
-        message: 'Invalid reward filter, one of: polling_id, reward_name or partner_event_id are required'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_URL_FORMAT:
-      summary: INVALID_URL_FORMAT
-      value:
-        code: INVALID_URL_FORMAT
-        http_status_code: 400
-        message: Invalid URL format for URL.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    partner_user_id_already_defined:
-      summary: partner_user_id_already_defined
-      value:
-        code: partner_user_id_already_defined
-        http_status_code: 400
-        message: Partner user id already defined
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_IMAGE_URL:
-      summary: INVALID_IMAGE_URL
-      value:
-        code: INVALID_IMAGE_URL
-        http_status_code: 400
-        message: Invalid image URL.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    NOT_FOUND:
-      summary: NOT_FOUND
-      value:
-        code: NOT_FOUND
-        http_status_code: 403
-        message: Shareable Not Found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_content_not_downloadable:
-      summary: asset_content_not_downloadable
-      value:
-        code: asset_content_not_downloadable
-        http_status_code: 400
-        message: Asset content could not be downloaded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_reward_id:
-      summary: invalid_reward_id
-      value:
-        code: invalid_reward_id
-        http_status_code: 400
-        message: Invalid reward id. Reward not found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    SHARE_NOT_FOUND:
-      summary: SHARE_NOT_FOUND
-      value:
-        code: SHARE_NOT_FOUND
-        http_status_code: 403
-        message: Share not found.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    ADVOCATE_CODE_MISSING:
-      summary: ADVOCATE_CODE_MISSING
-      value:
-        code: ADVOCATE_CODE_MISSING
-        http_status_code: 400
-        message: advocate_code is required in the share request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_TARGET_URL:
-      summary: INVALID_TARGET_URL
-      value:
-        code: INVALID_TARGET_URL
-        http_status_code: 400
-        message: Invalid target URL.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    asset_not_found:
-      summary: asset_not_found
-      value:
-        code: asset_not_found
-        http_status_code: 400
-        message: Asset not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHARE_SUBJECT_LINK:
-      summary: INVALID_SHARE_SUBJECT_LINK
-      value:
-        code: INVALID_SHARE_SUBJECT_LINK
-        http_status_code: 400
-        message: Sorry, we can not put that link in a share subject.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_last_name:
-      summary: invalid_length_last_name
-      value:
-        code: invalid_length_last_name
-        http_status_code: 400
-        message: Last Name length greater than 50 characters
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    INVALID_SHARE_MESSAGE_LINK:
-      summary: INVALID_SHARE_MESSAGE_LINK
-      value:
-        code: INVALID_SHARE_MESSAGE_LINK
-        http_status_code: 400
-        message: Sorry, we can not put that link in a share message.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_profane_word:
-      summary: code_profane_word
-      value:
-        code: code_profane_word
-        http_status_code: 400
-        message: Code contains profane word
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    content_description_length_exceeded:
-      summary: content_description_length_exceeded
-      value:
-        code: content_description_length_exceeded
-        http_status_code: 403
-        message: Content description length exceeded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_illegal_character:
-      summary: code_illegal_character
-      value:
-        code: code_illegal_character
-        http_status_code: 403
-        message: Code can only contain alphanumeric, dash and underscore
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    code_taken_by_promotion:
-      summary: code_taken_by_promotion
-      value:
-        code: code_taken_by_promotion
-        http_status_code: 400
-        message: The code associated with this shareable is already used by a promotion link
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_length_first_name:
-      summary: invalid_length_first_name
-      value:
-        code: invalid_length_first_name
-        http_status_code: 400
-        message: First Name length greater than 50 characters
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     INVALID_RECIPIENTS:
@@ -5794,20 +5154,20 @@ components:
         message: Recipient has a wrong syntax.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    asset_limit_exceeded:
-      summary: asset_limit_exceeded
+    invalid_name:
+      summary: invalid_name
       value:
-        code: asset_limit_exceeded
+        code: invalid_name
         http_status_code: 400
-        message: The number of assets exceeds the limit
+        message: The provided client name was invalid
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
+    SHAREABLE_NOT_FOUND:
+      summary: SHAREABLE_NOT_FOUND
       value:
-        code: access_denied
+        code: SHAREABLE_NOT_FOUND
         http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        message: Shareable Not Found.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     person_not_found:
@@ -5818,6 +5178,582 @@ components:
         message: Person not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_length_out_of_range:
+      summary: data_attribute_name_length_out_of_range
+      value:
+        code: data_attribute_name_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute name length is out of range. Max 200 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_url_length_out_of_range:
+      summary: content_url_length_out_of_range
+      value:
+        code: content_url_length_out_of_range
+        http_status_code: 400
+        message: Content url is out of range
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_taken_by_promotion:
+      summary: code_taken_by_promotion
+      value:
+        code: code_taken_by_promotion
+        http_status_code: 400
+        message: The code associated with this shareable is already used by a promotion link
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHARE_SUBJECT_LINK:
+      summary: INVALID_SHARE_SUBJECT_LINK
+      value:
+        code: INVALID_SHARE_SUBJECT_LINK
+        http_status_code: 400
+        message: Sorry, we can not put that link in a share subject.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    read_only_name:
+      summary: read_only_name
+      value:
+        code: read_only_name
+        http_status_code: 400
+        message: One or more names supplied are read only
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_image_url_invalid:
+      summary: content_image_url_invalid
+      value:
+        code: content_image_url_invalid
+        http_status_code: 403
+        message: Invalid content image_url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    NON_EXISTING_LINK:
+      summary: NON_EXISTING_LINK
+      value:
+        code: NON_EXISTING_LINK
+        http_status_code: 400
+        message: Link doesn't exist for update.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_length_last_name:
+      summary: invalid_length_last_name
+      value:
+        code: invalid_length_last_name
+        http_status_code: 400
+        message: Last Name length greater than 50 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_name_contains_illegal_character:
+      summary: label_name_contains_illegal_character
+      value:
+        code: label_name_contains_illegal_character
+        http_status_code: 403
+        message: Label name can only contain alphanumeric, dash and underscore characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_length_out_of_range:
+      summary: data_attribute_value_length_out_of_range
+      value:
+        code: data_attribute_value_length_out_of_range
+        http_status_code: 403
+        message: Shareable data attribute value length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHARE_SUBJECT_CHARACTERS:
+      summary: INVALID_SHARE_SUBJECT_CHARACTERS
+      value:
+        code: INVALID_SHARE_SUBJECT_CHARACTERS
+        http_status_code: 400
+        message: Sorry, we can not put these characters in a share subject.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_not_found:
+      summary: asset_not_found
+      value:
+        code: asset_not_found
+        http_status_code: 400
+        message: Asset not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    RECEIPIENT_JSON_CONVERSION_ERROR:
+      summary: RECEIPIENT_JSON_CONVERSION_ERROR
+      value:
+        code: RECEIPIENT_JSON_CONVERSION_ERROR
+        http_status_code: 400
+        message: Error occurred when converting recipient list to JSON
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    partner_id_missing:
+      summary: partner_id_missing
+      value:
+        code: partner_id_missing
+        http_status_code: 400
+        message: Please pass a partner id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    blocked_content_url:
+      summary: blocked_content_url
+      value:
+        code: blocked_content_url
+        http_status_code: 403
+        message: Content url is blocked
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    MISSING_MESSAGE:
+      summary: MISSING_MESSAGE
+      value:
+        code: MISSING_MESSAGE
+        http_status_code: 400
+        message: Share message is missing.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_value:
+      summary: invalid_value
+      value:
+        code: invalid_value
+        http_status_code: 400
+        message: Data value is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_illegal_character:
+      summary: code_illegal_character
+      value:
+        code: code_illegal_character
+        http_status_code: 403
+        message: Code can only contain alphanumeric, dash and underscore
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_value_invalid:
+      summary: data_attribute_value_invalid
+      value:
+        code: data_attribute_value_invalid
+        http_status_code: 403
+        message: Shareable data value is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_TARGET_URL:
+      summary: INVALID_TARGET_URL
+      value:
+        code: INVALID_TARGET_URL
+        http_status_code: 400
+        message: Invalid target URL.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    ADVOCATE_CODE_MISSING:
+      summary: ADVOCATE_CODE_MISSING
+      value:
+        code: ADVOCATE_CODE_MISSING
+        http_status_code: 400
+        message: advocate_code is required in the share request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_length_first_name:
+      summary: invalid_length_first_name
+      value:
+        code: invalid_length_first_name
+        http_status_code: 400
+        message: First Name length greater than 50 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_shareable_id:
+      summary: invalid_shareable_id
+      value:
+        code: invalid_shareable_id
+        http_status_code: 400
+        message: Invalid shareable id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_content_not_downloadable:
+      summary: asset_content_not_downloadable
+      value:
+        code: asset_content_not_downloadable
+        http_status_code: 400
+        message: Asset content could not be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_email_already_defined:
+      summary: person_email_already_defined
+      value:
+        code: person_email_already_defined
+        http_status_code: 400
+        message: Person email already defined
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_profane_word:
+      summary: code_profane_word
+      value:
+        code: code_profane_word
+        http_status_code: 400
+        message: Code contains profane word
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    partner_user_id_already_defined:
+      summary: partner_user_id_already_defined
+      value:
+        code: partner_user_id_already_defined
+        http_status_code: 400
+        message: Partner user id already defined
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_params_name_length_out_of_range:
+      summary: client_params_name_length_out_of_range
+      value:
+        code: client_params_name_length_out_of_range
+        http_status_code: 403
+        message: The name supplied is too long
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_URL_FORMAT:
+      summary: INVALID_URL_FORMAT
+      value:
+        code: INVALID_URL_FORMAT
+        http_status_code: 400
+        message: Invalid URL format for URL.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_RECIPIENT:
+      summary: INVALID_RECIPIENT
+      value:
+        code: INVALID_RECIPIENT
+        http_status_code: 400
+        message: Recipient has a wrong syntax.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    RECIPIENTS_MISSING:
+      summary: RECIPIENTS_MISSING
+      value:
+        code: RECIPIENTS_MISSING
+        http_status_code: 400
+        message: Share recipient is missing.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_PARTNER_CONTENT_URL:
+      summary: INVALID_PARTNER_CONTENT_URL
+      value:
+        code: INVALID_PARTNER_CONTENT_URL
+        http_status_code: 400
+        message: Invalid partner content URL.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    NOT_FOUND:
+      summary: NOT_FOUND
+      value:
+        code: NOT_FOUND
+        http_status_code: 403
+        message: Shareable Not Found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_limit_exceeded:
+      summary: asset_limit_exceeded
+      value:
+        code: asset_limit_exceeded
+        http_status_code: 400
+        message: The number of assets exceeds the limit
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_out_of_range:
+      summary: code_out_of_range
+      value:
+        code: code_out_of_range
+        http_status_code: 403
+        message: Code length must be between 4 and 50 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    target_url_length_out_of_range:
+      summary: target_url_length_out_of_range
+      value:
+        code: target_url_length_out_of_range
+        http_status_code: 403
+        message: Target URL length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHARE_MESSAGE_LINK:
+      summary: INVALID_SHARE_MESSAGE_LINK
+      value:
+        code: INVALID_SHARE_MESSAGE_LINK
+        http_status_code: 400
+        message: Sorry, we can not put that link in a share message.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_content_url:
+      summary: invalid_content_url
+      value:
+        code: invalid_content_url
+        http_status_code: 403
+        message: Invalid content url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    UNREWARDABLE:
+      summary: UNREWARDABLE
+      value:
+        code: UNREWARDABLE
+        http_status_code: 400
+        message: User must have an associated email to create a shareable.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    SHARE_NOT_FOUND:
+      summary: SHARE_NOT_FOUND
+      value:
+        code: SHARE_NOT_FOUND
+        http_status_code: 403
+        message: Share not found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_mime_type_invalid:
+      summary: asset_mime_type_invalid
+      value:
+        code: asset_mime_type_invalid
+        http_status_code: 400
+        message: The supplied asset has an invalid mime type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHARE_URL:
+      summary: INVALID_SHARE_URL
+      value:
+        code: INVALID_SHARE_URL
+        http_status_code: 400
+        message: Invalid share URL.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    content_description_length_exceeded:
+      summary: content_description_length_exceeded
+      value:
+        code: content_description_length_exceeded
+        http_status_code: 403
+        message: Content description length exceeded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_IMAGE_URL:
+      summary: INVALID_IMAGE_URL
+      value:
+        code: INVALID_IMAGE_URL
+        http_status_code: 400
+        message: Invalid image URL.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    data_attribute_name_invalid:
+      summary: data_attribute_name_invalid
+      value:
+        code: data_attribute_name_invalid
+        http_status_code: 403
+        message: Shareable data attribute name is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    code_contains_reserved_word:
+      summary: code_contains_reserved_word
+      value:
+        code: code_contains_reserved_word
+        http_status_code: 403
+        message: Shareable code contains reserved word
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_reward_filter:
+      summary: invalid_reward_filter
+      value:
+        code: invalid_reward_filter
+        http_status_code: 400
+        message: 'Invalid reward filter, one of: polling_id, reward_name or partner_event_id are required'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHARE_MESSAGE_CHARACTERS:
+      summary: INVALID_SHARE_MESSAGE_CHARACTERS
+      value:
+        code: INVALID_SHARE_MESSAGE_CHARACTERS
+        http_status_code: 400
+        message: Sorry, we can not put these characters in a share message.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    asset_size_invalid:
+      summary: asset_size_invalid
+      value:
+        code: asset_size_invalid
+        http_status_code: 400
+        message: The supplied asset has an invalid size
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_MESSAGE_LENGTH:
+      summary: INVALID_MESSAGE_LENGTH
+      value:
+        code: INVALID_MESSAGE_LENGTH
+        http_status_code: 400
+        message: Share message cannot exceed 2048 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    partner_user_id_invalid_length:
+      summary: partner_user_id_invalid_length
+      value:
+        code: partner_user_id_invalid_length
+        http_status_code: 400
+        message: Partner user id length greater than 255 characters
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    EXISTING_LINK:
+      summary: EXISTING_LINK
+      value:
+        code: EXISTING_LINK
+        http_status_code: 400
+        message: Link already exists.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_reward_id:
+      summary: invalid_reward_id
+      value:
+        code: invalid_reward_id
+        http_status_code: 400
+        message: Invalid reward id. Reward not found.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_person_id:
+      summary: invalid_person_id
+      value:
+        code: invalid_person_id
+        http_status_code: 400
+        message: Invalid person_id
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    MISSING_RECIPIENT:
+      summary: MISSING_RECIPIENT
+      value:
+        code: MISSING_RECIPIENT
+        http_status_code: 400
+        message: Recipient is missing.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SHAREABLE_ID:
+      summary: INVALID_SHAREABLE_ID
+      value:
+        code: INVALID_SHAREABLE_ID
+        http_status_code: 400
+        message: ShareableId not valid in the share request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_param_not_found:
+      summary: client_param_not_found
+      value:
+        code: client_param_not_found
+        http_status_code: 403
+        message: Parameter not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_SUBJECT_LENGTH:
+      summary: INVALID_SUBJECT_LENGTH
+      value:
+        code: INVALID_SUBJECT_LENGTH
+        http_status_code: 400
+        message: Email subject cannot exceed 78 characters.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    NO_RECIPIENT:
+      summary: NO_RECIPIENT
+      value:
+        code: NO_RECIPIENT
+        http_status_code: 400
+        message: There is no recipient in the share request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_profile_picture_url:
+      summary: invalid_profile_picture_url
+      value:
+        code: invalid_profile_picture_url
+        http_status_code: 400
+        message: Malformed profile_picture_url
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    label_name_length_out_of_range:
+      summary: label_name_length_out_of_range
+      value:
+        code: label_name_length_out_of_range
+        http_status_code: 403
+        message: Label name is not of valid length
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    INVALID_RECIPIENT_SIZE:
+      summary: INVALID_RECIPIENT_SIZE
+      value:
+        code: INVALID_RECIPIENT_SIZE
+        http_status_code: 400
+        message: Cannot share to more than 25 recipients at once.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     ADVOCATE_CODE_NOT_FOUND:
       summary: ADVOCATE_CODE_NOT_FOUND
       value:
@@ -5826,12 +5762,68 @@ components:
         message: Advocate code not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    address_validation:
-      summary: address_validation
+    MESSAGE_MISSING:
+      summary: MESSAGE_MISSING
       value:
-        code: address_validation
+        code: MESSAGE_MISSING
         http_status_code: 400
-        message: Failed to validate address.
+        message: Email message is missing.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    extole_destination_length_out_of_range:
+      summary: extole_destination_length_out_of_range
+      value:
+        code: extole_destination_length_out_of_range
+        http_status_code: 400
+        message: Extole destination length is out of range. Max 2000 chars
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    client_params_value_length_out_of_range:
+      summary: client_params_value_length_out_of_range
+      value:
+        code: client_params_value_length_out_of_range
+        http_status_code: 403
+        message: The value supplied is too long
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_person_email:
+      summary: invalid_person_email
+      value:
+        code: invalid_person_email
+        http_status_code: 400
+        message: Invalid person email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    CHANNEL_MISSING:
+      summary: CHANNEL_MISSING
+      value:
+        code: CHANNEL_MISSING
+        http_status_code: 400
+        message: Channel is missing
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    SHAREABLE_ID_MISSING:
+      summary: SHAREABLE_ID_MISSING
+      value:
+        code: SHAREABLE_ID_MISSING
+        http_status_code: 400
+        message: ShareableId is missing in the share request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_secure_email:
@@ -5840,6 +5832,14 @@ components:
         code: invalid_secure_email
         http_status_code: 403
         message: The secure_email provided is not valid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    address_validation:
+      summary: address_validation
+      value:
+        code: address_validation
+        http_status_code: 400
+        message: Failed to validate address.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
@@ -5851,53 +5851,641 @@ components:
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    MeDataBulkUpdateRequest:
-      description: Body of a `POST /v4/me/parameters` request.
+    ShareResponse:
       properties:
+        campaign_id:
+          type: string
+        channel:
+          type:
+          - string
+          - 'null'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        friend:
+          $ref: '#/components/schemas/PublicPersonResponse'
+        id:
+          readOnly: true
+          type: string
+        link:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        partner_id:
+          $ref: '#/components/schemas/PartnerEventIdResponse'
+        recipient_email:
+          type:
+          - string
+          - 'null'
+        recipients:
+          items:
+            type: string
+          type: array
+        share_date:
+          type: string
+        share_id:
+          type: string
+        shareable_id:
+          type:
+          - string
+          - 'null'
+        subject:
+          type:
+          - string
+          - 'null'
+      required:
+      - campaign_id
+      - channel
+      - data
+      - friend
+      - id
+      - link
+      - message
+      - partner_id
+      - recipient_email
+      - recipients
+      - share_date
+      - share_id
+      - shareable_id
+      - subject
+      type: object
+    QualityRuleResult:
+      properties:
+        rule_name:
+          type: string
+        score:
+          enum:
+          - ERROR
+          - HIGH
+          - LOW
+          type: string
+      type: object
+    AudienceMembershipResponse:
+      properties:
+        audience_id:
+          type: string
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        updated_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+      required:
+      - audience_id
+      - created_date
+      - updated_date
+      type: object
+    MultiPart:
+      properties:
+        bodyParts:
+          items:
+            $ref: '#/components/schemas/BodyPart'
+          type: array
+        contentDisposition:
+          $ref: '#/components/schemas/ContentDisposition'
+        entity:
+          type: object
+        headers:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        messageBodyWorkers:
+          $ref: '#/components/schemas/MessageBodyWorkers'
+        parameterizedHeaders:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ParameterizedHeader'
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        parent:
+          $ref: '#/components/schemas/MultiPart'
+        providers:
+          $ref: '#/components/schemas/Providers'
+      type: object
+    CreateShareableV4Response:
+      properties:
+        polling_id:
+          type: string
+        shareable_code:
+          type: string
+        shareable_domain:
+          type: string
+        shareable_id:
+          type: string
+        shareable_program_id:
+          type: string
+      required:
+      - polling_id
+      - shareable_code
+      - shareable_domain
+      - shareable_id
+      - shareable_program_id
+      type: object
+    FormDataBodyPart:
+      properties:
+        content:
+          type: object
+        contentDisposition:
+          $ref: '#/components/schemas/ContentDisposition'
+        entity:
+          type: object
+        fileName:
+          type: string
+        formDataContentDisposition:
+          $ref: '#/components/schemas/FormDataContentDisposition'
+        headers:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        messageBodyWorkers:
+          $ref: '#/components/schemas/MessageBodyWorkers'
+        name:
+          type: string
+        parameterizedHeaders:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ParameterizedHeader'
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        parent:
+          $ref: '#/components/schemas/MultiPart'
+        providers:
+          $ref: '#/components/schemas/Providers'
+        simple:
+          type: boolean
+        value:
+          type: string
+      type: object
+    PublicPersonResponse:
+      properties:
+        first_name:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        image_url:
+          type: string
         parameters:
           additionalProperties:
             type: object
           type: object
-        type:
-          enum:
-          - CLIENT
-          - PRIVATE
-          - PUBLIC
+      required:
+      - first_name
+      - id
+      - image_url
+      - parameters
+      type: object
+    JourneyResponse:
+      properties:
+        campaign_id:
+          type: string
+        container:
+          type: string
+        created_date:
+          type: string
+        data:
+          additionalProperties:
+            type: object
+          type: object
+        entry_advocate_code:
+          type:
+          - string
+          - 'null'
+        entry_advocate_partner_id:
+          type:
+          - string
+          - 'null'
+        entry_consumer_event_id:
+          type:
+          - string
+          - 'null'
+        entry_coupon_code:
+          type:
+          - string
+          - 'null'
+        entry_label:
+          type: string
+        entry_profile_id:
+          type:
+          - string
+          - 'null'
+        entry_promotable_code:
+          type:
+          - string
+          - 'null'
+        entry_reason:
+          type: string
+        entry_referral_reason:
+          type:
+          - string
+          - 'null'
+        entry_share_id:
+          type:
+          - string
+          - 'null'
+        entry_shareable_id:
+          type:
+          - string
+          - 'null'
+        entry_zone:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        journey_type:
+          type: string
+        last_advocate_code:
+          type:
+          - string
+          - 'null'
+        last_advocate_partner_id:
+          type:
+          - string
+          - 'null'
+        last_consumer_event_id:
+          type:
+          - string
+          - 'null'
+        last_coupon_code:
+          type:
+          - string
+          - 'null'
+        last_profile_id:
+          type:
+          - string
+          - 'null'
+        last_promotable_code:
+          type:
+          - string
+          - 'null'
+        last_referral_reason:
+          type:
+          - string
+          - 'null'
+        last_share_id:
+          type:
+          - string
+          - 'null'
+        last_shareable_id:
+          type:
+          - string
+          - 'null'
+        last_zone:
+          type: string
+        updated_date:
           type: string
       required:
-      - parameters
-      - type
+      - campaign_id
+      - container
+      - created_date
+      - data
+      - entry_advocate_code
+      - entry_advocate_partner_id
+      - entry_consumer_event_id
+      - entry_coupon_code
+      - entry_label
+      - entry_profile_id
+      - entry_promotable_code
+      - entry_reason
+      - entry_referral_reason
+      - entry_share_id
+      - entry_shareable_id
+      - entry_zone
+      - id
+      - journey_type
+      - last_advocate_code
+      - last_advocate_partner_id
+      - last_consumer_event_id
+      - last_coupon_code
+      - last_profile_id
+      - last_promotable_code
+      - last_referral_reason
+      - last_share_id
+      - last_shareable_id
+      - last_zone
+      - updated_date
       type: object
-    CreateMeShareableV4Response:
+    ContentDisposition:
+      properties:
+        creationDate:
+          format: date-time
+          type: string
+        fileName:
+          type: string
+        modificationDate:
+          format: date-time
+          type: string
+        parameters:
+          additionalProperties:
+            type: string
+          type: object
+        readDate:
+          format: date-time
+          type: string
+        size:
+          format: int64
+          type: integer
+        type:
+          type: string
+      type: object
+    EventSharePollingResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/RestExceptionResponse'
+        polling_id:
+          type: string
+        share_id:
+          type:
+          - string
+          - 'null'
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - error
+      - polling_id
+      - share_id
+      - status
+      type: object
+    CustomShareResponse:
       properties:
         polling_id:
           type: string
+        share_id:
+          type: string
       required:
       - polling_id
+      - share_id
       type: object
-    AssetRequest:
+    BatchEmailShareV5Request:
       properties:
-        data_type:
-          enum:
-          - PRIVATE
-          - PUBLIC
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        tags:
-          items:
+        advocate_code:
+          type: string
+        data:
+          additionalProperties:
             type: string
           type:
-          - array
+          - object
+          - 'null'
+        message:
+          type: string
+        recipient_emails:
+          items:
+            type: string
+          type: array
+        subject:
+          type:
+          - string
           - 'null'
       required:
-      - data_type
-      - name
-      - tags
+      - advocate_code
+      - data
+      - message
+      - recipient_emails
+      - subject
+      type: object
+    MeShareableV4Response:
+      properties:
+        code:
+          type: string
+        content:
+          $ref: '#/components/schemas/ShareableV4Content'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type: string
+        label:
+          type:
+          - string
+          - 'null'
+        link:
+          type: string
+        shareable_id:
+          type: string
+      required:
+      - code
+      - content
+      - data
+      - key
+      - label
+      - link
+      - shareable_id
+      type: object
+    PublicShareResponse:
+      properties:
+        campaign_id:
+          type: string
+        channel:
+          type:
+          - string
+          - 'null'
+        id:
+          readOnly: true
+          type: string
+        link:
+          type:
+          - string
+          - 'null'
+        partner_id:
+          $ref: '#/components/schemas/PartnerEventIdResponse'
+        share_date:
+          type: string
+        share_id:
+          type: string
+        shareable_id:
+          type:
+          - string
+          - 'null'
+      required:
+      - campaign_id
+      - channel
+      - id
+      - link
+      - partner_id
+      - share_date
+      - share_id
+      - shareable_id
+      type: object
+    ShareableCreateV4PollingResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ShareableCreateV4Error'
+        polling_id:
+          type: string
+        shareable_id:
+          type:
+          - string
+          - 'null'
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type:
+          - string
+          - 'null'
+      required:
+      - error
+      - polling_id
+      - shareable_id
+      - status
+      type: object
+    VerificationEmailResponse:
+      properties:
+        polling_id:
+          type: string
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type:
+          - string
+          - 'null'
+      required:
+      - polling_id
+      - status
+      type: object
+    BodyPart:
+      properties:
+        contentDisposition:
+          $ref: '#/components/schemas/ContentDisposition'
+        entity:
+          type: object
+        headers:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        messageBodyWorkers:
+          $ref: '#/components/schemas/MessageBodyWorkers'
+        parameterizedHeaders:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ParameterizedHeader'
+            type: array
+          properties:
+            empty:
+              type: boolean
+          type: object
+        parent:
+          $ref: '#/components/schemas/MultiPart'
+        providers:
+          $ref: '#/components/schemas/Providers'
+      type: object
+    EventShareRequest:
+      properties:
+        campaign_id:
+          type: string
+        consumer_event:
+          $ref: '#/components/schemas/ConsumerEventRequest'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        message:
+          type: string
+        recipient_email:
+          type: string
+        shareable_id:
+          type: string
+      required:
+      - campaign_id
+      - consumer_event
+      - data
+      - message
+      - recipient_email
+      - shareable_id
+      type: object
+    CustomSharePollingResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/RestExceptionResponse'
+        polling_id:
+          type: string
+        share_id:
+          type:
+          - string
+          - 'null'
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - error
+      - polling_id
+      - share_id
+      - status
+      type: object
+    PollingRewardResponse:
+      properties:
+        quality_results:
+          description: Quality evaluation results associated with this reward redemption.
+          items:
+            $ref: '#/components/schemas/QualityResults'
+          type: array
+        reward:
+          $ref: '#/components/schemas/RewardResponse'
+        status:
+          description: Current processing status of the reward redemption (`PENDING`, `SUCCEEDED`, or `FAILED`).
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - quality_results
+      - reward
+      - status
+      type: object
+    FriendEvent:
+      properties:
+        campaign_id:
+          type: string
+        email:
+          type: string
+        event_date:
+          type: string
+        step_name:
+          type: string
       type: object
     MyProfileResponse:
       properties:
@@ -5965,25 +6553,6 @@ components:
       - processing_consent_type
       - profile_picture_url
       type: object
-    PublicPersonResponse:
-      properties:
-        first_name:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        image_url:
-          type: string
-        parameters:
-          additionalProperties:
-            type: object
-          type: object
-      required:
-      - first_name
-      - id
-      - image_url
-      - parameters
-      type: object
     PartnerEventIdResponse:
       properties:
         name:
@@ -5995,167 +6564,6 @@ components:
       type:
       - object
       - 'null'
-    CreateShareableV4Response:
-      properties:
-        polling_id:
-          type: string
-        shareable_code:
-          type: string
-        shareable_domain:
-          type: string
-        shareable_id:
-          type: string
-        shareable_program_id:
-          type: string
-      required:
-      - polling_id
-      - shareable_code
-      - shareable_domain
-      - shareable_id
-      - shareable_program_id
-      type: object
-    FriendEvent:
-      properties:
-        campaign_id:
-          type: string
-        email:
-          type: string
-        event_date:
-          type: string
-        step_name:
-          type: string
-      type: object
-    FriendProfileResponse:
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/FriendEvent'
-          type: array
-        first_name:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        image_url:
-          type: string
-      required:
-      - events
-      - first_name
-      - id
-      - image_url
-      type: object
-    MessageBodyWorkers:
-      type: object
-    Providers:
-      type: object
-    CreateMeShareableRequest:
-      properties:
-        content:
-          $ref: '#/components/schemas/ShareableContent'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type:
-          - string
-          - 'null'
-        label:
-          type: string
-        preferred_code_prefixes:
-          items:
-            type: string
-          type:
-          - array
-          - 'null'
-      required:
-      - content
-      - data
-      - key
-      - label
-      - preferred_code_prefixes
-      type: object
-    PersonProfileUpdateRequest:
-      description: Body of a `POST /v4/me` request.
-      properties:
-        access_token:
-          type: string
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        partner_user_id:
-          type: string
-        profile_picture_url:
-          type: string
-      required:
-      - access_token
-      - email
-      - first_name
-      - last_name
-      - partner_user_id
-      - profile_picture_url
-      type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
-    ParameterizedHeader:
-      properties:
-        parameters:
-          additionalProperties:
-            type: string
-          type: object
-        value:
-          type: string
-      type: object
-    CreateMeShareableV4Request:
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        content:
-          $ref: '#/components/schemas/ShareableV4Content'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type:
-          - string
-          - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-        target_url:
-          type: string
-      required:
-      - code
-      - content
-      - data
-      - key
-      - label
-      - target_url
-      type: object
-    EventShareResponse:
-      properties:
-        polling_id:
-          type: string
-        share_id:
-          type: string
-      required:
-      - polling_id
-      - share_id
-      type: object
     ShareableCreateV4Error:
       properties:
         code:
@@ -6194,617 +6602,6 @@ components:
       - data
       - message
       - recipient_email
-      type: object
-    CreateShareableV4Request:
-      properties:
-        access_token:
-          type:
-          - string
-          - 'null'
-          writeOnly: true
-        code:
-          type:
-          - string
-          - 'null'
-        content:
-          $ref: '#/components/schemas/ShareableV4Content'
-        key:
-          type:
-          - string
-          - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-        target_url:
-          type: string
-      required:
-      - code
-      - content
-      - key
-      - label
-      - target_url
-      type: object
-    ContentDisposition:
-      properties:
-        creationDate:
-          format: date-time
-          type: string
-        fileName:
-          type: string
-        modificationDate:
-          format: date-time
-          type: string
-        parameters:
-          additionalProperties:
-            type: string
-          type: object
-        readDate:
-          format: date-time
-          type: string
-        size:
-          format: int64
-          type: integer
-        type:
-          type: string
-      type: object
-    QualityResults:
-      properties:
-        quality_rule_results:
-          items:
-            $ref: '#/components/schemas/QualityRuleResult'
-          type: array
-        score:
-          enum:
-          - ERROR
-          - HIGH
-          - LOW
-          type: string
-      type: object
-    ShareableContent:
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        image_url:
-          type:
-          - string
-          - 'null'
-        partner_content_id:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-      type:
-      - object
-      - 'null'
-    ShareResponse:
-      properties:
-        campaign_id:
-          type: string
-        channel:
-          type:
-          - string
-          - 'null'
-        data:
-          additionalProperties:
-            type: string
-          type: object
-        friend:
-          $ref: '#/components/schemas/PublicPersonResponse'
-        id:
-          readOnly: true
-          type: string
-        link:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        partner_id:
-          $ref: '#/components/schemas/PartnerEventIdResponse'
-        recipient_email:
-          type:
-          - string
-          - 'null'
-        recipients:
-          items:
-            type: string
-          type: array
-        share_date:
-          type: string
-        share_id:
-          type: string
-        shareable_id:
-          type:
-          - string
-          - 'null'
-        subject:
-          type:
-          - string
-          - 'null'
-      required:
-      - campaign_id
-      - channel
-      - data
-      - friend
-      - id
-      - link
-      - message
-      - partner_id
-      - recipient_email
-      - recipients
-      - share_date
-      - share_id
-      - shareable_id
-      - subject
-      type: object
-    MeShareableResponse:
-      properties:
-        code:
-          type: string
-        content:
-          $ref: '#/components/schemas/ShareableContent'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type: string
-        label:
-          type:
-          - string
-          - 'null'
-        link:
-          type: string
-      required:
-      - code
-      - content
-      - data
-      - key
-      - label
-      - link
-      type: object
-    UpdateProfileResponse:
-      properties:
-        polling_id:
-          type: string
-        status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
-          type: string
-      required:
-      - polling_id
-      - status
-      type: object
-    PollingRewardResponse:
-      properties:
-        quality_results:
-          description: Quality evaluation results associated with this reward redemption.
-          items:
-            $ref: '#/components/schemas/QualityResults'
-          type: array
-        reward:
-          $ref: '#/components/schemas/RewardResponse'
-        status:
-          description: Current processing status of the reward redemption (`PENDING`, `SUCCEEDED`, or `FAILED`).
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
-          type: string
-      required:
-      - quality_results
-      - reward
-      - status
-      type: object
-    EventShareRequest:
-      properties:
-        campaign_id:
-          type: string
-        consumer_event:
-          $ref: '#/components/schemas/ConsumerEventRequest'
-        data:
-          additionalProperties:
-            type: string
-          type: object
-        message:
-          type: string
-        recipient_email:
-          type: string
-        shareable_id:
-          type: string
-      required:
-      - campaign_id
-      - consumer_event
-      - data
-      - message
-      - recipient_email
-      - shareable_id
-      type: object
-    VerificationEmailResponse:
-      properties:
-        polling_id:
-          type: string
-        status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
-          type:
-          - string
-          - 'null'
-      required:
-      - polling_id
-      - status
-      type: object
-    JourneyKey:
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      type: object
-    EditMeShareableV4Request:
-      properties:
-        content:
-          $ref: '#/components/schemas/ShareableV4Content'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type:
-          - string
-          - 'null'
-        label:
-          type:
-          - string
-          - 'null'
-        target_url:
-          type:
-          - string
-          - 'null'
-      required:
-      - content
-      - data
-      - key
-      - label
-      - target_url
-      type: object
-    FormDataBodyPart:
-      properties:
-        content:
-          type: object
-        contentDisposition:
-          $ref: '#/components/schemas/ContentDisposition'
-        entity:
-          type: object
-        fileName:
-          type: string
-        formDataContentDisposition:
-          $ref: '#/components/schemas/FormDataContentDisposition'
-        headers:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        mediaType:
-          $ref: '#/components/schemas/MediaType'
-        messageBodyWorkers:
-          $ref: '#/components/schemas/MessageBodyWorkers'
-        name:
-          type: string
-        parameterizedHeaders:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ParameterizedHeader'
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        parent:
-          $ref: '#/components/schemas/MultiPart'
-        providers:
-          $ref: '#/components/schemas/Providers'
-        simple:
-          type: boolean
-        value:
-          type: string
-      type: object
-    CustomShareResponse:
-      properties:
-        polling_id:
-          type: string
-        share_id:
-          type: string
-      required:
-      - polling_id
-      - share_id
-      type: object
-    ShareableCreateV4PollingResponse:
-      properties:
-        error:
-          $ref: '#/components/schemas/ShareableCreateV4Error'
-        polling_id:
-          type: string
-        shareable_id:
-          type:
-          - string
-          - 'null'
-        status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
-          type:
-          - string
-          - 'null'
-      required:
-      - error
-      - polling_id
-      - shareable_id
-      - status
-      type: object
-    SuccessResponse:
-      properties:
-        status:
-          type: string
-      required:
-      - status
-      type: object
-    BodyPart:
-      properties:
-        contentDisposition:
-          $ref: '#/components/schemas/ContentDisposition'
-        entity:
-          type: object
-        headers:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        mediaType:
-          $ref: '#/components/schemas/MediaType'
-        messageBodyWorkers:
-          $ref: '#/components/schemas/MessageBodyWorkers'
-        parameterizedHeaders:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ParameterizedHeader'
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        parent:
-          $ref: '#/components/schemas/MultiPart'
-        providers:
-          $ref: '#/components/schemas/Providers'
-      type: object
-    MultiPart:
-      properties:
-        bodyParts:
-          items:
-            $ref: '#/components/schemas/BodyPart'
-          type: array
-        contentDisposition:
-          $ref: '#/components/schemas/ContentDisposition'
-        entity:
-          type: object
-        headers:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        mediaType:
-          $ref: '#/components/schemas/MediaType'
-        messageBodyWorkers:
-          $ref: '#/components/schemas/MessageBodyWorkers'
-        parameterizedHeaders:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ParameterizedHeader'
-            type: array
-          properties:
-            empty:
-              type: boolean
-          type: object
-        parent:
-          $ref: '#/components/schemas/MultiPart'
-        providers:
-          $ref: '#/components/schemas/Providers'
-      type: object
-    BatchEmailShareV5Request:
-      properties:
-        advocate_code:
-          type: string
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        message:
-          type: string
-        recipient_emails:
-          items:
-            type: string
-          type: array
-        subject:
-          type:
-          - string
-          - 'null'
-      required:
-      - advocate_code
-      - data
-      - message
-      - recipient_emails
-      - subject
-      type: object
-    GetShareableV4Response:
-      properties:
-        code:
-          type: string
-        content:
-          $ref: '#/components/schemas/ShareableV4Content'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type: string
-        label:
-          type:
-          - string
-          - 'null'
-        link:
-          type: string
-        person_id:
-          type: string
-        shareable_id:
-          type: string
-      required:
-      - code
-      - content
-      - data
-      - key
-      - label
-      - link
-      - person_id
-      - shareable_id
-      type: object
-    ShareableV4Content:
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        image_url:
-          type:
-          - string
-          - 'null'
-        partner_content_id:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-      type: object
-    CustomSharePollingResponse:
-      properties:
-        error:
-          $ref: '#/components/schemas/RestExceptionResponse'
-        polling_id:
-          type: string
-        share_id:
-          type:
-          - string
-          - 'null'
-        status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
-          type: string
-      required:
-      - error
-      - polling_id
-      - share_id
-      - status
-      type: object
-    RelationshipResponse:
-      properties:
-        container:
-          type: string
-        person:
-          $ref: '#/components/schemas/PublicPersonResponse'
-        reason:
-          type: string
-        shareable_id:
-          type:
-          - string
-          - 'null'
-        updated_at:
-          type: string
-      required:
-      - container
-      - person
-      - reason
-      - shareable_id
-      - updated_at
-      type: object
-    AssetResponse:
-      properties:
-        data_type:
-          enum:
-          - PRIVATE
-          - PUBLIC
-          type: string
-        filename:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        mime_type:
-          type: string
-        name:
-          type: string
-        status:
-          enum:
-          - APPROVED
-          - DENIED
-          - PENDING_REVIEW
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-      required:
-      - data_type
-      - filename
-      - id
-      - mime_type
-      - name
-      - status
-      - tags
       type: object
     RewardResponse:
       properties:
@@ -6937,27 +6734,6 @@ components:
       - sandbox
       - state
       type: object
-    EmailShareV5Response:
-      properties:
-        polling_id:
-          type: string
-        recipient_email:
-          type: string
-      required:
-      - polling_id
-      - recipient_email
-      type: object
-    QualityRuleResult:
-      properties:
-        rule_name:
-          type: string
-        score:
-          enum:
-          - ERROR
-          - HIGH
-          - LOW
-          type: string
-      type: object
     FormDataContentDisposition:
       properties:
         creationDate:
@@ -6982,6 +6758,400 @@ components:
           type: integer
         type:
           type: string
+      type: object
+    MeDataBulkUpdateRequest:
+      description: Body of a `POST /v4/me/parameters` request.
+      properties:
+        parameters:
+          additionalProperties:
+            type: object
+          type: object
+        type:
+          enum:
+          - CLIENT
+          - PRIVATE
+          - PUBLIC
+          type: string
+      required:
+      - parameters
+      - type
+      type: object
+    EmailShareV5Response:
+      properties:
+        polling_id:
+          type: string
+        recipient_email:
+          type: string
+      required:
+      - polling_id
+      - recipient_email
+      type: object
+    AssetRequest:
+      properties:
+        data_type:
+          enum:
+          - PRIVATE
+          - PUBLIC
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        tags:
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+      required:
+      - data_type
+      - name
+      - tags
+      type: object
+    MessageBodyWorkers:
+      type: object
+    EventShareResponse:
+      properties:
+        polling_id:
+          type: string
+        share_id:
+          type: string
+      required:
+      - polling_id
+      - share_id
+      type: object
+    CreateMeShareableRequest:
+      properties:
+        content:
+          $ref: '#/components/schemas/ShareableContent'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type:
+          - string
+          - 'null'
+        label:
+          type: string
+        preferred_code_prefixes:
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+      required:
+      - content
+      - data
+      - key
+      - label
+      - preferred_code_prefixes
+      type: object
+    StepResponse:
+      properties:
+        name:
+          type: string
+      type: object
+    GetShareableV4Response:
+      properties:
+        code:
+          type: string
+        content:
+          $ref: '#/components/schemas/ShareableV4Content'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type: string
+        label:
+          type:
+          - string
+          - 'null'
+        link:
+          type: string
+        person_id:
+          type: string
+        shareable_id:
+          type: string
+      required:
+      - code
+      - content
+      - data
+      - key
+      - label
+      - link
+      - person_id
+      - shareable_id
+      type: object
+    Providers:
+      type: object
+    JourneyKey:
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    AssetResponse:
+      properties:
+        data_type:
+          enum:
+          - PRIVATE
+          - PUBLIC
+          type: string
+        filename:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+        status:
+          enum:
+          - APPROVED
+          - DENIED
+          - PENDING_REVIEW
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - data_type
+      - filename
+      - id
+      - mime_type
+      - name
+      - status
+      - tags
+      type: object
+    CreateMeShareableV4Request:
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        content:
+          $ref: '#/components/schemas/ShareableV4Content'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        target_url:
+          type: string
+      required:
+      - code
+      - content
+      - data
+      - key
+      - label
+      - target_url
+      type: object
+    CreateMeShareableV4Response:
+      properties:
+        polling_id:
+          type: string
+      required:
+      - polling_id
+      type: object
+    UpdateProfileResponse:
+      properties:
+        polling_id:
+          type: string
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - polling_id
+      - status
+      type: object
+    EditMeShareableV4Request:
+      properties:
+        content:
+          $ref: '#/components/schemas/ShareableV4Content'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        target_url:
+          type:
+          - string
+          - 'null'
+      required:
+      - content
+      - data
+      - key
+      - label
+      - target_url
+      type: object
+    VerificationEmailRequest:
+      properties:
+        campaign_id:
+          type:
+          - string
+          - 'null'
+      required:
+      - campaign_id
+      type: object
+    QualityResults:
+      properties:
+        quality_rule_results:
+          items:
+            $ref: '#/components/schemas/QualityRuleResult'
+          type: array
+        score:
+          enum:
+          - ERROR
+          - HIGH
+          - LOW
+          type: string
+      type: object
+    MeShareableResponse:
+      properties:
+        code:
+          type: string
+        content:
+          $ref: '#/components/schemas/ShareableContent'
+        data:
+          additionalProperties:
+            type: string
+          type:
+          - object
+          - 'null'
+        key:
+          type: string
+        label:
+          type:
+          - string
+          - 'null'
+        link:
+          type: string
+      required:
+      - code
+      - content
+      - data
+      - key
+      - label
+      - link
+      type: object
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    ShareableContent:
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        image_url:
+          type:
+          - string
+          - 'null'
+        partner_content_id:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      type:
+      - object
+      - 'null'
+    ShareableV4Content:
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        image_url:
+          type:
+          - string
+          - 'null'
+        partner_content_id:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      type: object
+    MediaType:
+      properties:
+        parameters:
+          additionalProperties:
+            type: string
+          type: object
+        subtype:
+          type: string
+        type:
+          type: string
+        wildcardSubtype:
+          type: boolean
+        wildcardType:
+          type: boolean
+      type: object
+    FriendProfileResponse:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/FriendEvent'
+          type: array
+        first_name:
+          type: string
+        id:
+          readOnly: true
+          type: string
+        image_url:
+          type: string
+      required:
+      - events
+      - first_name
+      - id
+      - image_url
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -7011,208 +7181,6 @@ components:
       - message
       - parameters
       - unique_id
-      type: object
-    JourneyResponse:
-      properties:
-        campaign_id:
-          type: string
-        container:
-          type: string
-        created_date:
-          type: string
-        data:
-          additionalProperties:
-            type: object
-          type: object
-        entry_advocate_code:
-          type:
-          - string
-          - 'null'
-        entry_advocate_partner_id:
-          type:
-          - string
-          - 'null'
-        entry_consumer_event_id:
-          type:
-          - string
-          - 'null'
-        entry_coupon_code:
-          type:
-          - string
-          - 'null'
-        entry_label:
-          type: string
-        entry_profile_id:
-          type:
-          - string
-          - 'null'
-        entry_promotable_code:
-          type:
-          - string
-          - 'null'
-        entry_reason:
-          type: string
-        entry_referral_reason:
-          type:
-          - string
-          - 'null'
-        entry_share_id:
-          type:
-          - string
-          - 'null'
-        entry_shareable_id:
-          type:
-          - string
-          - 'null'
-        entry_zone:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        journey_type:
-          type: string
-        last_advocate_code:
-          type:
-          - string
-          - 'null'
-        last_advocate_partner_id:
-          type:
-          - string
-          - 'null'
-        last_consumer_event_id:
-          type:
-          - string
-          - 'null'
-        last_coupon_code:
-          type:
-          - string
-          - 'null'
-        last_profile_id:
-          type:
-          - string
-          - 'null'
-        last_promotable_code:
-          type:
-          - string
-          - 'null'
-        last_referral_reason:
-          type:
-          - string
-          - 'null'
-        last_share_id:
-          type:
-          - string
-          - 'null'
-        last_shareable_id:
-          type:
-          - string
-          - 'null'
-        last_zone:
-          type: string
-        updated_date:
-          type: string
-      required:
-      - campaign_id
-      - container
-      - created_date
-      - data
-      - entry_advocate_code
-      - entry_advocate_partner_id
-      - entry_consumer_event_id
-      - entry_coupon_code
-      - entry_label
-      - entry_profile_id
-      - entry_promotable_code
-      - entry_reason
-      - entry_referral_reason
-      - entry_share_id
-      - entry_shareable_id
-      - entry_zone
-      - id
-      - journey_type
-      - last_advocate_code
-      - last_advocate_partner_id
-      - last_consumer_event_id
-      - last_coupon_code
-      - last_profile_id
-      - last_promotable_code
-      - last_referral_reason
-      - last_share_id
-      - last_shareable_id
-      - last_zone
-      - updated_date
-      type: object
-    PublicShareResponse:
-      properties:
-        campaign_id:
-          type: string
-        channel:
-          type:
-          - string
-          - 'null'
-        id:
-          readOnly: true
-          type: string
-        link:
-          type:
-          - string
-          - 'null'
-        partner_id:
-          $ref: '#/components/schemas/PartnerEventIdResponse'
-        share_date:
-          type: string
-        share_id:
-          type: string
-        shareable_id:
-          type:
-          - string
-          - 'null'
-      required:
-      - campaign_id
-      - channel
-      - id
-      - link
-      - partner_id
-      - share_date
-      - share_id
-      - shareable_id
-      type: object
-    AudienceMembershipResponse:
-      properties:
-        audience_id:
-          type: string
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        updated_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-      required:
-      - audience_id
-      - created_date
-      - updated_date
-      type: object
-    MediaType:
-      properties:
-        parameters:
-          additionalProperties:
-            type: string
-          type: object
-        subtype:
-          type: string
-        type:
-          type: string
-        wildcardSubtype:
-          type: boolean
-        wildcardType:
-          type: boolean
-      type: object
-    VerificationEmailRequest:
-      properties:
-        campaign_id:
-          type:
-          - string
-          - 'null'
-      required:
-      - campaign_id
       type: object
     ConsumerEventRequest:
       properties:
@@ -7270,62 +7238,11 @@ components:
       type:
       - object
       - 'null'
-    StepResponse:
+    SuccessResponse:
       properties:
-        name:
-          type: string
-      type: object
-    MeShareableV4Response:
-      properties:
-        code:
-          type: string
-        content:
-          $ref: '#/components/schemas/ShareableV4Content'
-        data:
-          additionalProperties:
-            type: string
-          type:
-          - object
-          - 'null'
-        key:
-          type: string
-        label:
-          type:
-          - string
-          - 'null'
-        link:
-          type: string
-        shareable_id:
-          type: string
-      required:
-      - code
-      - content
-      - data
-      - key
-      - label
-      - link
-      - shareable_id
-      type: object
-    EventSharePollingResponse:
-      properties:
-        error:
-          $ref: '#/components/schemas/RestExceptionResponse'
-        polling_id:
-          type: string
-        share_id:
-          type:
-          - string
-          - 'null'
         status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
           type: string
       required:
-      - error
-      - polling_id
-      - share_id
       - status
       type: object
     MeDataUpdateRequest:
@@ -7345,24 +7262,88 @@ components:
       - type
       - value
       type: object
-    Address:
+    ParameterizedHeader:
       properties:
-        address_components:
-          items:
-            $ref: '#/components/schemas/AddressComponent'
-          type: array
-        formatted_address:
+        parameters:
+          additionalProperties:
+            type: string
+          type: object
+        value:
           type: string
-        missing_component_types:
-          items:
-            type: string
-          type: array
-        postal_address:
-          $ref: '#/components/schemas/PostalAddress'
-        unconfirmed_component_types:
-          items:
-            type: string
-          type: array
+      type: object
+    CreateShareableV4Request:
+      properties:
+        access_token:
+          type:
+          - string
+          - 'null'
+          writeOnly: true
+        code:
+          type:
+          - string
+          - 'null'
+        content:
+          $ref: '#/components/schemas/ShareableV4Content'
+        key:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        target_url:
+          type: string
+      required:
+      - code
+      - content
+      - key
+      - label
+      - target_url
+      type: object
+    PersonProfileUpdateRequest:
+      description: Body of a `POST /v4/me` request.
+      properties:
+        access_token:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        partner_user_id:
+          type: string
+        profile_picture_url:
+          type: string
+      required:
+      - access_token
+      - email
+      - first_name
+      - last_name
+      - partner_user_id
+      - profile_picture_url
+      type: object
+    RelationshipResponse:
+      properties:
+        container:
+          type: string
+        person:
+          $ref: '#/components/schemas/PublicPersonResponse'
+        reason:
+          type: string
+        shareable_id:
+          type:
+          - string
+          - 'null'
+        updated_at:
+          type: string
+      required:
+      - container
+      - person
+      - reason
+      - shareable_id
+      - updated_at
       type: object
     AddressComponent:
       properties:
@@ -7379,26 +7360,24 @@ components:
         spell_corrected:
           type: boolean
       type: object
-    OptoutResponse:
+    ComponentName:
       properties:
-        email:
+        language_code:
           type: string
-        optout:
-          type: boolean
-      required:
-      - email
-      - optout
+        text:
+          type: string
       type: object
-    PostalAddress:
+    AddressValidationRequest:
       properties:
         address_lines:
           items:
             type: string
           type: array
-        language_code:
-          type: string
         region_code:
           type: string
+      required:
+      - address_lines
+      - region_code
       type: object
     OptoutRequest:
       properties:
@@ -7430,24 +7409,35 @@ components:
       - source
       - type
       type: object
-    AddressValidationRequest:
+    Verdict:
       properties:
-        address_lines:
+        geocode_granularity:
+          type: string
+        has_unconfirmed_components:
+          type: boolean
+        input_granularity:
+          type: string
+        validation_granularity:
+          type: string
+      type: object
+    Address:
+      properties:
+        address_components:
+          items:
+            $ref: '#/components/schemas/AddressComponent'
+          type: array
+        formatted_address:
+          type: string
+        missing_component_types:
           items:
             type: string
           type: array
-        region_code:
-          type: string
-      required:
-      - address_lines
-      - region_code
-      type: object
-    ComponentName:
-      properties:
-        language_code:
-          type: string
-        text:
-          type: string
+        postal_address:
+          $ref: '#/components/schemas/PostalAddress'
+        unconfirmed_component_types:
+          items:
+            type: string
+          type: array
       type: object
     AddressValidationResponse:
       properties:
@@ -7458,6 +7448,27 @@ components:
       required:
       - address
       - verdict
+      type: object
+    PostalAddress:
+      properties:
+        address_lines:
+          items:
+            type: string
+          type: array
+        language_code:
+          type: string
+        region_code:
+          type: string
+      type: object
+    OptoutResponse:
+      properties:
+        email:
+          type: string
+        optout:
+          type: boolean
+      required:
+      - email
+      - optout
       type: object
     PublicPersonStepResponse:
       properties:
@@ -7488,17 +7499,6 @@ components:
       - journey_name
       - program_label
       - step_name
-      type: object
-    Verdict:
-      properties:
-        geocode_granularity:
-          type: string
-        has_unconfirmed_components:
-          type: boolean
-        input_granularity:
-          type: string
-        validation_granularity:
-          type: string
       type: object
     PersonShareableContentV4Response:
       properties:

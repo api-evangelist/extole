@@ -589,7 +589,155 @@ paths:
     - description: Production
       url: https://api.extole.io
 components:
+  examples:
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    event_blocked:
+      summary: event_blocked
+      value:
+        code: event_blocked
+        http_status_code: 400
+        message: Blocked due to client specific rules to ignore spurious events
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_event_name:
+      summary: missing_event_name
+      value:
+        code: missing_event_name
+        http_status_code: 400
+        message: Event name is required.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_event_time_format:
+      summary: invalid_event_time_format
+      value:
+        code: invalid_event_time_format
+        http_status_code: 400
+        message: 'Invalid event time format. Expected: ISO8601 format'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    SubmitEventResponse:
+      properties:
+        cookie_consent:
+          description: Cookie consent string set by the platform during event processing. Null when no consent update occurred.
+          type:
+          - string
+          - 'null'
+        id:
+          description: Extole-assigned event identifier for the fired event.
+          readOnly: true
+          type: string
+        token:
+          description: Current access token for the consumer. Allows client code to read the token without relying on cookies.
+          type: string
+      required:
+      - cookie_consent
+      - id
+      - token
+      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -618,25 +766,6 @@ components:
       - message
       - parameters
       - unique_id
-      type: object
-    SubmitEventResponse:
-      properties:
-        cookie_consent:
-          description: Cookie consent string set by the platform during event processing. Null when no consent update occurred.
-          type:
-          - string
-          - 'null'
-        id:
-          description: Extole-assigned event identifier for the fired event.
-          readOnly: true
-          type: string
-        token:
-          description: Current access token for the consumer. Allows client code to read the token without relying on cookies.
-          type: string
-      required:
-      - cookie_consent
-      - id
-      - token
       type: object
     EventDispatcherAsyncResponse:
       properties:
@@ -677,6 +806,18 @@ components:
       type:
       - object
       - 'null'
+    EventDispatcherResponse:
+      properties:
+        event_id:
+          description: Unique identifier for the submitted event.
+          type: string
+        person_id:
+          description: Extole person ID resolved from the event data.
+          type: string
+      required:
+      - event_id
+      - person_id
+      type: object
     EventDispatcherRequest:
       properties:
         data:
@@ -692,18 +833,17 @@ components:
       - event_name
       - event_time
       type: object
-    EventDispatcherResponse:
+    PartnerEventIdResponse:
       properties:
-        event_id:
-          description: Unique identifier for the submitted event.
+        name:
+          description: Name of the partner event identifier (e.g. `order_id`).
           type: string
-        person_id:
-          description: Extole person ID resolved from the event data.
+        value:
+          description: Value of the partner event identifier.
           type: string
-      required:
-      - event_id
-      - person_id
-      type: object
+      type:
+      - object
+      - 'null'
     QualityResults:
       properties:
         quality_rule_results:
@@ -716,18 +856,6 @@ components:
           - HIGH
           - LOW
           type: string
-      type: object
-    StepSignalResponse:
-      properties:
-        polling_id:
-          type: string
-        signals:
-          items:
-            $ref: '#/components/schemas/StepSignal'
-          type: array
-      required:
-      - polling_id
-      - signals
       type: object
     StepSignal:
       properties:
@@ -760,146 +888,18 @@ components:
           - LOW
           type: string
       type: object
-    PartnerEventIdResponse:
+    StepSignalResponse:
       properties:
-        name:
-          description: Name of the partner event identifier (e.g. `order_id`).
+        polling_id:
           type: string
-        value:
-          description: Value of the partner event identifier.
-          type: string
-      type:
-      - object
-      - 'null'
-  examples:
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    event_blocked:
-      summary: event_blocked
-      value:
-        code: event_blocked
-        http_status_code: 400
-        message: Blocked due to client specific rules to ignore spurious events
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_event_time_format:
-      summary: invalid_event_time_format
-      value:
-        code: invalid_event_time_format
-        http_status_code: 400
-        message: 'Invalid event time format. Expected: ISO8601 format'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_event_name:
-      summary: missing_event_name
-      value:
-        code: missing_event_name
-        http_status_code: 400
-        message: Event name is required.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
+        signals:
+          items:
+            $ref: '#/components/schemas/StepSignal'
+          type: array
+      required:
+      - polling_id
+      - signals
+      type: object
   securitySchemes:
     COOKIE:
       in: cookie

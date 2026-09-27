@@ -583,7 +583,168 @@ paths:
       x-extole-bundle: management
       x-extole-visibility: visible
 components:
+  examples:
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_offset:
+      summary: invalid_offset
+      value:
+        code: invalid_offset
+        http_status_code: 400
+        message: Offset should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    block_value_invalid:
+      summary: block_value_invalid
+      value:
+        code: block_value_invalid
+        http_status_code: 400
+        message: Normalized email block email address is not valid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_limit:
+      summary: invalid_limit
+      value:
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
+      value:
+        code: max_fetch_size_1000
+        http_status_code: 400
+        message: Maximum allowed difference between limit and offset should be 1000
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    block_duplicate:
+      summary: block_duplicate
+      value:
+        code: block_duplicate
+        http_status_code: 400
+        message: Block duplicate
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    BlockResponse:
+      properties:
+        block_id:
+          type: string
+        client_id:
+          type:
+          - string
+          - 'null'
+        created_date:
+          $ref: '#/components/schemas/ZonedDateTime'
+        filter_type:
+          enum:
+          - BLACK
+          - WHITE
+          type: string
+        list_type:
+          enum:
+          - CIDR
+          - EMAIL_DOMAIN
+          - NORMALIZED_EMAIL
+          - USER_AGENT
+          type: string
+        source:
+          type: string
+        user_id:
+          type:
+          - string
+          - 'null'
+        value:
+          type: string
+      required:
+      - block_id
+      - client_id
+      - created_date
+      - filter_type
+      - list_type
+      - source
+      - user_id
+      - value
+      type: object
     ZonedDateTime:
       description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
       example: '2025-10-24T02:00:00-07:00'
@@ -634,46 +795,6 @@ components:
       - parameters
       - unique_id
       type: object
-    BlockResponse:
-      properties:
-        block_id:
-          type: string
-        client_id:
-          type:
-          - string
-          - 'null'
-        created_date:
-          $ref: '#/components/schemas/ZonedDateTime'
-        filter_type:
-          enum:
-          - BLACK
-          - WHITE
-          type: string
-        list_type:
-          enum:
-          - CIDR
-          - EMAIL_DOMAIN
-          - NORMALIZED_EMAIL
-          - USER_AGENT
-          type: string
-        source:
-          type: string
-        user_id:
-          type:
-          - string
-          - 'null'
-        value:
-          type: string
-      required:
-      - block_id
-      - client_id
-      - created_date
-      - filter_type
-      - list_type
-      - source
-      - user_id
-      - value
-      type: object
     BlockCreateRequest:
       description: Body of a `POST /v2/blocks` request.
       properties:
@@ -711,127 +832,6 @@ components:
       - list_type
       - value
       type: object
-  examples:
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
-      value:
-        code: max_fetch_size_1000
-        http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_limit:
-      summary: invalid_limit
-      value:
-        code: invalid_limit
-        http_status_code: 400
-        message: Limit should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    block_value_invalid:
-      summary: block_value_invalid
-      value:
-        code: block_value_invalid
-        http_status_code: 400
-        message: Normalized email block email address is not valid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    block_duplicate:
-      summary: block_duplicate
-      value:
-        code: block_duplicate
-        http_status_code: 400
-        message: Block duplicate
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
-      value:
-        code: invalid_offset
-        http_status_code: 400
-        message: Offset should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie

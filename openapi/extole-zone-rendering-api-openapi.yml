@@ -285,7 +285,105 @@ paths:
       x-extole-bundle: integration-server-to-extole
       x-extole-visibility: visible
 components:
+  examples:
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_redirect:
+      summary: invalid_redirect
+      value:
+        code: invalid_redirect
+        http_status_code: 400
+        message: Invalid redirect
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    no_creative:
+      summary: no_creative
+      value:
+        code: no_creative
+        http_status_code: 400
+        message: No Configured creative.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_time_format:
+      summary: invalid_time_format
+      value:
+        code: invalid_time_format
+        http_status_code: 400
+        message: 'Invalid time format. Expected: ISO8601 format'
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    ClientRenderZoneRequest:
+      description: Request body for `POST /v5/zones`. Carries both the zone name to render and an open data map of identity and targeting fields.
+      properties:
+        data:
+          additionalProperties:
+            description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+            type: object
+          description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
+          type: object
+        zone_name:
+          description: Name of the zone to render. Must match a zone configured on the client account.
+          example: global_header
+          type: string
+      required:
+      - data
+      - zone_name
+      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -315,104 +413,6 @@ components:
       - parameters
       - unique_id
       type: object
-    ClientRenderZoneRequest:
-      description: Request body for `POST /v5/zones`. Carries both the zone name to render and an open data map of identity and targeting fields.
-      properties:
-        data:
-          additionalProperties:
-            description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
-            type: object
-          description: Open targeting data map merged into the rendering context. Recognised identity keys are `email`, `partner_user_id`, `person_id`, and `event_time` (ISO 8601). Additional keys are forwarded to the zone's targeting evaluator and creative renderer.
-          type: object
-        zone_name:
-          description: Name of the zone to render. Must match a zone configured on the client account.
-          example: global_header
-          type: string
-      required:
-      - data
-      - zone_name
-      type: object
-  examples:
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_time_format:
-      summary: invalid_time_format
-      value:
-        code: invalid_time_format
-        http_status_code: 400
-        message: 'Invalid time format. Expected: ISO8601 format'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    no_creative:
-      summary: no_creative
-      value:
-        code: no_creative
-        http_status_code: 400
-        message: No Configured creative.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_zone_name:
-      summary: missing_zone_name
-      value:
-        code: missing_zone_name
-        http_status_code: 400
-        message: Zone name must be present
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_redirect:
-      summary: invalid_redirect
-      value:
-        code: invalid_redirect
-        http_status_code: 400
-        message: Invalid redirect
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie

@@ -999,184 +999,78 @@ paths:
     - description: Production
       url: https://api.extole.io
 components:
-  examples:
-    batch_job_delete_not_allowed:
-      summary: batch_job_delete_not_allowed
-      value:
-        code: batch_job_delete_not_allowed
-        http_status_code: 400
-        message: Batch job cannot be deleted while it's in current status
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_name_invalid:
-      summary: batch_job_name_invalid
-      value:
-        code: batch_job_name_invalid
-        http_status_code: 400
-        message: Invalid batch job name, name should have a value, max length 255
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_invalid_state_transition:
-      summary: batch_job_invalid_state_transition
-      value:
-        code: batch_job_invalid_state_transition
-        http_status_code: 400
-        message: Current state doesn't allow the specified operation
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_event_name_invalid:
-      summary: batch_job_event_name_invalid
-      value:
-        code: batch_job_event_name_invalid
-        http_status_code: 400
-        message: Invalid batch job event_name, name should have a value, max length 255
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_tag_invalid:
-      summary: batch_job_tag_invalid
-      value:
-        code: batch_job_tag_invalid
-        http_status_code: 400
-        message: Invalid batch job tag, name should have a value, max length 255
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_locked:
-      summary: batch_job_locked
-      value:
-        code: batch_job_locked
-        http_status_code: 423
-        message: Batch job is locked by another process. Please try again later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_unauthorized_scopes:
-      summary: batch_job_unauthorized_scopes
-      value:
-        code: batch_job_unauthorized_scopes
-        http_status_code: 400
-        message: Attempt to update scopes to unauthorized values
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    batch_job_data_source_empty:
-      summary: batch_job_data_source_empty
-      value:
-        code: batch_job_data_source_empty
-        http_status_code: 400
-        message: Data source is required
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_null:
-      summary: invalid_null
-      value:
-        code: invalid_null
-        http_status_code: 400
-        message: The attribute may be omitted but not nullified
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    job_history_not_found:
-      summary: job_history_not_found
-      value:
-        code: job_history_not_found
-        http_status_code: 400
-        message: Job history entry not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    job_history_unavailable:
-      summary: job_history_unavailable
-      value:
-        code: job_history_unavailable
-        http_status_code: 503
-        message: Job history is temporarily unavailable
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    BatchJobDataSourceRequestBase:
+    FileAssetBatchJobDataSourceRequest:
+      allOf:
+      - $ref: '#/components/schemas/BatchJobDataSourceRequestBase'
+      - properties:
+          file_asset_id:
+            type: string
+          type:
+            enum:
+            - FILE_ASSET
+            type: string
+        type: object
+      required:
+      - file_asset_id
+      - type
+      type: object
+    PatternNameMatchBatchJobColumnRequest:
+      allOf:
+      - $ref: '#/components/schemas/BatchJobColumnRequestBase'
+      - properties:
+          name_pattern:
+            type: object
+          type:
+            enum:
+            - PATTERN_NAME_MATCH
+            type: string
+        type: object
+      required:
+      - name_pattern
+      - prefix
+      - type
+      - validation_policy
+      type: object
+    BatchJobColumnRequestBase:
       properties:
+        prefix:
+          type: string
         type:
           enum:
-          - AUDIENCE_LIST
-          - FILE_ASSET
-          - REPORT
+          - FULL_NAME_MATCH
+          - PATTERN_NAME_MATCH
           type: string
+        validation_policy:
+          enum:
+          - OPTIONAL
+          - REQUIRED_COLUMN
+          - REQUIRED_VALUE
+          type: string
+      type: object
+    BatchJobUpdateRequest:
+      description: Body of a `PUT /v6/batches/{batchId}` request.
+      properties:
+        name:
+          description: Updated human-readable label for the batch job. Omit to leave unchanged.
+          type: string
+        scopes:
+          description: 'Updated access-control scopes. Accepted values: `CLIENT_SUPERUSER`, `CLIENT_ADMIN`. Omit to leave unchanged.'
+          items:
+            description: 'Updated access-control scopes. Accepted values: `CLIENT_SUPERUSER`, `CLIENT_ADMIN`. Omit to leave unchanged.'
+            enum:
+            - CLIENT_ADMIN
+            - CLIENT_SUPERUSER
+            type: string
+          type: array
+          uniqueItems: true
+        tags:
+          description: Updated string labels for filtering and grouping. Replaces the existing tag set. Omit to leave unchanged.
+          items:
+            description: Updated string labels for filtering and grouping. Replaces the existing tag set. Omit to leave unchanged.
+            type: string
+          type: array
+          uniqueItems: true
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -1224,70 +1118,6 @@ components:
       - type
       - validation_policy
       type: object
-    FileAssetBatchJobDataSourceRequest:
-      allOf:
-      - $ref: '#/components/schemas/BatchJobDataSourceRequestBase'
-      - properties:
-          file_asset_id:
-            type: string
-          type:
-            enum:
-            - FILE_ASSET
-            type: string
-        type: object
-      required:
-      - file_asset_id
-      - type
-      type: object
-    BatchJobUpdateRequest:
-      description: Body of a `PUT /v6/batches/{batchId}` request.
-      properties:
-        name:
-          description: Updated human-readable label for the batch job. Omit to leave unchanged.
-          type: string
-        scopes:
-          description: 'Updated access-control scopes. Accepted values: `CLIENT_SUPERUSER`, `CLIENT_ADMIN`. Omit to leave unchanged.'
-          items:
-            description: 'Updated access-control scopes. Accepted values: `CLIENT_SUPERUSER`, `CLIENT_ADMIN`. Omit to leave unchanged.'
-            enum:
-            - CLIENT_ADMIN
-            - CLIENT_SUPERUSER
-            type: string
-          type: array
-          uniqueItems: true
-        tags:
-          description: Updated string labels for filtering and grouping. Replaces the existing tag set. Omit to leave unchanged.
-          items:
-            description: Updated string labels for filtering and grouping. Replaces the existing tag set. Omit to leave unchanged.
-            type: string
-          type: array
-          uniqueItems: true
-      type: object
-    BatchJobColumnRequest:
-      description: Column validation rules applied before the job begins dispatching. Each entry declares a column name and optional constraints; rows that fail validation are counted in `failed_rows`.
-      discriminator:
-        mapping:
-          FULL_NAME_MATCH: '#/components/schemas/FullNameMatchBatchJobColumnRequest'
-          PATTERN_NAME_MATCH: '#/components/schemas/PatternNameMatchBatchJobColumnRequest'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/FullNameMatchBatchJobColumnRequest'
-      - $ref: '#/components/schemas/PatternNameMatchBatchJobColumnRequest'
-    ReportBatchJobDataSourceRequest:
-      allOf:
-      - $ref: '#/components/schemas/BatchJobDataSourceRequestBase'
-      - properties:
-          report_id:
-            type: string
-          type:
-            enum:
-            - REPORT
-            type: string
-        type: object
-      required:
-      - report_id
-      - type
-      type: object
     AudienceListBatchJobDataSourceRequest:
       allOf:
       - $ref: '#/components/schemas/BatchJobDataSourceRequestBase'
@@ -1303,22 +1133,16 @@ components:
       - audience_list_id
       - type
       type: object
-    BatchJobColumnRequestBase:
-      properties:
-        prefix:
-          type: string
-        type:
-          enum:
-          - FULL_NAME_MATCH
-          - PATTERN_NAME_MATCH
-          type: string
-        validation_policy:
-          enum:
-          - OPTIONAL
-          - REQUIRED_COLUMN
-          - REQUIRED_VALUE
-          type: string
-      type: object
+    BatchJobColumnRequest:
+      description: Column validation rules applied before the job begins dispatching. Each entry declares a column name and optional constraints; rows that fail validation are counted in `failed_rows`.
+      discriminator:
+        mapping:
+          FULL_NAME_MATCH: '#/components/schemas/FullNameMatchBatchJobColumnRequest'
+          PATTERN_NAME_MATCH: '#/components/schemas/PatternNameMatchBatchJobColumnRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/FullNameMatchBatchJobColumnRequest'
+      - $ref: '#/components/schemas/PatternNameMatchBatchJobColumnRequest'
     BatchJobCreateRequest:
       description: Body of a `POST /v6/batches` request.
       properties:
@@ -1372,22 +1196,29 @@ components:
       required:
       - data_source
       type: object
-    PatternNameMatchBatchJobColumnRequest:
+    BatchJobDataSourceRequestBase:
+      properties:
+        type:
+          enum:
+          - AUDIENCE_LIST
+          - FILE_ASSET
+          - REPORT
+          type: string
+      type: object
+    ReportBatchJobDataSourceRequest:
       allOf:
-      - $ref: '#/components/schemas/BatchJobColumnRequestBase'
+      - $ref: '#/components/schemas/BatchJobDataSourceRequestBase'
       - properties:
-          name_pattern:
-            type: object
+          report_id:
+            type: string
           type:
             enum:
-            - PATTERN_NAME_MATCH
+            - REPORT
             type: string
         type: object
       required:
-      - name_pattern
-      - prefix
+      - report_id
       - type
-      - validation_policy
       type: object
     BatchJobDataSourceRequest:
       description: 'Data source for the batch job. Required. Specify one of: `REPORT` (a previously completed report), `AUDIENCE_LIST` (an audience list build), or `FILE_ASSET` (an uploaded file asset).'
@@ -1401,6 +1232,31 @@ components:
       - $ref: '#/components/schemas/AudienceListBatchJobDataSourceRequest'
       - $ref: '#/components/schemas/FileAssetBatchJobDataSourceRequest'
       - $ref: '#/components/schemas/ReportBatchJobDataSourceRequest'
+    TaskExecutionResponse:
+      properties:
+        context:
+          additionalProperties:
+            type: object
+          type: object
+        error_code:
+          type: string
+        error_message:
+          type: string
+        event_id:
+          type: string
+        event_time:
+          $ref: '#/components/schemas/ZonedDateTime'
+        sequence:
+          format: int64
+          type: integer
+        status:
+          enum:
+          - FAIL
+          - SUCCESS
+          type: string
+        task_id:
+          type: string
+      type: object
     ZonedDateTime:
       description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
       example: '2025-10-24T02:00:00-07:00'
@@ -1437,31 +1293,175 @@ components:
       - status
       - task_executions
       type: object
-    TaskExecutionResponse:
-      properties:
-        context:
-          additionalProperties:
-            type: object
-          type: object
-        error_code:
-          type: string
-        error_message:
-          type: string
-        event_id:
-          type: string
-        event_time:
-          $ref: '#/components/schemas/ZonedDateTime'
-        sequence:
-          format: int64
-          type: integer
-        status:
-          enum:
-          - FAIL
-          - SUCCESS
-          type: string
-        task_id:
-          type: string
-      type: object
+  examples:
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_delete_not_allowed:
+      summary: batch_job_delete_not_allowed
+      value:
+        code: batch_job_delete_not_allowed
+        http_status_code: 400
+        message: Batch job cannot be deleted while it's in current status
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_name_invalid:
+      summary: batch_job_name_invalid
+      value:
+        code: batch_job_name_invalid
+        http_status_code: 400
+        message: Invalid batch job name, name should have a value, max length 255
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_locked:
+      summary: batch_job_locked
+      value:
+        code: batch_job_locked
+        http_status_code: 423
+        message: Batch job is locked by another process. Please try again later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_event_name_invalid:
+      summary: batch_job_event_name_invalid
+      value:
+        code: batch_job_event_name_invalid
+        http_status_code: 400
+        message: Invalid batch job event_name, name should have a value, max length 255
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_invalid_state_transition:
+      summary: batch_job_invalid_state_transition
+      value:
+        code: batch_job_invalid_state_transition
+        http_status_code: 400
+        message: Current state doesn't allow the specified operation
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_data_source_empty:
+      summary: batch_job_data_source_empty
+      value:
+        code: batch_job_data_source_empty
+        http_status_code: 400
+        message: Data source is required
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_unauthorized_scopes:
+      summary: batch_job_unauthorized_scopes
+      value:
+        code: batch_job_unauthorized_scopes
+        http_status_code: 400
+        message: Attempt to update scopes to unauthorized values
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    batch_job_tag_invalid:
+      summary: batch_job_tag_invalid
+      value:
+        code: batch_job_tag_invalid
+        http_status_code: 400
+        message: Invalid batch job tag, name should have a value, max length 255
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    job_history_not_found:
+      summary: job_history_not_found
+      value:
+        code: job_history_not_found
+        http_status_code: 400
+        message: Job history entry not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    job_history_unavailable:
+      summary: job_history_unavailable
+      value:
+        code: job_history_unavailable
+        http_status_code: 503
+        message: Job history is temporarily unavailable
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie

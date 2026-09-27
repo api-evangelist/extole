@@ -708,28 +708,20 @@ paths:
       x-extole-visibility: visible
 components:
   examples:
-    file_asset_duplicated_name:
-      summary: file_asset_duplicated_name
+    file_asset_invalid_tags:
+      summary: file_asset_invalid_tags
       value:
-        code: file_asset_duplicated_name
+        code: file_asset_invalid_tags
         http_status_code: 400
-        message: Duplicated file asset name
+        message: Tags cannot be null, empty or longer than 255 chars
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_extole_public_key:
-      summary: missing_extole_public_key
+    too_many_requests:
+      summary: too_many_requests
       value:
-        code: missing_extole_public_key
-        http_status_code: 400
-        message: Cannot decrypt file as extole public key is not created
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_not_found:
-      summary: file_asset_not_found
-      value:
-        code: file_asset_not_found
-        http_status_code: 400
-        message: File Asset not found
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     decryption_error:
@@ -740,28 +732,20 @@ components:
         message: Could not decrypt file
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
+    invalid_offset:
+      summary: invalid_offset
       value:
-        code: max_fetch_size_1000
+        code: invalid_offset
         http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
+        message: Offset should be a non negative integer
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_file_processing_error:
-      summary: file_asset_file_processing_error
+    missing_extole_public_key:
+      summary: missing_extole_public_key
       value:
-        code: file_asset_file_processing_error
+        code: missing_extole_public_key
         http_status_code: 400
-        message: Failed to process uploaded file
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_invalid_tags:
-      summary: file_asset_invalid_tags
-      value:
-        code: file_asset_invalid_tags
-        http_status_code: 400
-        message: Tags cannot be null, empty or longer than 255 chars
+        message: Cannot decrypt file as extole public key is not created
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -772,12 +756,20 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
+    file_asset_download_error:
+      summary: file_asset_download_error
       value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
+        code: file_asset_download_error
+        http_status_code: 400
+        message: File Asset can't be downloaded
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_input_file_missing:
+      summary: file_asset_input_file_missing
+      value:
+        code: file_asset_input_file_missing
+        http_status_code: 400
+        message: Input file is mandatory
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -796,20 +788,68 @@ components:
         message: Limit should be a non negative integer
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
+    file_asset_duplicated_name:
+      summary: file_asset_duplicated_name
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
+        code: file_asset_duplicated_name
+        http_status_code: 400
+        message: Duplicated file asset name
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
+    unsupported_media_type:
+      summary: unsupported_media_type
       value:
-        code: invalid_parameter
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
         http_status_code: 400
-        message: Parameter is invalid.
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_null:
+      summary: invalid_null
+      value:
+        code: invalid_null
+        http_status_code: 400
+        message: The attribute may be omitted but not nullified
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    file_asset_file_processing_error:
+      summary: file_asset_file_processing_error
+      value:
+        code: file_asset_file_processing_error
+        http_status_code: 400
+        message: Failed to process uploaded file
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
+      value:
+        code: max_fetch_size_1000
+        http_status_code: 400
+        message: Maximum allowed difference between limit and offset should be 1000
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     file_asset_invalid_name:
@@ -828,14 +868,6 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
       summary: payment_required
       value:
@@ -852,62 +884,48 @@ components:
         message: File Asset is expired
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
+    file_asset_not_found:
+      summary: file_asset_not_found
       value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
-      value:
-        code: invalid_offset
+        code: file_asset_not_found
         http_status_code: 400
-        message: Offset should be a non negative integer
+        message: File Asset not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_input_file_missing:
-      summary: file_asset_input_file_missing
+    invalid_parameter:
+      summary: invalid_parameter
       value:
-        code: file_asset_input_file_missing
+        code: invalid_parameter
         http_status_code: 400
-        message: Input file is mandatory
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    file_asset_download_error:
-      summary: file_asset_download_error
-      value:
-        code: file_asset_download_error
-        http_status_code: 400
-        message: File Asset can't be downloaded
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_null:
-      summary: invalid_null
-      value:
-        code: invalid_null
-        http_status_code: 400
-        message: The attribute may be omitted but not nullified
+        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    FileAttributes:
+    FileAssetMetadata:
       properties:
-        fileName:
+        format:
+          description: 'Declared file format. Common values: `CSV`, `PSV`, `JSON`, `JSONL`, `XLSX`. When omitted, the format is inferred from the file extension or content.'
           type: string
-        size:
-          format: int64
-          type: integer
+        name:
+          description: Human-readable name for the file asset. Max length 255. Defaults to the uploaded filename if omitted.
+          type: string
+        tags:
+          description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
+          items:
+            description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+    FileInputStreamRequest:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileAttributes'
+        inputStream:
+          type: object
+      required:
+      - attributes
+      - inputStream
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -952,16 +970,6 @@ components:
           type: array
           uniqueItems: true
       type: object
-    FileInputStreamRequest:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/FileAttributes'
-        inputStream:
-          type: object
-      required:
-      - attributes
-      - inputStream
-      type: object
     FileAssetRequest:
       properties:
         fileAssetMetadata:
@@ -972,21 +980,13 @@ components:
       - fileAssetMetadata
       - fileInputStreamRequest
       type: object
-    FileAssetMetadata:
+    FileAttributes:
       properties:
-        format:
-          description: 'Declared file format. Common values: `CSV`, `PSV`, `JSON`, `JSONL`, `XLSX`. When omitted, the format is inferred from the file extension or content.'
+        fileName:
           type: string
-        name:
-          description: Human-readable name for the file asset. Max length 255. Defaults to the uploaded filename if omitted.
-          type: string
-        tags:
-          description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
-          items:
-            description: String labels attached to the file asset for filtering and grouping. Each tag max length 255.
-            type: string
-          type: array
-          uniqueItems: true
+        size:
+          format: int64
+          type: integer
       type: object
   securitySchemes:
     COOKIE:
