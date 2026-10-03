@@ -1663,6 +1663,278 @@ paths:
       x-extole-visibility: visible
 components:
   schemas:
+    RedeemedRewardStateResponse:
+      properties:
+        cause_event_id:
+          description: Extole id of the event that caused this redemption.
+          type:
+          - string
+          - 'null'
+        created_at:
+          $ref: '#/components/schemas/ZonedDateTime'
+        event_name:
+          description: Name of the event that triggered this redemption. Null if not event-driven.
+          type:
+          - string
+          - 'null'
+        message:
+          description: Human-readable message associated with this redemption. Null if not provided.
+          type:
+          - string
+          - 'null'
+        operator_user_id:
+          description: Extole user id of the operator who triggered this redemption. Null if system-initiated.
+          type:
+          - string
+          - 'null'
+        partner_event_id:
+          description: Partner-provided identifier for the triggering event. Null if not provided.
+          type:
+          - string
+          - 'null'
+        partner_reward_redeem_id:
+          description: Partner-assigned identifier for this redemption event.
+          type: string
+        reward_id:
+          description: Extole-assigned unique identifier for the reward.
+          type: string
+      required:
+      - cause_event_id
+      - created_at
+      - event_name
+      - message
+      - operator_user_id
+      - partner_event_id
+      - partner_reward_redeem_id
+      - reward_id
+      type: object
+    JourneyKey:
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    SentRewardStateResponse:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/ZonedDateTime'
+        email:
+          description: Email address the reward notification was sent to.
+          type: string
+        message:
+          description: Human-readable message from the send attempt.
+          type: string
+        operator_user_id:
+          description: Extole user id of the operator who triggered this send, if applicable.
+          type: string
+        partner_reward_sent_id:
+          description: Partner-assigned identifier for this send event. Null if not provided.
+          type:
+          - string
+          - 'null'
+        reward_id:
+          description: Extole-assigned unique identifier for the reward.
+          type: string
+        success:
+          description: Whether the send was successful.
+          type: boolean
+      required:
+      - created_at
+      - email
+      - message
+      - operator_user_id
+      - partner_reward_sent_id
+      - reward_id
+      - success
+      type: object
+    RewardUpdateRequest:
+      description: Body of a `PUT /v2/rewards/{reward_id}` request.
+      properties:
+        sandbox:
+          description: Sandbox identifier for the reward. Omit to leave the current value unchanged.
+          type: string
+      type: object
+    RewardStateSummaryResponse:
+      properties:
+        canceled:
+          description: Number of rewards cancelled in this period.
+          format: int32
+          type: integer
+        date_from:
+          $ref: '#/components/schemas/ZonedDateTime'
+        date_to:
+          $ref: '#/components/schemas/ZonedDateTime'
+        earned:
+          description: Number of rewards earned in this period.
+          format: int32
+          type: integer
+        failed:
+          description: Number of rewards that failed fulfilment in this period.
+          format: int32
+          type: integer
+        fulfilled:
+          description: Number of rewards fulfilled in this period.
+          format: int32
+          type: integer
+        redeemed:
+          description: Number of rewards redeemed in this period.
+          format: int32
+          type: integer
+        revoked:
+          description: Number of rewards revoked in this period.
+          format: int32
+          type: integer
+        sent:
+          description: Number of rewards sent in this period.
+          format: int32
+          type: integer
+      required:
+      - canceled
+      - date_from
+      - date_to
+      - earned
+      - failed
+      - fulfilled
+      - redeemed
+      - revoked
+      - sent
+      type: object
+    RestExceptionResponse:
+      description: Represents the API error response
+      properties:
+        code:
+          description: Specific error code for this error type, documented per endpoint
+          type: string
+        http_status_code:
+          description: HTTP status code that was returned with this error, useful if client get response code
+          format: int32
+          type: integer
+        message:
+          description: User readable English description of the error
+          type: string
+        parameters:
+          additionalProperties:
+            description: Attributes related to the error, varies be error code, documented per endpoint
+            type: object
+          description: Attributes related to the error, varies be error code, documented per endpoint
+          type: object
+        unique_id:
+          description: Unique id associated with this error, useful for discussions with Extole
+          type: string
+      required:
+      - code
+      - http_status_code
+      - message
+      - parameters
+      - unique_id
+      type: object
+    FulfilledRewardStateResponse:
+      properties:
+        amount:
+          description: Monetary amount disbursed during fulfillment. Null if not applicable.
+          type:
+          - number
+          - 'null'
+        cost_code:
+          description: Cost accounting code used for this fulfillment. Null if not applicable.
+          type:
+          - string
+          - 'null'
+        created_at:
+          $ref: '#/components/schemas/ZonedDateTime'
+        face_value:
+          description: Face value of the reward at time of fulfillment. Deprecated.
+          type:
+          - number
+          - 'null'
+        face_value_type:
+          description: Face value type of the reward at time of fulfillment. Deprecated.
+          enum:
+          - AUD
+          - BRL
+          - CAD
+          - CNY
+          - EUR
+          - GBP
+          - HKD
+          - INR
+          - JPY
+          - KRW
+          - MONTH
+          - MXN
+          - NZD
+          - PERCENT_OFF
+          - POINTS
+          - TRY
+          - TWD
+          - USD
+          type:
+          - string
+          - 'null'
+        message:
+          description: Human-readable message from the fulfillment attempt.
+          type: string
+        operator_user_id:
+          description: Extole user id of the operator who triggered this fulfillment, if applicable.
+          type: string
+        partner_reward_id:
+          description: Partner-assigned identifier for the reward. Null if not yet assigned.
+          type:
+          - string
+          - 'null'
+        reward_id:
+          description: Extole-assigned unique identifier for the reward.
+          type: string
+        success:
+          description: Whether the fulfillment was successful.
+          type: boolean
+      required:
+      - amount
+      - cost_code
+      - created_at
+      - face_value
+      - face_value_type
+      - message
+      - operator_user_id
+      - partner_reward_id
+      - reward_id
+      - success
+      type: object
+    CancelRewardRequest:
+      properties:
+        message:
+          description: Optional human-readable reason for the cancellation, stored for audit purposes.
+          type:
+          - string
+          - 'null'
+      required:
+      - message
+      type: object
+    ZonedDateTime:
+      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
+      example: '2025-10-24T02:00:00-07:00'
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
+      type: string
+    RevokedRewardStateResponse:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/ZonedDateTime'
+        message:
+          description: Human-readable reason provided for the revocation.
+          type: string
+        operator_user_id:
+          description: Extole user id of the operator who triggered this revocation.
+          type: string
+        reward_id:
+          description: Extole-assigned unique identifier for the reward.
+          type: string
+      required:
+      - created_at
+      - message
+      - operator_user_id
+      - reward_id
+      type: object
     RewardResponse:
       properties:
         action_id:
@@ -1794,174 +2066,6 @@ components:
       - sandbox
       - state
       type: object
-    FulfilledRewardStateResponse:
-      properties:
-        amount:
-          description: Monetary amount disbursed during fulfillment. Null if not applicable.
-          type:
-          - number
-          - 'null'
-        cost_code:
-          description: Cost accounting code used for this fulfillment. Null if not applicable.
-          type:
-          - string
-          - 'null'
-        created_at:
-          $ref: '#/components/schemas/ZonedDateTime'
-        face_value:
-          description: Face value of the reward at time of fulfillment. Deprecated.
-          type:
-          - number
-          - 'null'
-        face_value_type:
-          description: Face value type of the reward at time of fulfillment. Deprecated.
-          enum:
-          - AUD
-          - BRL
-          - CAD
-          - CNY
-          - EUR
-          - GBP
-          - HKD
-          - INR
-          - JPY
-          - KRW
-          - MONTH
-          - MXN
-          - NZD
-          - PERCENT_OFF
-          - POINTS
-          - TRY
-          - TWD
-          - USD
-          type:
-          - string
-          - 'null'
-        message:
-          description: Human-readable message from the fulfillment attempt.
-          type: string
-        operator_user_id:
-          description: Extole user id of the operator who triggered this fulfillment, if applicable.
-          type: string
-        partner_reward_id:
-          description: Partner-assigned identifier for the reward. Null if not yet assigned.
-          type:
-          - string
-          - 'null'
-        reward_id:
-          description: Extole-assigned unique identifier for the reward.
-          type: string
-        success:
-          description: Whether the fulfillment was successful.
-          type: boolean
-      required:
-      - amount
-      - cost_code
-      - created_at
-      - face_value
-      - face_value_type
-      - message
-      - operator_user_id
-      - partner_reward_id
-      - reward_id
-      - success
-      type: object
-    ZonedDateTime:
-      description: '[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) or [RFC 9557](https://datatracker.ietf.org/doc/html/rfc9557#section-4) date-time with a numeric [UTC offset](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and an optional [IANA time-zone](https://datatracker.ietf.org/doc/html/rfc9557#section-4) suffix in square brackets. Precision up to milliseconds.'
-      example: '2025-10-24T02:00:00-07:00'
-      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])(\[[^\]]+\])?$
-      type: string
-    RedeemedRewardStateResponse:
-      properties:
-        cause_event_id:
-          description: Extole id of the event that caused this redemption.
-          type:
-          - string
-          - 'null'
-        created_at:
-          $ref: '#/components/schemas/ZonedDateTime'
-        event_name:
-          description: Name of the event that triggered this redemption. Null if not event-driven.
-          type:
-          - string
-          - 'null'
-        message:
-          description: Human-readable message associated with this redemption. Null if not provided.
-          type:
-          - string
-          - 'null'
-        operator_user_id:
-          description: Extole user id of the operator who triggered this redemption. Null if system-initiated.
-          type:
-          - string
-          - 'null'
-        partner_event_id:
-          description: Partner-provided identifier for the triggering event. Null if not provided.
-          type:
-          - string
-          - 'null'
-        partner_reward_redeem_id:
-          description: Partner-assigned identifier for this redemption event.
-          type: string
-        reward_id:
-          description: Extole-assigned unique identifier for the reward.
-          type: string
-      required:
-      - cause_event_id
-      - created_at
-      - event_name
-      - message
-      - operator_user_id
-      - partner_event_id
-      - partner_reward_redeem_id
-      - reward_id
-      type: object
-    CancelRewardRequest:
-      properties:
-        message:
-          description: Optional human-readable reason for the cancellation, stored for audit purposes.
-          type:
-          - string
-          - 'null'
-      required:
-      - message
-      type: object
-    RewardUpdateRequest:
-      description: Body of a `PUT /v2/rewards/{reward_id}` request.
-      properties:
-        sandbox:
-          description: Sandbox identifier for the reward. Omit to leave the current value unchanged.
-          type: string
-      type: object
-    RestExceptionResponse:
-      description: Represents the API error response
-      properties:
-        code:
-          description: Specific error code for this error type, documented per endpoint
-          type: string
-        http_status_code:
-          description: HTTP status code that was returned with this error, useful if client get response code
-          format: int32
-          type: integer
-        message:
-          description: User readable English description of the error
-          type: string
-        parameters:
-          additionalProperties:
-            description: Attributes related to the error, varies be error code, documented per endpoint
-            type: object
-          description: Attributes related to the error, varies be error code, documented per endpoint
-          type: object
-        unique_id:
-          description: Unique id associated with this error, useful for discussions with Extole
-          type: string
-      required:
-      - code
-      - http_status_code
-      - message
-      - parameters
-      - unique_id
-      type: object
     RewardStateResponse:
       properties:
         created_at:
@@ -1993,60 +2097,24 @@ components:
       - state_type
       - success
       type: object
-    RewardStateSummaryResponse:
+    CanceledRewardStateResponse:
       properties:
-        canceled:
-          description: Number of rewards cancelled in this period.
-          format: int32
-          type: integer
-        date_from:
+        created_at:
           $ref: '#/components/schemas/ZonedDateTime'
-        date_to:
-          $ref: '#/components/schemas/ZonedDateTime'
-        earned:
-          description: Number of rewards earned in this period.
-          format: int32
-          type: integer
-        failed:
-          description: Number of rewards that failed fulfilment in this period.
-          format: int32
-          type: integer
-        fulfilled:
-          description: Number of rewards fulfilled in this period.
-          format: int32
-          type: integer
-        redeemed:
-          description: Number of rewards redeemed in this period.
-          format: int32
-          type: integer
-        revoked:
-          description: Number of rewards revoked in this period.
-          format: int32
-          type: integer
-        sent:
-          description: Number of rewards sent in this period.
-          format: int32
-          type: integer
-      required:
-      - canceled
-      - date_from
-      - date_to
-      - earned
-      - failed
-      - fulfilled
-      - redeemed
-      - revoked
-      - sent
-      type: object
-    RevokeRewardRequest:
-      properties:
         message:
-          description: Optional human-readable reason for the revocation, stored for audit purposes.
-          type:
-          - string
-          - 'null'
+          description: Human-readable reason provided for the cancellation.
+          type: string
+        operator_user_id:
+          description: Extole user id of the operator who triggered this cancellation.
+          type: string
+        reward_id:
+          description: Extole-assigned unique identifier for the reward.
+          type: string
       required:
+      - created_at
       - message
+      - operator_user_id
+      - reward_id
       type: object
     FailedRewardStateResponse:
       properties:
@@ -2067,139 +2135,23 @@ components:
       - operator_user_id
       - reward_id
       type: object
-    JourneyKey:
+    RevokeRewardRequest:
       properties:
-        name:
-          type: string
-        value:
-          type: string
-      type: object
-    SentRewardStateResponse:
-      properties:
-        created_at:
-          $ref: '#/components/schemas/ZonedDateTime'
-        email:
-          description: Email address the reward notification was sent to.
-          type: string
         message:
-          description: Human-readable message from the send attempt.
-          type: string
-        operator_user_id:
-          description: Extole user id of the operator who triggered this send, if applicable.
-          type: string
-        partner_reward_sent_id:
-          description: Partner-assigned identifier for this send event. Null if not provided.
+          description: Optional human-readable reason for the revocation, stored for audit purposes.
           type:
           - string
           - 'null'
-        reward_id:
-          description: Extole-assigned unique identifier for the reward.
-          type: string
-        success:
-          description: Whether the send was successful.
-          type: boolean
       required:
-      - created_at
-      - email
       - message
-      - operator_user_id
-      - partner_reward_sent_id
-      - reward_id
-      - success
-      type: object
-    RevokedRewardStateResponse:
-      properties:
-        created_at:
-          $ref: '#/components/schemas/ZonedDateTime'
-        message:
-          description: Human-readable reason provided for the revocation.
-          type: string
-        operator_user_id:
-          description: Extole user id of the operator who triggered this revocation.
-          type: string
-        reward_id:
-          description: Extole-assigned unique identifier for the reward.
-          type: string
-      required:
-      - created_at
-      - message
-      - operator_user_id
-      - reward_id
-      type: object
-    CanceledRewardStateResponse:
-      properties:
-        created_at:
-          $ref: '#/components/schemas/ZonedDateTime'
-        message:
-          description: Human-readable reason provided for the cancellation.
-          type: string
-        operator_user_id:
-          description: Extole user id of the operator who triggered this cancellation.
-          type: string
-        reward_id:
-          description: Extole-assigned unique identifier for the reward.
-          type: string
-      required:
-      - created_at
-      - message
-      - operator_user_id
-      - reward_id
       type: object
   examples:
-    too_many_requests:
-      summary: too_many_requests
+    time_interval_invalid:
+      summary: time_interval_invalid
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_supplier_not_found:
-      summary: reward_supplier_not_found
-      value:
-        code: reward_supplier_not_found
-        http_status_code: 403
-        message: Reward supplier not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    period_count_invalid:
-      summary: period_count_invalid
-      value:
-        code: period_count_invalid
+        code: time_interval_invalid
         http_status_code: 400
-        message: Invalid period count
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_retry_not_supported:
-      summary: reward_retry_not_supported
-      value:
-        code: reward_retry_not_supported
-        http_status_code: 400
-        message: Reward retry not supported
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    period_not_supported:
-      summary: period_not_supported
-      value:
-        code: period_not_supported
-        http_status_code: 400
-        message: Period not supported
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
-      value:
-        code: invalid_offset
-        http_status_code: 400
-        message: Offset should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
+        message: Time interval is invalid or not ISO-8601 explicit form
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
@@ -2210,116 +2162,12 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_limit:
-      summary: invalid_limit
+    missing_request_body:
+      summary: missing_request_body
       value:
-        code: invalid_limit
+        code: missing_request_body
         http_status_code: 400
-        message: Limit should be a non negative integer
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    person_not_found:
-      summary: person_not_found
-      value:
-        code: person_not_found
-        http_status_code: 403
-        message: Person not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    sandbox_not_found:
-      summary: sandbox_not_found
-      value:
-        code: sandbox_not_found
-        http_status_code: 400
-        message: Unable to find sandbox
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    time_interval_invalid:
-      summary: time_interval_invalid
-      value:
-        code: time_interval_invalid
-        http_status_code: 400
-        message: Time interval is invalid or not ISO-8601 explicit form
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_not_found:
-      summary: reward_not_found
-      value:
-        code: reward_not_found
-        http_status_code: 400
-        message: Reward not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
-      value:
-        code: max_fetch_size_1000
-        http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_type_not_supported:
-      summary: reward_type_not_supported
-      value:
-        code: reward_type_not_supported
-        http_status_code: 400
-        message: Reward type not supported
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    reward_illegal_state_transition:
-      summary: reward_illegal_state_transition
-      value:
-        code: reward_illegal_state_transition
-        http_status_code: 400
-        message: Reward illegal state transition for current state
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
+        message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     reward_in_not_retryable_state:
@@ -2330,12 +2178,36 @@ components:
         message: Reward is in a not retryable state
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    retry_claimed_reward_not_allowed:
-      summary: retry_claimed_reward_not_allowed
+    invalid_offset:
+      summary: invalid_offset
       value:
-        code: retry_claimed_reward_not_allowed
+        code: invalid_offset
         http_status_code: 400
-        message: Retry for Claimed Reward is not allowed
+        message: Offset should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    period_count_invalid:
+      summary: period_count_invalid
+      value:
+        code: period_count_invalid
+        http_status_code: 400
+        message: Invalid period count
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    sandbox_not_found:
+      summary: sandbox_not_found
+      value:
+        code: sandbox_not_found
+        http_status_code: 400
+        message: Unable to find sandbox
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     reward_state_invalid:
@@ -2346,12 +2218,140 @@ components:
         message: Specified reward state type is not supported
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_illegal_state_transition:
+      summary: reward_illegal_state_transition
+      value:
+        code: reward_illegal_state_transition
+        http_status_code: 400
+        message: Reward illegal state transition for current state
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    person_not_found:
+      summary: person_not_found
+      value:
+        code: person_not_found
+        http_status_code: 403
+        message: Person not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
+      value:
+        code: max_fetch_size_1000
+        http_status_code: 400
+        message: Maximum allowed difference between limit and offset should be 1000
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    period_not_supported:
+      summary: period_not_supported
+      value:
+        code: period_not_supported
+        http_status_code: 400
+        message: Period not supported
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_retry_not_supported:
+      summary: reward_retry_not_supported
+      value:
+        code: reward_retry_not_supported
+        http_status_code: 400
+        message: Reward retry not supported
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_supplier_not_found:
+      summary: reward_supplier_not_found
+      value:
+        code: reward_supplier_not_found
+        http_status_code: 403
+        message: Reward supplier not found
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_limit:
+      summary: invalid_limit
+      value:
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    retry_claimed_reward_not_allowed:
+      summary: retry_claimed_reward_not_allowed
+      value:
+        code: retry_claimed_reward_not_allowed
+        http_status_code: 400
+        message: Retry for Claimed Reward is not allowed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_type_not_supported:
+      summary: reward_type_not_supported
+      value:
+        code: reward_type_not_supported
+        http_status_code: 400
+        message: Reward type not supported
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_parameter:
       summary: invalid_parameter
       value:
         code: invalid_parameter
         http_status_code: 400
         message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    reward_not_found:
+      summary: reward_not_found
+      value:
+        code: reward_not_found
+        http_status_code: 400
+        message: Reward not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:

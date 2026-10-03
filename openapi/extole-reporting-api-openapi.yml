@@ -725,20 +725,12 @@ paths:
       x-extole-visibility: expert
 components:
   examples:
-    too_many_requests:
-      summary: too_many_requests
+    binding_error:
+      summary: binding_error
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_offset:
-      summary: invalid_offset
-      value:
-        code: invalid_offset
+        code: binding_error
         http_status_code: 400
-        message: Offset should be a non negative integer
+        message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -749,28 +741,44 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    binding_error:
-      summary: binding_error
+    report_not_found:
+      summary: report_not_found
       value:
-        code: binding_error
+        code: report_not_found
         http_status_code: 400
-        message: Argument is not of the expected type
+        message: Report not found
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_limit:
-      summary: invalid_limit
+    invalid_offset:
+      summary: invalid_offset
       value:
-        code: invalid_limit
+        code: invalid_offset
         http_status_code: 400
-        message: Limit should be a non negative integer
+        message: Offset should be a non negative integer
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    report_content_not_supported:
-      summary: report_content_not_supported
+    method_unauthorized:
+      summary: method_unauthorized
       value:
-        code: report_content_not_supported
-        http_status_code: 400
-        message: Report content type not supported
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     unsupported_media_type:
@@ -781,20 +789,20 @@ components:
         message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
+    max_fetch_size_1000:
+      summary: max_fetch_size_1000
       value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
+        code: max_fetch_size_1000
+        http_status_code: 400
+        message: Maximum allowed difference between limit and offset should be 1000
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
+    payment_required:
+      summary: payment_required
       value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     expired_access_token:
@@ -813,20 +821,36 @@ components:
         message: Report content exceed max size
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    max_fetch_size_1000:
-      summary: max_fetch_size_1000
+    report_content_not_supported:
+      summary: report_content_not_supported
       value:
-        code: max_fetch_size_1000
+        code: report_content_not_supported
         http_status_code: 400
-        message: Maximum allowed difference between limit and offset should be 1000
+        message: Report content type not supported
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
+    invalid_limit:
+      summary: invalid_limit
       value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
+        code: invalid_limit
+        http_status_code: 400
+        message: Limit should be a non negative integer
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
@@ -837,28 +861,12 @@ components:
         message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
+    access_denied:
+      summary: access_denied
       value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
+        code: access_denied
         http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
+        message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_parameter:
@@ -869,27 +877,7 @@ components:
         message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    report_not_found:
-      summary: report_not_found
-      value:
-        code: report_not_found
-        http_status_code: 400
-        message: Report not found
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    FormatReportInfoResponse:
-      properties:
-        content_length:
-          format: int64
-          type: integer
-        total_rows:
-          format: int64
-          type: integer
-      required:
-      - content_length
-      - total_rows
-      type: object
     ReportResponse:
       properties:
         completed_date:
@@ -963,6 +951,18 @@ components:
       - message
       - parameters
       - unique_id
+      type: object
+    FormatReportInfoResponse:
+      properties:
+        content_length:
+          format: int64
+          type: integer
+        total_rows:
+          format: int64
+          type: integer
+      required:
+      - content_length
+      - total_rows
       type: object
     DimensionStatsResponse:
       properties:
