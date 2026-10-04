@@ -618,14 +618,6 @@ paths:
       url: https://api.extole.io
 components:
   examples:
-    invalid_creative_result:
-      summary: invalid_creative_result
-      value:
-        code: invalid_creative_result
-        http_status_code: 400
-        message: Configured creative did not return json.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     binding_error:
       summary: binding_error
       value:
@@ -634,76 +626,12 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_zone_name:
-      summary: missing_zone_name
-      value:
-        code: missing_zone_name
-        http_status_code: 400
-        message: Zone name must be present
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     too_many_requests:
       summary: too_many_requests
       value:
         code: too_many_requests
         http_status_code: 429
         message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
@@ -730,12 +658,84 @@ components:
         message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_zone_name:
       summary: invalid_zone_name
       value:
         code: invalid_zone_name
         http_status_code: 403
         message: Invalid zone name (not an EMAIL zone)
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_creative_result:
+      summary: invalid_creative_result
+      value:
+        code: invalid_creative_result
+        http_status_code: 400
+        message: Configured creative did not return json.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     asset_not_found:
@@ -755,30 +755,6 @@ components:
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    RenderZoneRequest:
-      properties:
-        data:
-          additionalProperties:
-            type: object
-          type:
-          - object
-          - 'null'
-        event_name:
-          type: string
-        id_token:
-          type:
-          - string
-          - 'null'
-        jwt:
-          type:
-          - string
-          - 'null'
-      required:
-      - data
-      - event_name
-      - id_token
-      - jwt
-      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -826,6 +802,30 @@ components:
       - campaign_id
       - data
       - event_id
+      type: object
+    RenderZoneRequest:
+      properties:
+        data:
+          additionalProperties:
+            type: object
+          type:
+          - object
+          - 'null'
+        event_name:
+          type: string
+        id_token:
+          type:
+          - string
+          - 'null'
+        jwt:
+          type:
+          - string
+          - 'null'
+      required:
+      - data
+      - event_name
+      - id_token
+      - jwt
       type: object
   securitySchemes:
     COOKIE:

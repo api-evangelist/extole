@@ -963,239 +963,7 @@ paths:
     - description: Production
       url: https://api.extole.io
 components:
-  examples:
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_request_body:
-      summary: missing_request_body
-      value:
-        code: missing_request_body
-        http_status_code: 400
-        message: Missing request body
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    method_unauthorized:
-      summary: method_unauthorized
-      value:
-        code: method_unauthorized
-        http_status_code: 401
-        message: Unauthorized access to this endpoint
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    jwt_authentication_error:
-      summary: jwt_authentication_error
-      value:
-        code: jwt_authentication_error
-        http_status_code: 403
-        message: The jwt authentication failed.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    profile_not_set:
-      summary: profile_not_set
-      value:
-        code: profile_not_set
-        http_status_code: 403
-        message: Profile must have an associated email
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    expired_access_token:
-      summary: expired_access_token
-      value:
-        code: expired_access_token
-        http_status_code: 403
-        message: The access_token provided with this request has expired.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_zone_name:
-      summary: missing_zone_name
-      value:
-        code: missing_zone_name
-        http_status_code: 400
-        message: Zone name must be present
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
-      value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    access_denied:
-      summary: access_denied
-      value:
-        code: access_denied
-        http_status_code: 403
-        message: The access_token provided is not permitted to access the specified resource.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_campaign_id:
-      summary: missing_campaign_id
-      value:
-        code: missing_campaign_id
-        http_status_code: 403
-        message: Campaign must be provided
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_zone_name:
-      summary: invalid_zone_name
-      value:
-        code: invalid_zone_name
-        http_status_code: 403
-        message: Invalid zone name (not an EMAIL zone)
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    dkim_generation_failed:
-      summary: dkim_generation_failed
-      value:
-        code: dkim_generation_failed
-        http_status_code: 400
-        message: DKIM generation failed
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_domain:
-      summary: invalid_domain
-      value:
-        code: invalid_domain
-        http_status_code: 400
-        message: Invalid domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_email:
-      summary: invalid_email
-      value:
-        code: invalid_email
-        http_status_code: 400
-        message: Invalid email
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    payment_required:
-      summary: payment_required
-      value:
-        code: payment_required
-        http_status_code: 402
-        message: The access_token provided is associated with an unpaid account.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_canonical_name:
-      summary: invalid_canonical_name
-      value:
-        code: invalid_canonical_name
-        http_status_code: 400
-        message: Invalid canonical name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_alias:
-      summary: invalid_alias
-      value:
-        code: invalid_alias
-        http_status_code: 400
-        message: Invalid alias
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_long_cname_record_field:
-      summary: too_long_cname_record_field
-      value:
-        code: too_long_cname_record_field
-        http_status_code: 400
-        message: CnameRecord to long field
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_required_field:
-      summary: missing_required_field
-      value:
-        code: missing_required_field
-        http_status_code: 400
-        message: Missing required field
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    duplicate_email_domain:
-      summary: duplicate_email_domain
-      value:
-        code: duplicate_email_domain
-        http_status_code: 400
-        message: Duplicate email domain
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    too_long_email_domain_field:
-      summary: too_long_email_domain_field
-      value:
-        code: too_long_email_domain_field
-        http_status_code: 400
-        message: Email domain too long field
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    required_domain_name:
-      summary: required_domain_name
-      value:
-        code: required_domain_name
-        http_status_code: 400
-        message: Required domain name
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    duplicate_cname_alias:
-      summary: duplicate_cname_alias
-      value:
-        code: duplicate_cname_alias
-        http_status_code: 400
-        message: Duplicate cname alias
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
-    SendEmailResponse:
-      properties:
-        polling_id:
-          type: string
-      required:
-      - polling_id
-      type: object
     SendEmailRequest:
       properties:
         data:
@@ -1209,6 +977,58 @@ components:
       required:
       - data
       - zone_name
+      type: object
+    SendEmailError:
+      properties:
+        code:
+          type: string
+        http_status_code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        parameters:
+          additionalProperties:
+            type: object
+          type: object
+        unique_id:
+          type: string
+      type:
+      - object
+      - 'null'
+    SendEmailResponse:
+      properties:
+        polling_id:
+          type: string
+      required:
+      - polling_id
+      type: object
+    SendEmailPollingResponse:
+      properties:
+        action_id:
+          type:
+          - string
+          - 'null'
+        email_id:
+          type:
+          - string
+          - 'null'
+        error:
+          $ref: '#/components/schemas/SendEmailError'
+        polling_id:
+          type: string
+        status:
+          enum:
+          - FAILED
+          - PENDING
+          - SUCCEEDED
+          type: string
+      required:
+      - action_id
+      - email_id
+      - error
+      - polling_id
+      - status
       type: object
     RestExceptionResponse:
       description: Represents the API error response
@@ -1239,51 +1059,22 @@ components:
       - parameters
       - unique_id
       type: object
-    SendEmailPollingResponse:
+    EmailProviderValidationRequest:
       properties:
-        action_id:
-          type:
-          - string
-          - 'null'
-        email_id:
-          type:
-          - string
-          - 'null'
-        error:
-          $ref: '#/components/schemas/SendEmailError'
-        polling_id:
-          type: string
-        status:
-          enum:
-          - FAILED
-          - PENDING
-          - SUCCEEDED
+        email:
           type: string
       required:
-      - action_id
-      - email_id
-      - error
-      - polling_id
-      - status
+      - email
       type: object
-    SendEmailError:
+    DkimRecordsResponse:
       properties:
-        code:
-          type: string
-        http_status_code:
-          format: int32
-          type: integer
-        message:
-          type: string
-        parameters:
-          additionalProperties:
-            type: object
-          type: object
-        unique_id:
-          type: string
-      type:
-      - object
-      - 'null'
+        records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+      required:
+      - records
+      type: object
     EmailProviderValidationResponse:
       properties:
         email:
@@ -1305,65 +1096,6 @@ components:
           type: string
         canonical_name:
           type: string
-      type: object
-    DkimRecordsResponse:
-      properties:
-        records:
-          items:
-            $ref: '#/components/schemas/CnameRecord'
-          type: array
-      required:
-      - records
-      type: object
-    EmailProviderValidationRequest:
-      properties:
-        email:
-          type: string
-      required:
-      - email
-      type: object
-    EmailDomainResponse:
-      properties:
-        dkim_cname_records:
-          items:
-            $ref: '#/components/schemas/CnameRecord'
-          type: array
-        domain:
-          type: string
-        force_send_from_email_domain:
-          type: boolean
-        id:
-          readOnly: true
-          type: string
-      required:
-      - dkim_cname_records
-      - domain
-      - force_send_from_email_domain
-      - id
-      type: object
-    DnsRecordVerificationResponse:
-      properties:
-        domain_validation_status:
-          enum:
-          - FAIL
-          - PASS
-          type: string
-        reason:
-          type: string
-        record:
-          type: string
-      type: object
-    EmailDomainUpdateRequest:
-      description: Body of a `PUT /v4/email-domains/{emailDomainId}` request.
-      properties:
-        dkim_cname_records:
-          items:
-            $ref: '#/components/schemas/CnameRecord'
-          type: array
-        domain:
-          type: string
-        force_send_from_email_domain:
-          type: boolean
       type: object
     EmailDomainValidationResponse:
       properties:
@@ -1395,6 +1127,30 @@ components:
       - mx
       - spf
       type: object
+    EmailDomainUpdateRequest:
+      description: Body of a `PUT /v4/email-domains/{emailDomainId}` request.
+      properties:
+        dkim_cname_records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+        domain:
+          type: string
+        force_send_from_email_domain:
+          type: boolean
+      type: object
+    DnsRecordVerificationResponse:
+      properties:
+        domain_validation_status:
+          enum:
+          - FAIL
+          - PASS
+          type: string
+        reason:
+          type: string
+        record:
+          type: string
+      type: object
     EmailDomainCreateRequest:
       description: Body of a `POST /v4/email-domains` request.
       properties:
@@ -1409,6 +1165,250 @@ components:
       required:
       - domain
       type: object
+    EmailDomainResponse:
+      properties:
+        dkim_cname_records:
+          items:
+            $ref: '#/components/schemas/CnameRecord'
+          type: array
+        domain:
+          type: string
+        force_send_from_email_domain:
+          type: boolean
+        id:
+          readOnly: true
+          type: string
+      required:
+      - dkim_cname_records
+      - domain
+      - force_send_from_email_domain
+      - id
+      type: object
+  examples:
+    missing_zone_name:
+      summary: missing_zone_name
+      value:
+        code: missing_zone_name
+        http_status_code: 400
+        message: Zone name must be present
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_request_body:
+      summary: missing_request_body
+      value:
+        code: missing_request_body
+        http_status_code: 400
+        message: Missing request body
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_zone_name:
+      summary: invalid_zone_name
+      value:
+        code: invalid_zone_name
+        http_status_code: 403
+        message: Invalid zone name (not an EMAIL zone)
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    profile_not_set:
+      summary: profile_not_set
+      value:
+        code: profile_not_set
+        http_status_code: 403
+        message: Profile must have an associated email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    expired_access_token:
+      summary: expired_access_token
+      value:
+        code: expired_access_token
+        http_status_code: 403
+        message: The access_token provided with this request has expired.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    method_unauthorized:
+      summary: method_unauthorized
+      value:
+        code: method_unauthorized
+        http_status_code: 401
+        message: Unauthorized access to this endpoint
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_access_token:
+      summary: missing_access_token
+      value:
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    access_denied:
+      summary: access_denied
+      value:
+        code: access_denied
+        http_status_code: 403
+        message: The access_token provided is not permitted to access the specified resource.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    jwt_authentication_error:
+      summary: jwt_authentication_error
+      value:
+        code: jwt_authentication_error
+        http_status_code: 403
+        message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    binding_error:
+      summary: binding_error
+      value:
+        code: binding_error
+        http_status_code: 400
+        message: Argument is not of the expected type
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_campaign_id:
+      summary: missing_campaign_id
+      value:
+        code: missing_campaign_id
+        http_status_code: 403
+        message: Campaign must be provided
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    dkim_generation_failed:
+      summary: dkim_generation_failed
+      value:
+        code: dkim_generation_failed
+        http_status_code: 400
+        message: DKIM generation failed
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    payment_required:
+      summary: payment_required
+      value:
+        code: payment_required
+        http_status_code: 402
+        message: The access_token provided is associated with an unpaid account.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_domain:
+      summary: invalid_domain
+      value:
+        code: invalid_domain
+        http_status_code: 400
+        message: Invalid domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_email:
+      summary: invalid_email
+      value:
+        code: invalid_email
+        http_status_code: 400
+        message: Invalid email
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    required_domain_name:
+      summary: required_domain_name
+      value:
+        code: required_domain_name
+        http_status_code: 400
+        message: Required domain name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_cname_alias:
+      summary: duplicate_cname_alias
+      value:
+        code: duplicate_cname_alias
+        http_status_code: 400
+        message: Duplicate cname alias
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_long_cname_record_field:
+      summary: too_long_cname_record_field
+      value:
+        code: too_long_cname_record_field
+        http_status_code: 400
+        message: CnameRecord to long field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_canonical_name:
+      summary: invalid_canonical_name
+      value:
+        code: invalid_canonical_name
+        http_status_code: 400
+        message: Invalid canonical name
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    duplicate_email_domain:
+      summary: duplicate_email_domain
+      value:
+        code: duplicate_email_domain
+        http_status_code: 400
+        message: Duplicate email domain
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    too_long_email_domain_field:
+      summary: too_long_email_domain_field
+      value:
+        code: too_long_email_domain_field
+        http_status_code: 400
+        message: Email domain too long field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_alias:
+      summary: invalid_alias
+      value:
+        code: invalid_alias
+        http_status_code: 400
+        message: Invalid alias
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    missing_required_field:
+      summary: missing_required_field
+      value:
+        code: missing_required_field
+        http_status_code: 400
+        message: Missing required field
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   securitySchemes:
     COOKIE:
       in: cookie
