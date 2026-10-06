@@ -51,7 +51,7 @@ accessModel:
   method: searched
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-10-06'
 image: https://github.com/extole.png
 x-docs-platform: mintlify
 x-docs-platform-confidence: medium
@@ -536,6 +536,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.extole.com/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/extole-capability-edges.yml
   name: Extole Business Capability Map
