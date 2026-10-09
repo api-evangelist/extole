@@ -627,6 +627,8 @@ common:
   url: overlays/extole-integration-server-to-extole-overlay.yaml
 - type: Overlay
   url: overlays/extole-integration-consumer-to-extole-overlay.yaml
+- type: SpectralRules
+  url: https://github.com/extole/extole-specification/blob/94c796aa0b987c5a08a68a18de81a3deed01bc68/.spectral.yaml
 x-enrichment:
   date: '2026-08-13'
   status: enriched
