@@ -7,11 +7,24 @@
   label: Twilio Segment
   partner: segment
   partner_name: Twilio Segment
-  type: coverage
-  marketplace: coverage
+  type: marketplace
+  marketplace: segment-partner-destinations
   channel: partner-built
   evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/extole-platform
   source: edge
-  relationship: connector-coverage
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: extole-okta-own
+  label: Okta (own)
+  partner: okta
+  partner_name: Okta (own)
+  category: Single Sign-On
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.okta.com/integrations/extole/
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

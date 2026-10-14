@@ -11,17 +11,18 @@ checked:
 - https://n8n.io/integrations/extole/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/extole-platform
 - https://zapier.com/apps/extole/integrations
+- okta/integrations/okta-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
 - partner_name: Twilio Segment
   partner: segment
   partner_match: aggregator
-  marketplace: coverage
+  marketplace: segment-partner-destinations
   channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
+  direction: third-party
+  type: marketplace
+  relationship: platform-app
   evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/extole-platform
   coverage_role:
   - destination
@@ -40,4 +41,25 @@ edges:
       - Track
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/extole/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Extole
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - OIDC
 templates: []
