@@ -102,12 +102,12 @@ paths:
       x-extole-visibility: visible
 components:
   examples:
-    too_many_requests:
-      summary: too_many_requests
+    missing_access_token:
+      summary: missing_access_token
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
+        code: missing_access_token
+        http_status_code: 403
+        message: No access_token was provided with this request.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
@@ -118,22 +118,6 @@ components:
         message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_json:
-      summary: invalid_json
-      value:
-        code: invalid_json
-        http_status_code: 400
-        message: JSON is invalid
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_access_token:
-      summary: missing_access_token
-      value:
-        code: missing_access_token
-        http_status_code: 403
-        message: No access_token was provided with this request.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     payment_required:
       summary: payment_required
       value:
@@ -142,20 +126,36 @@ components:
         message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    unsupported_media_type:
-      summary: unsupported_media_type
-      value:
-        code: unsupported_media_type
-        http_status_code: 415
-        message: Request had an unsupported or no media type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     missing_email_address:
       summary: missing_email_address
       value:
         code: missing_email_address
         http_status_code: 400
         message: Missing email address
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_json:
+      summary: invalid_json
+      value:
+        code: invalid_json
+        http_status_code: 400
+        message: JSON is invalid
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_parameter:
+      summary: invalid_parameter
+      value:
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    unsupported_media_type:
+      summary: unsupported_media_type
+      value:
+        code: unsupported_media_type
+        http_status_code: 415
+        message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     access_denied:
@@ -174,14 +174,6 @@ components:
         message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
-      value:
-        code: invalid_parameter
-        http_status_code: 400
-        message: Parameter is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
       summary: missing_request_body
       value:
@@ -190,7 +182,25 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
   schemas:
+    OptoutResponse:
+      properties:
+        email:
+          type: string
+        optout:
+          type: boolean
+      required:
+      - email
+      - optout
+      type: object
     RestExceptionResponse:
       description: Represents the API error response
       properties:
@@ -219,16 +229,6 @@ components:
       - message
       - parameters
       - unique_id
-      type: object
-    OptoutResponse:
-      properties:
-        email:
-          type: string
-        optout:
-          type: boolean
-      required:
-      - email
-      - optout
       type: object
   securitySchemes:
     COOKIE:

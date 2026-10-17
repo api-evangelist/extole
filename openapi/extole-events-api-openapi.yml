@@ -590,14 +590,6 @@ paths:
       url: https://api.extole.io
 components:
   examples:
-    binding_error:
-      summary: binding_error
-      value:
-        code: binding_error
-        http_status_code: 400
-        message: Argument is not of the expected type
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     method_unauthorized:
       summary: method_unauthorized
       value:
@@ -606,12 +598,12 @@ components:
         message: Unauthorized access to this endpoint
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    too_many_requests:
-      summary: too_many_requests
+    invalid_parameter:
+      summary: invalid_parameter
       value:
-        code: too_many_requests
-        http_status_code: 429
-        message: The server is unable to process your request at the moment, please retry later.
+        code: invalid_parameter
+        http_status_code: 400
+        message: Parameter is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     invalid_json:
@@ -630,12 +622,12 @@ components:
         message: Request had an unsupported or no media type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_parameter:
-      summary: invalid_parameter
+    binding_error:
+      summary: binding_error
       value:
-        code: invalid_parameter
+        code: binding_error
         http_status_code: 400
-        message: Parameter is invalid.
+        message: Argument is not of the expected type
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_request_body:
@@ -646,20 +638,20 @@ components:
         message: Missing request body
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    too_many_requests:
+      summary: too_many_requests
+      value:
+        code: too_many_requests
+        http_status_code: 429
+        message: The server is unable to process your request at the moment, please retry later.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     invalid_event_time_format:
       summary: invalid_event_time_format
       value:
         code: invalid_event_time_format
         http_status_code: 400
         message: 'Invalid event time format. Expected: ISO8601 format'
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
-    missing_event_name:
-      summary: missing_event_name
-      value:
-        code: missing_event_name
-        http_status_code: 400
-        message: Event name is required.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     missing_access_token:
@@ -678,6 +670,14 @@ components:
         message: The access_token provided is associated with an unpaid account.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
+    missing_event_name:
+      summary: missing_event_name
+      value:
+        code: missing_event_name
+        http_status_code: 400
+        message: Event name is required.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
     event_blocked:
       summary: event_blocked
       value:
@@ -694,20 +694,20 @@ components:
         message: The access_token provided is not permitted to access the specified resource.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
-    invalid_access_token:
-      summary: invalid_access_token
-      value:
-        code: invalid_access_token
-        http_status_code: 403
-        message: The access_token provided with this request is invalid.
-        parameters: {}
-        unique_id: 00000000-0000-0000-0000-000000000000
     jwt_authentication_error:
       summary: jwt_authentication_error
       value:
         code: jwt_authentication_error
         http_status_code: 403
         message: The jwt authentication failed.
+        parameters: {}
+        unique_id: 00000000-0000-0000-0000-000000000000
+    invalid_access_token:
+      summary: invalid_access_token
+      value:
+        code: invalid_access_token
+        http_status_code: 403
+        message: The access_token provided with this request is invalid.
         parameters: {}
         unique_id: 00000000-0000-0000-0000-000000000000
     expired_access_token:
@@ -775,33 +775,6 @@ components:
       required:
       - event_id
       type: object
-    EventDispatcherResponse:
-      properties:
-        event_id:
-          description: Unique identifier for the submitted event.
-          type: string
-        person_id:
-          description: Extole person ID resolved from the event data.
-          type: string
-      required:
-      - event_id
-      - person_id
-      type: object
-    EventDispatcherRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/EventSubmissionData'
-        event_name:
-          description: Name of the event being submitted (for example, `conversion` or `registration`). Required.
-          type: string
-        event_time:
-          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events.
-          type: string
-      required:
-      - data
-      - event_name
-      - event_time
-      type: object
     EventSubmissionData:
       additionalProperties: true
       description: Open map of fields submitted with an event. May include keys beyond those listed here. `email` is the primary identity key and the only field that enables profile merging. `partner_user_id` is a secondary lookup key and is not guaranteed unique.
@@ -833,17 +806,44 @@ components:
       type:
       - object
       - 'null'
-    PartnerEventIdResponse:
+    EventDispatcherResponse:
       properties:
-        name:
-          description: Name of the partner event identifier (e.g. `order_id`).
+        event_id:
+          description: Unique identifier for the submitted event.
           type: string
-        value:
-          description: Value of the partner event identifier.
+        person_id:
+          description: Extole person ID resolved from the event data.
           type: string
-      type:
-      - object
-      - 'null'
+      required:
+      - event_id
+      - person_id
+      type: object
+    EventDispatcherRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/EventSubmissionData'
+        event_name:
+          description: Name of the event being submitted (for example, `conversion` or `registration`). Required.
+          type: string
+        event_time:
+          description: ISO 8601 timestamp of when the event occurred. Optional; defaults to the time the request is received. Use for backdated events.
+          type: string
+      required:
+      - data
+      - event_name
+      - event_time
+      type: object
+    QualityRuleResult:
+      properties:
+        rule_name:
+          type: string
+        score:
+          enum:
+          - ERROR
+          - HIGH
+          - LOW
+          type: string
+      type: object
     StepSignalResponse:
       properties:
         polling_id:
@@ -869,17 +869,17 @@ components:
           - LOW
           type: string
       type: object
-    QualityRuleResult:
+    PartnerEventIdResponse:
       properties:
-        rule_name:
+        name:
+          description: Name of the partner event identifier (e.g. `order_id`).
           type: string
-        score:
-          enum:
-          - ERROR
-          - HIGH
-          - LOW
+        value:
+          description: Value of the partner event identifier.
           type: string
-      type: object
+      type:
+      - object
+      - 'null'
     StepSignal:
       properties:
         aliases:
