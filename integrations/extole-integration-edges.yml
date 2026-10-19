@@ -6,9 +6,16 @@ source:
 - https://composio.dev/toolkits/extole
 - https://monid.ai/tools/extole
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/extole
+- https://crates.io/api/v1
 - https://monid.ai/tools/extole
 - https://n8n.io/integrations/extole/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/extole-platform
 - https://zapier.com/apps/extole/integrations
 - okta/integrations/okta-integration-edges.yml
@@ -62,4 +69,52 @@ edges:
   - OKTA_VERIFIED
   features:
   - OIDC
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@extole/cli
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@extole/cli'
+      version: 0.7.17
+      released: '2026-10-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@extole/cli
+      repo_leg: github-org:extole
+      publisher_leg: email:extole.com
+      matched_by: domain
+    - name: '@extole/react-native-sdk'
+      version: 1.0.33
+      released: '2026-10-09'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@extole/react-native-sdk
+      repo_leg: github-org:extole
+      publisher_leg: email:extole.com
+      matched_by: domain
+    - name: '@extole/specification'
+      version: 1.1.2
+      released: '2026-07-17'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@extole/specification
+      repo_leg: github-org:extole
+      publisher_leg: email:extole.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
